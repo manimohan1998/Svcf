@@ -1,9 +1,44 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>login page</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+   <form [formGroup]="loginForm" (ngSubmit)="submitForm()" >
+    <ion-list >
+      <ion-radio-group>
+        <ion-item>
+          <ion-label>employee</ion-label>
+          <ion-radio slot="start" color="success" (click)="employee()" value="employee"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>customer</ion-label>
+          <ion-radio slot="start" color="success" (click)="customer()" value="customer"></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+      </ion-list>
+      <div  *ngIf="emp===true || cus===true">
+        <ion-list>
+          <ion-item lines="full" >
+            <ion-label position="floating">Name</ion-label>
+            <ion-input formControlName="name" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">password</ion-label>
+            <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item >
+
+          <ion-item lines="full" *ngIf="cus===true">
+      
+          <ion-router-link slot="end" class="underline" >Forgot password</ion-router-link>
+          </ion-item>
+        <ion-item>
+          <ion-button [disabled]="!loginForm.valid" type="ngSubmit">login</ion-button>
+        </ion-item>
+         </ion-list>
+      </div> 
+   </form>
 </ion-content>

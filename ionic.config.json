@@ -1,5 +1,7 @@
 {
   "name": "svcf",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
