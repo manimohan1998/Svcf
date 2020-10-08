@@ -12,7 +12,8 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
  emp=false;
  cus=false;
-  constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs) { 
+  user: string;
+  constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router) { 
     this.loginForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(5)]],
@@ -31,15 +32,28 @@ export class LoginPage implements OnInit {
   employee(){
 this.emp=true;
 this.cus=false;
+localStorage.setItem('user',"employee");
 this.loginForm.reset();
-
-  }
+}
   customer(){
 this.cus=true;
+this.emp=false;
+localStorage.setItem('user',"customer");
 this.loginForm.reset();
   }
 
   submitForm(){
     console.log(this.loginForm.value)
+    console.log(localStorage.getItem('user'))
+    this.user=localStorage.getItem('user')
+if(this.cus==true && this.emp==false && this.user=="customer"){
+  this.router.navigate(['/subscribe-list'])
+}
+ if(this.cus==false && this.emp==true && this.user=="employee"){
+  this.router.navigate(['/customer-list'])
+}
+}
+  Forgot(){
+    this.router.navigate(['/forgot-password'])
   }
 }
