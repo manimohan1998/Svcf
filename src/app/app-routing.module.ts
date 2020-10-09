@@ -17,8 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'subscribe-list',
-    loadChildren: () => import('./subscribers/subscribe-list/subscribe-list.module').then( m => m.SubscribeListPageModule),canActivate: [AuthGuard]
+    loadChildren: () => import('./subscribers/subscribe-list/subscribe-list.module').then( m => m.SubscribeListPageModule)
   },
+  //canActivate: [AuthGuard]
   {
     path: 'forgot-password',
     loadChildren: () => import('./Login/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
