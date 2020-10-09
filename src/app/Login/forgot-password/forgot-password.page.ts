@@ -13,7 +13,7 @@ export class ForgotPasswordPage implements OnInit {
   forgot=false;
   constructor(private router:Router,private fb:FormBuilder) { 
     this.forgotForm = this.fb.group({
-      Customer: ['', [Validators.required, Validators.minLength(8)]],
+      Customer: ['', [Validators.required, Validators.minLength(4)]],
       mobile: ['', [Validators.required, Validators.maxLength(10),Validators.pattern("[0-9]{10}")]],
       })
    this.forgotForms = this.fb.group({

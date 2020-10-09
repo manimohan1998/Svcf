@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-
+import { AuthGuard } from './Login/Auth/auth.guard';
 const routes: Routes = [
   {
     path: 'login',
@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'subscribe-list',
-    loadChildren: () => import('./subscribers/subscribe-list/subscribe-list.module').then( m => m.SubscribeListPageModule)
+    loadChildren: () => import('./subscribers/subscribe-list/subscribe-list.module').then( m => m.SubscribeListPageModule),canActivate: [AuthGuard]
   },
   {
     path: 'forgot-password',

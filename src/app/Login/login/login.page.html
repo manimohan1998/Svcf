@@ -6,7 +6,7 @@
 
 <ion-content>
 
-   <form [formGroup]="loginForm" (ngSubmit)="submitForm()" >
+   <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)" >
     <ion-list >
       <ion-radio-group>
         <ion-item>
