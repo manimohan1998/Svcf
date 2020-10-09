@@ -33,38 +33,18 @@ checkbox: boolean;
     ]
      }
      this.data=myObj;
-
-     
-  }
-  onCheckboxChange(currentinstno){
-    console.log(currentinstno)
-    for(let i=0;i<this.noOfChits;i++){
-      if (currentinstno==i) {
-        setTimeout(()=>{
-          this.checkbox = true;
-          console.log("true")
-
-          })
-        }
+}
  
-       
-        
-    }
-   
-
-  }
 
 
   ngOnInit() {
     console.log(this.data.cars)
 this.userlist=this.data.cars;
 this.noOfChits=this.data.cars.length;
-this.userlist
+
  
 }
-clicked(val){
-  this.newdata.push(val)
-}
+
 processdata(){
 console.log(this.newdata)
 
