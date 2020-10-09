@@ -12,12 +12,12 @@ export class SubscribeListPage implements OnInit {
   userlist:any;
  noOfChits:number;
  prizeddata:string[] = new Array(); 
-newdata:string[] = new Array(); 
-checkbox: boolean;
- 
+newdata:string[] = Array(); 
+
 
   constructor() { 
    
+
    var myObj = {
 
     "cars": [
@@ -46,8 +46,10 @@ this.noOfChits=this.data.cars.length;
 }
 
 processdata(){
+
+this.userlist.map(val=>{this.newdata.push(JSON.stringify(val.checked) )})
 console.log(this.newdata)
 
 }
- 
+
 }

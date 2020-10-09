@@ -7,11 +7,11 @@
 <ion-content>
   <ion-searchbar></ion-searchbar>
   <ion-label>No.of Chits:{{noOfChits}}</ion-label>
-  <ion-card class="card" *ngFor="let val of userlist">
+  <ion-card class="card" *ngFor="let val of userlist" >
     <ion-row  size="12">
       <ion-col size="2"> 
     
-      <span><ion-checkbox color="primary" class="check" slot="start" [(ngModel)]="val.selected" ></ion-checkbox></span>
+      <span><ion-checkbox color="primary" class="check" slot="start"  [(ngModel)]="val.checked" ></ion-checkbox></span>
 
     </ion-col>
       <ion-col  size="8">
