@@ -43,10 +43,10 @@ export class LoginPage implements OnInit {
         this.loginForm.reset();
    }
 
-  submitForm(val){
+   submitForm(val){
         this.logindata={username:val.name,password:val.password}
         console.log(this.logindata)
-        this.router.navigate(["/subscribe-list"])
+        this.router.navigate(['/subscribe-list'])
  }
 
   Forgot(){
