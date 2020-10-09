@@ -30,5 +30,8 @@ export class ForgotPasswordPage implements OnInit {
   otpform(){
     this.router.navigate(['/reset-password'])
   }
+  back(){
+    this.router.navigate(['/login'])
+  }
   
 }

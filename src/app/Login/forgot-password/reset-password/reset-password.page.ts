@@ -10,7 +10,6 @@ export class ResetPasswordPage implements OnInit {
   resetForm: FormGroup;
 constructor(private router:Router,private fb:FormBuilder) { 
     this.resetForm = this.fb.group({
-      oldpass: ['', [Validators.required, Validators.minLength(10)]],
       confirmpass: ['', [Validators.required, Validators.minLength(10)]],
       newpass: ['', [Validators.required, Validators.minLength(10)]],
    })
@@ -21,5 +20,8 @@ constructor(private router:Router,private fb:FormBuilder) {
 
   submitsForm(){
     this.router.navigate(['/login'])
+  }
+  back(){
+    this.router.navigate(['/forgot-password'])
   }
 }
