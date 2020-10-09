@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-
-
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -35,9 +32,7 @@ newdata:string[] = Array();
      this.data=myObj;
 }
  
-
-
-  ngOnInit() {
+ngOnInit() {
     console.log(this.data.cars)
 this.userlist=this.data.cars;
 this.noOfChits=this.data.cars.length;
