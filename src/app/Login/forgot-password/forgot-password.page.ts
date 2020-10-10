@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { CommonApiService } from './../common-api.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
@@ -11,14 +12,14 @@ export class ForgotPasswordPage implements OnInit {
   forgotForm: FormGroup;
   forgotForms: FormGroup;
   forgot=false;
-  constructor(private router:Router,private fb:FormBuilder) { 
+  constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService) { 
     this.forgotForm = this.fb.group({
       Customer: ['', [Validators.required, Validators.minLength(4)]],
       mobile: ['', [Validators.required, Validators.maxLength(10),Validators.pattern("[0-9]{10}")]],
       })
-   this.forgotForms = this.fb.group({
-    OTP: ['', [Validators.required, Validators.maxLength(6),Validators.pattern("[0-9]{6}")]],
- })
+    this.forgotForms = this.fb.group({
+      OTP: ['', [Validators.required, Validators.maxLength(6),Validators.pattern("[0-9]{6}")]],
+     })
   }
 
   ngOnInit() {
@@ -26,8 +27,14 @@ export class ForgotPasswordPage implements OnInit {
   submitsForm(){
     console.log(this.forgotForm.value)
     this.forgot=true;
+    // this.commonserv.requestOtp(this.forgotForm.value).subscribe(res=>{
+    //   console.log(res)
+    // })
   }
   otpform(){
+    // this.commonserv.otpVerification(this.forgotForms.value).subscribe(res=>{
+    //   console.log(res)
+    // })
     this.router.navigate(['/reset-password'])
   }
   back(){

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import {Network} from '@ionic-native/network/ngx'
-import {Dialogs} from '@ionic-native/dialogs/ngx'
+import {Network} from '@ionic-native/network/ngx';
+import {Dialogs} from '@ionic-native/dialogs/ngx';
+import { CommonApiService } from './login/common-api.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,7 +15,7 @@ export class LoginPage implements OnInit {
   cus=false;
   user: string
   logindata:{};
-  constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router) { 
+  constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService) { 
     this.loginForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(4)]],
@@ -46,11 +47,15 @@ export class LoginPage implements OnInit {
    submitForm(val){
         this.logindata={username:val.name,password:val.password}
         console.log(this.logindata)
+        // this.commonserv.loginCredentials(this.logindata).subscribe(res=>{
+        //   console.log(res)
+        // })
         this.router.navigate(['/subscribe-list'])
+
  }
 
   Forgot(){
       this.router.navigate(['/forgot-password'])
   }
-  
+
 }
