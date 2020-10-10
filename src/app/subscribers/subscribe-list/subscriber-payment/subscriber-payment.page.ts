@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import {Router} from'@angular/router';
+
 @Component({
   selector: 'app-subscriber-payment',
   templateUrl: './subscriber-payment.page.html',
@@ -8,7 +10,7 @@ import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 export class SubscriberPaymentPage implements OnInit {
 val=5;
   PaymentForm:FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router:Router) {
     this.PaymentForm = this.formBuilder.group({
      
       AmountDetails:this.formBuilder.array([])
@@ -50,7 +52,7 @@ removeRow(i){
 
   public submit() {
     console.log(this.PaymentForm.value.AmountDetails);
- 
+    this.router.navigate(["subscribe-list/subscriber-recepit"])
 
 }
   }

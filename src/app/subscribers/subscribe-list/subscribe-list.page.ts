@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from'@angular/router'
+import {Router} from'@angular/router';
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -8,9 +8,9 @@ import {Router} from'@angular/router'
 export class SubscribeListPage implements OnInit {
   data: any;
   userlist:any;
- noOfChits:number;
- prizeddata:string[] = new Array(); 
-newdata:string[] = Array(); 
+  noOfChits:number;
+  prizeddata:string[] = new Array(); 
+  newdata:string[] = Array(); 
 
 
   constructor(private router:Router) { 
@@ -35,17 +35,17 @@ newdata:string[] = Array();
  
 ngOnInit() {
     console.log(this.data.cars)
-this.userlist=this.data.cars;
-this.noOfChits=this.data.cars.length;
+    this.userlist=this.data.cars;
+    this.noOfChits=this.data.cars.length;
 
  
 }
 
 processdata(){
-
-this.userlist.map(val=>{this.newdata.push(JSON.stringify(val.checked) )})
-console.log(this.newdata)
-this.router.navigate(["subscribe-list/subscriber-payment"])
+  this.userlist=[]
+  this.userlist.map(val=>{this.newdata.push(JSON.stringify(val.checked) )})
+  console.log(this.newdata)
+  this.router.navigate(["subscribe-list/subscriber-payment"])
 }
 
 }
