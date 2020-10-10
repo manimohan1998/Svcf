@@ -1,10 +1,10 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
 export const environment = {
+  
   production: false
-  this.url= "192.168.0.241" //example id here u can set backend ip and common data
+  //this.url= "192.168.0.241" //example id here u can set backend ip and common data
 };
 
 /*

@@ -3,7 +3,7 @@ import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {Network} from '@ionic-native/network/ngx';
 import {Dialogs} from '@ionic-native/dialogs/ngx';
-import { CommonApiService } from './login/common-api.service';
+import { CommonApiService } from './../login/common-api.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',

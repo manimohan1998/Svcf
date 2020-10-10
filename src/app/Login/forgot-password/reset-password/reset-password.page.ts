@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CommonApiService } from './../../common-api.service';
 
 @Component({
