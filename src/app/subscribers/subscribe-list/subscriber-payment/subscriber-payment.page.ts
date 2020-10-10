@@ -44,9 +44,9 @@ val=5;
     this.AmountDetails().push(this.newArray())
 
 }
-removeRow(i){
-  this.AmountDetails().removeAt(i);
-}
+// removeRow(i){
+//   this.AmountDetails().removeAt(i);
+// }
 
   public submit() {
     console.log(this.PaymentForm.value.AmountDetails);
