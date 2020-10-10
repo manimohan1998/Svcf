@@ -49,7 +49,7 @@ removeRow(i){
 }
 
   public submit() {
-    console.log(this.PaymentForm.value);
+    console.log(this.PaymentForm.value.AmountDetails);
  
 
 }
