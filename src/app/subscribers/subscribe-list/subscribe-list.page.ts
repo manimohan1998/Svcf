@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from'@angular/router'
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -12,7 +13,7 @@ export class SubscribeListPage implements OnInit {
 newdata:string[] = Array(); 
 
 
-  constructor() { 
+  constructor(private router:Router) { 
    
 
    var myObj = {
@@ -44,7 +45,7 @@ processdata(){
 
 this.userlist.map(val=>{this.newdata.push(JSON.stringify(val.checked) )})
 console.log(this.newdata)
-
+this.router.navigate(["subscribe-list/subscriber-payment"])
 }
 
 }

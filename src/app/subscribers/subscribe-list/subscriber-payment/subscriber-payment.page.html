@@ -5,5 +5,49 @@
 </ion-header>
 
 <ion-content>
+  <div class="ion-padding">
+    <form [formGroup]="PaymentForm" (ngSubmit)="submit()">
+  
+      <ion-list formGroupName="AmountDetails">
+
+       <ion-list-header>
+          <ion-label>Chit Details</ion-label>
+        </ion-list-header>
+        <div *ngFor="let data of AmountDetails().controls; let i=index " [formGroupName]="i">
+          <ion-card>
+        <ion-item>
+          <ion-label position="floating">Amount Received</ion-label>
+          <ion-input formControlName="AmountReceived"></ion-input>
+        </ion-item>
+       
+        <ion-item>
+          <ion-label position="floating">interest</ion-label>
+          <ion-input formControlName="interest"></ion-input>
+        </ion-item>
+       
+        <ion-item>
+          <ion-label position="floating">Other Amount</ion-label>
+          <ion-input formControlName="OtherAmount"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Write Narrations</ion-label>
+          <ion-input formControlName="Narrations"></ion-input>
+        </ion-item>
+       
+        <ion-button (click)="removeRow(i)">remove</ion-button>
+      </ion-card>
+      </div>
+      </ion-list>
+      <!-- <ion-button (click)="addrow()">add</ion-button> -->
+      <ion-button  type="submit" expand="block">Submit <ion-icon slot="end"
+          name="create">
+        </ion-icon>
+      </ion-button>
+    
+    </form>
+   </div>
+
+   
 
 </ion-content>
