@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { SubscribeListPageRoutingModule } from './subscribe-list-routing.module';
+import { FormsModule } from '@angular/forms';
 
 import { SubscribeListPage } from './subscribe-list.page';
 
@@ -13,7 +14,8 @@ import { SubscribeListPage } from './subscribe-list.page';
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
-    SubscribeListPageRoutingModule
+    SubscribeListPageRoutingModule,
+    FormsModule
   ],
   declarations: [SubscribeListPage]
 })

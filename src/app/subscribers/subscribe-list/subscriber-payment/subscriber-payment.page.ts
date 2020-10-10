@@ -6,7 +6,7 @@ import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./subscriber-payment.page.scss'],
 })
 export class SubscriberPaymentPage implements OnInit {
-val=2;
+val=5;
   PaymentForm:FormGroup;
   constructor(private formBuilder: FormBuilder) {
     this.PaymentForm = this.formBuilder.group({

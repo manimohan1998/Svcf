@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
-import { CommonApiService } from './../../common-api.service';
+import { CommonApiService } from 'src/app/Login/common-api.service';
 
 @Component({
   selector: 'app-reset-password',

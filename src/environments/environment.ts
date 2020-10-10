@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 export const environment = {
   
-  production: false
-  //this.url= "192.168.0.241" //example id here u can set backend ip and common data
+  production: false,
+  url:"192.168.0.241" //example id here u can set backend ip and common data
 };
 
 /*

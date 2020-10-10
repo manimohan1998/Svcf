@@ -3,7 +3,8 @@ import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {Network} from '@ionic-native/network/ngx';
 import {Dialogs} from '@ionic-native/dialogs/ngx';
-import { CommonApiService } from './../login/common-api.service';
+import { CommonApiService } from 'src/app/Login/common-api.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -47,6 +48,7 @@ export class LoginPage implements OnInit {
    submitForm(val){
         this.logindata={username:val.name,password:val.password}
         console.log(this.logindata)
+      
         // this.commonserv.loginCredentials(this.logindata).subscribe(res=>{
         //   console.log(res)
         // })
