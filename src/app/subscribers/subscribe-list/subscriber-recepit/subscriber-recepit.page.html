@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content>
-
+  <!-- <ion-item>
+    <ion-img [src]="data[0]"></ion-img>
+  </ion-item> -->
+<ion-list *ngFor="let img of data">
+  <ion-item >
+     <img src="{{img}}"/>
+ </ion-item>
+ <ion-button (click)="share(img)">share</ion-button>
+</ion-list>
+ 
+ 
 </ion-content>
