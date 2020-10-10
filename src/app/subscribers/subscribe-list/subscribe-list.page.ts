@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from'@angular/router';
+import {Router, NavigationExtras} from'@angular/router';
+import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service';
+
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -11,13 +13,10 @@ export class SubscribeListPage implements OnInit {
   noOfChits:number;
   prizeddata:string[] = new Array(); 
   newdata:string[] = Array(); 
-
-
-  constructor(private router:Router) { 
-   
-
-   var myObj = {
-
+  myObj:any;
+  arrayvalue:[]=[];
+  constructor(private router:Router,  public subscribeServ: SubscriberApiService) { 
+    this.myObj = {
     "cars": [
       { "currentinstno":"1","arrearamount":"00.00","currentdue":"10000","totalpaid":"20000","status":"prized" },
       { "currentinstno":"2","arrearamount":"00.00","currentdue":"10000","totalpaid":"20000","status":"non-prized" },
@@ -30,22 +29,39 @@ export class SubscribeListPage implements OnInit {
       { "currentinstno":"9","arrearamount":"00.00","currentdue":"10000","totalpaid":"20000","status":"prized" },
     ]
      }
-     this.data=myObj;
-}
+
+  }
  
 ngOnInit() {
-    console.log(this.data.cars)
-    this.userlist=this.data.cars;
-    this.noOfChits=this.data.cars.length;
-
+    console.log(this.myObj.cars)
+    this.userlist=this.myObj.cars;
+    this.noOfChits=this.myObj.cars.length;
+    // this.subscribeServ.subscriberList(sub_id).subscribe(res=>{
+    //   console.log(res)
+    // })
  
 }
 
 processdata(){
-  this.userlist=[]
-  this.userlist.map(val=>{this.newdata.push(JSON.stringify(val.checked) )})
-  console.log(this.newdata)
-  this.router.navigate(["subscribe-list/subscriber-payment"])
+  let navigationExtras: NavigationExtras = {
+    queryParams: {
+      payment: JSON.stringify(this.arrayvalue)
+    }
+  };
+  this.router.navigate(["subscribe-list/subscriber-payment"], navigationExtras)
 }
+
+passParams(event,val){
+if(event.detail.checked){
+  this.arrayvalue.push(val);
+  }
+if (!event.detail.checked) {
+  let index = this.arrayvalue.indexOf(val);
+if (index > -1) {
+  this.arrayvalue.splice(index, 1);
+  }
+}
+}
+
 
 }
