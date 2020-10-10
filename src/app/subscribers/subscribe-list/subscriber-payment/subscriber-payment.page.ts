@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { SubscriberApiService } from '../../subscriber-api.service';
 @Component({
   selector: 'app-subscriber-payment',
   templateUrl: './subscriber-payment.page.html',
@@ -8,7 +9,7 @@ import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 export class SubscriberPaymentPage implements OnInit {
 val=5;
   PaymentForm:FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService) {
     this.PaymentForm = this.formBuilder.group({
      
       AmountDetails:this.formBuilder.array([])
@@ -49,9 +50,10 @@ val=5;
 // }
 
   public submit() {
-    console.log(this.PaymentForm.value.AmountDetails);
- 
-
+    console.log(this.PaymentForm.value.AmountDetails); 
+    // this.subscribeServ.makepayment(data).subscribe(res=>{
+    //    console.log(res)
+    // })
 }
   }
 
