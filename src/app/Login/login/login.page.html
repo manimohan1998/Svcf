@@ -36,7 +36,7 @@
           <ion-button [disabled]="!loginForm.valid" type="ngSubmit">login</ion-button>
         </ion-item>
         <ion-item lines="full" *ngIf="cus===true">
-      <ion-router-link slot="end" class="underline" (click)="Forgot()">Forgot password</ion-router-link>
+      <ion-button slot="end" (click)="Forgot()">Forgot password</ion-button>
           </ion-item>
          </ion-list>
       </div> 

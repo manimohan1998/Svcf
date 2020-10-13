@@ -14,7 +14,7 @@ export class SubscribeListPage implements OnInit {
   prizeddata:string[] = new Array(); 
   newdata:string[] = Array(); 
   myObj:any;
-  arrayvalue:[]=[];
+  arrayvalue:any=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService) { 
     this.myObj = {
     "cars": [
@@ -51,7 +51,7 @@ processdata(){
   this.router.navigate(["subscribe-list/subscriber-payment"], navigationExtras)
 }
 
-passParams(event,val){
+passParams(event,val:any){
 if(event.detail.checked){
   this.arrayvalue.push(val);
   }

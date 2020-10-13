@@ -3,22 +3,23 @@ import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import {Router, ActivatedRoute} from'@angular/router';
 import { SubscriberApiService } from '../../subscriber-api.service';
 
+declare var RazorpayCheckout: any; 
+
 @Component({
   selector: 'app-subscriber-payment',
   templateUrl: './subscriber-payment.page.html',
   styleUrls: ['./subscriber-payment.page.scss'],
 })
 export class SubscriberPaymentPage implements OnInit {
-  val:any = 1;
+  formcount:any;
   payment_details:[]=[];
   PaymentForm:FormGroup;
 
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
      console.log(params.payment)
-     this.payment_details = params.payment;
-     Object.keys(this.payment_details)
-     console.log(Object.keys(this.payment_details))
+     this.payment_details = JSON.parse(params.payment);
+     this.formcount=this.payment_details.length
    })
     this.PaymentForm = this.formBuilder.group({
       AmountDetails:this.formBuilder.array([])
@@ -26,8 +27,8 @@ export class SubscriberPaymentPage implements OnInit {
    
   }
   ngOnInit(): void {
-   console.log(this.val)
-   for( let i=0;i<this.val;i++){
+   console.log(this.formcount)
+   for( let i=0;i<this.formcount;i++){
     this.AmountDetails()
     this.addrow();
     this.newArray();
@@ -60,13 +61,38 @@ export class SubscriberPaymentPage implements OnInit {
 
   public submit() {
     console.log(this.PaymentForm.value.AmountDetails);
-
     // this.subscribeServ.makepayment(data).subscribe(res=>{
     //    console.log(res)
     // })
-        this.router.navigate(["subscribe-list/subscriber-recepit"])
+    this.payWithRazorpay()
+}
+payWithRazorpay(){
+  var options = {
+  description: 'Credits towards consultation',
+  image: 'https://i.imgur.com/3g7nmJC.png',
+  currency: 'INR',
+  key:'rzp_test_j19AUM7dFqeMks',
+  amount:'5000',
+  name: 'Acme Corp',
+  theme: {
+    color: '#3399cc'
+      }
+  }
+var successCallback = function(success) {
+alert('payment_id: ' + success.razorpay_payment_id)
+var orderId = success.razorpay_order_id
+var signature = success.razorpay_signature
+this.router.navigate(["subscribe-list/subscriber-recepit"])
 
 }
+var cancelCallback = function(error) {
+alert(error.description + ' (Error '+error.code+')')
+}
+RazorpayCheckout.on('payment.success', successCallback)
+RazorpayCheckout.on('payment.cancel', cancelCallback)
+RazorpayCheckout.open(options)
+}
+
   }
 
 

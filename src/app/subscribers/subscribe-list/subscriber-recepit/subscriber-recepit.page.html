@@ -5,15 +5,18 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-item>
-    <ion-img [src]="data[0]"></ion-img>
-  </ion-item> -->
+  
 <ion-list *ngFor="let img of data">
   <ion-item >
      <img src="{{img}}"/>
  </ion-item>
- <ion-button (click)="shareViaEmail(img)">share</ion-button>
+ <ion-button (click) = "shareViaEmail(img)">share</ion-button>
+ <ion-button (click) = "shareViaapp(img)">shareapp</ion-button>
+ <a href="'sms:?body='+{{img}}">sms</a> &nbsp;&nbsp;
+ <a [attr.href]="'sms:?body='+img">sms</a>&nbsp;&nbsp;
+ <a [attr.href]="'https://api.whatsapp.com/send?text='+img">WhatApp</a>
+
 </ion-list>
- 
- 
+<!-- <a href="whatsapp://send?text=https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=401&q=80">Share on WhatApp</a> -->
+
 </ion-content>
