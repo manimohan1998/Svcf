@@ -65,6 +65,7 @@ export class SubscriberPaymentPage implements OnInit {
     //    console.log(res)
     // })
     this.payWithRazorpay()
+    this.router.navigate(["subscribe-list/subscriber-recepit"])
 }
 payWithRazorpay(){
   var options = {
@@ -79,10 +80,10 @@ payWithRazorpay(){
       }
   }
 var successCallback = function(success) {
-alert('payment_id: ' + success.razorpay_payment_id)
-var orderId = success.razorpay_order_id
+var paymentId = success.razorpay_payment_id
 var signature = success.razorpay_signature
-this.router.navigate(["subscribe-list/subscriber-recepit"])
+this.makePayment(paymentId); 
+
 
 }
 var cancelCallback = function(error) {
@@ -91,6 +92,13 @@ alert(error.description + ' (Error '+error.code+')')
 RazorpayCheckout.on('payment.success', successCallback)
 RazorpayCheckout.on('payment.cancel', cancelCallback)
 RazorpayCheckout.open(options)
+}
+
+
+makePayment(payment){
+  console.log(payment)
+  this.router.navigate(["subscribe-list/subscriber-recepit"])
+
 }
 
   }

@@ -12,8 +12,6 @@ import { CommonApiService } from 'src/app/Login/common-api.service';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
-  emp=false;
-  cus=false;
   user: string
   logindata:{};
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService) { 
@@ -27,34 +25,18 @@ export class LoginPage implements OnInit {
       this.dialogs.alert('Network was disconnected')
           })
       this.network.onConnect().subscribe(()=>{
-       setTimeout(()=>{
-      this.dialogs.alert('we got a '+this.network.type+'connection');
-            },2000);
+      console.log(this.network.type)
       })
   }
-  employee(){
-        this.emp=true;
-        this.cus=false;
-        localStorage.setItem('user',"employee");
-        this.loginForm.reset();
-  }
-  customer(){
-        this.cus=true;
-        this.emp=false;
-        localStorage.setItem('user',"customer");
-        this.loginForm.reset();
-   }
-
+ 
    submitForm(val){
         this.logindata={username:val.name,password:val.password}
-        console.log(this.logindata)
-      
+        console.log(this.logindata)     
         // this.commonserv.loginCredentials(this.logindata).subscribe(res=>{
         //   console.log(res)
         // })
         this.router.navigate(['/subscribe-list'])
-
- }
+   }
 
   Forgot(){
       this.router.navigate(['/forgot-password'])
