@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'subscriber-recepit',
     loadChildren: () => import('./subscriber-recepit/subscriber-recepit.module').then( m => m.SubscriberRecepitPageModule)
+  },
+  {
+    path: 'person-detail',
+    loadChildren: () => import('./person-detail/person-detail.module').then( m => m.PersonDetailPageModule)
   }
 ];
 
