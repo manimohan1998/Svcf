@@ -5,6 +5,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-row size="12">
+    <ion-col size="8">
+      <ion-row>Hay john calven</ion-row>
+      <ion-row>JKR90342</ion-row>
+    </ion-col>
+    <ion-col size="2" (click)="profile()">image</ion-col>
+    <ion-col size="2"></ion-col>
+  </ion-row>
+
   <ion-searchbar></ion-searchbar>
   <ion-label>No.of Chits:{{noOfChits}}</ion-label>
   <ion-card class="card" *ngFor="let val of userlist" >
