@@ -5,14 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-row size="12">
-    <ion-col size="8">
-      <ion-row>Hay john calven</ion-row>
-      <ion-row>JKR90342</ion-row>
-    </ion-col>
-    <ion-col size="2" (click)="profile()">image</ion-col>
-    <ion-col size="2"></ion-col>
-  </ion-row>
+  
 
   <ion-searchbar></ion-searchbar>
   <ion-label>No.of Chits:{{noOfChits}}</ion-label>
@@ -24,11 +17,27 @@
          <ion-label >{{val.status}}</ion-label>
    <div class="divide">
 </div>
-<ion-row size="12">
+<ion-row >
 <ion-col>current Due:{{val.currentdue}}</ion-col>
 <ion-col>Total paid:{{val.totalpaid}}</ion-col>
 </ion-row>
 </ion-card>
 
 <ion-button (click)="processdata()">next</ion-button>
+
 </ion-content>
+
+<ion-tab-bar  slot="bottom">
+  <ion-tab-button  [routerLink]="['/subscribe-list']">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+  <ion-tab-button  [routerLink]="['/subscribe-list/person-detail']">
+    <ion-icon name="person"></ion-icon> 
+     <ion-label>Person</ion-label>
+  </ion-tab-button>
+  <ion-tab-button  [routerLink]="['/subscribe-list/subscriber-recepit']">
+    <ion-icon name="paper"></ion-icon>
+    <ion-label>Receipt</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
