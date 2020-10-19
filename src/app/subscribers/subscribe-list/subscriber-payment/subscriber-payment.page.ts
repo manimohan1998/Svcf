@@ -45,9 +45,7 @@ export class SubscriberPaymentPage implements OnInit {
       AmountReceived: ['', [Validators.required, Validators.maxLength(100)]],
       interest: ['', [Validators.required, Validators.maxLength(100)]],
       OtherAmount: ['', [Validators.required, Validators.maxLength(100)]],
-      Narrations: [   
-            '',
-            [Validators.required, Validators.maxLength(100)]
+      Narrations: ['', [Validators.required, Validators.maxLength(100)]
           ]
        })
   }

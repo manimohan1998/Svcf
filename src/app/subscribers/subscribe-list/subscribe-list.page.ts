@@ -62,8 +62,6 @@ if (index > -1) {
   }
 }
 }
-profile(){
-  this.router.navigate(['subscribe-list/person-detail'])
-}
+
 
 }
