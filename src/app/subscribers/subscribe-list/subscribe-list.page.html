@@ -9,12 +9,22 @@
 
   <ion-searchbar></ion-searchbar>
   <ion-label>No.of Chits:{{noOfChits}}</ion-label>
-  <ion-card class="card" *ngFor="let val of userlist" >
-  <ion-checkbox  (ionChange)="passParams($event,val)" ></ion-checkbox>
-          <ion-label>New Cover Change</ion-label>
-          <ion-label>Current inst no:{{val.currentinstno}}</ion-label>     
-          <ion-label>Arrear Amount:{{val.arrearamount}}</ion-label>       
-         <ion-label >{{val.status}}</ion-label>
+  <ion-card class="card" *ngFor="let val of prizeddata">     
+    <ion-row size="12">
+      <ion-col size="2">
+    <ion-checkbox  (ionChange)="passParams($event,val)" ></ion-checkbox>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>New Cover Change</ion-label><br>
+        <ion-label>Current inst no:{{val.currentinstno}}</ion-label><br>  
+        <ion-label>Arrear Amount:{{val.arrearamount}}</ion-label> <br>     
+        <ion-label>Interest Amount:{{val.interestamount}}</ion-label>  
+      </ion-col>
+      <ion-col size="2">
+        <ion-label >{{val.status}}</ion-label>
+      </ion-col>
+           
+    </ion-row>
    <div class="divide">
 </div>
 <ion-row >
@@ -22,6 +32,36 @@
 <ion-col>Total paid:{{val.totalpaid}}</ion-col>
 </ion-row>
 </ion-card>
+
+
+<ion-card class="card" *ngFor="let val of nonprizeddata">
+  <ion-row size="12">
+    <ion-col size="2">
+  <ion-checkbox  (ionChange)="passParams($event,val)" ></ion-checkbox>
+    </ion-col>
+    <ion-col size="8">
+      <ion-label>New Cover Change</ion-label><br>
+      <ion-label>Current inst no:{{val.currentinstno}}</ion-label><br>  
+      <ion-label>Arrear Amount:{{val.arrearamount}}</ion-label> <br>     
+      <ion-label>Interest Amount:{{val.interestamount}}</ion-label>  
+    </ion-col>
+    <ion-col size="2">
+      <ion-label >{{val.status}}</ion-label>
+    </ion-col>
+         
+  </ion-row>
+   <div class="divide">
+</div>
+<ion-row >
+<ion-col>current Due:{{val.currentdue}}</ion-col>
+<ion-col>Total paid:{{val.totalpaid}}</ion-col>
+</ion-row>
+</ion-card>
+
+
+
+
+
 
 <ion-button (click)="processdata()">next</ion-button>
 

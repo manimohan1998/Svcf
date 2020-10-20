@@ -44,9 +44,9 @@ export class SubscriberPaymentPage implements OnInit {
     return this.formBuilder.group({
       AmountReceived: ['', [Validators.required, Validators.maxLength(100)]],
       interest: ['', [Validators.required, Validators.maxLength(100)]],
-      OtherAmount: ['', [Validators.required, Validators.maxLength(100)]],
-      Narrations: ['', [Validators.required, Validators.maxLength(100)]
-          ]
+      // OtherAmount: ['', [Validators.required, Validators.maxLength(100)]],
+      // Narrations: ['', [Validators.required, Validators.maxLength(100)]
+          // ]
        })
   }
   addrow(){
