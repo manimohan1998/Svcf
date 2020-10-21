@@ -15,16 +15,34 @@
         </ion-list-header>
         <div *ngFor="let data of AmountDetails().controls; let i=index " [formGroupName]="i">
           <ion-card>
+       <ion-item>
+         <ion-grid>
+           <ion-row size="12">
+              <ion-col class ="first"size="9"><ion-label style="font-size: 10px">Total Chit Value:</ion-label> </ion-col>
+              <ion-col class="second" size="3"><ion-label style="font-size: 10px">CU-08-20</ion-label> </ion-col>
+           </ion-row>
+         </ion-grid>
+       </ion-item>
         <ion-item>
-          <ion-label position="floating">Amount Received</ion-label>
-          <ion-input formControlName="AmountReceived"></ion-input>
-        </ion-item>
+          <ion-col size="12">
+            <ion-row size="6"> <ion-label >Amount Payable</ion-label></ion-row>
+            <ion-row size="6"> <ion-label >{{this.payment_details[i].currentdue}}</ion-label></ion-row>
+          </ion-col>
+         </ion-item>
        
         <ion-item>
-          <ion-label position="floating">interest</ion-label>
-          <ion-input formControlName="interest"></ion-input>
+         <ion-col size="12">
+          <ion-row size="6"><ion-label >Interest Amount</ion-label></ion-row>
+          <ion-row size="6"> <ion-label >{{this.payment_details[i].interestamount}}</ion-label></ion-row>
+        </ion-col>
         </ion-item>
-       
+
+        <ion-item>
+          <ion-col size="12">
+           <ion-row size="6"><ion-label >Arrear Amount</ion-label></ion-row>
+           <ion-row size="6"> <ion-label >{{this.payment_details[i].arrearamount}}</ion-label></ion-row>
+         </ion-col>
+         </ion-item>
         <!-- <ion-item>
           <ion-label position="floating">Other Amount</ion-label>
           <ion-input formControlName="OtherAmount"></ion-input>
@@ -40,6 +58,11 @@
       </div>
       </ion-list>
       <!-- <ion-button (click)="addrow()">add</ion-button> -->
+    <ion-item>
+  <ion-label>Grand Total:{{this.num}}</ion-label>
+
+</ion-item>
+     
       <ion-button  type="submit" expand="block">Submit <ion-icon slot="end"
           name="create">
         </ion-icon>

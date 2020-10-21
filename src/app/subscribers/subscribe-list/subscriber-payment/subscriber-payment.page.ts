@@ -14,25 +14,59 @@ export class SubscriberPaymentPage implements OnInit {
   formcount:any;
   payment_details:[]=[];
   PaymentForm:FormGroup;
+  grandtotal:any=[];
+  grandtotal1:any=[];
+  num: any;
+
+
+ 
 
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
      console.log(params.payment)
      this.payment_details = JSON.parse(params.payment);
      this.formcount=this.payment_details.length
+     
    })
     this.PaymentForm = this.formBuilder.group({
       AmountDetails:this.formBuilder.array([])
     });
-   
-  }
-  ngOnInit(): void {
+
+  
+}
+  ngOnInit() {
    console.log(this.formcount)
    for( let i=0;i<this.formcount;i++){
     this.AmountDetails()
     this.addrow();
     this.newArray();
+
    }
+ 
+  }
+  ionViewDidEnter(){
+    this.addmethod();
+
+  }
+  addmethod() {
+    this.grandtotal=this.payment_details
+    // console.log(this.grandtotal,"hi")
+    var num = 0;
+  for(let i=0;i<this.grandtotal.length;i++){
+       if(this.grandtotal[i].currentdue){
+        num += parseFloat(this.grandtotal[i].currentdue)
+        num += parseFloat( this.grandtotal[i].interestamount)
+        num += parseFloat( this.grandtotal[i].arrearamount)
+        this.num=num;
+        console.log(this.num)
+      }
+    }
+// sample test
+    // num += parseFloat("120.200")
+    //     num += parseFloat( "130.00")
+    //     num += parseFloat( "100.345")
+    //     this.num=num;
+    //     console.log(this.num)
   }
 
  
@@ -42,8 +76,9 @@ export class SubscriberPaymentPage implements OnInit {
 
   newArray():FormGroup{
     return this.formBuilder.group({
-      AmountReceived: ['', [Validators.required, Validators.maxLength(100)]],
+      AmountPayable: ['', [Validators.required, Validators.maxLength(100)]],
       interest: ['', [Validators.required, Validators.maxLength(100)]],
+      arrearamount: ['', [Validators.required, Validators.maxLength(100)]],
       // OtherAmount: ['', [Validators.required, Validators.maxLength(100)]],
       // Narrations: ['', [Validators.required, Validators.maxLength(100)]
           // ]
