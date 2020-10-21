@@ -15,7 +15,7 @@ import { SubscribeListPage } from './subscribe-list.page';
     ReactiveFormsModule,
     IonicModule,
     SubscribeListPageRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [SubscribeListPage]
 })
