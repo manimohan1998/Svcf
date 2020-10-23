@@ -26,21 +26,21 @@
         <ion-item>
           <ion-col size="12">
             <ion-row size="6"> <ion-label >Amount Payable</ion-label></ion-row>
-            <ion-row size="6"> <ion-label >{{this.payment_details[i].currentdue}}</ion-label></ion-row>
+            <ion-row size="6"> <ion-input  formControlName="AmountPayable"  value="Readonly" readonly>{{this.payment_details[i].currentdue}}</ion-input></ion-row>
           </ion-col>
          </ion-item>
        
         <ion-item>
          <ion-col size="12">
           <ion-row size="6"><ion-label >Interest Amount</ion-label></ion-row>
-          <ion-row size="6"> <ion-label >{{this.payment_details[i].interestamount}}</ion-label></ion-row>
+          <ion-row size="6"> <ion-input   formControlName="interest" value="Readonly" readonly>{{this.payment_details[i].interestamount}}</ion-input></ion-row>
         </ion-col>
         </ion-item>
-
+ 
         <ion-item>
           <ion-col size="12">
            <ion-row size="6"><ion-label >Arrear Amount</ion-label></ion-row>
-           <ion-row size="6"> <ion-label >{{this.payment_details[i].arrearamount}}</ion-label></ion-row>
+           <ion-row size="6"> <ion-input   formControlName="arrearamount" value="Readonly" readonly>{{this.payment_details[i].arrearamount}}</ion-input></ion-row>
          </ion-col>
          </ion-item>
         <!-- <ion-item>
@@ -85,7 +85,7 @@
      <ion-label>Person</ion-label>
   </ion-tab-button>
   <ion-tab-button  [routerLink]="['/subscribe-list/subscriber-recepit']">
-    <ion-icon name="paper"></ion-icon>
+    <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
 </ion-tab-bar>

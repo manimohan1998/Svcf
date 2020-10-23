@@ -11,11 +11,11 @@ declare var RazorpayCheckout: any;
   styleUrls: ['./subscriber-payment.page.scss'],
 })
 export class SubscriberPaymentPage implements OnInit {
-  formcount:any;
+
   payment_details:[]=[];
+  formcount:any;
   PaymentForm:FormGroup;
   grandtotal:any=[];
-  grandtotal1:any=[];
   num: any;
 
 
@@ -44,7 +44,7 @@ export class SubscriberPaymentPage implements OnInit {
    }
  
   }
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.addmethod();
 
   }
@@ -60,7 +60,9 @@ export class SubscriberPaymentPage implements OnInit {
         this.num=num;
         console.log(this.num)
       }
-    }
+}
+
+    
 // sample test
     // num += parseFloat("120.200")
     //     num += parseFloat( "130.00")
@@ -68,7 +70,9 @@ export class SubscriberPaymentPage implements OnInit {
     //     this.num=num;
     //     console.log(this.num)
   }
-
+ 
+   
+  
  
   AmountDetails():FormArray{
     return this.PaymentForm.get('AmountDetails') as FormArray
@@ -76,9 +80,9 @@ export class SubscriberPaymentPage implements OnInit {
 
   newArray():FormGroup{
     return this.formBuilder.group({
-      AmountPayable: ['', [Validators.required, Validators.maxLength(100)]],
-      interest: ['', [Validators.required, Validators.maxLength(100)]],
-      arrearamount: ['', [Validators.required, Validators.maxLength(100)]],
+      AmountPayable: [''],
+      interest: [''],
+      arrearamount: [''],
       // OtherAmount: ['', [Validators.required, Validators.maxLength(100)]],
       // Narrations: ['', [Validators.required, Validators.maxLength(100)]
           // ]
@@ -93,6 +97,7 @@ export class SubscriberPaymentPage implements OnInit {
 // }
 
   public submit() {
+   
     console.log(this.PaymentForm.value.AmountDetails);
     // this.subscribeServ.makepayment(data).subscribe(res=>{
     //    console.log(res)

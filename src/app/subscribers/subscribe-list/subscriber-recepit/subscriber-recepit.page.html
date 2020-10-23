@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>subscriber-recepit</ion-title>
+    <ion-title>Report Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,9 +10,9 @@
   <ion-item >
      <img src="{{img}}"/>
  </ion-item>
- <ion-button (click) = "shareViaEmail(img.url)"> Email</ion-button>
+ <!-- <ion-button (click) = "shareViaEmail(img.url)"> Email</ion-button>
  <ion-button (click) = "shareViaapp(img.url)"> whatsapp</ion-button>
- <ion-button (click) = "shareViaSMS(img.url)">SMS</ion-button>
+ <ion-button (click) = "shareViaSMS(img.url)">SMS</ion-button> -->
 
 
 </ion-list>
@@ -29,7 +29,7 @@
      <ion-label>Person</ion-label>
   </ion-tab-button>
   <ion-tab-button  [routerLink]="['/subscribe-list/subscriber-recepit']">
-    <ion-icon name="paper"></ion-icon>
+    <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
 </ion-tab-bar>

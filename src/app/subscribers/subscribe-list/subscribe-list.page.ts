@@ -22,7 +22,7 @@ export class SubscribeListPage implements OnInit {
   constructor(private router:Router,  public subscribeServ: SubscriberApiService) { 
     this.myObj = {
     "cars": [
-     // { "currentinstno":"1","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"prized" },
+     { "currentinstno":"1","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"prized" },
       { "currentinstno":"2","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"non-prized" },
       { "currentinstno":"3","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"non-prized" },
      // { "currentinstno":"4","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"prized" },
