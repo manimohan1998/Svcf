@@ -13,8 +13,9 @@
        <ion-list-header>
           <ion-label>Chit Details</ion-label> 
         </ion-list-header>
-        <div *ngFor="let data of AmountDetails().controls; let i=index " [formGroupName]="i">
-          <ion-card>
+        <div *ngFor="let data of AmountDetail().controls; let i=index " [formGroupName]="i">
+         
+          <ion-card >
        <ion-item>
          <ion-grid>
            <ion-row size="12">
@@ -26,21 +27,21 @@
         <ion-item>
           <ion-col size="12">
             <ion-row size="6"> <ion-label >Amount Payable</ion-label></ion-row>
-            <ion-row size="6"> <ion-input  formControlName="AmountPayable"  value="Readonly" readonly>{{this.payment_details[i].currentdue}}</ion-input></ion-row>
+            <ion-row size="6"> <ion-input  formControlName="AmountPayable" type="number" value="" (ionChange)="total()"></ion-input></ion-row>
           </ion-col>
          </ion-item>
        
         <ion-item>
          <ion-col size="12">
           <ion-row size="6"><ion-label >Interest Amount</ion-label></ion-row>
-          <ion-row size="6"> <ion-input   formControlName="interest" value="Readonly" readonly>{{this.payment_details[i].interestamount}}</ion-input></ion-row>
+          <ion-row size="6"> <ion-input   formControlName="Interest" type="number" value="" readonly></ion-input></ion-row>
         </ion-col>
         </ion-item>
  
         <ion-item>
           <ion-col size="12">
            <ion-row size="6"><ion-label >Arrear Amount</ion-label></ion-row>
-           <ion-row size="6"> <ion-input   formControlName="arrearamount" value="Readonly" readonly>{{this.payment_details[i].arrearamount}}</ion-input></ion-row>
+           <ion-row size="6"> <ion-input   formControlName="Arrearamount" type="number" value="" readonly></ion-input></ion-row>
          </ion-col>
          </ion-item>
         <!-- <ion-item>
@@ -55,6 +56,7 @@
        
         <!-- <ion-button (click)="removeRow(i)">remove</ion-button> -->
       </ion-card>
+
       </div>
       </ion-list>
       <!-- <ion-button (click)="addrow()">add</ion-button> -->

@@ -16,8 +16,8 @@ export class LoginPage implements OnInit {
   logindata:{};
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService) { 
     this.loginForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      name: [''],
+      password: [''],
    })
   }
   ngOnInit() {
@@ -30,6 +30,8 @@ export class LoginPage implements OnInit {
   }
  
    submitForm(val){
+
+    if(val.name==val.password){
         this.logindata={username:val.name,password:val.password}
         console.log(this.logindata)     
         // this.commonserv.loginCredentials(this.logindata).subscribe(res=>{
@@ -37,6 +39,10 @@ export class LoginPage implements OnInit {
         // })
         this.router.navigate(['/subscribe-list'])
    }
+   else{
+     alert("access denied")
+   }
+  }
 
   Forgot(){
       this.router.navigate(['/forgot-password'])

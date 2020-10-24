@@ -37,7 +37,7 @@ export class SubscriberPaymentPage implements OnInit {
   ngOnInit() {
    console.log(this.formcount)
    for( let i=0;i<this.formcount;i++){
-    this.AmountDetails()
+    this.AmountDetail()
     this.addrow();
     this.newArray();
 
@@ -55,41 +55,42 @@ export class SubscriberPaymentPage implements OnInit {
   for(let i=0;i<this.grandtotal.length;i++){
        if(this.grandtotal[i].currentdue){
         num += parseFloat(this.grandtotal[i].currentdue)
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(this.grandtotal[i].currentdue);
         num += parseFloat( this.grandtotal[i].interestamount)
+        this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(this.grandtotal[i].interestamount);
         num += parseFloat( this.grandtotal[i].arrearamount)
+        this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(this.grandtotal[i].arrearamount);
         this.num=num;
         console.log(this.num)
-      }
-}
-
-    
-// sample test
-    // num += parseFloat("120.200")
-    //     num += parseFloat( "130.00")
-    //     num += parseFloat( "100.345")
-    //     this.num=num;
-    //     console.log(this.num)
-  }
+     }
+    }
+   }
  
-   
+   total(){
+   let nums=0
+    for(let i=0;i<this.grandtotal.length;i++){
+  
+    nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
+    nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
+    nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
+    this.num = nums;
+   }
+  }
   
  
-  AmountDetails():FormArray{
+  AmountDetail():FormArray{
     return this.PaymentForm.get('AmountDetails') as FormArray
   }
 
   newArray():FormGroup{
     return this.formBuilder.group({
-      AmountPayable: [''],
-      interest: [''],
-      arrearamount: [''],
-      // OtherAmount: ['', [Validators.required, Validators.maxLength(100)]],
-      // Narrations: ['', [Validators.required, Validators.maxLength(100)]
-          // ]
-       })
+      AmountPayable: ['',Validators.required],
+      Interest: ['',Validators.required],
+      Arrearamount: ['',Validators.required],
+      })
   }
   addrow(){
-    this.AmountDetails().push(this.newArray())
+    this.AmountDetail().push(this.newArray())
 
 }
 // removeRow(i){
@@ -99,6 +100,8 @@ export class SubscriberPaymentPage implements OnInit {
   public submit() {
    
     console.log(this.PaymentForm.value.AmountDetails);
+    console.log(this.PaymentForm.get('AmountDetails').value)
+    
     // this.subscribeServ.makepayment(data).subscribe(res=>{
     //    console.log(res)
     // })
