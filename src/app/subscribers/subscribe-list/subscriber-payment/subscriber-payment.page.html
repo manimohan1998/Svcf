@@ -30,7 +30,11 @@
             <ion-row size="6"> <ion-input  formControlName="AmountPayable" type="number" value="" (ionChange)="total()"></ion-input></ion-row>
           </ion-col>
          </ion-item>
-       
+         <span
+         class="text-danger"
+         *ngIf="!this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).touched &&  this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).hasError('min')"
+       >Enter amount above 2000</span>
+
         <ion-item>
          <ion-col size="12">
           <ion-row size="6"><ion-label >Interest Amount</ion-label></ion-row>

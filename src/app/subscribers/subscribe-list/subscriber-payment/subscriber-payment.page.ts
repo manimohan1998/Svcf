@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import {Router, ActivatedRoute} from'@angular/router';
+
 import { SubscriberApiService } from '../../subscriber-api.service';
 
 declare var RazorpayCheckout: any; 
@@ -16,7 +17,7 @@ export class SubscriberPaymentPage implements OnInit {
   formcount:any;
   PaymentForm:FormGroup;
   grandtotal:any=[];
-  num: any;
+  num: number;
 
 
  
@@ -40,7 +41,7 @@ export class SubscriberPaymentPage implements OnInit {
     this.AmountDetail()
     this.addrow();
     this.newArray();
-
+  
    }
  
   }
@@ -69,11 +70,11 @@ export class SubscriberPaymentPage implements OnInit {
    total(){
    let nums=0
     for(let i=0;i<this.grandtotal.length;i++){
-  
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
     this.num = nums;
+
    }
   }
   
@@ -84,21 +85,22 @@ export class SubscriberPaymentPage implements OnInit {
 
   newArray():FormGroup{
     return this.formBuilder.group({
-      AmountPayable: ['',Validators.required],
+      AmountPayable: ['',Validators.compose([Validators.required,Validators.min(2000)])],
       Interest: ['',Validators.required],
       Arrearamount: ['',Validators.required],
       })
   }
   addrow(){
     this.AmountDetail().push(this.newArray())
-
 }
+
+
 // removeRow(i){
 //   this.AmountDetails().removeAt(i);
 // }
 
   public submit() {
-   
+  
     console.log(this.PaymentForm.value.AmountDetails);
     console.log(this.PaymentForm.get('AmountDetails').value)
     
