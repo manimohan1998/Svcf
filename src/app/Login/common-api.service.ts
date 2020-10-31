@@ -9,8 +9,8 @@ export class CommonApiService {
 
   constructor(private http: HttpClient) { }
 
-loginCredentials(credentials){
-    return this.http.post(environment.url+'set backend endpoint',credentials)
+loginCredentials(name,password){
+    return this.http.get(environment.url+'login?userName='+name+'&&password='+password)
 }
 
 requestOtp(otp_request){

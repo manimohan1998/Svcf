@@ -13,11 +13,10 @@ import { CommonApiService } from 'src/app/Login/common-api.service';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   user: string
-  logindata:{};
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService) { 
     this.loginForm = this.fb.group({
-      name: [''],
-      password: [''],
+      name: ['', [Validators.required]],
+      password: ['', [Validators.required]],
    })
   }
   ngOnInit() {
@@ -29,19 +28,19 @@ export class LoginPage implements OnInit {
       })
   }
  
-   submitForm(val){
+   submitForm(val){        
+        this.commonserv.loginCredentials(val.name,val.password).subscribe(res=>{
+          if(res['Message'] === "Login Details Correct" && val['name'].length === val['password'].length){
+            this.router.navigate(['/reset'])
+          }else if (res['Message'] === "Login Details Correct" && val['name'].length != val['password'].length){
+            this.router.navigate(['/subscribe-list'])
+          }else{
+            alert("Please Enter Valid credentials")
+          }
 
-    if(val.name==val.password){
-        this.logindata={username:val.name,password:val.password}
-        console.log(this.logindata)     
-        // this.commonserv.loginCredentials(this.logindata).subscribe(res=>{
-        //   console.log(res)
-        // })
-        this.router.navigate(['/subscribe-list'])
-   }
-   else{
-     alert("access denied")
-   }
+        })
+   
+   
   }
 
   Forgot(){
