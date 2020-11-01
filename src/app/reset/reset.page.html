@@ -5,5 +5,26 @@
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="resetForms" (ngSubmit)="submitsForm()">
+    <ion-list>
+      <ion-item lines="full">
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName="name"  type="text"></ion-input>
+      </ion-item >
+      <ion-item lines="full">
+        <ion-label position="floating">Mobile Number</ion-label>
+        <ion-input formControlName="mobilenumber" type="Number"></ion-input>
+      </ion-item >
+      <ion-item lines="full">
+        <ion-label position="floating">password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
+      </ion-item >
+      <ion-item lines="full">
+        <ion-label position="floating">confirm password</ion-label>
+        <ion-input formControlName="confirmpassword" type="password"></ion-input>
+      </ion-item >
+      <ion-button   type="ngSubmit">Reset password</ion-button>
+      <ion-item><ion-label (click)="back()">back</ion-label></ion-item>
+    </ion-list>
+  </form>
 </ion-content>

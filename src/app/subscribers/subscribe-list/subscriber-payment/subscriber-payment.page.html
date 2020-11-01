@@ -69,7 +69,7 @@
 
 </ion-item>
      
-      <ion-button  type="submit" expand="block">Submit <ion-icon slot="end"
+      <ion-button  type="submit" expand="block" [disabled]="!PaymentForm.valid">Submit <ion-icon slot="end"
           name="create">
         </ion-icon>
       </ion-button>

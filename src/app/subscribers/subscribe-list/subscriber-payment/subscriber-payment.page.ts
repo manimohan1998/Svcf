@@ -71,6 +71,11 @@ export class SubscriberPaymentPage implements OnInit {
    let nums=0
     for(let i=0;i<this.grandtotal.length;i++){
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
+    if (!(nums>0)){
+     nums=0
+     this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(nums);
+    }
+
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
     this.num = nums;
@@ -103,7 +108,8 @@ export class SubscriberPaymentPage implements OnInit {
   
     console.log(this.PaymentForm.value.AmountDetails);
     console.log(this.PaymentForm.get('AmountDetails').value)
-    
+    console.log(this.num)
+    console.log(this.num * 100)
     // this.subscribeServ.makepayment(data).subscribe(res=>{
     //    console.log(res)
     // })

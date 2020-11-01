@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {Router, NavigationExtras} from'@angular/router';
 import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service';
-
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -19,7 +19,7 @@ export class SubscribeListPage implements OnInit {
   arrayvalue:any=[];
   checkbox:string = 'prized';
   countries: unknown[];
-  constructor(private router:Router,  public subscribeServ: SubscriberApiService) { 
+  constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController) { 
     this.myObj = {
     "cars": [
      { "currentinstno":"1","arrearamount":"200.00","currentdue":"10000","interestamount":"200.00","totalpaid":"20000","status":"prized" },
@@ -63,5 +63,32 @@ if (index > -1) {
 }
 }
 
+async logout(){
+  const alert_info = await this.alertController.create({
+    header: 'logout',
+    message: ``,
+    buttons:[
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'Ok',
+        handler: () => {
+          console.log('ok clicked');
+          // localStorage.removeItem('token');
+          this.router.navigate(['/login'])
+        }
+      }
+      
+    ]
+})
 
+await alert_info.present();
+    }
 }
+
+

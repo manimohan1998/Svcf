@@ -1,10 +1,22 @@
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar>
     <ion-title>subscribe-list</ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
+  <ion-row size="12"> 
+    <ion-col  class="profile3">
+      <ion-row size="8">Hay John Calven</ion-row>
+      <ion-row size="8">JKR9D342</ion-row>
+    </ion-col>
+    <ion-col class="profile2" size="2">
+      <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar>
+    </ion-col>
+    <ion-col class="profile1" size="2">
+      <ion-icon name="ellipsis-vertical-outline" (click)="logout()"></ion-icon>
+    </ion-col>
+  </ion-row>
   <ion-searchbar></ion-searchbar>
   <ion-label>No.of Chits:{{noOfChits}}</ion-label>
   <ion-card class="card" *ngFor="let val of userlist">     
@@ -29,7 +41,7 @@
 <ion-col>Total paid:{{val.totalpaid}}</ion-col>
 </ion-row>
 </ion-card>
-<ion-button (click)="processdata()">next</ion-button>
+<ion-button (click)="processdata()">continue</ion-button>
 
 </ion-content>
 
