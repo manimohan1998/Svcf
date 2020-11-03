@@ -23,7 +23,7 @@
         <ion-label position="floating">confirm password</ion-label>
         <ion-input formControlName="confirmpassword" type="password"></ion-input>
       </ion-item >
-      <ion-button   type="ngSubmit">Reset password</ion-button>
+      <ion-button [disabled]="!resetForms.valid"  type="ngSubmit">Reset password</ion-button>
       <ion-item><ion-label (click)="back()">back</ion-label></ion-item>
     </ion-list>
   </form>
