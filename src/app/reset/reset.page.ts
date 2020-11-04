@@ -36,28 +36,22 @@ export class ResetPage implements OnInit {
    if(names.length>=5){
    this.commonserv.sameUsername(names).subscribe((res) => {
       if(res['Message'] === "UserName is Available"){
-      this.presentToast();
+       this.presentToast('UserName is valid.');
      }
       if(res['Message'] === "UserName is not Available"){
-      this.presentToasts();
+       this.presentToasts('UserName is already used.');
      }
      })
     }
   }
-   async presentToast() {
+   async presentToast(message) {
       const toast = await this.toastController.create({
-          message: 'UserName is already used.',
+          message: message,
           duration: 2000
        });
         toast.present();
     }
-   async presentToasts() {
-      const toast = await this.toastController.create({
-          message: 'UserName is valid.',
-          duration: 2000
-       });
-        toast.present();
-    }
+  
 
   //   checkMobNo(){
   //     let mobilenumber=this.resetForms.get('mobilenumber').value
