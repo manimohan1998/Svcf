@@ -23,7 +23,12 @@ otpVerification(otp){
 
 resetPassword(data){
   return this.http.post(environment.url+'set backend endpoint',data)
-
+}
+sameUsername(user){
+  return this.http.get(environment.url+'GetUserName?userName='+user)
+}
+// sameMobileNumber(mobile){
+//   return this.http.get(environment.url+'set backend endpoint?optvalue='+mobile)
+// }
 }
 
-}

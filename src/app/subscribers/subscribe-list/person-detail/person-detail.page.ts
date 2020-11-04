@@ -7,7 +7,7 @@ import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service
   styleUrls: ['./person-detail.page.scss'],
 })
 export class PersonDetailPage implements OnInit {
-
+personaldetail:any;
   constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService) { }
 
   ngOnInit() {
@@ -16,6 +16,8 @@ export class PersonDetailPage implements OnInit {
 ionViewWillEnter(){
   this.subscribeServ.personalDetails().subscribe((res)=>{
       console.log(res)
+      this.personaldetail=res;
+      console.log(this.personaldetail.UserDetails[0].AddressForCommunication)
   }) 
 }
 }

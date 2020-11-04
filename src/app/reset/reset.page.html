@@ -5,24 +5,72 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="resetForms" (ngSubmit)="submitsForm()">
+  <form [formGroup]="resetForms" (ngSubmit)="submitsForm(resetForms.value)">
     <ion-list>
       <ion-item lines="full">
         <ion-label position="floating">Name</ion-label>
-        <ion-input formControlName="name"  type="text"></ion-input>
+        <ion-input formControlName="name"  type="text"  (ionChange)="checkname()"  (keypress)="CheckSpace($event)"></ion-input>
       </ion-item >
+      <div class="text-danger">
+        <ng-container *ngFor="let validation of validation_messages.name">
+          <div class="error-message" *ngIf="resetForms.get('name').hasError(validation.type) && (resetForms.get('name').dirty || resetForms.get('name').touched)">
+            {{ validation.message }}
+          </div>
+          </ng-container>
+          </div>
       <ion-item lines="full">
         <ion-label position="floating">Mobile Number</ion-label>
-        <ion-input formControlName="mobilenumber" type="Number"></ion-input>
+        <!-- (ionChange)="checkMobNo()" -->
+        <ion-input formControlName="mobilenumber" type="Number" ></ion-input>
       </ion-item >
+      <div class="text-danger">
+        <ng-container *ngFor="let validation of validation_messages.mobilenumber">
+          <div class="error-message" *ngIf="resetForms.get('mobilenumber').hasError(validation.type) && (resetForms.get('mobilenumber').dirty || resetForms.get('mobilenumber').touched)">
+            {{ validation.message }}
+          </div>
+          </ng-container>
+          </div>
+          <ion-item lines="full">
+            <ion-label position="floating">Old password</ion-label>
+            <ion-input formControlName="oldpassword" type="password" (keypress)="CheckSpace($event)"></ion-input>
+          </ion-item >
+        <div class="text-danger">
+          <ng-container *ngFor="let validation of validation_messages.oldpassword">
+            <div class="error-message" *ngIf="resetForms.get('oldpassword').hasError(validation.type) && (resetForms.get('oldpassword').dirty || resetForms.get('oldpassword').touched)">
+              {{ validation.message }}
+            </div>
+            </ng-container>
+            </div>
       <ion-item lines="full">
-        <ion-label position="floating">password</ion-label>
-        <ion-input formControlName="password" type="password"></ion-input>
+        <ion-label position="floating">New password</ion-label>
+        <ion-input formControlName="newpassword" [type]="show ? 'text' : 'password'" (keypress)="CheckSpace($event)"></ion-input>
+        <ion-button (click)="show=!show" slot="end">
+          <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
+          <ion-icon name="eye" *ngIf="show"></ion-icon>
+        </ion-button>
       </ion-item >
+    <div class="text-danger">
+      <ng-container *ngFor="let validation of validation_messages.newpassword">
+        <div class="error-message" *ngIf="resetForms.get('newpassword').hasError(validation.type) && (resetForms.get('newpassword').dirty || resetForms.get('newpassword').touched)">
+          {{ validation.message }}
+        </div>
+        </ng-container>
+        </div>
       <ion-item lines="full">
-        <ion-label position="floating">confirm password</ion-label>
-        <ion-input formControlName="confirmpassword" type="password"></ion-input>
+       <ion-label position="floating">Confirm password</ion-label>
+        <ion-input formControlName="confirmpassword"  [type]="show ? 'text' : 'password'" (keypress)="CheckSpace($event)"></ion-input>
+        <ion-button (click)="show=!show" slot="end">
+          <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
+          <ion-icon name="eye" *ngIf="show"></ion-icon>
+        </ion-button>
       </ion-item >
+      <div class="text-danger">
+        <ng-container *ngFor="let validation of validation_messages.confirmpassword">
+          <div class="error-message" *ngIf="resetForms.get('confirmpassword').hasError(validation.type) && (resetForms.get('confirmpassword').dirty || resetForms.get('confirmpassword').touched)">
+            {{ validation.message }}
+          </div>
+          </ng-container>
+          </div>
       <ion-button [disabled]="!resetForms.valid"  type="ngSubmit">Reset password</ion-button>
       <ion-item><ion-label (click)="back()">back</ion-label></ion-item>
     </ion-list>
