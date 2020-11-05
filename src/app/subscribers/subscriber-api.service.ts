@@ -9,7 +9,7 @@ export class SubscriberApiService {
   constructor(private http: HttpClient) { }
 
   subscriberList(sub_id){
-    return this.http.get(environment.url+'set backend endpoint?optvalue='+sub_id)
+    return this.http.get(environment.url+'ChitDetails?MemberIDNew=1&&branchId='+sub_id)
   }
 
   makepayment(payment_detail){

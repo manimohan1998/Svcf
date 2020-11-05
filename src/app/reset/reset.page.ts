@@ -3,6 +3,7 @@ import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from 
 import {Router} from'@angular/router'
 import { CommonApiService } from 'src/app/Login/common-api.service';
 import { ToastController } from '@ionic/angular';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.page.html',
@@ -39,7 +40,8 @@ export class ResetPage implements OnInit {
        this.presentToast('UserName is valid.');
      }
       if(res['Message'] === "UserName is not Available"){
-       this.presentToasts('UserName is already used.');
+       this.presentToast('UserName is invalid.');
+       this.resetForms.get('name').reset("");
      }
      })
     }
@@ -58,28 +60,23 @@ export class ResetPage implements OnInit {
   //  if(mobilenumber.length==10){
   //  this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
   //     if(res['Message'] === "mobilenumber is Available"){
-  //     this.presentToast1();
+  //     this.presentToast1('mobile number is valid');
   //    }
   //     if(res['Message'] === "mobilenumber is not Available"){
-  //     this.presentToasts1();
+  //       this.presentToast1('mobile number is invalid');
+  // this.resetForms.get('mobilenumber').reset("");
   //    }
   //    })
   //   }
   // }
-  //  async presentToast1() {
+  //  async presentToast1(message) {
   //     const toast = await this.toastController.create({
-  //         message: 'mobilenumber is already used.',
+  //         message: message,
   //         duration: 2000
   //      });
   //       toast.present();
   //   }
-  //  async presentToasts1() {
-  //     const toast = await this.toastController.create({
-  //         message: 'mobilenumber is valid.',
-  //         duration: 2000
-  //      });
-  //       toast.present();
-  //   }
+ 
 
    validation_messages = {
     'name': [

@@ -11,37 +11,61 @@ import { AlertController } from '@ionic/angular';
 export class SubscribeListPage implements OnInit {
   data: any;
   userlist:any;
+  userlist1:any;
   noOfChits:number;
   prizeddata:any=[];
   nonprizeddata:any=[];
   newdata:string[] = Array(); 
-  myObj:any;
   arrayvalue:any=[];
   checkbox:string = 'prized';
-  countries: unknown[];
+  chitss: any;
+  personaldetail1: any;
+  personaldetail: any;
+  mem_id:any
+  sub_id:any
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController) { 
-    this.myObj = {
-    "cars": [
-     { "currentinstno":"1","arrearamount":"200.00","currentdue":"10000","interestamount":"200.00","totalpaid":"20000","status":"prized" },
-      { "currentinstno":"2","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"non-prized" },
-      { "currentinstno":"3","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"non-prized" },
-     { "currentinstno":"4","arrearamount":"200.00","currentdue":"20000","interestamount":"200.00","totalpaid":"20000","status":"prized" },
-      { "currentinstno":"5","arrearamount":"00.00","currentdue":"10000","interestamount":"00.00","totalpaid":"20000","status":"non-prized" },  
-    ]
-     }  
+     
   }
 
 
  
 ngOnInit() {
-    console.log(this.myObj.cars)
-    this.userlist=this.myObj.cars;
-    this.noOfChits=this.myObj.cars.length;
-   // this.subscribeServ.subscriberList(sub_id).subscribe(res=>{
-    //   console.log(res)
-    // }) 
+
+    this.subscribeServ.personalDetails().subscribe((res)=>{
+      console.log(res)
+      this.personaldetail1=res;
+      this.personaldetail=this.personaldetail1.UserDetails
+      console.log(this.personaldetail[0].MemberIDNew)
+      this.mem_id=this.personaldetail[0].MemberIDNew
+      this.sub_id=this.personaldetail[0].BranchId
+      console.log(this.mem_id,this.sub_id)
+  }) 
+    
+}
+ionViewWillEnter(){
+  this.subscribeServ.subscriberList(this.sub_id).subscribe(res=>{
+    console.log(res)
+    this.userlist1=(res) 
+    this.chitss=this.userlist1
+    this.userlist=this.chitss.chits;
+    if(!(this.userlist.length==0)){
+      this.noOfChits=this.chitss.chits.length
+      }else{
+        this.noOfChits=0
+      }
+  }) 
+
+ 
 }
 
+status(val,status){
+if(status=="T"){
+   this.userlist[val].status="prized"
+}
+if(status=="R"){
+   this.userlist[val].status="Non-prized"
+}
+}
 processdata(){
   let navigationExtras: NavigationExtras = {
     queryParams: {
@@ -62,6 +86,7 @@ if (index > -1) {
   }
 }
 }
+
 
 async logout(){
   const alert_info = await this.alertController.create({
