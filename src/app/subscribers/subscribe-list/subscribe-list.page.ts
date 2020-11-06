@@ -23,6 +23,7 @@ export class SubscribeListPage implements OnInit {
   personaldetail: any;
   mem_id:any
   sub_id:any
+  customername:any
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController) { 
      
   }
@@ -38,6 +39,7 @@ ngOnInit() {
       console.log(this.personaldetail[0].MemberIDNew)
       this.mem_id=this.personaldetail[0].MemberIDNew
       this.sub_id=this.personaldetail[0].BranchId
+      this.customername=this.personaldetail[0].CustomerName
       console.log(this.mem_id,this.sub_id)
   }) 
     
@@ -48,9 +50,9 @@ ionViewWillEnter(){
     this.userlist1=(res) 
     this.chitss=this.userlist1
     this.userlist=this.chitss.chits;
-    if(!(this.userlist.length==0)){
+    if((this.userlist.length>0)){
       this.noOfChits=this.chitss.chits.length
-      }else{
+      }if(this.userlist.length<0){
         this.noOfChits=0
       }
   }) 
@@ -86,7 +88,15 @@ if (index > -1) {
   }
 }
 }
+buttoncontrol(){
+  if(this.arrayvalue.length>0){
+    return false
+  }
+  else{
+    return true
+  }
 
+}
 
 async logout(){
   const alert_info = await this.alertController.create({

@@ -19,8 +19,8 @@
        <ion-item>
          <ion-grid>
            <ion-row size="12">
-              <ion-col class ="first"size="9"><ion-label style="font-size: 10px">Total Chit Value:</ion-label> </ion-col>
-              <ion-col class="second" size="3"><ion-label style="font-size: 10px">CU-08-20</ion-label> </ion-col>
+              <ion-col class ="first"size="8"><ion-label style="font-size: 10px">Total Chit Value:</ion-label> </ion-col>
+              <ion-col class="second" size="4"><ion-label style="font-size: 10px">{{this.payment_details[i].ChitNo}}</ion-label> </ion-col>
            </ion-row>
          </ion-grid>
        </ion-item>
@@ -82,7 +82,7 @@
 </ion-content>
 
 <ion-tab-bar  slot="bottom">
-  <ion-tab-button  [routerLink]="['/subscribe-list']">
+  <ion-tab-button (click)="erasedata()" [routerLink]="['/subscribe-list']">
     <ion-icon name="home"></ion-icon>
     <ion-label>Home</ion-label>
   </ion-tab-button>

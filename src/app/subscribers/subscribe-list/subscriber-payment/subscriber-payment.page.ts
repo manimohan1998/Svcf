@@ -103,6 +103,11 @@ export class SubscriberPaymentPage implements OnInit {
 // removeRow(i){
 //   this.AmountDetails().removeAt(i);
 // }
+ erasedata(){
+   console.log(this.payment_details)
+this.payment_details.splice(0,this.payment_details.length)
+console.log(this.payment_details)
+ }
 
   public submit() {
   

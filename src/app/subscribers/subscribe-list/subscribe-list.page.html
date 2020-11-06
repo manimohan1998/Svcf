@@ -7,7 +7,7 @@
 <ion-content>
   <ion-row size="12"> 
     <ion-col  class="profile3">
-      <ion-row size="8">Hay John Calven</ion-row>
+      <ion-row size="8">{{customername}}</ion-row>
       <ion-row size="8">JKR9D342</ion-row>
     </ion-col>
     <ion-col class="profile2" size="2">
@@ -41,7 +41,7 @@
 <ion-col>Total paid:{{val.totalpaid}}</ion-col>
 </ion-row>
 </ion-card>
-<ion-button (click)="processdata()">continue</ion-button>
+<ion-button [disabled]="buttoncontrol()" (click)="processdata()">continue</ion-button>
 
 </ion-content>
 
