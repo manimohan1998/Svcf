@@ -20,8 +20,8 @@
           </div>
       <ion-item lines="full">
         <ion-label position="floating">Mobile Number</ion-label>
-        <!-- (ionChange)="checkMobNo()" -->
-        <ion-input formControlName="mobilenumber" type="Number" ></ion-input>
+ 
+        <ion-input  formControlName="mobilenumber" (ionChange)="checkMobNo()" (keypress)="CheckSpace($event)" type="text" ></ion-input>
       </ion-item >
       <div class="text-danger">
         <ng-container *ngFor="let validation of validation_messages.mobilenumber">

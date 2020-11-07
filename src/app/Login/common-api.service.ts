@@ -27,8 +27,8 @@ resetPassword(data){
 sameUsername(user){
   return this.http.get(environment.url+'GetUserName?userName='+user)
 }
-// sameMobileNumber(mobile){
-//   return this.http.get(environment.url+'set backend endpoint?optvalue='+mobile)
-// }
+sameMobileNumber(member1){
+  return this.http.get(environment.url+'GetPassword?MemberIDNew='+member1)
+}
 }
 

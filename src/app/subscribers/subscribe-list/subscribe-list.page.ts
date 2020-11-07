@@ -41,6 +41,7 @@ ngOnInit() {
       this.sub_id=this.personaldetail[0].BranchId
       this.customername=this.personaldetail[0].CustomerName
       console.log(this.mem_id,this.sub_id)
+      localStorage.setItem('memberid',this.mem_id);
   }) 
     
 }
@@ -115,6 +116,7 @@ async logout(){
         handler: () => {
           console.log('ok clicked');
           // localStorage.removeItem('token');
+          // localStorage.removeItem('memberid');
           this.router.navigate(['/login'])
         }
       }

@@ -11,18 +11,33 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class ResetPage implements OnInit {
   resetForms: FormGroup;
+  mobilepass: any;
+  patternval: boolean=false;
+  mob: any;
 
   constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController) {
     this.resetForms = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
-      mobilenumber: ['', [Validators.required, Validators.maxLength(10),Validators.pattern("[0-9]{10}")]],
+      mobilenumber: ['',Validators.maxLength(11)], 
       oldpassword: ['',[Validators.required]], 
       newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})")]],
       confirmpassword: ['', [Validators.required, Validators.minLength(4),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpassword')]],
    })
+    let mobilenumber=localStorage.getItem('memberid');
+   this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
+     this.mobilepass=res
+     console.log(this.mobilepass)
+     if(this.mobilepass.MobileNo.length>0){
+      let mobile=this.mobilepass.MobileNo.replaceAll(' ', "")
+      this.resetForms.get("mobilenumber").setValue(mobile);
+      }
+      else{
+        this.resetForms.get('mobilenumber').reset("");
+      }
+  })
    }
      ngOnInit() {
-     }
+    }
      CheckSpace(event)
 {
    if(event.which ==32)
@@ -38,6 +53,7 @@ export class ResetPage implements OnInit {
    this.commonserv.sameUsername(names).subscribe((res) => {
       if(res['Message'] === "UserName is Available"){
        this.presentToast('UserName is valid.');
+       
      }
       if(res['Message'] === "UserName is not Available"){
        this.presentToast('UserName is invalid.');
@@ -55,29 +71,14 @@ export class ResetPage implements OnInit {
     }
   
 
-  //   checkMobNo(){
-  //     let mobilenumber=this.resetForms.get('mobilenumber').value
-  //  if(mobilenumber.length==10){
-  //  this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
-  //     if(res['Message'] === "mobilenumber is Available"){
-  //     this.presentToast1('mobile number is valid');
-  //    }
-  //     if(res['Message'] === "mobilenumber is not Available"){
-  //       this.presentToast1('mobile number is invalid');
-  // this.resetForms.get('mobilenumber').reset("");
-  //    }
-  //    })
-  //   }
-  // }
-  //  async presentToast1(message) {
-  //     const toast = await this.toastController.create({
-  //         message: message,
-  //         duration: 2000
-  //      });
-  //       toast.present();
-  //   }
- 
+    checkMobNo(){
 
+      this.mob=this.resetForms.get("mobilenumber").value
+     var pattern=new RegExp(('[0-9]{10}') ||('[0-9]{11}'));
+     console.log(pattern.test(this.mob))
+     this.patternval=pattern.test(this.mob)
+       }
+  
    validation_messages = {
     'name': [
       { type: 'required', message: 'Name is required.' },],
@@ -111,9 +112,17 @@ export class ResetPage implements OnInit {
 		}
     }
 
-submitsForm(val){
-console.log(this.resetForms)
-  }
+    submitsForm(val){
+      if(this.mobilepass.Password==this.resetForms.get("oldpassword").value && this.patternval===true ){
+       console.log(this.resetForms)
+      }
+       else{
+        this.resetForms.get("oldpassword").reset("");
+        this.resetForms.get("mobilenumber").reset("");
+        alert("Please Enter Valid Old Password or Mobile Number")
+      }
+     }
+   
   back(){
 this.router.navigate(['/login'])
   }
