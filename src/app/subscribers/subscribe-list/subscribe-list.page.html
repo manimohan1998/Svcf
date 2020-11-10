@@ -18,7 +18,7 @@
     </ion-col>
   </ion-row>
   <ion-searchbar></ion-searchbar>
-  <ion-label>No.of :{{this.userlist3.length}}</ion-label>
+  <ion-label *ngIf="chit_length !=0">No.of :{{chit_length}}</ion-label>
   <ion-card class="card" *ngFor="let val of userlist3; let i=index" >     
     <ion-row size="12">
       <ion-col size="2" >

@@ -37,14 +37,11 @@ ngOnInit() {
   this.arrayvalue.splice(0,this.arrayvalue.length)
     this.subscribeServ.personalDetails().subscribe((res)=>{
       console.log(res)
-      this.personaldetail1=res;
-      this.personaldetail=this.personaldetail1.UserDetails
-      console.log(this.personaldetail[0].MemberIDNew)
-      this.mem_id=this.personaldetail[0].MemberIDNew
-      this.sub_id=this.personaldetail[0].BranchId
-      this.customername=this.personaldetail[0].CustomerName
+      this.personaldetail=res['UserDetails'][0];
+      this.mem_id=localStorage.getItem('memberid')
+      this.sub_id=this.personaldetail.BranchId
+      this.customername=this.personaldetail.CustomerName
       console.log(this.mem_id,this.sub_id)
-      localStorage.setItem('memberid',this.mem_id);
   }) 
     
 }
@@ -65,8 +62,7 @@ ionViewWillEnter(){
     if(this.userlist[i].status=="R"){
     this.userlist3.push(this.userlist[i]);
     console.log(this.userlist3.length)
-    }
-   
+    }  
     }
   }) 
 

@@ -12,7 +12,8 @@ import { CommonApiService } from 'src/app/Login/common-api.service';
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
-  user: string
+  user: string;
+  member_id:any;
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService) { 
     this.loginForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -30,6 +31,9 @@ export class LoginPage implements OnInit {
  
    submitForm(val){        
         this.commonserv.loginCredentials(val.name,val.password).subscribe(res=>{
+          console.log(res)
+          this.member_id = res['MemberIDNew']
+          localStorage.setItem('memberid',this.member_id)
           if(res['Message'] === "Login Details Correct" && val['name'].length === val['password'].length){
             this.router.navigate(['/reset'])
           }else if (res['Message'] === "Login Details Correct" && val['name'].length != val['password'].length){
@@ -37,7 +41,6 @@ export class LoginPage implements OnInit {
           }else{
             alert("Please Enter Valid credentials")
           }
-
         })
    
    
