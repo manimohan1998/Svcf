@@ -8,8 +8,7 @@ import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service
 })
 export class PersonDetailPage implements OnInit {
 personaldetail:any;
-personaldetail1:any;
-  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService) { }
+ constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService) { }
 
   ngOnInit() {
    
@@ -17,8 +16,8 @@ personaldetail1:any;
 ionViewWillEnter(){
   this.subscribeServ.personalDetails().subscribe((res)=>{
       console.log(res)
-      this.personaldetail1=res;
-      this.personaldetail=this.personaldetail1.UserDetails
+      this.personaldetail=res['UserDetails'];
+      
   }) 
 }
 }
