@@ -8,8 +8,8 @@ export class SubscriberApiService {
 
   constructor(private http: HttpClient) { }
 
-  subscriberList(sub_id){
-    return this.http.get(environment.url+'ChitDetails?MemberIDNew=1&&branchId='+sub_id)
+  subscriberList(mem_id,sub_id){
+    return this.http.get(environment.url+'ChitDetails?MemberIDNew='+mem_id+'&&branchId='+sub_id)
   }
 
   makepayment(payment_detail){

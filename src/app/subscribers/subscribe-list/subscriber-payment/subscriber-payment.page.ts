@@ -54,9 +54,9 @@ export class SubscriberPaymentPage implements OnInit {
     // console.log(this.grandtotal,"hi")
     var num = 0;
   for(let i=0;i<this.grandtotal.length;i++){
-       if(this.grandtotal[i].currentdue){
+       if(this.grandtotal[i].Debit){
         num += parseFloat(this.grandtotal[i].currentdue)
-        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(this.grandtotal[i].currentdue);
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(this.grandtotal[i].Debit);
         num += parseFloat( this.grandtotal[i].interestamount)
         this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(this.grandtotal[i].interestamount);
         num += parseFloat( this.grandtotal[i].arrearamount)
@@ -153,6 +153,9 @@ makePayment(payment){
   console.log(payment)
   this.router.navigate(["subscribe-list/subscriber-recepit"])
 
+}
+ngOnDestroy(){
+  this.PaymentForm.reset();
 }
 
   }

@@ -24,6 +24,9 @@ export class SubscribeListPage implements OnInit {
   mem_id:any
   sub_id:any
   customername:any
+  userlist2: any=[];
+  userlist3: any=[];
+  nochits:any;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController) { 
      
   }
@@ -31,7 +34,7 @@ export class SubscribeListPage implements OnInit {
 
  
 ngOnInit() {
-
+  this.arrayvalue.splice(0,this.arrayvalue.length)
     this.subscribeServ.personalDetails().subscribe((res)=>{
       console.log(res)
       this.personaldetail1=res;
@@ -46,34 +49,43 @@ ngOnInit() {
     
 }
 ionViewWillEnter(){
-  this.subscribeServ.subscriberList(this.sub_id).subscribe(res=>{
+  this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
     console.log(res)
     this.userlist1=(res) 
     this.chitss=this.userlist1
     this.userlist=this.chitss.chits;
     if((this.userlist.length>0)){
-      this.noOfChits=this.chitss.chits.length
-      }if(this.userlist.length<0){
-        this.noOfChits=0
-      }
+    this.noOfChits=this.chitss.chits.length
+    }if(this.userlist.length<0){
+    this.noOfChits=0
+    }
+    this.nochits=0;
+    this.userlist3.splice(0,this.userlist3.length)
+    for(let i=0;i<this.noOfChits;i++){
+    if(this.userlist[i].status=="R"){
+    this.userlist3.push(this.userlist[i]);
+    console.log(this.userlist3.length)
+    }
+   
+    }
   }) 
 
  
 }
 
-status(val,status){
-if(status=="T"){
-   this.userlist[val].status="prized"
-}
-if(status=="R"){
-   this.userlist[val].status="Non-prized"
-}
-}
+// status(val,status){
+// if(status=="T"){
+//   //  this.userlist[val].status="prized"
+// }
+// if(status=="R"){
+//   //  this.userlist[val].status="Non-prized"
+// }
+// }
 processdata(){
   let navigationExtras: NavigationExtras = {
-    queryParams: {
-      payment: JSON.stringify(this.arrayvalue)
-    }
+  queryParams: {
+  payment: JSON.stringify(this.arrayvalue)
+  }
   };
   this.router.navigate(["subscribe-list/subscriber-payment"], navigationExtras)
 }
@@ -90,11 +102,15 @@ if (index > -1) {
 }
 }
 buttoncontrol(){
+  
   if(this.arrayvalue.length>0){
+    console.log(this.arrayvalue.length)
     return false
   }
   else{
+    this.arrayvalue.splice(0,this.arrayvalue.length)
     return true
+
   }
 
 }
@@ -126,6 +142,11 @@ async logout(){
 
 await alert_info.present();
     }
+    ngOnDestroy(){
+      this.userlist3.splice(0,this.userlist3.length)
+      this.arrayvalue.splice(0,this.arrayvalue.length)
+    }
+    
 }
 
 
