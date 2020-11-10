@@ -37,10 +37,10 @@ ngOnInit() {
   this.arrayvalue.splice(0,this.arrayvalue.length)
     this.subscribeServ.personalDetails().subscribe((res)=>{
       console.log(res)
-      this.personaldetail=res['UserDetails'][0];
+      this.personaldetail=res['UserDetails'];
       this.mem_id=localStorage.getItem('memberid')
-      this.sub_id=this.personaldetail.BranchId
-      this.customername=this.personaldetail.CustomerName
+      this.sub_id=this.personaldetail[0].BranchId
+      this.customername=this.personaldetail[0].CustomerName
       console.log(this.mem_id,this.sub_id)
   }) 
     
