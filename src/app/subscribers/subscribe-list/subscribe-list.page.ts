@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {Router, NavigationExtras} from'@angular/router';
 import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service';
+import {Platform,LoadingController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { isEmpty } from 'rxjs/operators';
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -13,9 +15,6 @@ export class SubscribeListPage implements OnInit {
   userlist:any;
   userlist1:any;
   noOfChits:number;
-  prizeddata:any=[];
-  nonprizeddata:any=[];
-  newdata:string[] = Array(); 
   arrayvalue:any=[];
   checkbox:string = 'prized';
   chitss: any;
@@ -26,7 +25,9 @@ export class SubscribeListPage implements OnInit {
   customername:any
   userlist3: any=[];
   chit_length:any
-  constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController) { 
+  ref:any
+  constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
+    public loadingcontroller:LoadingController) { 
      
   }
 ngOnInit() {
@@ -38,19 +39,32 @@ ngOnInit() {
       this.sub_id=this.personaldetail[0].BranchId
       this.customername=this.personaldetail[0].CustomerName
       console.log(this.mem_id,this.sub_id)
+      
   }) 
     
 }
 ionViewWillEnter(){
-  this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
-    this.userlist1=(res['chits']) 
-    for(let i=0;i<this.userlist1.length;i++){
-    if(this.userlist1[i].status==="R"){
-    this.userlist3.push(this.userlist1[i]);
-    this.chit_length=this.userlist3.length
-    }  
-    }
-  }) 
+  this.userlist3.splice(0,this.userlist3.length)
+  this.arrayvalue.splice(0,this.arrayvalue.length)
+  this.platform.ready().then(()=>{
+    this.loadingcontroller.create({
+      message:"loading..."
+    }).then((HTMLIonLoadingElement)=>{
+      HTMLIonLoadingElement.present();
+      this.ref=this;
+        this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
+        this.ref.loadingcontroller.dismiss()
+        this.userlist1=(res['chits']) 
+        for(let i=0;i<this.userlist1.length;i++){
+        if(this.userlist1[i].status==="R"){
+        this.userlist3.push(this.userlist1[i]);
+        this.chit_length=this.userlist3.length
+        }  
+        }}
+      ) 
+    })  
+  })
+  
 
  
 }
@@ -109,6 +123,7 @@ async logout(){
           // localStorage.removeItem('token');
           // localStorage.removeItem('memberid');
           this.router.navigate(['/login'])
+          localStorage.clear();
         }
       }
       
@@ -119,6 +134,7 @@ await alert_info.present();
     }
     ngOnDestroy(){
       this.userlist3.splice(0,this.userlist3.length)
+      this.userlist1.splice(0,this.userlist1.length)
       this.arrayvalue.splice(0,this.arrayvalue.length)
     }
     
