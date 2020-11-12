@@ -49,5 +49,8 @@ export class LoginPage implements OnInit {
   Forgot(){
       this.router.navigate(['/forgot-password'])
   }
+  ngOnDestroy(){
+    this.loginForm.reset();
+  }
   
 }

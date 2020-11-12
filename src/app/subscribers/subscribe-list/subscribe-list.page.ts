@@ -13,7 +13,7 @@ import { isEmpty } from 'rxjs/operators';
 export class SubscribeListPage implements OnInit {
   data: any;
   userlist:any;
-  userlist1:any;
+  userlist1=[];
   noOfChits:number;
   arrayvalue:any=[];
   checkbox:string = 'prized';
@@ -123,7 +123,7 @@ async logout(){
           // localStorage.removeItem('token');
           // localStorage.removeItem('memberid');
           this.router.navigate(['/login'])
-          localStorage.clear();
+          localStorage.clear()
         }
       }
       

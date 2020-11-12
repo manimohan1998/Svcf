@@ -115,6 +115,13 @@ export class ResetPage implements OnInit {
     submitsForm(val){
       if(this.mobilepass.Password==this.resetForms.get("oldpassword").value && this.patternval===true ){
        console.log(this.resetForms)
+       let id= localStorage.getItem('memberid');
+       let name=this.resetForms['value']['name']
+       let password=this.resetForms['value']['confirmpassword']
+       let number=this.resetForms['value']['mobilenumber']
+       this.commonserv.reset(id,name,password,number).subscribe((res) => {
+        console.log(res)
+       })
       }
        else{
         this.resetForms.get("oldpassword").reset("");
@@ -125,5 +132,8 @@ export class ResetPage implements OnInit {
    
   back(){
 this.router.navigate(['/login'])
+  }
+  ngOnDestroy(){
+    this.resetForms.reset();
   }
 }

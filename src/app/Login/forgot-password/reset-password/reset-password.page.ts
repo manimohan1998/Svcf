@@ -35,13 +35,18 @@ constructor(private router:Router,private fb:FormBuilder, public commonserv: Com
     }
 
   submitsForm(){
-    //let data={userid:"1",password:this.resetForm['value']['newpass']}
-    // this.commonserv.resetPassword(data).subscribe(res=>{
-    //   console.log(res)
-    // })
+    // let data={userid:"1",password:this.resetForm['value']['newpass']}
+    let password=this.resetForm['value']['newpass']
+    let username=localStorage.getItem('customer')
+    this.commonserv.resetPassword(username,password).subscribe(res=>{
+      console.log(res)
+    })
     this.router.navigate(['/login'])
   }
   back(){
     this.router.navigate(['/forgot-password'])
+  }
+  ngOnDestroy(){
+    this.resetForm.reset();
   }
 }
