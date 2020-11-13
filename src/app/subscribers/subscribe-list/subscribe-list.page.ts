@@ -13,7 +13,7 @@ import { isEmpty } from 'rxjs/operators';
 export class SubscribeListPage implements OnInit {
   data: any;
   userlist:any;
-  userlist1=[];
+  userlist1:any=[];
   noOfChits:number;
   arrayvalue:any=[];
   checkbox:string = 'prized';
@@ -26,6 +26,7 @@ export class SubscribeListPage implements OnInit {
   userlist3: any=[];
   chit_length:any
   ref:any
+  output: boolean;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController) { 
      
@@ -53,15 +54,23 @@ ionViewWillEnter(){
       HTMLIonLoadingElement.present();
       this.ref=this;
         this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
+          console.log(res)
         this.ref.loadingcontroller.dismiss()
         this.userlist1=(res['chits']) 
+        if (Array.isArray(this.userlist1) && this.userlist1.length){ 
+               this.output = true; 
+        }
+            else {this.output = false; }
+         if(this.output===true){       
         for(let i=0;i<this.userlist1.length;i++){
         if(this.userlist1[i].status==="R"){
         this.userlist3.push(this.userlist1[i]);
         this.chit_length=this.userlist3.length
         }  
         }}
-      ) 
+      },error=>{
+        alert(console.log(error));
+      }) ;
     })  
   })
   

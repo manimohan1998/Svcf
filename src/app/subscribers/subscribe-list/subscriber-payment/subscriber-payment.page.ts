@@ -53,33 +53,51 @@ export class SubscriberPaymentPage implements OnInit {
     this.grandtotal=this.payment_details
     // console.log(this.grandtotal,"hi")
     var num = 0;
+    var nums1=0;
+    var nums2=0;
   for(let i=0;i<this.grandtotal.length;i++){
        if(this.grandtotal[i].Debit){
-        num += parseFloat(this.grandtotal[i].currentdue)
-        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(this.grandtotal[i].Debit);
-        num += parseFloat( this.grandtotal[i].interestamount)
-        this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(this.grandtotal[i].interestamount);
-        num += parseFloat( this.grandtotal[i].arrearamount)
-        this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(this.grandtotal[i].arrearamount);
-        this.num=num;
+        num +=Math.round( parseFloat(this.grandtotal[i].Debit))
+        if ((num==0)){
+          num = 0;
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(num);
+        }
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(Math.round(this.grandtotal[i].Debit));
+        nums1 +=Math.round( parseFloat( this.grandtotal[i].Debit))
+        if ((nums1==0)){
+          nums1=0;
+          this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(nums1);
+          }
+        this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(Math.round(this.grandtotal[i].Debit));
+        nums2 +=Math.round( parseFloat( this.grandtotal[i].NonPrizedArrier))
+        if ((nums2==0)){
+          nums2=0;
+          this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(nums2);
+          }
+        console.log(this.grandtotal[i].NonPrizedArrier)
+        this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(Math.round(this.grandtotal[i].Credit));
+        this.num=num +nums1 + nums2;
         console.log(this.num)
      }
     }
    }
  
    total(){
-   let nums=0
+   var nums=0
+   var nums1=0
+   var nums2=0
     for(let i=0;i<this.grandtotal.length;i++){
     nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
     if (!(nums>0)){
      nums=0
      this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(nums);
     }
-
-    nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
-    nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
-    this.num = nums;
-
+    
+      nums1 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
+      nums2 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
+ 
+    this.num = nums +nums1 +nums2;
+    
    }
   }
   
@@ -122,12 +140,13 @@ console.log(this.payment_details)
     this.router.navigate(["subscribe-list/subscriber-recepit"])
 }
 payWithRazorpay(){
+  let amount=this.num*100;
   var options = {
   description: 'Credits towards consultation',
   image: 'https://i.imgur.com/3g7nmJC.png',
   currency: 'INR',
   key:'rzp_test_j19AUM7dFqeMks',
-  amount:'5000',
+  amount:amount,
   name: 'Acme Corp',
   theme: {
     color: '#3399cc'
