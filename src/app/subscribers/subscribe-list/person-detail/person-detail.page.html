@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>person-detail</ion-title>
-  </ion-toolbar>
+    <ion-item>
+      <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+      <ion-title>View Profile</ion-title>
+    </ion-item>
+ </ion-toolbar>
 </ion-header>
 
 <ion-content *ngFor="let val of personaldetail">

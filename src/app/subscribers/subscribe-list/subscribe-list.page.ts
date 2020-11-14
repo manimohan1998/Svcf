@@ -54,7 +54,6 @@ ionViewWillEnter(){
       HTMLIonLoadingElement.present();
       this.ref=this;
         this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
-          console.log(res)
         this.ref.loadingcontroller.dismiss()
         this.userlist1=(res['chits']) 
         if (Array.isArray(this.userlist1) && this.userlist1.length){ 

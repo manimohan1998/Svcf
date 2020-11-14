@@ -21,7 +21,7 @@ export class ResetPage implements OnInit {
       mobilenumber: ['',Validators.maxLength(11)], 
       oldpassword: ['',[Validators.required]], 
       newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})")]],
-      confirmpassword: ['', [Validators.required, Validators.minLength(4),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpassword')]],
+      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpassword')]],
    })
     let mobilenumber=localStorage.getItem('memberid');
    this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
@@ -126,12 +126,13 @@ export class ResetPage implements OnInit {
        else{
         this.resetForms.get("oldpassword").reset("");
         this.resetForms.get("mobilenumber").reset("");
-        alert("Please Enter Valid Old Password or Mobile Number")
+        this.presentToast('Please Enter Valid Old Password or Mobile Number.');
       }
      }
    
   back(){
 this.router.navigate(['/login'])
+localStorage.clear()
   }
   ngOnDestroy(){
     this.resetForms.reset();

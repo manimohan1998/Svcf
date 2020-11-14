@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>reset</ion-title>
+    <ion-item>
+      <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+      <ion-title>Reset Password</ion-title>
+    </ion-item>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -10,6 +14,7 @@
       <ion-item lines="full">
         <ion-label position="floating">Name</ion-label>
         <ion-input formControlName="name"  type="text"  (ionChange)="checkname()"  (keypress)="CheckSpace($event)"></ion-input>
+        <ion-icon name="person-outline" slot="end"></ion-icon>
       </ion-item >
       <div class="text-danger">
         <ng-container *ngFor="let validation of validation_messages.name">
@@ -20,8 +25,8 @@
           </div>
       <ion-item lines="full">
         <ion-label position="floating">Mobile Number</ion-label>
- 
         <ion-input  formControlName="mobilenumber" (ionChange)="checkMobNo()" (keypress)="CheckSpace($event)" type="text" ></ion-input>
+        <ion-icon name="phone-portrait-outline" slot="end"></ion-icon>
       </ion-item >
       <div class="text-danger">
         <ng-container *ngFor="let validation of validation_messages.mobilenumber">
@@ -71,8 +76,8 @@
           </div>
           </ng-container>
           </div>
-      <ion-button [disabled]="!resetForms.valid"  type="ngSubmit">Reset password</ion-button>
-      <ion-item><ion-label (click)="back()">back</ion-label></ion-item>
+      <ion-button [disabled]="!resetForms.valid"  type="ngSubmit">Reset Password</ion-button>
+      <ion-item><ion-label (click)="back()">Back</ion-label></ion-item>
     </ion-list>
   </form>
 </ion-content>

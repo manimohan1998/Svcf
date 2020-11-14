@@ -1,22 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Report Details</ion-title>
+    <ion-item>
+      <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+      <ion-title>Report Details</ion-title>
+    </ion-item>
+    
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label slot="start">Summary</ion-label>
+  </ion-item>
   
-<ion-list *ngFor="let img of data">
+<div *ngFor="let img of data">
+  <ion-card>
   <ion-item >
      <img src="{{img}}"/>
  </ion-item>
- <!-- <ion-button (click) = "shareViaEmail(img.url)"> Email</ion-button>
- <ion-button (click) = "shareViaapp(img.url)"> whatsapp</ion-button>
- <ion-button (click) = "shareViaSMS(img.url)">SMS</ion-button> -->
 
 
-</ion-list>
-
+</ion-card>
+</div>
+<ion-label>Grand Total:Rs.</ion-label>
 </ion-content>
 
 <ion-tab-bar  slot="bottom">
@@ -33,3 +39,8 @@
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
 </ion-tab-bar>
+
+
+ <!-- <ion-button (click) = "shareViaEmail(img.url)"> Email</ion-button>
+ <ion-button (click) = "shareViaapp(img.url)"> whatsapp</ion-button>
+ <ion-button (click) = "shareViaSMS(img.url)">SMS</ion-button> -->

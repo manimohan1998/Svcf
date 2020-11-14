@@ -10,17 +10,22 @@
         <ion-list>
           <ion-item lines="full" >
             <ion-label position="floating">Customer Id</ion-label>
-            <ion-input formControlName="name" type="text"></ion-input>
+            <ion-input formControlName="name" (keypress)="CheckSpace($event)" type="text"></ion-input>
+            <ion-icon name="person-outline" slot="end"></ion-icon>
           </ion-item>
           <ion-item lines="full">
-            <ion-label position="floating">password</ion-label>
-            <ion-input formControlName="password" type="password"></ion-input>
-        </ion-item >         
+            <ion-label position="floating" >password</ion-label>
+            <ion-input formControlName="password" (keypress)="CheckSpace($event)" [type]="show ? 'text' : 'password'"></ion-input>
+            <ion-button (click)="show=!show" slot="end">
+              <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
+              <ion-icon name="eye" *ngIf="show"></ion-icon>
+            </ion-button>
+          </ion-item >         
         <ion-item>
-          <ion-button [disabled]="!loginForm.valid" type="ngSubmit">login</ion-button>
+          <ion-button [disabled]="!loginForm.valid" type="ngSubmit">Login</ion-button>
         </ion-item>
         <ion-item lines="full" >
-      <ion-button slot="end" (click)="Forgot()">Forgot password</ion-button>
+      <ion-button slot="end" (click)="Forgot()">Forgot Password</ion-button>
           </ion-item>
          </ion-list>
    </form>

@@ -45,6 +45,15 @@ export class ForgotPasswordPage implements OnInit {
     this.presentToast("Enter a valid customer Id");
   }
   }
+  
+  CheckSpace(event)
+  {
+     if(event.which ==32)
+     {
+        event.preventDefault();
+        return false;
+     }
+  }
 
   async presentToast(message) {
     const toast = await this.toastController.create({

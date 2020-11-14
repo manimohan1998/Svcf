@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SubscriberApiService } from '../../subscriber-api.service';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-subscriber-recepit',
   templateUrl: './subscriber-recepit.page.html',
@@ -17,13 +18,16 @@ public sendTo   : any;
 
 
 
-  constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing) { }
+  constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing, private router:Router) { }
  
   ngOnInit() {
     
     // this.subscribeServ.ReceiveRecipt(id).subscribe(res=>{
     //    console.log(res)
     // })
+  }
+  back(){
+this.router.navigate(["/subscribe-list"])
   }
 shareViaEmail(img){
          this.socialshare.canShareViaEmail().then(() => {

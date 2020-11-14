@@ -49,6 +49,9 @@ export class SubscriberPaymentPage implements OnInit {
     this.addmethod();
 
   }
+  back(){
+    this.router.navigate(["/subscribe-list"])
+      }
   addmethod() {
     this.grandtotal=this.payment_details
     // console.log(this.grandtotal,"hi")
