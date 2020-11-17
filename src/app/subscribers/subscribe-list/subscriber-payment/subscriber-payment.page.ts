@@ -18,6 +18,9 @@ export class SubscriberPaymentPage implements OnInit {
   PaymentForm:FormGroup;
   grandtotal:any=[];
   num: number;
+  storepayment: any;
+  payment_detail: { Chitnumber: any; MemberId: string; PayableAmount: any; ArrierAmount: any; InterestAmount: number; Prized: any; Branch: any; Current_insta_no: any; };
+
 
 
  
@@ -59,50 +62,68 @@ export class SubscriberPaymentPage implements OnInit {
     var nums1=0;
     var nums2=0;
   for(let i=0;i<this.grandtotal.length;i++){
+   
        if(this.grandtotal[i].Debit){
-        num +=Math.round( parseFloat(this.grandtotal[i].Debit))
-        if ((num==0)){
-          num = 0;
-        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(num);
+   
+        num +=( parseFloat(this.grandtotal[i].Debit))
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(parseFloat(this.grandtotal[i].Debit));
+        if(this.grandtotal[i].IsPrized=="Y"){
+         
+          this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat(this.grandtotal[i].PrizedArrier));
+          num +=(parseFloat( this.grandtotal[i].PrizedArrier))
         }
-        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(Math.round(this.grandtotal[i].Debit));
-        nums1 +=Math.round( parseFloat( this.grandtotal[i].Debit))
-        if ((nums1==0)){
-          nums1=0;
-          this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(nums1);
-          }
-        this.PaymentForm.get(['AmountDetails', i, 'Interest']).setValue(Math.round(this.grandtotal[i].Debit));
-        nums2 +=Math.round( parseFloat( this.grandtotal[i].NonPrizedArrier))
-        if ((nums2==0)){
-          nums2=0;
-          this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(nums2);
-          }
-        console.log(this.grandtotal[i].NonPrizedArrier)
-        this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(Math.round(this.grandtotal[i].Credit));
-        this.num=num +nums1 + nums2;
+         else {
+  
+          this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat( this.grandtotal[i].NonPrizedArrier));
+          num +=(parseFloat( this.grandtotal[i].NonPrizedArrier))
+        }
+        this.num=num 
         console.log(this.num)
      }
+     
+        
     }
-   }
- 
-   total(){
-   var nums=0
-   var nums1=0
-   var nums2=0
-    for(let i=0;i<this.grandtotal.length;i++){
-    nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
-    if (!(nums>0)){
-     nums=0
-     this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(nums);
-    }
-    
-      nums1 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
-      nums2 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
- 
-    this.num = nums +nums1 +nums2;
-    
-   }
+    this.storepayment=[];
+    var mem_id=localStorage.getItem('memberid')
+      for(let i=0;i<this.grandtotal.length;i++){
+        if(this.grandtotal[i].Debit){
+          let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
+          this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
+            MemberId:mem_id,
+            PayableAmount :this.grandtotal[i].Debit,
+            ArrierAmount  :arrearamount,
+            InterestAmount:0,
+            Prized:this.grandtotal[i].IsPrized,
+            Branch :this.grandtotal[i].BranchName,
+            Current_insta_no :this.grandtotal[i].Runningcall}
+        }
+      this.storepayment.push(this.payment_detail)
+      console.log( this.storepayment)
+      this.subscribeServ.makepayment(this.storepayment).subscribe(res=>{
+           console.log(res)
+        
+        })
   }
+}
+ 
+  //  total(){
+  //  var nums=0
+  //  var nums1=0
+  //  var nums2=0
+  //   for(let i=0;i<this.grandtotal.length;i++){
+  //   nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
+  //   if (!(nums>0)){
+  //    nums=0
+  //    this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(nums);
+  //   }
+    
+  //     nums1 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
+  //     nums2 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
+ 
+  //   this.num = nums +nums1 +nums2;
+    
+  //  }
+  // }
   
  
   AmountDetail():FormArray{
@@ -111,8 +132,7 @@ export class SubscriberPaymentPage implements OnInit {
 
   newArray():FormGroup{
     return this.formBuilder.group({
-      AmountPayable: ['',Validators.compose([Validators.required,Validators.min(2000)])],
-      Interest: ['',Validators.required],
+      AmountPayable: ['',Validators.required],
       Arrearamount: ['',Validators.required],
       })
   }
@@ -172,8 +192,28 @@ RazorpayCheckout.open(options)
 
 
 makePayment(payment){
-  console.log(payment)
-  this.router.navigate(["subscribe-list/subscriber-recepit"])
+this.storepayment=[];
+var mem_id=localStorage.getItem('memberid')
+  for(let i=0;i<this.grandtotal.length;i++){
+    if(this.grandtotal[i].Debit){
+      let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
+      this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
+        MemberId:mem_id,PayableAmount :this.grandtotal[i].Debit,
+        ArrierAmount  :arrearamount,
+        InterestAmount:0,
+        Prized:this.grandtotal[i].IsPrized,
+        Branch :this.grandtotal[i].BranchName,
+        Current_insta_no :this.grandtotal[i].Runningcall}
+    }
+  this.storepayment.push(this.payment_detail)
+  this.subscribeServ.makepayment(this.storepayment).subscribe(res=>{
+       console.log(res)
+       console.log(payment)
+       this.router.navigate(["subscribe-list/subscriber-recepit"])
+    })
+  }
+
+ 
 
 }
 ngOnDestroy(){

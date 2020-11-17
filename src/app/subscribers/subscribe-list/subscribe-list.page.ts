@@ -27,6 +27,8 @@ export class SubscribeListPage implements OnInit {
   chit_length:any
   ref:any
   output: boolean;
+  Arrearval: number;
+  Arrearval1: number;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController) { 
      
@@ -73,9 +75,18 @@ ionViewWillEnter(){
     })  
   })
   
-
  
 }
+// Arrear(i:number,val:any){
+// // if(val==="Y"){
+// // this.Arrearval=parseFloat( this.userlist1[i].PrizedArrier)
+// // }
+// // else{
+// //   this.Arrearval=parseFloat( this.userlist1[i].NonPrizedArrier)
+  
+// // }
+// console.log(i,val)
+// }
 
 // status(val,status){
 // if(status=="T"){
