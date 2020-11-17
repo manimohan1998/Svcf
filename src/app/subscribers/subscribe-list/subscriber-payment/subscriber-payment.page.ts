@@ -83,27 +83,7 @@ export class SubscriberPaymentPage implements OnInit {
      
         
     }
-    this.storepayment=[];
-    var mem_id=localStorage.getItem('memberid')
-      for(let i=0;i<this.grandtotal.length;i++){
-        if(this.grandtotal[i].Debit){
-          let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
-          this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
-            MemberId:mem_id,
-            PayableAmount :this.grandtotal[i].Debit,
-            ArrierAmount  :arrearamount,
-            InterestAmount:0,
-            Prized:this.grandtotal[i].IsPrized,
-            Branch :this.grandtotal[i].BranchName,
-            Current_insta_no :this.grandtotal[i].Runningcall}
-        }
-      this.storepayment.push(this.payment_detail)
-      console.log( this.storepayment)
-      this.subscribeServ.makepayment(this.storepayment).subscribe(res=>{
-           console.log(res)
-        
-        })
-  }
+  
 }
  
   //  total(){

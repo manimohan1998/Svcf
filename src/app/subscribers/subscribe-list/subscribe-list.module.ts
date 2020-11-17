@@ -8,6 +8,7 @@ import { SubscribeListPageRoutingModule } from './subscribe-list-routing.module'
 import { FormsModule } from '@angular/forms';
 
 import { SubscribeListPage } from './subscribe-list.page';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { SubscribeListPage } from './subscribe-list.page';
     IonicModule,
     SubscribeListPageRoutingModule,
     FormsModule,
+    Ng2SearchPipeModule
   ],
   declarations: [SubscribeListPage]
 })

@@ -17,9 +17,10 @@
       <ion-icon name="ellipsis-vertical-outline" (click)="logout()"></ion-icon>
     </ion-col>
   </ion-row>
-  <ion-searchbar></ion-searchbar>
+  <!-- <ion-searchbar></ion-searchbar> -->
+  <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="term"><br>
   <ion-label *ngIf="chit_length !=0">No.of :{{chit_length}}</ion-label>
-  <ion-card class="card" *ngFor="let val of userlist3; let i=index" >     
+  <ion-card class="card" *ngFor="let val of userlist3 | filter:term; let i=index" >     
     <ion-row size="12">
       <ion-col size="2" >
         <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
