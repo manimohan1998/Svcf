@@ -198,6 +198,7 @@ var mem_id=localStorage.getItem('memberid')
 }
 ngOnDestroy(){
   this.PaymentForm.reset();
+  this.payment_details.splice(0,this.payment_details.length)
 }
 
   }
