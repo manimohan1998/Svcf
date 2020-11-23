@@ -29,18 +29,13 @@
       <ion-col size="8">
         <ion-label>New Cover Change</ion-label><br>
         <ion-label>Current inst no:{{val.Runningcall}}</ion-label><br>  
-        <ion-label *ngIf="(val.IsPrized =='Y' && val.PrizedArrier !=='0.00.00' && val.status=='R')">Arrear Amount:{{val.PrizedArrier}}</ion-label>
-        <ion-label *ngIf="(val.IsPrized =='Y' && val.NonPrizedArrier !=='0.00.00' && val.status=='R')">Arrear Amount:{{val.NonPrizedArrier}}</ion-label>
-        <ion-label *ngIf="(val.IsPrized =='N' && val.NonPrizedArrier !=='0.00.00' && val.status=='R')">Arrear Amount:{{val.NonPrizedArrier}}</ion-label>
-        <ion-label *ngIf="(val.IsPrized =='N' && val.PrizedArrier !=='0.00.00' && val.status=='R')">Arrear Amount:{{val.PrizedArrier}}</ion-label>
-        <ion-label *ngIf="(val.IsPrized =='Y' && val.NonPrizedArrier !=='0.00.00' && val.PrizedArrier =='0.00.00' && val.status=='T')">Arrear Amount:{{val.NonPrizedArrier}} </ion-label>
-        <ion-label *ngIf="(val.IsPrized =='Y' && val.NonPrizedArrier =='0.00.00' && val.PrizedArrier !=='0.00.00'&& val.status=='T')">Arrear Amount:{{val.PrizedArrier}} </ion-label>
+        <ion-label >Arrear Amount:{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</ion-label>
+        
    <br>     
         <ion-label>Interest Amount:0.00</ion-label>  
       </ion-col>
       <ion-col size="2">
-        <ion-label *ngIf="(val.IsPrized =='Y')" >Prized</ion-label>
-        <ion-label *ngIf="(val.IsPrized =='N')" >Non-Prized</ion-label>
+        <ion-label>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</ion-label>
       </ion-col>           
     </ion-row>
    <div class="divide">

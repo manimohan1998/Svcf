@@ -21,16 +21,11 @@ export class SubscriberPaymentPage implements OnInit {
   storepayment: any;
   payment_detail: { Chitnumber: any; MemberId: string; PayableAmount: any; ArrierAmount: any; InterestAmount: number; Prized: any; Branch: any; Current_insta_no: any; };
 
-
-
- 
-
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
      console.log(params.payment)
      this.payment_details = JSON.parse(params.payment);
-     this.formcount=this.payment_details.length
-     
+     this.formcount=this.payment_details.length     
    })
     this.PaymentForm = this.formBuilder.group({
       AmountDetails:this.formBuilder.array([])
@@ -131,16 +126,7 @@ console.log(this.payment_details)
  }
 
   public submit() {
-  
-    console.log(this.PaymentForm.value.AmountDetails);
-    console.log(this.PaymentForm.get('AmountDetails').value)
-    console.log(this.num)
-    console.log(this.num * 100)
-    // this.subscribeServ.makepayment(data).subscribe(res=>{
-    //    console.log(res)
-    // })
     this.payWithRazorpay()
-    this.router.navigate(["subscribe-list/subscriber-recepit"])
 }
 payWithRazorpay(){
   let amount=this.num*100;
