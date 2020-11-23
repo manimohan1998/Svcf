@@ -23,8 +23,8 @@ export class SubscriberPaymentPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
-     console.log(params.payment)
-     this.payment_details = JSON.parse(params.payment);
+     console.log(params.state)
+     this.payment_details = JSON.parse(params.state);
      this.formcount=this.payment_details.length     
    })
     this.PaymentForm = this.formBuilder.group({

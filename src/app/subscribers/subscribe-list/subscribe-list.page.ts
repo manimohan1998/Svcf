@@ -111,7 +111,7 @@ processdata(){
             let data = JSON.stringify(this.arrayvalue)
             let navigationExtras: NavigationExtras = {
              queryParams: { state:data },
-             skipLocationChange: true
+             
            };
          this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
            }else return alert("Must choose atleast 1 Prized Chit")    
@@ -127,7 +127,7 @@ processdata(){
          let data = JSON.stringify(this.arrayvalue)
          let navigationExtras: NavigationExtras = {
           queryParams: { state:data },
-          skipLocationChange: true
+          
         };
         this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
         }
@@ -137,7 +137,7 @@ processdata(){
             let data = JSON.stringify(this.arrayvalue)
             let navigationExtras: NavigationExtras = {
              queryParams: { state:data },
-             skipLocationChange: true
+             
            };
          this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
           }else if(this.prized_chits.length>=2){
@@ -153,7 +153,7 @@ processdata(){
                 let data = JSON.stringify(this.arrayvalue)
                 let navigationExtras: NavigationExtras = {
                  queryParams: { state:data },
-                 skipLocationChange: true
+                 
                };
              this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
                }
@@ -165,7 +165,7 @@ processdata(){
             let data = JSON.stringify(this.arrayvalue)
               let navigationExtras: NavigationExtras = {
                 queryParams: { state:data },
-                skipLocationChange: true
+                
               };
             this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
       }  
