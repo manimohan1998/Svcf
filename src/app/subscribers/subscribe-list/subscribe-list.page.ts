@@ -66,7 +66,7 @@ ionViewWillEnter(){
             else {this.output = false; }
          if(this.output===true){       
         for(let i=0;i<this.userlist1.length;i++){
-    if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00.00' || this.userlist1[i].PrizedArrier!='0.00.00'))){
+    if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
         this.userlist3.push(this.userlist1[i]);
         this.chit_length=this.userlist3.length
         }  
