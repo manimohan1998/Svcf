@@ -30,6 +30,7 @@ export class SubscribeListPage implements OnInit {
   Arrearval: number;
   Arrearval1: number;
   arrayprized: any[]=[];
+  prized_chits:any[]=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController) { 
      
@@ -65,7 +66,7 @@ ionViewWillEnter(){
             else {this.output = false; }
          if(this.output===true){       
         for(let i=0;i<this.userlist1.length;i++){
-    if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00.00' || this.userlist1[i].PrizedArrier!='0.00.00'))){
+    if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
         this.userlist3.push(this.userlist1[i]);
         this.chit_length=this.userlist3.length
         }  
@@ -98,53 +99,77 @@ ionViewWillEnter(){
 // }
 // }
 processdata(){
-  if(this.arrayvalue.length !=0){
-    if(this.arrayvalue.length <=1){ 
-      console.log(this.arrayvalue[0])     
-       if(this.arrayvalue[0].IsPrized=='Y'){
-        let navigationExtras: NavigationExtras = {
-          queryParams: {
-          payment: JSON.stringify(this.arrayvalue)
-          }
-          };
-          this.router.navigate(["subscribe-list/subscriber-payment"], navigationExtras)
-       }else return alert("Must choose atleast 1 Prized Chit")    
-    }else if(this.arrayvalue.length ==2){
-      for(let i=0;i<this.arrayvalue.length;i++){
-      if(this.arrayvalue[i].IsPrized=="Y"){
-        this.arrayprized.push(this.arrayvalue[i])
-         if(this.arrayprized.length==0) return alert("Choose atleast 1 prized chits")
-         else{
-          console.log("prized")
-         let navigationExtras: NavigationExtras = {
-          queryParams: {
-          payment: JSON.stringify(this.arrayvalue)
-          }
-          };
-          this.router.navigate(["subscribe-list/subscriber-payment"], navigationExtras)
-         }     
+  this.prized_chits=[];
+    if(this.arrayvalue.length !=0){
+      for(var i=0; i<this.userlist3.length;i++){
+       if(this.userlist3[i].IsPrized=='Y')  this.prized_chits.push(this.userlist3[i])
       }
-    }
-    }else if(this.arrayvalue.length >2){
-       for(let i=0;i<this.arrayvalue.length;i++){
-         if(this.arrayvalue[i].IsPrized=="Y"){
-           this.arrayprized.push(this.arrayvalue[i])
-           if(this.arrayprized.length <2){
-             console.log("nonprized")
-             return alert("Choose atleast 2 prized chits")
-           }else{           
-            console.log("prized")
-           let navigationExtras: NavigationExtras = {
-            queryParams: {
-            payment: JSON.stringify(this.arrayvalue)
-            }
-            };
-            this.router.navigate(["subscribe-list/subscriber-payment"], navigationExtras)
+      if(this.prized_chits.length!=0){
+        if(this.arrayvalue.length <=1){ 
+          console.log(this.arrayvalue[0])     
+           if(this.arrayvalue[0].IsPrized=='Y'){
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+             queryParams: { state:data },
+             
+           };
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+           }else return alert("Must choose atleast 1 Prized Chit")    
+        }else if(this.arrayvalue.length ==2){
+          for(let i=0;i<this.arrayvalue.length;i++){
+          if(this.arrayvalue[i].IsPrized=="Y"){
+            this.arrayprized.push(this.arrayvalue[i])            
+          }
+        }
+        if(this.arrayprized.length==0) return alert("Choose atleast 1 prized chits")
+        else{
+         console.log("prized")
+         let data = JSON.stringify(this.arrayvalue)
+         let navigationExtras: NavigationExtras = {
+          queryParams: { state:data },
+          
+        };
+        this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+        }
+        }else if(this.arrayvalue.length >2){
+          console.log(this.prized_chits)
+          if(this.prized_chits.length==1){
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+             queryParams: { state:data },
+             
+           };
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+          }else if(this.prized_chits.length>=2){
+            console.log(this.prized_chits)
+            for(let i=0;i<this.arrayvalue.length;i++){
+             if(this.arrayvalue[i].IsPrized=="Y"){
+               this.arrayprized.push(this.arrayvalue[i])
+               if(this.arrayprized.length <2){
+                 console.log("nonprized")
+                 return alert("Choose atleast 2 prized chits")
+               }else{           
+                console.log("prized")
+                let data = JSON.stringify(this.arrayvalue)
+                let navigationExtras: NavigationExtras = {
+                 queryParams: { state:data },
+                 
+               };
+             this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+               }
+             }
            }
-         }
-       }
-    }
-  }else return alert("Please choose atleast one chit")
+          }
+        }
+      }else{
+            let data = JSON.stringify(this.arrayvalue)
+              let navigationExtras: NavigationExtras = {
+                queryParams: { state:data },
+                
+              };
+            this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+      }  
+    }else return alert("Please choose atleast one chit")
 }
 
 passParams(event,val:any){
