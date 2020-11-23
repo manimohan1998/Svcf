@@ -113,7 +113,7 @@ processdata(){
              queryParams: { state:data },
              
            };
-         this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
            }else return alert("Must choose atleast 1 Prized Chit")    
         }else if(this.arrayvalue.length ==2){
           for(let i=0;i<this.arrayvalue.length;i++){
@@ -129,7 +129,7 @@ processdata(){
           queryParams: { state:data },
           
         };
-        this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
+        this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
         }
         }else if(this.arrayvalue.length >2){
           console.log(this.prized_chits)
@@ -139,7 +139,7 @@ processdata(){
              queryParams: { state:data },
              
            };
-         this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
           }else if(this.prized_chits.length>=2){
             console.log(this.prized_chits)
             for(let i=0;i<this.arrayvalue.length;i++){
@@ -155,7 +155,7 @@ processdata(){
                  queryParams: { state:data },
                  
                };
-             this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
+             this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
                }
              }
            }
@@ -167,7 +167,7 @@ processdata(){
                 queryParams: { state:data },
                 
               };
-            this.router.navigate(['/subscribe-list/subscriber-payment'],navigationExtras)
+            this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
       }  
     }else return alert("Please choose atleast one chit")
 }
