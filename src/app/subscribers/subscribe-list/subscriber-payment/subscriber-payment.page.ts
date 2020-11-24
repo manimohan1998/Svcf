@@ -62,10 +62,10 @@ export class SubscriberPaymentPage implements OnInit {
     var nums2=0;
   for(let i=0;i<this.grandtotal.length;i++){
    
-       if(this.grandtotal[i].Debit){
+       if(this.grandtotal[i].CurrentDueAmount){
    
-        num +=( parseFloat(this.grandtotal[i].Debit))
-        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(parseFloat(this.grandtotal[i].Debit));
+        num +=( parseFloat(this.grandtotal[i].CurrentDueAmount))
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(parseFloat(this.grandtotal[i].CurrentDueAmount));
         if(this.grandtotal[i].IsPrized=="Y"){
          
           this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat(this.grandtotal[i].PrizedArrier));
@@ -179,10 +179,10 @@ makePayment(payment){
 this.storepayment=[];
 var mem_id=localStorage.getItem('memberid')
   for(let i=0;i<this.grandtotal.length;i++){
-    if(this.grandtotal[i].Debit){
+    if(this.grandtotal[i].CurrentDueAmount){
       let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
       this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
-        MemberId:mem_id,PayableAmount :this.grandtotal[i].Debit,
+        MemberId:mem_id,PayableAmount :this.grandtotal[i].CurrentDueAmount,
         ArrierAmount  :arrearamount,
         InterestAmount:0,
         Prized:this.grandtotal[i].IsPrized,
