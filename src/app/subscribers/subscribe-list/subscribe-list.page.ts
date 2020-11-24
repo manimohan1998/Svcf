@@ -31,12 +31,13 @@ export class SubscribeListPage implements OnInit {
   Arrearval1: number;
   arrayprized: any[]=[];
   prized_chits:any[]=[];
+  Logo: any;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController) { 
      
   }
 ngOnInit() {
-  this.arrayvalue.splice(0,this.arrayvalue.length)
+  this.arrayvalue=[];
     this.subscribeServ.personalDetails().subscribe((res)=>{
       console.log(res)
       this.personaldetail=res['UserDetails'];
@@ -44,13 +45,15 @@ ngOnInit() {
       this.sub_id=this.personaldetail[0].BranchId
       this.customername=this.personaldetail[0].CustomerName
       console.log(this.mem_id,this.sub_id)
+      this.Logo = this.customername.charAt(0);
+      localStorage.setItem('iniitial_logo',this.Logo)
       
   }) 
     
 }
 ionViewWillEnter(){
-  this.userlist3.splice(0,this.userlist3.length)
-  this.arrayvalue.splice(0,this.arrayvalue.length)
+  this.userlist3=[];
+  this.arrayvalue=[];
   this.platform.ready().then(()=>{
     this.loadingcontroller.create({
       message:"loading..."
@@ -58,12 +61,12 @@ ionViewWillEnter(){
       HTMLIonLoadingElement.present();
       this.ref=this;
         this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
-        this.ref.loadingcontroller.dismiss()
+        this.ref.loadingcontroller.dismiss();
         this.userlist1=(res['chits']) 
         if (Array.isArray(this.userlist1) && this.userlist1.length){ 
                this.output = true; 
         }
-            else {this.output = false; }
+            else {this.output = false; this.ionViewWillEnter()}
          if(this.output===true){       
         for(let i=0;i<this.userlist1.length;i++){
     if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
@@ -214,9 +217,9 @@ async logout(){
 await alert_info.present();
     }
     ngOnDestroy(){
-      this.userlist3.splice(0,this.userlist3.length)
-      this.userlist1.splice(0,this.userlist1.length)
-      this.arrayvalue.splice(0,this.arrayvalue.length)
+      this.userlist3=[];
+      this.userlist1=[];
+      this.arrayvalue=[];
     }
     
 }
