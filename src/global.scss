@@ -78,9 +78,10 @@ html {
 .svcf_page{
     position: relative;
     .logo_sec{
-    max-height: 100vh;
-    min-height: 270px;
-    height: 270px;
+    // max-height: 100vh;
+    // min-height: 270px;
+    // height: 270px;
+    padding:36%;
     background: linear-gradient(to bottom, #273153 0%, #30ADFF 100%);
     width: 100%;
     display: inline-block;
@@ -92,7 +93,7 @@ html {
     object-fit: contain;
     object-position: center;
     position: absolute;
-    top: 35%;
+    top: 36%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
@@ -102,25 +103,19 @@ html {
     text-transform: capitalize;
     text-align: center;
     position: absolute;
-    bottom: 15%;
+    bottom: 14%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
     }
     .card_bg{
-        position: absolute;
-        top: 40%;
-        left: 2%;
-        width: 96%;
-        margin: 0 auto;
+        margin-top: -20px;
         section{
             margin-top: 2em;
         }
 
     }
 .route_link_sec{
-    position: absolute;
-    bottom: 5%;
     text-align: center;
     width: 100%;
     .root_link{
