@@ -29,6 +29,9 @@ export class LoginPage implements OnInit {
       console.log(this.network.type)
       })
   }
+  ionViewWillEnter(){
+    this.loginForm.reset("");
+  }
  
    submitForm(val){        
         this.commonserv.loginCredentials(val.name,val.password).subscribe(res=>{
@@ -70,7 +73,7 @@ export class LoginPage implements OnInit {
       this.router.navigate(['/forgot-password'])
   }
   ngOnDestroy(){
-    this.loginForm.reset();
+    this.loginForm.reset("");
   }
   
 }

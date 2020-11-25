@@ -21,11 +21,17 @@ export class ForgotPasswordPage implements OnInit {
       // mobile: ['', [Validators.required, Validators.maxLength(10),Validators.pattern("[0-9]{10}")]],
       })
     this.forgotForms = this.fb.group({
-      OTP: ['', [Validators.required, Validators.maxLength(6),Validators.pattern("[0-9]{6}")]],
+      OTP: ['', [Validators.required]],
      })
   }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(){
+    this.forgotForm.reset("");
+    this.forgotForms.reset("");
+    this.forgot=false;
   }
   submitsForm(){
     console.log(this.forgotForm['value']['Customer'])
@@ -34,15 +40,16 @@ export class ForgotPasswordPage implements OnInit {
    if(otp_request!==null && this.forgotForm.valid){
     this.commonserv.requestOtp(otp_request).subscribe(res=>{
       console.log(res)
-     if(res['status']=="success"){
-     this.otp=res['Message']
+     if(res['Status']=="Success"){
+     this.otp=res['OTP']
      }else{
-      this.forgotForm.reset("");
       this.presentToast("Mobile Number is not updated for this User.Please Contact Branch");
+      this.forgotForm.reset("")
      }
     })
   }else{
     this.presentToast("Enter a valid customer Id");
+    this.forgotForm.reset("")
   }
   }
   
@@ -67,6 +74,7 @@ export class ForgotPasswordPage implements OnInit {
     //   console.log(res)
     // })
     var otpdata=this.forgotForms['value']['OTP']
+    console.log(otpdata)
     if(otpdata==this.otp){
       localStorage.setItem('customer',this.forgotForm['value']['Customer'])
       this.router.navigate(['/reset-password'])
@@ -82,23 +90,24 @@ export class ForgotPasswordPage implements OnInit {
     if(otp_request !==null && this.forgotForm.valid){
     this.commonserv.requestOtp(otp_request).subscribe(res=>{
       console.log(res)
-      if(res['status']=="success"){
-        this.otp=res['Message']
+      if(res['Status']=="Success"){
+        this.otp=res['OTP']
        
         }else{
-          this.forgotForm.reset("");
-          this.presentToast("Mobile Number is not updated for this User.Please Contact Branch");
+       this.presentToast("Mobile Number is not updated for this User.Please Contact Branch");
+       this.forgotForm.reset("")
         }
     })
   }else{
     this.presentToast("Enter a valid customer Id");
+    this.forgotForm.reset("")
   }
   }
   back(){
     this.router.navigate(['/login'])
   }
   ngOnDestroy(){
-    this.forgotForm.reset();
-    this.forgotForms.reset();
+    this.forgotForm.reset("");
+    this.forgotForms.reset("");
   }
 }
