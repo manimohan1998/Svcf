@@ -38,7 +38,8 @@ export class SubscribeListPage implements OnInit {
   }
 ngOnInit() {
   this.arrayvalue=[];
-    this.subscribeServ.personalDetails().subscribe((res)=>{
+  let memidnew=localStorage.getItem('memberid')
+    this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
       console.log(res)
       this.personaldetail=res['UserDetails'];
       this.mem_id=localStorage.getItem('memberid')
