@@ -4,63 +4,116 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content>
-  <ion-row size="12"> 
-    <ion-col  class="profile3">
-      <ion-row size="8">{{customername}}</ion-row>
-      <ion-row size="8">JKR9D342</ion-row>
-    </ion-col>
-    <ion-col class="profile2" size="2">
-      <ion-avatar><span>{{this.Logo}}</span></ion-avatar>
-      <!-- <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar> -->
-    </ion-col>
-    <ion-col class="profile1" size="2">
-      <ion-icon name="ellipsis-vertical-outline" (click)="logout()"></ion-icon>
-    </ion-col>
-  </ion-row>
-  <!-- <ion-searchbar></ion-searchbar> -->
-  <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="term"><br>
-  <ion-label *ngIf="chit_length !=0">No.of :{{chit_length}}</ion-label>
-  <ion-card class="card" *ngFor="let val of userlist3 | filter:term; let i=index" >     
-    <ion-row size="12">
-      <ion-col size="2" >
-        <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
-    <ion-checkbox (ionChange) = "passParams($event,val)" ></ion-checkbox>
-      </ion-col>
-      <ion-col size="8">
-        <ion-label>Chit No:{{val.ChitNo}}</ion-label><br>
-        <ion-label>Branch Name:{{val.BranchName}}</ion-label><br>
-        <ion-label>Current inst no:{{val.Runningcall}}</ion-label><br>  
-        <ion-label >Arrear Amount:{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</ion-label>
-        
-   <br>     
-        <ion-label>Interest Amount:0.00</ion-label>  
-      </ion-col>
-      <ion-col size="2">
-        <ion-label>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</ion-label>
-      </ion-col>           
-    </ion-row>
-   <div class="divide">
- </div>
-<ion-row size="12">
-<ion-col size="6">current Due:{{val.CurrentDueAmount}}</ion-col>
-<ion-col size="6">Total paid:{{val.TotalPaid}}</ion-col>
-</ion-row>
-</ion-card>
-<ion-button (click)="processdata()">continue</ion-button>
 
+
+<ion-content class="svcf_dashboard_page">
+
+  <section class="customer_details">
+    <ion-row size="12">
+      <ion-col class="customer_name" size="9">
+        <h2 size="8">{{customername}}</h2>
+        <h5 size="8">JKR9D342</h5>
+      </ion-col>
+      <ion-col class="profile_img" size="2">
+        <!-- <ion-avatar><span>{{this.Logo}}</span></ion-avatar> -->
+        <ion-avatar><span>
+          <img src="../../../assets/images/user.jpg">
+        </span></ion-avatar>
+
+        <!-- <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar> -->
+      </ion-col>
+      <ion-col class="menu" size="1">
+        <ion-icon name="ellipsis-vertical-outline" (click)="logout()"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-searchbar></ion-searchbar> -->
+    <div class="search">
+      <input type="text" class="form-control" placeholder="search" [(ngModel)]="term">
+    </div>
+
+    <p *ngIf="chit_length !=0" class="total_chits">No. of Chits : <span>{{chit_length}}</span></p>
+  </section>
+
+  <ion-card class="card_bg" *ngFor="let val of userlist3 | filter:term; let i=index">
+    <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
+    <div class="chits_item_details">
+      <ion-checkbox (ionChange)="passParams($event,val)"></ion-checkbox>
+      <table class="table chit_details">
+        <tbody>
+          <tr>
+            <td>
+              <span class="branch_name">{{val.BranchName}}</span>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Chit No</th>
+            <td>
+              <p>:</p>
+            </td>
+            <td>
+              <span>{{val.ChitNo}}</span>
+            </td>
+          </tr>
+
+          <tr>
+            <th>Current inst no</th>
+            <td>
+              <p>:</p>
+            </td>
+            <td>
+              <span>{{val.Runningcall}}</span>
+            </td>
+          </tr>
+
+
+          <tr>
+            <th>Arrear Amount</th>
+            <td>
+              <p>:</p>
+            </td>
+            <td>
+              <span>{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</span>
+            </td>
+          </tr>
+
+
+          <tr>
+            <th>Interest Amount</th>
+            <td>
+              <p>:</p>
+            </td>
+            <td>
+              <span>0.00</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chit_status np_status">
+      <p>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
+    </div>
+    <div class="bottom_sec">
+      <p size="6">current Due : <span>{{val.CurrentDueAmount}}</span></p>
+      <p size="6">Total paid : <span>{{val.TotalPaid}}</span></p>
+    </div>
+  </ion-card>
+  <section>
+    <ion-button expand="block" (click)="processdata()" class="btn">Continue</ion-button>
+  </section>
 </ion-content>
 
-<ion-tab-bar  slot="bottom">
-  <ion-tab-button  [routerLink]="['/subscribe-list']">
+<ion-tab-bar slot="bottom">
+  <ion-tab-button [routerLink]="['/subscribe-list']">
     <ion-icon name="home"></ion-icon>
     <ion-label>Home</ion-label>
   </ion-tab-button>
-  <ion-tab-button  [routerLink]="['/subscribe-list/person-detail']">
-    <ion-icon name="person"></ion-icon> 
-     <ion-label>Person</ion-label>
+  <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
+    <ion-icon name="person"></ion-icon>
+    <ion-label>Person</ion-label>
   </ion-tab-button>
-  <ion-tab-button  [routerLink]="['/subscribe-list/subscriber-recepit']">
+  <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>

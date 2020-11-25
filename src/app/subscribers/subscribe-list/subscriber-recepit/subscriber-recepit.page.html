@@ -1,46 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-item>
-      <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
-      <ion-title>Report Details</ion-title>
-    </ion-item>
-    
+    <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+    <ion-title>Report Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item>
-    <ion-label slot="start">Summary</ion-label>
-  </ion-item>
-  
-<div *ngFor="let img of data">
-  <ion-card>
-  <ion-item >
-     <img src="{{img}}"/>
- </ion-item>
+<ion-content fullscreen class="ion-padding svcf_recepit_page">
+  <section class="payment">
+    <div class="page_title">
+      <h3>Summary</h3>
+    </div>
+  </section>
 
-
-</ion-card>
-</div>
-<ion-label>Grand Total:Rs.</ion-label>
+  <div *ngFor="let img of data">
+    <ion-card>
+      <ion-item>
+        <img src="{{img}}" />
+      </ion-item>
+    </ion-card>
+  </div>
+  <ion-label>Grand Total:Rs.</ion-label>
 </ion-content>
 
-<ion-tab-bar  slot="bottom">
-  <ion-tab-button  [routerLink]="['/subscribe-list']">
+<ion-tab-bar slot="bottom">
+  <ion-tab-button [routerLink]="['/subscribe-list']">
     <ion-icon name="home"></ion-icon>
     <ion-label>Home</ion-label>
   </ion-tab-button>
-  <ion-tab-button  [routerLink]="['/subscribe-list/person-detail']">
-    <ion-icon name="person"></ion-icon> 
-     <ion-label>Person</ion-label>
+  <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
+    <ion-icon name="person"></ion-icon>
+    <ion-label>Person</ion-label>
   </ion-tab-button>
-  <ion-tab-button  [routerLink]="['/subscribe-list/subscriber-recepit']">
+  <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
 </ion-tab-bar>
 
 
- <!-- <ion-button (click) = "shareViaEmail(img.url)"> Email</ion-button>
+<!-- <ion-button (click) = "shareViaEmail(img.url)"> Email</ion-button>
  <ion-button (click) = "shareViaapp(img.url)"> whatsapp</ion-button>
  <ion-button (click) = "shareViaSMS(img.url)">SMS</ion-button> -->

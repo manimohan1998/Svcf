@@ -1,65 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-item>
       <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
       <ion-title>Payment Details</ion-title>
-    </ion-item>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="ion-padding">
-    <form [formGroup]="PaymentForm" (ngSubmit)="submit()">
-  
+<ion-content fullscreen class="ion-padding svcf_payment_page">
+  <section class="payment">
+    <div class="page_title">
+      <h3>Chits Details</h3>
+      <ion-icon name="create-outline" slot="end"></ion-icon>
+    </div>
+    <form [formGroup]="PaymentForm" (ngSubmit)="submit()" class="payment_form">
+
       <ion-list formGroupName="AmountDetails">
-
-       <ion-list-header>
-         <ion-item>
-          <ion-label>Chits Details</ion-label> 
-         </ion-item>
-         <ion-item>
-          <ion-icon name="create-outline" slot="end"></ion-icon>
-         </ion-item>
-       </ion-list-header>
         <div *ngFor="let data of AmountDetail().controls; let i=index " [formGroupName]="i">
-         
-          <ion-card >
-       <ion-item>
-         <ion-grid>
-           <ion-row size="12">
-              <ion-col class ="first"size="8"><ion-label style="font-size: 10px">Total Chit Value:Rs.{{this.payment_details[i].Auctionamount}}</ion-label> </ion-col>
-              <ion-col class="second" size="4"><ion-label style="font-size: 10px">{{this.payment_details[i].ChitNo}}</ion-label> </ion-col>
-           </ion-row>
-         </ion-grid>
-       </ion-item>
-        <ion-item>
-          <ion-col size="12">
-            <ion-row size="6"> <ion-label >Amount Payable</ion-label></ion-row>
-            <!-- (ionChange)="total()" -->
-            <ion-row size="6"> <ion-input  formControlName="AmountPayable" type="number" value="" readonly></ion-input></ion-row>
-          </ion-col>
-         </ion-item>
-         <!-- <span
-         class="text-danger"
-         *ngIf="!this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).touched &&  this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).hasError('min')"
-       >Enter amount above 2000</span> -->
 
-        <!-- <ion-item>
-         <ion-col size="12">
-          <ion-row size="6"><ion-label >Interest Amount</ion-label></ion-row>
-          <ion-row size="6"> <ion-input   formControlName="Interest" type="number" value="" readonly></ion-input></ion-row>
-        </ion-col>
-        </ion-item> -->
-         <ion-item>
-          <ion-col size="12">
-           <ion-row size="6"><ion-label >Arrear Amount</ion-label></ion-row>
-           <ion-row size="6"> <ion-input   formControlName="Arrearamount" type="number" value="" readonly></ion-input></ion-row>
-         </ion-col>
-         </ion-item>
-         <ion-item>
-          <ion-label>Total:{{this.total_details[i]}}</ion-label>
-        </ion-item>
-        <!-- <ion-item>
+          <ion-card>
+            <ion-card-header>
+              <p>Total Chit Value:<span>Rs.{{this.payment_details[i].Auctionamount}}</span></p>
+              <p class="chit_no">{{this.payment_details[i].ChitNo}}</p>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-item>
+                <ion-label position="stacked">Amount Payable</ion-label>
+                <ion-input formControlName="AmountPayable" type="number" value="" placeholder="Amount Payable" readonly>
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Arrear Amount</ion-label>
+                <ion-input formControlName="Arrearamount" type="number" value="" placeholder="Arrear Amount" readonly>
+                </ion-input>
+              </ion-item>
+              <p class="total">
+                Total:<span>
+                  {{this.total_details[i]}}</span>
+              </p>
+              <!-- <ion-item>
           <ion-label position="floating">Other Amount</ion-label>
           <ion-input formControlName="OtherAmount"></ion-input>
         </ion-item>
@@ -68,40 +45,43 @@
           <ion-label position="floating">Write Narrations</ion-label>
           <ion-input formControlName="Narrations"></ion-input>
         </ion-item> -->
-       
-        <!-- <ion-button (click)="removeRow(i)">remove</ion-button> -->
-      </ion-card>
 
-      </div>
+              <!-- <ion-button (click)="removeRow(i)">remove</ion-button> -->
+            </ion-card-content>
+          </ion-card>
+        </div>
       </ion-list>
       <!-- <ion-button (click)="addrow()">add</ion-button> -->
-    <ion-item>
-  <ion-label>Grand Total:Rs.{{this.num}}</ion-label>
+      <p class="grand_total">Grand Total:<span>Rs.{{this.num}}</span>
+      </p>
+      <section>
 
-</ion-item>
-     
-      <ion-button  type="submit" expand="block" [disabled]="!PaymentForm.valid">Submit <ion-icon slot="end"
-          name="create">
-        </ion-icon>
-      </ion-button>
-    
+      </section>
+      <!-- <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab> -->
+
+      <ion-button type="submit" expand="block" [disabled]="!PaymentForm.valid" class="btn">Submit  </ion-button>
+
     </form>
-   </div>
-  
-   
+  </section>
+
+
 
 </ion-content>
 
-<ion-tab-bar  slot="bottom">
+<ion-tab-bar slot="bottom">
   <ion-tab-button (click)="erasedata()" [routerLink]="['/subscribe-list']">
     <ion-icon name="home"></ion-icon>
     <ion-label>Home</ion-label>
   </ion-tab-button>
-  <ion-tab-button  [routerLink]="['/subscribe-list/person-detail']">
-    <ion-icon name="person"></ion-icon> 
-     <ion-label>Person</ion-label>
+  <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
+    <ion-icon name="person"></ion-icon>
+    <ion-label>Person</ion-label>
   </ion-tab-button>
-  <ion-tab-button  [routerLink]="['/subscribe-list/subscriber-recepit']">
+  <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>

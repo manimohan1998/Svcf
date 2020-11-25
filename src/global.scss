@@ -61,6 +61,36 @@ html {
 .bottom_space{
     margin-bottom: 1em;
 }
+ion-card-header+.card-content-ios {
+    padding-top: 20px;
+}
+p {
+    text-transform: capitalize;
+}
+
+.search {
+    input {
+    padding: 14px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 16px 0 0 0;
+}
+}
+ion-loading {
+    background: linear-gradient(to bottom, #2b3b77 0%, #081028 100%);
+}
+.page_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    h3{
+        color: #2F2F2F;
+        text-transform: capitalize;
+    }
+    ion-icon {
+        font-size: 26px;
+    }            
+}
 .btn{
     --background: linear-gradient(to right, #273153 0%, #30ADFF 100%);
     --border-radius: 50px;
@@ -149,5 +179,231 @@ html {
     border-radius: 20px;
         }
     }
+    .profile_desc{
+        h4 {
+            font-size: 20px;
+            color: #fff;
+        }
+        p {
+            color: #DFDFDF;
+            margin: 10px 0;
+        }
     }
+    }
+    .card_bg{
+        margin-top: -20px;
+            h3{
+                color: #2F2F2F;
+                span{
+                    font-size: 14px;
+                    color: #BBBBCF;
+                }
+            }
+            ion-item {
+                --background: #F5FAFF;
+                margin-bottom: 10px;
+            }
+            
+            ion-note {
+                color: #2F90E2;
+            }
+        }
 }
+
+
+// Dashboard page styles
+.svcf_dashboard_page .customer_details {
+    background: linear-gradient(to right, #1B2233 0%, #354466 100%);
+    padding: 16px 16px 30px 16px;
+}
+
+
+.svcf_dashboard_page{
+    .customer_details{
+            background: linear-gradient(to right, #1B2233 0%, #354466 100%);
+            padding: 24px 10px 64px 10px;
+            .customer_name{
+                 h2 {
+                    margin: 0;
+                    color: #ffffff;
+                }
+                h5 {
+                    margin: 8px 0;
+                    font-size: 14px;
+                    color: #ffffff;
+                }
+            }
+            .profile_img{
+                img{
+                    border-radius: 50px;
+                }
+            }
+            .menu{
+                color: #fff;
+                font-size: 25px;
+                margin: 14px 0;
+            }
+        .total_chits{
+            color: #fff;
+            margin: 25px 0;
+            span{
+                padding: 7px 14px;
+                background: linear-gradient(to right, #677DE1 0%, #A1B0F0 100%);
+                border-radius: 5px;
+                margin-left: 10px;
+            }
+        }
+    }
+    .card_bg{
+        margin-top: -20px;
+        .chits_item_details{
+            display: flex;
+            align-items: flex-start;
+            padding: 16px;
+            width: 100%;
+            ion-checkbox {
+                width: 38px;
+                height: 38px;
+                margin-right: 10px;
+                .checkbox-icon{
+                --background:#DBDBDB;
+                }
+        }
+            .chit_details{
+            th{
+              font-weight: 500;
+              font-size: 15px;
+              color: #86868c;
+              margin-bottom: 8px;
+              text-align: left;
+            }
+            td{
+              p {
+                font-size: 14px;
+                color: #86868c;
+                margin-bottom: 8px;
+                margin-top: 0;
+                }
+                span {
+                  font-size: 14px;
+                color: #122449;
+                font-weight: 400;
+                &.branch_name{
+                    font-size: 20px;
+                    color: #122449;
+                  font-weight: 500;
+                 }
+              }
+            }
+        }
+    }
+            .chit_status {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              &.np_status{ 
+                span{
+                color: #F00A0A;
+              }
+              }
+              span {
+                font-size: 12px;
+                // color: #F00A0A;
+                color: #52ad19;;
+                font-weight: 500;
+            }
+            p{
+                margin: 0;
+            }
+          }
+  
+          .bottom_sec{
+            padding:16px;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #D9D9D9;   
+        p {
+            font-size: 14px;
+            color: #86868c;
+            margin:0;
+            margin-top: 0;
+            }
+            span {
+              font-size: 14px;
+            color: #122449;
+            font-weight: 400;
+            }
+        }
+        }
+    }
+:host(.checkbox-checked) .checkbox-icon, :host(.checkbox-indeterminate) .checkbox-icon {
+    --background:linear-gradient(to right, #1B2233 0%, #354466 100%);
+    --border: 1px solid #1B2233;
+    }
+
+
+
+    // Payment page details
+    .svcf_payment_page{
+        .payment{
+                        .payment_form{
+                ion-card-header{
+                    padding: 5px 10px;
+                    color: #fff;
+                    display: flex;
+                    justify-content: space-between;
+                    --background: #2E3A58;
+                    align-items: center;
+                    p{
+                       &.chit_no{
+                            background: #396DD4;
+                padding: 3px 10px;
+                right: -5px;
+                position: absolute;
+                border-radius: 15px;
+                     }
+                     span{
+                        background: #34a21485;
+                        padding: 5px 10px;
+                        margin-left: 6px;
+                        border-radius: 5px;
+                    }
+
+                    }
+                }
+                ion-card {
+                    margin: 20px 0;
+                }
+                .total{
+    margin: 20px;
+    text-align: end;
+    font-size: 16px;
+                    span{
+                        padding: 7px 14px;
+                background: linear-gradient(to right, #677DE1 0%, #A1B0F0 100%);
+                border-radius: 5px;
+                margin-left: 10px;
+                color: #fff;
+
+                    }
+                }
+                .grand_total{
+                    font-size: 18px;
+                    display: flex;
+                    padding: 15px;
+                    color: #fff;
+                    background: #1A5B9C;
+                    border-left: 8px solid #050D19;
+                    align-items: center;
+                    justify-content: space-between;
+                    span{
+                        font-size: 24px;
+                    }
+                }
+                
+            }
+        }
+    }
+
+
+    

@@ -17,124 +17,74 @@
     </div>
   </section>
 
-  <ion-card>
-    <ion-label>
-      Private Details(read only)
-    </ion-label>
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="6">
-          <ion-label style="font-size: 12px;">Email</ion-label>
-        </ion-col>
-        <ion-col size="6">
-          <ion-label style="font-size: 12px;">user8991@gmail.com</ion-label>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="8">
-          <ion-label style="font-size: 12px;">mobile number</ion-label>
-        </ion-col>
-        <ion-col size="4">
-          <ion-label style="font-size: 12px;">{{val.MobileNo}}</ion-label>
-        </ion-col>
-      </ion-row>
+  <ion-card class="card_bg">
+    <ion-card-header>
+      <ion-card-title>
+        <h3>
+          Private Details <span>(read only)</span>
+        </h3>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content fullscreen>
+      <ion-list>
 
-    </ion-card>
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="10">
-          <ion-label style="font-size: 12px;">Gender</ion-label>
-        </ion-col>
-        <ion-col size="2">
-          <ion-label style="font-size: 12px;">{{val.Gender}}</ion-label>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label>Email</ion-label>
+          <ion-note slot="end">user8991@gmail.com</ion-note>
+        </ion-item>
 
-    </ion-card>
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="9">
-          <ion-label style="font-size: 12px;">Age</ion-label>
-        </ion-col>
-        <ion-col size="3">
-          <ion-label style="font-size: 12px;">{{val.Age}} Years</ion-label>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label>Mobile Number</ion-label>
+          <ion-note slot="end">{{val.MobileNo}}</ion-note>
+        </ion-item>
 
-    </ion-card>
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="4">
-          <ion-label style="font-size: 12px;">Address</ion-label>
-        </ion-col>
-        <ion-col size="8">
-          <ion-label style="font-size: 12px;">{{val.AddressForCommunication}}</ion-label>
-        </ion-col>
-      </ion-row>
-
-    </ion-card>
-
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="8">
-          <ion-label style="font-size: 12px;">City</ion-label>
-        </ion-col>
-        <ion-col size="4">
-          <ion-label style="font-size: 12px;">Coimbatore</ion-label>
-        </ion-col>
-      </ion-row>
-
-    </ion-card>
+        <ion-item>
+          <ion-label>Gender</ion-label>
+          <ion-note slot="end">{{val.Gender}}</ion-note>
+        </ion-item>
 
 
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="8">
-          <ion-label style="font-size: 12px;">State</ion-label>
-        </ion-col>
-        <ion-col size="4">
-          <ion-label style="font-size: 12px;">TamilNadu</ion-label>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label>Age</ion-label>
+          <ion-note slot="end">{{val.Age}} Years</ion-note>
+        </ion-item>
 
-    </ion-card>
 
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="9">
-          <ion-label style="font-size: 12px;">Pincode</ion-label>
-        </ion-col>
-        <ion-col size="3">
-          <ion-label style="font-size: 12px;">595959</ion-label>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label>Address</ion-label>
+          <ion-note slot="end">{{val.AddressForCommunication}}</ion-note>
+        </ion-item>
 
-    </ion-card>
+        <ion-item>
+          <ion-label>City </ion-label>
+          <ion-note slot="end">Coimbatore</ion-note>
+        </ion-item>
 
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="8">
-          <ion-label style="font-size: 12px;">identity</ion-label>
-        </ion-col>
-        <ion-col size="4">
-          <ion-label style="font-size: 12px;">jkr293937</ion-label>
-        </ion-col>
-      </ion-row>
+        <ion-item>
+          <ion-label>State </ion-label>
+          <ion-note slot="end">TamilNadu</ion-note>
+        </ion-item>
 
-    </ion-card>
-    <ion-card class="cards">
-      <ion-row size="12">
-        <ion-col size="7">
-          <ion-label style="font-size: 12px;">Account Type</ion-label>
-        </ion-col>
-        <ion-col size="5">
-          <ion-label style="font-size: 12px;">Authentication</ion-label>
-        </ion-col>
-      </ion-row>
 
-    </ion-card>
+        <ion-item>
+          <ion-label> Pincode</ion-label>
+          <ion-note slot="end">567577</ion-note>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label>identity </ion-label>
+          <ion-note slot="end">jh65646hh6</ion-note>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label> Account Type</ion-label>
+          <ion-note slot="end">Authentication</ion-note>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
   </ion-card>
 </ion-content>
 
