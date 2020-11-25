@@ -13,13 +13,82 @@
   </section>
 
   <div *ngFor="let img of data">
-    <ion-card>
-      <ion-item>
-        <img src="{{img}}" />
-      </ion-item>
+    <ion-card class="card_bg">
+      <ion-card-content>
+        <mat-card-content>
+          <div class="ofz_img">
+            <img src="../../../assets/images/img.png">
+            <div class="branch_name">
+              <p>Branch Name:<span>New street branch</span></p>
+              <p>Form No: <span>VF1</span></p>
+            </div>
+          </div>
+
+          <div class="logo">
+            <img src="../../../assets/images/logo.png">
+          </div>
+
+          <div class="ofz_address">
+            <h1>SREE VISALAM CHIT FUND LTD.</h1>
+            <p>Register Office: Tirunelveli - 3</p>
+            <p>(See Section 23 and Rule 25) </p>
+            <p>Receipt issued under the chit funds Act 1982</p>
+          </div>
+
+          <section class="ofz_time">
+            <p>
+              21.11.2020 / 04.00 PM
+            </p>
+          </section>
+          <div class="receipt_content">
+            <h3>
+              CD/REC.SERIES
+            </h3>
+            <div class="receipt_no">
+              <p>AGT No: <span>#1234</span></p>
+              <p>Online Payment Receipt No: <span>03</span></p>
+            </div>
+            <table class="table receipt_amts">
+              <tbody>
+
+                <tr>
+                  <th>Received From</th>
+                  <td>:</td>
+                  <td>ghjghjbj</td>
+                </tr>
+
+                <tr>
+                  <th>Current Inst No (03)</th>
+                  <td>:</td>
+                  <td>Rs. 00.00</td>
+                </tr>
+
+                <tr>
+                  <th>Arrears</th>
+                  <td>:</td>
+                  <td>Rs. 00.00</td>
+                </tr>
+                <tr>
+                  <th>Penalty For Over Due</th>
+                  <td>:</td>
+                  <td>Rs. 00.00</td>
+                </tr>
+                <tr>
+                  <th>Other Receipts</th>
+                  <td>:</td>
+                  <td>Rs. 00.00</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </mat-card-content>
+      </ion-card-content>
     </ion-card>
   </div>
-  <ion-label>Grand Total:Rs.</ion-label>
+
+  <p class="grand_total">Grand Total:<span>Rs.00.00</span>
+  </p>
 </ion-content>
 
 <ion-tab-bar slot="bottom">
