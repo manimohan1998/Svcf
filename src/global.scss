@@ -132,13 +132,14 @@ html {
 
 // Profile page styles
 .profile_page{
-    .profile_img{
+    .profile{
     padding:20px;
     background: linear-gradient(to bottom, #273153 0%, #30ADFF 100%);
     width: 100%;
     display: inline-block;
     position: relative;
-    .profile{
+    text-align: center;
+    .profile_img{
         img{
             width: 150px;
     height: 150px;

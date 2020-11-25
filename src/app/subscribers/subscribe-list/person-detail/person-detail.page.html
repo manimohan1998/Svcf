@@ -6,14 +6,15 @@
 </ion-header>
 
 <ion-content *ngFor="let val of personaldetail" class="profile_page">
-  <section class="profile_img">
-    <div class="profile">
-      <img
-        src="../../../../assets/images/user.png" />
+  <section class="profile">
+    <div class="profile_img">
+      <img src="../../../../assets/images/user.jpg" />
     </div>
-    <div class="datas"><span>{{val.CustomerName}}</span></div>
-    <div class="datas"><span>{{val.MobileNo}}</span></div>
-    <div class="datas"><span>user8991@gmail.com</span></div>
+    <div class="profile_desc">
+      <h4>{{val.CustomerName}}</h4>
+      <p>{{val.MobileNo}}</p>
+      <p>user8991@gmail.com</p>
+    </div>
   </section>
 
   <ion-card>
