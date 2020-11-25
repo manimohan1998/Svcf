@@ -83,25 +83,7 @@ ionViewWillEnter(){
   
  
 }
-// Arrear(i:number,val:any){
-// // if(val==="Y"){
-// // this.Arrearval=parseFloat( this.userlist1[i].PrizedArrier)
-// // }
-// // else{
-// //   this.Arrearval=parseFloat( this.userlist1[i].NonPrizedArrier)
-  
-// // }
-// console.log(i,val)
-// }
 
-// status(val,status){
-// if(status=="T"){
-//   //  this.userlist[val].status="prized"
-// }
-// if(status=="R"){
-//   //  this.userlist[val].status="Non-prized"
-// }
-// }
 processdata(){
   this.prized_chits=[];
     if(this.arrayvalue.length !=0){

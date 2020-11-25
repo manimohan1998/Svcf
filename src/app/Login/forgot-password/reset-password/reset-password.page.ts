@@ -74,6 +74,6 @@ constructor(private router:Router,private fb:FormBuilder, public commonserv: Com
     this.router.navigate(['/forgot-password'])
   }
   ngOnDestroy(){
-    this.resetForm.reset();
+    this.resetForm.reset("");
   }
 }
