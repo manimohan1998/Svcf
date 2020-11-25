@@ -19,8 +19,8 @@ export class SubscriberApiService {
   ReceiveRecipt(sub_id){
     return this.http.get(environment.url+'set backend endpoint?optvalue='+sub_id)
   }
-  personalDetails(){
-    return this.http.get(environment.url+'UserDetails?MemberIDNew=1')
+  personalDetails(memidnew){
+    return this.http.get(environment.url+'UserDetails?MemberIDNew='+memidnew)
   }
   
 }

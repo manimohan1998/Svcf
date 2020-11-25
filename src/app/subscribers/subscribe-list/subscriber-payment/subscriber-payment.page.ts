@@ -18,8 +18,12 @@ export class SubscriberPaymentPage implements OnInit {
   PaymentForm:FormGroup;
   grandtotal:any=[];
   num: number;
+  total_details:any=[];
   storepayment: any;
   payment_detail: { Chitnumber: any; MemberId: string; PayableAmount: any; ArrierAmount: any; InterestAmount: number; Prized: any; Branch: any; Current_insta_no: any; };
+  total: number;
+  data1: number;
+  data2: number;
 
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
@@ -58,10 +62,10 @@ export class SubscriberPaymentPage implements OnInit {
     var nums2=0;
   for(let i=0;i<this.grandtotal.length;i++){
    
-       if(this.grandtotal[i].Debit){
+       if(this.grandtotal[i].CurrentDueAmount){
    
-        num +=( parseFloat(this.grandtotal[i].Debit))
-        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(parseFloat(this.grandtotal[i].Debit));
+        num +=( parseFloat(this.grandtotal[i].CurrentDueAmount))
+        this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(parseFloat(this.grandtotal[i].CurrentDueAmount));
         if(this.grandtotal[i].IsPrized=="Y"){
          
           this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat(this.grandtotal[i].PrizedArrier));
@@ -77,6 +81,20 @@ export class SubscriberPaymentPage implements OnInit {
      }
      
         
+    }
+   
+    this.total_details=[];
+    for(let i=0;i<this.grandtotal.length;i++){
+      this.data1=0;
+      this.data2=0;
+      this.total=0;
+      this.data1=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
+      this.data2 =parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
+      console.log(this.data1)
+      this.total += this.data1
+      this.total += this.data2
+      this.total_details.push(this.total)
+      console.log( this.total_details)
     }
   
 }
@@ -121,7 +139,7 @@ export class SubscriberPaymentPage implements OnInit {
 // }
  erasedata(){
    console.log(this.payment_details)
-this.payment_details.splice(0,this.payment_details.length)
+this.payment_details=[];
 console.log(this.payment_details)
  }
 
@@ -161,10 +179,10 @@ makePayment(payment){
 this.storepayment=[];
 var mem_id=localStorage.getItem('memberid')
   for(let i=0;i<this.grandtotal.length;i++){
-    if(this.grandtotal[i].Debit){
+    if(this.grandtotal[i].CurrentDueAmount){
       let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
       this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
-        MemberId:mem_id,PayableAmount :this.grandtotal[i].Debit,
+        MemberId:mem_id,PayableAmount :this.grandtotal[i].CurrentDueAmount,
         ArrierAmount  :arrearamount,
         InterestAmount:0,
         Prized:this.grandtotal[i].IsPrized,
@@ -184,7 +202,7 @@ var mem_id=localStorage.getItem('memberid')
 }
 ngOnDestroy(){
   this.PaymentForm.reset();
-  this.payment_details.splice(0,this.payment_details.length)
+  this.payment_details=[];
 }
 
   }

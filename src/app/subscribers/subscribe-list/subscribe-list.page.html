@@ -11,7 +11,8 @@
       <ion-row size="8">JKR9D342</ion-row>
     </ion-col>
     <ion-col class="profile2" size="2">
-      <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar>
+      <ion-avatar><span>{{this.Logo}}</span></ion-avatar>
+      <!-- <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar> -->
     </ion-col>
     <ion-col class="profile1" size="2">
       <ion-icon name="ellipsis-vertical-outline" (click)="logout()"></ion-icon>
@@ -27,7 +28,8 @@
     <ion-checkbox (ionChange) = "passParams($event,val)" ></ion-checkbox>
       </ion-col>
       <ion-col size="8">
-        <ion-label>New Cover Change</ion-label><br>
+        <ion-label>Chit No:{{val.ChitNo}}</ion-label><br>
+        <ion-label>Branch Name:{{val.BranchName}}</ion-label><br>
         <ion-label>Current inst no:{{val.Runningcall}}</ion-label><br>  
         <ion-label >Arrear Amount:{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</ion-label>
         
@@ -41,8 +43,8 @@
    <div class="divide">
  </div>
 <ion-row size="12">
-<ion-col size="6">current Due:{{val.Debit}}</ion-col>
-<ion-col size="6">Total paid:{{val.totalpaid}}</ion-col>
+<ion-col size="6">current Due:{{val.CurrentDueAmount}}</ion-col>
+<ion-col size="6">Total paid:{{val.TotalPaid}}</ion-col>
 </ion-row>
 </ion-card>
 <ion-button (click)="processdata()">continue</ion-button>

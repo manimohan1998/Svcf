@@ -16,7 +16,8 @@ personaldetail:any;
   }
 
 ionViewWillEnter(){
-  this.subscribeServ.personalDetails().subscribe((res)=>{
+  let memidnew=localStorage.getItem('memberid')
+  this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
       console.log(res)
       this.personaldetail=res['UserDetails'];
       
