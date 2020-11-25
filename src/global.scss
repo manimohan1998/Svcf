@@ -46,7 +46,38 @@ html {
     outline: 0
 }
 
+.header-translucent-ios ion-toolbar {
+    --opacity: unset;
+}
+.header-ios ion-toolbar:last-of-type {
+    --border-width: 0;
+}
+::ng-deep .item-native {
+    --padding-inline-start: unset!important;
+}
+.eye_icon {
+    ion-icon {
+        font-size: 27px;
+    }
+}
+.bottom_space{
+    margin-bottom: 1em;
+}
+.btn{
+    --background: linear-gradient(to right, #273153 0%, #30ADFF 100%);
+    --border-radius: 50px;
+    --color: #fff;
+    }
+    .boder_btn{
+    border-radius: 25px;
+    border: 1px solid #2F90E2;
+    --background: transparent;
+    --color: #2F90E2;
+    padding: 5px 15px;
+    }
 .svcf_page{
+    position: relative;
+    .logo_sec{
     max-height: 100vh;
     min-height: 270px;
     height: 270px;
@@ -54,18 +85,19 @@ html {
     width: 100%;
     display: inline-block;
     position: relative;
-.logo{
-    width: 200px;
-    height: 150px;
+    }
+   .logo{
+    width: 250px;
+    height: 200px;
     object-fit: contain;
     object-position: center;
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
-}
-h5{
+    }
+    h4{
     color: #fff;
     text-transform: capitalize;
     text-align: center;
@@ -74,6 +106,33 @@ h5{
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
+    }
+    .card_bg{
+        position: absolute;
+        top: 40%;
+        left: 2%;
+        width: 96%;
+        margin: 0 auto;
+        section{
+            margin-top: 2em;
+        }
 
+    }
+.route_link_sec{
+    position: absolute;
+    bottom: 5%;
+    text-align: center;
+    width: 100%;
+    .root_link{
+        --color:#2F90E2;
+        text-decoration: underline;
+        font-weight: 400;
+        font-size: 16px;
+    }
+    section{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+}
 }
 }
