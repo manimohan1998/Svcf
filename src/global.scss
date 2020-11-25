@@ -51,9 +51,7 @@ html {
 }
 .header-ios ion-toolbar:last-of-type {
     --border-width: 0;
-}
-::ng-deep .item-native {
-    --padding-inline-start: unset!important;
+    --color: #fff;
 }
 .eye_icon {
     ion-icon {
@@ -130,4 +128,25 @@ html {
     text-align: center;
 }
 }
+}
+
+// Profile page styles
+.profile_page{
+    .profile_img{
+    padding:20px;
+    background: linear-gradient(to bottom, #273153 0%, #30ADFF 100%);
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    .profile{
+        img{
+            width: 150px;
+    height: 150px;
+    object-fit: contain;
+    object-position: center;
+    border: 5px solid #ffffff;
+    border-radius: 20px;
+        }
+    }
+    }
 }
