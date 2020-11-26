@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-      <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
-      <ion-title>Payment Details</ion-title>
+    <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+    <ion-title>Payment Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -63,7 +63,7 @@
         </ion-fab-button>
       </ion-fab> -->
 
-      <ion-button type="submit" expand="block" [disabled]="!PaymentForm.valid" class="btn">Submit  </ion-button>
+      <ion-button type="submit" expand="block" [disabled]="!PaymentForm.valid" class="btn">Submit </ion-button>
 
     </form>
   </section>
@@ -73,13 +73,14 @@
 </ion-content>
 
 <ion-tab-bar slot="bottom">
-  <ion-tab-button (click)="erasedata()" [routerLink]="['/subscribe-list']">
-    <ion-icon name="home"></ion-icon>
-    <ion-label>Home</ion-label>
-  </ion-tab-button>
+
   <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
     <ion-icon name="person"></ion-icon>
     <ion-label>Person</ion-label>
+  </ion-tab-button>
+  <ion-tab-button (click)="erasedata()" [routerLink]="['/subscribe-list']">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Home</ion-label>
   </ion-tab-button>
   <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
