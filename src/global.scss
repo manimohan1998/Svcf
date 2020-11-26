@@ -91,7 +91,9 @@ ion-loading {
         font-size: 26px;
     }            
 }
-
+.p-24{
+    padding: 0 24px;
+}
 .grand_total{
     font-size: 18px;
     display: flex;
@@ -228,7 +230,7 @@ ion-loading {
 // Dashboard page styles
 .svcf_dashboard_page .customer_details {
     background: linear-gradient(to right, #1B2233 0%, #354466 100%);
-    padding: 16px 16px 30px 16px;
+    padding: 16px;
 }
 
 
