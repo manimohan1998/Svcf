@@ -5,7 +5,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngFor="let val of personaldetail" class="ion-padding profile_page">
+<ion-content *ngFor="let val of personaldetail" class="profile_page">
   <section class="profile">
     <div class="profile_img">
       <img src="../../../../assets/images/user.jpg" />
@@ -89,18 +89,22 @@
 </ion-content>
 
 <ion-tab-bar slot="bottom">
-  <ion-tab-button [routerLink]="['/subscribe-list']">
-    <ion-icon name="home"></ion-icon>
-    <ion-label>Home</ion-label>
-  </ion-tab-button>
+ 
   <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
     <ion-icon name="person"></ion-icon>
     <ion-label>Person</ion-label>
   </ion-tab-button>
+
+  <ion-tab-button [routerLink]="['/subscribe-list']">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+
   <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
+  
   <ion-tab-button [routerLink]="['/reset']">
     <ion-icon name="refresh"></ion-icon>
     <ion-label>Reset</ion-label>
