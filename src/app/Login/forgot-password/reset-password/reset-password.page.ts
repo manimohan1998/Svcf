@@ -71,7 +71,7 @@ constructor(private router:Router,private fb:FormBuilder, public commonserv: Com
       toast.present();
   }
   back(){
-    this.router.navigate(['/forgot-password'])
+    this.router.navigate(['/login'])
   }
   ngOnDestroy(){
     this.resetForm.reset("");
