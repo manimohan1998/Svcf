@@ -67,14 +67,21 @@ ion-card-header+.card-content-ios {
 p {
     text-transform: capitalize;
 }
+.boder_btn.ion-activatable {
+    color: #fff;
+    background: linear-gradient(to right, #273153 0%, #30ADFF 100%);
+    border: 1px solid #2F90E2;
+}
+
+.checkbox-icon{
+background: rgb(225 225 225);
+}
 
 .search {
-    input {
-    padding: 14px;
-    width: 100%;
-    border-radius: 10px;
-    margin: 16px 0 0 0;
-}
+    ion-searchbar {
+        padding: unset;
+        --color: #fff;
+    }
 }
 ion-loading {
     background: linear-gradient(to bottom, #2b3b77 0%, #081028 100%);
@@ -86,12 +93,15 @@ ion-loading {
     h3{
         color: #2F2F2F;
         text-transform: capitalize;
+        margin: 0;
     }
     ion-icon {
         font-size: 26px;
     }            
 }
-
+.p-24{
+    padding: 0 24px;
+}
 .grand_total{
     font-size: 18px;
     display: flex;
@@ -117,6 +127,32 @@ ion-loading {
     --color: #2F90E2;
     padding: 5px 15px;
     }
+
+// Tab styles
+ion-tab-bar {
+    --background: #fff;
+    border: unset;
+}
+
+
+
+ion-tab-button{
+    ion-icon {
+        color: #a9a6a6;
+    }
+ion-label {
+    color: #a9a6a6;
+}
+}
+
+
+
+
+
+
+
+
+
 .svcf_page{
     position: relative;
     .logo_sec{
@@ -226,16 +262,11 @@ ion-loading {
 
 
 // Dashboard page styles
-.svcf_dashboard_page .customer_details {
-    background: linear-gradient(to right, #1B2233 0%, #354466 100%);
-    padding: 16px 16px 30px 16px;
-}
-
 
 .svcf_dashboard_page{
     .customer_details{
             background: linear-gradient(to right, #1B2233 0%, #354466 100%);
-            padding: 24px 10px 64px 10px;
+            padding: 16px;
             .customer_name{
                  h2 {
                     margin: 0;
@@ -259,7 +290,7 @@ ion-loading {
             }
         .total_chits{
             color: #fff;
-            margin: 25px 0;
+            margin: 18px 0 24px 0;
             span{
                 padding: 7px 14px;
                 background: linear-gradient(to right, #677DE1 0%, #A1B0F0 100%);
@@ -279,6 +310,9 @@ ion-loading {
                 width: 38px;
                 height: 38px;
                 margin-right: 10px;
+                border: 1px solid #ccc;
+                border-radius: 50%;
+                --background: linear-gradient(to right, #DBDBDB 0%, #bfbfbf 100%);
                 .checkbox-icon{
                 --background:#DBDBDB;
                 }
@@ -316,12 +350,13 @@ ion-loading {
               top: 10px;
               right: 10px;
               &.np_status{ 
-                span{
+                p{
+                font-size: 14px;
                 color: #F00A0A;
               }
               }
-              span {
-                font-size: 12px;
+              p {
+                font-size: 14px;
                 // color: #F00A0A;
                 color: #52ad19;;
                 font-weight: 500;
@@ -419,14 +454,14 @@ ion-loading {
               position: relative;
               img{
                 width: 100%;
-                height: 250px;
+                height: 200px;
                 object-fit: cover;
                 object-position: center;     
              }
               .branch_name{
                 color: #fff;
                 width: 95%;
-                padding: 24px;
+                padding: 16px;
                 background: #273153;
                 display: flex;
                 align-items: center;

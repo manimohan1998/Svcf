@@ -17,8 +17,8 @@
       <ion-col class="profile_img" size="2">
         <!-- <ion-avatar><span>{{this.Logo}}</span></ion-avatar> -->
         <ion-avatar><span>
-          <img src="../../../assets/images/user.jpg">
-        </span></ion-avatar>
+            <img src="../../../assets/images/user.jpg">
+          </span></ion-avatar>
 
         <!-- <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar> -->
       </ion-col>
@@ -27,8 +27,10 @@
       </ion-col>
     </ion-row>
     <!-- <ion-searchbar></ion-searchbar> -->
+
     <div class="search">
-      <input type="text" class="form-control" placeholder="search" [(ngModel)]="term">
+      <ion-searchbar></ion-searchbar>
+      <!-- <input type="text" class="form-control" placeholder="search" [(ngModel)]="term"> -->
     </div>
 
     <p *ngIf="chit_length !=0" class="total_chits">No. of Chits : <span>{{chit_length}}</span></p>
@@ -99,20 +101,24 @@
       <p size="6">Total paid : <span>{{val.TotalPaid}}</span></p>
     </div>
   </ion-card>
-  <section>
+  <section class="p-24">
     <ion-button expand="block" (click)="processdata()" class="btn">Continue</ion-button>
   </section>
 </ion-content>
 
+
 <ion-tab-bar slot="bottom">
-  <ion-tab-button [routerLink]="['/subscribe-list']">
-    <ion-icon name="home"></ion-icon>
-    <ion-label>Home</ion-label>
-  </ion-tab-button>
+
   <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
     <ion-icon name="person"></ion-icon>
     <ion-label>Person</ion-label>
   </ion-tab-button>
+
+  <ion-tab-button [routerLink]="['/subscribe-list']">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+
   <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
