@@ -75,11 +75,12 @@ export class ForgotPasswordPage implements OnInit {
     // })
     var otpdata=this.forgotForms['value']['OTP']
     console.log(otpdata)
-    if(otpdata==this.otp){
+    if(otpdata==this.otp && otpdata !==null && this.forgotForms.valid && this.forgotForm.valid){
       localStorage.setItem('customer',this.forgotForm['value']['Customer'])
       this.router.navigate(['/reset-password'])
-    }else{
-      this.presentToast("Please Enter Valid OTP");
+    }
+   else{
+      this.presentToast("Please Enter Valid Customer Id or OTP");
       this.forgotForms.reset("");
     }
    

@@ -5,6 +5,7 @@ import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service
 import {Platform,LoadingController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { isEmpty } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -33,7 +34,7 @@ export class SubscribeListPage implements OnInit {
   prized_chits:any[]=[];
   Logo: any;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
-    public loadingcontroller:LoadingController) { 
+    public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
   }
 ngOnInit() {
@@ -83,6 +84,13 @@ ionViewWillEnter(){
   
  
 }
+async presentToast(message) {
+  const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+   });
+    toast.present();
+}
 
 processdata(){
   this.prized_chits=[];
@@ -100,14 +108,14 @@ processdata(){
              
            };
          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-           }else return alert("Must choose atleast 1 Prized Chit")    
+           }else return this.presentToast("Must choose atleast 1 Prized Chit");
         }else if(this.arrayvalue.length ==2){
           for(let i=0;i<this.arrayvalue.length;i++){
           if(this.arrayvalue[i].IsPrized=="Y"){
             this.arrayprized.push(this.arrayvalue[i])            
           }
         }
-        if(this.arrayprized.length==0) return alert("Choose atleast 1 prized chits")
+        if(this.arrayprized.length==0) return this.presentToast("Choose atleast 1 prized chits");
         else{
          console.log("prized")
          let data = JSON.stringify(this.arrayvalue)
@@ -133,7 +141,7 @@ processdata(){
                this.arrayprized.push(this.arrayvalue[i])
                if(this.arrayprized.length <2){
                  console.log("nonprized")
-                 return alert("Choose atleast 2 prized chits")
+                 return this.presentToast("Choose atleast 2 prized chits");
                }else{           
                 console.log("prized")
                 let data = JSON.stringify(this.arrayvalue)
@@ -155,7 +163,7 @@ processdata(){
               };
             this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
       }  
-    }else return alert("Please choose atleast one chit")
+    }else return this.presentToast("Please choose atleast one chit");
 }
 
 passParams(event,val:any){
@@ -191,7 +199,8 @@ async logout(){
           // localStorage.removeItem('memberid');
           this.router.navigate(['/login'])
           localStorage.clear()
-        }
+          this.presentToast("Logout Successfully");
+          }
       }
       
     ]

@@ -56,10 +56,7 @@ export class SubscriberPaymentPage implements OnInit {
       }
   addmethod() {
     this.grandtotal=this.payment_details
-    // console.log(this.grandtotal,"hi")
     var num = 0;
-    var nums1=0;
-    var nums2=0;
   for(let i=0;i<this.grandtotal.length;i++){
    
        if(this.grandtotal[i].CurrentDueAmount){
@@ -98,26 +95,6 @@ export class SubscriberPaymentPage implements OnInit {
     }
   
 }
- 
-  //  total(){
-  //  var nums=0
-  //  var nums1=0
-  //  var nums2=0
-  //   for(let i=0;i<this.grandtotal.length;i++){
-  //   nums += parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
-  //   if (!(nums>0)){
-  //    nums=0
-  //    this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(nums);
-  //   }
-    
-  //     nums1 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Interest)
-  //     nums2 += parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
- 
-  //   this.num = nums +nums1 +nums2;
-    
-  //  }
-  // }
-  
  
   AmountDetail():FormArray{
     return this.PaymentForm.get('AmountDetails') as FormArray

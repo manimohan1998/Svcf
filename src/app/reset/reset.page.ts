@@ -121,6 +121,15 @@ export class ResetPage implements OnInit {
        let number=this.resetForms['value']['mobilenumber']
        this.commonserv.reset(id,name,password,number).subscribe((res) => {
         console.log(res)
+        if(res['Status']==="Success"){
+          this.router.navigate(['/login'])
+          localStorage.clear()
+          this.presentToast('Password Changed Successfully And Use New Password To Login.');
+        }
+        else{
+          this.presentToast('please Enter Valid Details');
+          this.resetForms.get("mobilenumber").reset("");
+        }
        })
       }
        else{
@@ -135,6 +144,6 @@ this.router.navigate(['/login'])
 localStorage.clear()
   }
   ngOnDestroy(){
-    this.resetForms.reset();
+    this.resetForms.reset("");
   }
 }
