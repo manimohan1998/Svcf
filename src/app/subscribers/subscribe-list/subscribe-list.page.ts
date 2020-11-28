@@ -33,6 +33,7 @@ export class SubscribeListPage implements OnInit {
   arrayprized: any[]=[];
   prized_chits:any[]=[];
   Logo: any;
+  customerid: any;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -46,6 +47,7 @@ ngOnInit() {
       this.mem_id=localStorage.getItem('memberid')
       this.sub_id=this.personaldetail[0].BranchId
       this.customername=this.personaldetail[0].CustomerName
+      this.customerid=this.personaldetail[0].MemberID
       console.log(this.mem_id,this.sub_id)
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
