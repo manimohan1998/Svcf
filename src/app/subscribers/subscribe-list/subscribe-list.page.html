@@ -93,7 +93,7 @@
       </table>
     </div>
 
-    <div class="chit_status np_status">
+    <div class="chit_status"  [ngClass]="val.IsPrized === 'Y'?'green':'red'">
       <p>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
     </div>
     <div class="bottom_sec">
