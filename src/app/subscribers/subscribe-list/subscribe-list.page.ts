@@ -144,7 +144,10 @@ processdata(){
             for(let i=0;i<this.arrayvalue.length;i++){
              if(this.arrayvalue[i].IsPrized=="Y"){
                this.arrayprized.push(this.arrayvalue[i])
-               if(this.arrayprized.length <2){
+               
+             }
+           }
+           if(this.arrayprized.length <2){
                  console.log("nonprized")
                  return this.presentToast("Choose atleast 2 prized chits");
                }else{           
@@ -156,8 +159,6 @@ processdata(){
                };
              this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
                }
-             }
-           }
           }
         }
       }else{
