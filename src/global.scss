@@ -139,8 +139,13 @@ ion-tab-bar {
     border: unset;
 }
 
-
-
+ion-item.item-title-default {
+    --background:linear-gradient(to bottom, #252f52 0%, #273153 100%);
+    --border-color: transparent;
+}
+ion-title, ion-icon{
+    color: #fff;
+}
 ion-tab-button{
     ion-icon {
         color: #a9a6a6;
@@ -334,12 +339,14 @@ ion-label {
               color: #86868c;
               margin-bottom: 8px;
               text-align: left;
+              padding: 5px;
             }
             td{
+                padding: 5px;
               p {
                 font-size: 14px;
                 color: #86868c;
-                margin-bottom: 8px;
+                margin-bottom: 0px;
                 margin-top: 0;
                 }
                 span {
