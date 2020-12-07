@@ -76,11 +76,11 @@ ionViewWillEnter(){
     if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
         this.userlist3.push(this.userlist1[i]);
         this.chit_length=this.userlist3.length
-        }
-        else if(this.chit_length===0){
+        }}
+     if(this.chit_length===0){
           this.presentToast("You Have No Runnning Chits");
         }  
-        }}
+      }
       },error=>{
         alert(console.log(error));
       }) ;
