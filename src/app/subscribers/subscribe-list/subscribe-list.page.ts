@@ -51,7 +51,7 @@ ngOnInit() {
       console.log(this.mem_id,this.sub_id)
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
-      
+      localStorage.setItem("personaldatas",JSON.stringify(this.personaldetail) )
   }) 
     
 }

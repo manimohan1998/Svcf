@@ -17,6 +17,7 @@ export class SubscriberPaymentPage implements OnInit {
   formcount:any;
   PaymentForm:FormGroup;
   grandtotal:any=[];
+  personal:any=[];
   num: number;
   total_details:any=[];
   storepayment: any;
@@ -24,7 +25,25 @@ export class SubscriberPaymentPage implements OnInit {
   total: number;
   data1: number;
   data2: number;
-
+ // newly added
+  arrearamount: number;
+  Amounts: number;
+  payamount:number;
+  day:number;
+  month:number;
+  year:number;
+  currentdate:string;
+  storepayment1: any;
+  storepayment2: any;
+  storepayment3: any;
+  array:any=[];
+  
+payment_data:{Amount: any;AppReceiptno: String;BranchID: any;ChitGroupId: any; Head_Id: any;ISActive: any;IsAccepted: any; IsDeleted: any;
+  M_Id: any; MemberID: any; MoneyCollId: any;Narration: any;Other_Trans_Type:any;ReceievedBy: any;RootID: any;Series:any;T_Day: any;
+  T_Month: any;T_Year: any;Trans_Medium:any; Trans_Type: any; TransactionKey: any; Type: any; Voucher_No:any; Voucher_Type: any;CurrDate:any;ChoosenDate:any;
+CreatedDate:any;ModifiedDate:any;LoginIp:any;ChequeDDNo:any;PArrear:any;NPArrear:any;CurrentDue:any;Interest:any;VoucherCount:any;};
+  personaldetail: any;
+// newly added
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
      console.log(params.state)
@@ -49,8 +68,106 @@ export class SubscriberPaymentPage implements OnInit {
   }
   ionViewWillEnter(){
     this.addmethod();
+ }
+
+
+// newly added
+ ionViewDidEnter(){
+    this.new();
+  }
+new() {
+    
+ this.storepayment1=[];
+ this.storepayment=[];
+let d = new Date();
+this.day=d.getDate();
+this.month=d.getMonth()+1;
+this.year=d.getFullYear();
+this.currentdate=this.month+"/"+this.day+"/"+this.year;
+this.personal=(JSON.parse(localStorage.getItem("personaldatas")))
+console.log(this.personal)
+for(let i=0;i<this.grandtotal.length;i++){
+  
+  if(this.grandtotal[i].CurrentDueAmount){
+   this.payamount=0;
+   this.arrearamount=parseFloat(this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier)
+   this.Amounts=parseFloat(this.grandtotal[i].CurrentDueAmount)
+   this.payamount +=this.arrearamount
+   this.payamount +=this.Amounts
+    this.payment_data={
+      Amount: this.payamount,
+      AppReceiptno: "",
+      BranchID:this.personal[0].BranchId,
+      ChitGroupId: "",
+      Head_Id: "",
+      ISActive: this.personal[0].ISActive,
+      IsAccepted:"",
+      IsDeleted:this.personal[0].IsDeleted,
+      M_Id:this.personal[0].MemberID, 
+      MemberID: this.personal[0].MemberID,
+      MoneyCollId: "",
+      Narration: "test",
+      Other_Trans_Type:"1",
+      ReceievedBy: "admin",
+      RootID: "5",
+      Series:"CPAPP",
+      T_Day: this.day,
+      T_Month: this.month,
+      T_Year: this.year,
+      Trans_Medium:"",
+      Trans_Type: "", 
+      TransactionKey: "", 
+      Type: "",
+      Voucher_No:"",
+      Voucher_Type: "",
+      CurrDate:this.currentdate,
+      ChoosenDate:this.currentdate,
+      CreatedDate:this.currentdate,
+      ModifiedDate:this.currentdate,
+      LoginIp:"",
+      ChequeDDNo:"",
+      PArrear:this.grandtotal[i].PrizedArrier,
+      NPArrear:this.grandtotal[i].NonPrizedArrier,
+      CurrentDue:this.grandtotal[i].CurrentDueAmount,
+      Interest:"",
+      VoucherCount:""
+    }
+}
+  this.storepayment1.push(this.payment_data)
+  console.log(this.storepayment1)
+  if(this.grandtotal.length===this.storepayment1.length){
+this.method1(this.storepayment1);
+  }
+}
+}
+  method1(data) {
+    this.storepayment2=data;
+    console.log(this.storepayment2)
+let length=this.storepayment2.length
+let i=0
+if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0"){
+    for(let j=0;j<length;j++){
+  let filledArray = new Array(2).fill(this.storepayment2[j]);
+  this.storepayment.push(filledArray)
+     }
+    }
+   else if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest !=="0"){
+    
+      for(let j=0;j<length;j++){
+    let filledArray = new Array(4).fill(this.storepayment2[j]);
+    this.storepayment3.push(filledArray)
+       }
+      }
+ console.log(this.storepayment)
+ console.log(this.storepayment3)
 
   }
+
+// newly added
+
+
+
+
   back(){
     this.router.navigate(["/subscribe-list"])
       }
@@ -75,6 +192,7 @@ export class SubscriberPaymentPage implements OnInit {
         }
         this.num=num 
         console.log(this.num)
+      
      }
      
         
@@ -173,8 +291,6 @@ var mem_id=localStorage.getItem('memberid')
        this.router.navigate(["subscribe-list/subscriber-recepit"])
     })
   }
-
- 
 
 }
 ngOnDestroy(){
