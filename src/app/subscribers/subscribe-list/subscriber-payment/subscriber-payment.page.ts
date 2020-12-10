@@ -37,6 +37,13 @@ export class SubscriberPaymentPage implements OnInit {
   storepayment2: any;
   storepayment3: any;
   array:any=[];
+  receiptno:any;
+  card:any;
+  card1:any;
+  final:any;
+  final1:any;
+  finals:any;
+  vouchercounts:any;
   
 payment_data:{Amount: any;AppReceiptno: String;BranchID: any;ChitGroupId: any; Head_Id: any;ISActive: any;IsAccepted: any; IsDeleted: any;
   M_Id: any; MemberID: any; MoneyCollId: any;Narration: any;Other_Trans_Type:any;ReceievedBy: any;RootID: any;Series:any;T_Day: any;
@@ -76,9 +83,16 @@ CreatedDate:any;ModifiedDate:any;LoginIp:any;ChequeDDNo:any;PArrear:any;NPArrear
     this.new();
   }
 new() {
-    
+  this.receiptno=[];
+  this.storepayment3=[];
  this.storepayment1=[];
  this.storepayment=[];
+ this.card=[];
+ this.card1=[];
+ this.final=[];
+ this.final1=[];
+ this.finals=[];
+ this.vouchercounts=[];
 let d = new Date();
 this.day=d.getDate();
 this.month=d.getMonth()+1;
@@ -87,6 +101,18 @@ this.currentdate=this.month+"/"+this.day+"/"+this.year;
 this.personal=(JSON.parse(localStorage.getItem("personaldatas")))
 console.log(this.personal)
 for(let i=0;i<this.grandtotal.length;i++){
+  this.vouchercounts=[]
+  console.log( this.grandtotal[i].BranchName.substring(0,3).toUpperCase()) 
+  let receiptno= this.grandtotal[i].BranchName.substring(0,3).toUpperCase()
+  let id=this.personal[0].MemberID
+  let count=i
+  let no=count+1
+  this.vouchercounts=no
+  this.receiptno.push(receiptno+id+no)
+  console.log(this.receiptno)
+}
+
+for(let i=0;i<this.grandtotal.length;i++){
   
   if(this.grandtotal[i].CurrentDueAmount){
    this.payamount=0;
@@ -94,14 +120,15 @@ for(let i=0;i<this.grandtotal.length;i++){
    this.Amounts=parseFloat(this.grandtotal[i].CurrentDueAmount)
    this.payamount +=this.arrearamount
    this.payamount +=this.Amounts
+  
     this.payment_data={
       Amount: this.payamount,
-      AppReceiptno: "",
+      AppReceiptno: this.receiptno[i],
       BranchID:this.personal[0].BranchId,
       ChitGroupId: "",
       Head_Id: "",
       ISActive: this.personal[0].ISActive,
-      IsAccepted:"",
+      IsAccepted:"0",
       IsDeleted:this.personal[0].IsDeleted,
       M_Id:this.personal[0].MemberID, 
       MemberID: this.personal[0].MemberID,
@@ -114,11 +141,11 @@ for(let i=0;i<this.grandtotal.length;i++){
       T_Day: this.day,
       T_Month: this.month,
       T_Year: this.year,
-      Trans_Medium:"",
-      Trans_Type: "", 
-      TransactionKey: "", 
+      Trans_Medium:"0",
+      Trans_Type: "1", 
+      TransactionKey: "0", 
       Type: "",
-      Voucher_No:"",
+      Voucher_No:"1000",
       Voucher_Type: "",
       CurrDate:this.currentdate,
       ChoosenDate:this.currentdate,
@@ -129,12 +156,11 @@ for(let i=0;i<this.grandtotal.length;i++){
       PArrear:this.grandtotal[i].PrizedArrier,
       NPArrear:this.grandtotal[i].NonPrizedArrier,
       CurrentDue:this.grandtotal[i].CurrentDueAmount,
-      Interest:"",
-      VoucherCount:""
+      Interest:"0",
+      VoucherCount:this.vouchercounts
     }
 }
   this.storepayment1.push(this.payment_data)
-  console.log(this.storepayment1)
   if(this.grandtotal.length===this.storepayment1.length){
 this.method1(this.storepayment1);
   }
@@ -143,24 +169,62 @@ this.method1(this.storepayment1);
   method1(data) {
     this.storepayment2=data;
     console.log(this.storepayment2)
-let length=this.storepayment2.length
-let i=0
-if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0"){
-    for(let j=0;j<length;j++){
-  let filledArray = new Array(2).fill(this.storepayment2[j]);
+for(let i=0;i<this.storepayment2.length;i++){
+if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0" && this.storepayment2[i].Interest !==""){
+  
+  let filledArray = new Array(2).fill(this.storepayment2[i]);
   this.storepayment.push(filledArray)
-     }
+
     }
-   else if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest !=="0"){
-    
-      for(let j=0;j<length;j++){
-    let filledArray = new Array(4).fill(this.storepayment2[j]);
+    if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest !=="0"&& this.storepayment2[i].Interest !==""){
+    let filledArray = new Array(4).fill(this.storepayment2[i]);
     this.storepayment3.push(filledArray)
-       }
+     
       }
+    }
  console.log(this.storepayment)
  console.log(this.storepayment3)
+ 
+ for(let i=0;i<this.storepayment.length;i++){
+  this.card1.push("C","D")
+ }
+ if(this.storepayment.length !=="0"){
+  for(let i=0;i<this.storepayment.length;i++){
+    this.final1.push( this.storepayment[i].map((o, i) => ({ ...o, Voucher_Type: this.card1[i], o,Type:"Card"})))
+}
+  }
+  for(let i=0;i<this.storepayment3.length;i++){
+    this.card.push("C","D")
+   }
+if(this.storepayment3.length !=="0"){
+  for(let i=0;i<this.storepayment3.length;i++){
+    this.final.push(this.storepayment3[i].map((o, i) => ({ ...o, Voucher_Type: this.card[i],o,Type:i>=2?"DefaultInterest":"Card"})))
+   
+}
+  }
+console.log(this.card)
+console.log(this.card1)
+console.log(this.storepayment3)
+console.log(this.final)
+console.log(this.final1)
+if(this.final1.length !=="0" && this.final.length !=="0"){
 
+  this.finals.push(this.final1)
+  this.finals.push(this.final)
+  
+}
+ else if(this.final1.length !=="0"){
+  
+  this.finals.push(this.final1[0])
+}
+ else if(this.final.length !=="0"){
+ 
+  this.finals.push(this.final[0])
+}
+
+
+
+console.log(this.finals)
   }
 
 // newly added
