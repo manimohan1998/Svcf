@@ -13,7 +13,7 @@ export class SubscriberApiService {
   }
 
   makepayment(payment_detail){
-    return this.http.post(environment.url+'MobilePayment?',payment_detail)
+    return this.http.post(environment.url+'MobilePayment',payment_detail)
   }
 
   ReceiveRecipt(sub_id){

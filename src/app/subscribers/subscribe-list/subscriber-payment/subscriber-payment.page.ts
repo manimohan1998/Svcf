@@ -34,6 +34,7 @@ export class SubscriberPaymentPage implements OnInit {
   year:number;
   currentdate:string;
   storepayment1: any;
+  carddata:any;
   storepayment2: any;
   storepayment3: any;
   array:any=[];
@@ -220,10 +221,14 @@ console.log(this.final1)
 if(this.final1.length !=="0" && this.final.length !=="0"){
 for(let i=0;i<this.final1.length;i++){
   this.finals.push(this.final1[i])
+        this.carddata = [].concat.apply([], this.finals);
+
 }
  
 for(let i=0;i<this.final.length;i++){
   this.finals.push(this.final[i])
+        this.carddata = [].concat.apply([], this.finals);
+
 }
   
 }
@@ -231,17 +236,22 @@ for(let i=0;i<this.final.length;i++){
   
   for(let i=0;i<this.final1.length;i++){
     this.finals.push(this.final1[i])
+          this.carddata = [].concat.apply([], this.finals);
+
   }
 }
  else if(this.final.length !=="0"){
  
   for(let i=0;i<this.final.length;i++){
     this.finals.push(this.final[i])
+      this.carddata = [].concat.apply([], this.finals);
+
    
   }
 }
 console.log(this.finals)
-this.subscribeServ.makepayment(this.finals).subscribe(res=>{
+console.log(this.carddata)
+this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
   console.log(res)
 
 })
