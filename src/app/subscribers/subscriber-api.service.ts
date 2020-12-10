@@ -13,7 +13,7 @@ export class SubscriberApiService {
   }
 
   makepayment(payment_detail){
-    return this.http.post(environment.url+'Payment',payment_detail)
+    return this.http.post(environment.url+'MobilePayment?',payment_detail)
   }
 
   ReceiveRecipt(sub_id){
@@ -21,6 +21,9 @@ export class SubscriberApiService {
   }
   personalDetails(memidnew){
     return this.http.get(environment.url+'UserDetails?MemberIDNew='+memidnew)
+  }
+  voucherCount(count){
+    return this.http.get(environment.url+'GetReceiptNo?series='+count)
   }
   
 }

@@ -44,12 +44,16 @@ export class SubscriberPaymentPage implements OnInit {
   final1:any;
   finals:any;
   vouchercounts:any;
+  getvouchercount:any=[];
   
 payment_data:{Amount: any;AppReceiptno: String;BranchID: any;ChitGroupId: any; Head_Id: any;ISActive: any;IsAccepted: any; IsDeleted: any;
   M_Id: any; MemberID: any; MoneyCollId: any;Narration: any;Other_Trans_Type:any;ReceievedBy: any;RootID: any;Series:any;T_Day: any;
   T_Month: any;T_Year: any;Trans_Medium:any; Trans_Type: any; TransactionKey: any; Type: any; Voucher_No:any; Voucher_Type: any;CurrDate:any;ChoosenDate:any;
-CreatedDate:any;ModifiedDate:any;LoginIp:any;ChequeDDNo:any;PArrear:any;NPArrear:any;CurrentDue:any;Interest:any;VoucherCount:any;};
+CreatedDate:any;ModifiedDate:any;PArrear:any;NPArrear:any;CurrentDue:any;Interest:any;VoucherCount:any;};
   personaldetail: any;
+  output: boolean;
+  count: number=0;
+  no: number=0;
 // newly added
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
@@ -64,7 +68,8 @@ CreatedDate:any;ModifiedDate:any;LoginIp:any;ChequeDDNo:any;PArrear:any;NPArrear
   
 }
   ngOnInit() {
-   console.log(this.formcount)
+    
+console.log(this.formcount)
    for( let i=0;i<this.formcount;i++){
     this.AmountDetail()
     this.addrow();
@@ -74,15 +79,19 @@ CreatedDate:any;ModifiedDate:any;LoginIp:any;ChequeDDNo:any;PArrear:any;NPArrear
  
   }
   ionViewWillEnter(){
+  
     this.addmethod();
- }
+
+   }
 
 
 // newly added
  ionViewDidEnter(){
-    this.new();
-  }
+  this.new();
+ }
+
 new() {
+  
   this.receiptno=[];
   this.storepayment3=[];
  this.storepayment1=[];
@@ -98,17 +107,19 @@ this.day=d.getDate();
 this.month=d.getMonth()+1;
 this.year=d.getFullYear();
 this.currentdate=this.month+"/"+this.day+"/"+this.year;
+this.getvouchercount=(JSON.parse(localStorage.getItem("voucher")))
+this.count=this.getvouchercount
+console.log(this.getvouchercount)
 this.personal=(JSON.parse(localStorage.getItem("personaldatas")))
 console.log(this.personal)
 for(let i=0;i<this.grandtotal.length;i++){
-  this.vouchercounts=[]
   console.log( this.grandtotal[i].BranchName.substring(0,3).toUpperCase()) 
   let receiptno= this.grandtotal[i].BranchName.substring(0,3).toUpperCase()
   let id=this.personal[0].MemberID
-  let count=i
-  let no=count+1
-  this.vouchercounts=no
-  this.receiptno.push(receiptno+id+no)
+  this.count +=1
+  this.no=this.count
+  this.vouchercounts=this.no
+  this.receiptno.push(receiptno+id+this.no)
   console.log(this.receiptno)
 }
 
@@ -125,14 +136,14 @@ for(let i=0;i<this.grandtotal.length;i++){
       Amount: this.payamount,
       AppReceiptno: this.receiptno[i],
       BranchID:this.personal[0].BranchId,
-      ChitGroupId: "",
-      Head_Id: "",
+      ChitGroupId:this.grandtotal[i].ChitGroupId,
+      Head_Id:this.grandtotal[i].Head_Id,
       ISActive: this.personal[0].ISActive,
       IsAccepted:"0",
       IsDeleted:this.personal[0].IsDeleted,
       M_Id:this.personal[0].MemberID, 
       MemberID: this.personal[0].MemberID,
-      MoneyCollId: "",
+      MoneyCollId:this.grandtotal[i].MoneyCollId,
       Narration: "test",
       Other_Trans_Type:"1",
       ReceievedBy: "admin",
@@ -151,8 +162,6 @@ for(let i=0;i<this.grandtotal.length;i++){
       ChoosenDate:this.currentdate,
       CreatedDate:this.currentdate,
       ModifiedDate:this.currentdate,
-      LoginIp:"",
-      ChequeDDNo:"",
       PArrear:this.grandtotal[i].PrizedArrier,
       NPArrear:this.grandtotal[i].NonPrizedArrier,
       CurrentDue:this.grandtotal[i].CurrentDueAmount,
@@ -164,6 +173,7 @@ for(let i=0;i<this.grandtotal.length;i++){
   if(this.grandtotal.length===this.storepayment1.length){
 this.method1(this.storepayment1);
   }
+
 }
 }
   method1(data) {
@@ -208,23 +218,33 @@ console.log(this.storepayment3)
 console.log(this.final)
 console.log(this.final1)
 if(this.final1.length !=="0" && this.final.length !=="0"){
-
-  this.finals.push(this.final1)
-  this.finals.push(this.final)
+for(let i=0;i<this.final1.length;i++){
+  this.finals.push(this.final1[i])
+}
+ 
+for(let i=0;i<this.final.length;i++){
+  this.finals.push(this.final[i])
+}
   
 }
  else if(this.final1.length !=="0"){
   
-  this.finals.push(this.final1[0])
+  for(let i=0;i<this.final1.length;i++){
+    this.finals.push(this.final1[i])
+  }
 }
  else if(this.final.length !=="0"){
  
-  this.finals.push(this.final[0])
+  for(let i=0;i<this.final.length;i++){
+    this.finals.push(this.final[i])
+   
+  }
 }
-
-
-
 console.log(this.finals)
+this.subscribeServ.makepayment(this.finals).subscribe(res=>{
+  console.log(res)
+
+})
   }
 
 // newly added

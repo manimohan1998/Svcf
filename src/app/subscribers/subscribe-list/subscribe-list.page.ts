@@ -87,7 +87,11 @@ ionViewWillEnter(){
     })  
   })
   
- 
+  let count="CPAPP"
+  this.subscribeServ.voucherCount(count).subscribe((res)=>{
+  let voucher=res
+  localStorage.setItem("voucher",JSON.stringify(voucher))
+ }) 
 }
 async presentToast(message) {
   const toast = await this.toastController.create({
