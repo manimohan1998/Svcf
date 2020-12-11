@@ -139,7 +139,7 @@ for(let i=0;i<this.grandtotal.length;i++){
       BranchID:this.personal[0].BranchId,
       ChitGroupId:this.grandtotal[i].ChitGroupId,
       Head_Id:this.grandtotal[i].Head_Id,
-      ISActive: this.personal[0].ISActive,
+      ISActive:"true",
       IsAccepted:"0",
       IsDeleted:this.personal[0].IsDeleted,
       M_Id:this.personal[0].MemberID, 
@@ -250,6 +250,11 @@ for(let i=0;i<this.final.length;i++){
   }
 }
 console.log(this.finals)
+console.log(this.carddata)
+
+for(let i=0;i<this.carddata.length;i++){
+delete this.carddata[i].o
+}
 console.log(this.carddata)
 this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
   console.log(res)
