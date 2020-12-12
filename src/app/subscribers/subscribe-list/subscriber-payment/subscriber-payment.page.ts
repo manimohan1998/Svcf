@@ -48,9 +48,12 @@ export class SubscriberPaymentPage implements OnInit {
   getvouchercount:any=[];
   
 payment_data:{Amount: any;AppReceiptno: String;BranchID: any;ChitGroupId: any; Head_Id: any;ISActive: any;IsAccepted: any; IsDeleted: any;
-  M_Id: any; MemberID: any; MoneyCollId: any;Narration: any;Other_Trans_Type:any;ReceievedBy: any;RootID: any;Series:any;T_Day: any;
-  T_Month: any;T_Year: any;Trans_Medium:any; Trans_Type: any; TransactionKey: any; Type: any; Voucher_No:any; Voucher_Type: any;CurrDate:any;ChoosenDate:any;
-CreatedDate:any;ModifiedDate:any;PArrear:any;NPArrear:any;CurrentDue:any;Interest:any;VoucherCount:any;};
+  M_Id: any; MemberID: any; MoneyCollId: any;Other_Trans_Type:any;ReceievedBy: any;RootID: any;Series:any;T_Day: string;
+  T_Month: string;T_Year: string;Trans_Medium:any; Trans_Type: any; TransactionKey: any; Type: any; Voucher_No:any; Voucher_Type: any;
+// PArrear:any;NPArrear:any;CurrentDue:any;
+Interest:any;
+// VoucherCount:any;
+Narration:any};
   personaldetail: any;
   output: boolean;
   count: number=0;
@@ -93,8 +96,8 @@ console.log(this.formcount)
 
 new() {
   
-  this.receiptno=[];
-  this.storepayment3=[];
+ this.receiptno=[];
+ this.storepayment3=[];
  this.storepayment1=[];
  this.storepayment=[];
  this.card=[];
@@ -139,35 +142,35 @@ for(let i=0;i<this.grandtotal.length;i++){
       BranchID:this.personal[0].BranchId,
       ChitGroupId:this.grandtotal[i].ChitGroupId,
       Head_Id:this.grandtotal[i].Head_Id,
-      ISActive:"true",
+      ISActive:true,
       IsAccepted:"0",
-      IsDeleted:this.personal[0].IsDeleted,
+      IsDeleted:0,
       M_Id:this.personal[0].MemberID, 
       MemberID: this.personal[0].MemberID,
       MoneyCollId:this.grandtotal[i].MoneyCollId,
       Narration: "test",
-      Other_Trans_Type:"1",
+      Other_Trans_Type:1,
       ReceievedBy: "admin",
-      RootID: "5",
+      RootID: "",
       Series:"CPAPP",
-      T_Day: this.day,
-      T_Month: this.month,
-      T_Year: this.year,
+      T_Day: "",
+      T_Month: "",
+      T_Year: "",
       Trans_Medium:"0",
       Trans_Type: "1", 
-      TransactionKey: "0", 
+      TransactionKey:0, 
       Type: "",
-      Voucher_No:"1000",
+      Voucher_No:1000,
       Voucher_Type: "",
-      CurrDate:this.currentdate,
-      ChoosenDate:this.currentdate,
-      CreatedDate:this.currentdate,
-      ModifiedDate:this.currentdate,
-      PArrear:this.grandtotal[i].PrizedArrier,
-      NPArrear:this.grandtotal[i].NonPrizedArrier,
-      CurrentDue:this.grandtotal[i].CurrentDueAmount,
-      Interest:"0",
-      VoucherCount:this.vouchercounts
+      // CurrDate:this.currentdate,
+      // ChoosenDate:this.currentdate,
+      // CreatedDate:this.currentdate,
+      // ModifiedDate:this.currentdate,
+      // PArrear:this.grandtotal[i].PrizedArrier,
+      // NPArrear:this.grandtotal[i].NonPrizedArrier,
+      // CurrentDue:this.grandtotal[i].CurrentDueAmount,
+      Interest:"1",
+      // VoucherCount:this.vouchercounts
     }
 }
   this.storepayment1.push(this.payment_data)
@@ -200,16 +203,26 @@ if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0" 
   this.card1.push("C","D")
  }
  if(this.storepayment.length !=="0"){
+  let d = new Date();
+  let date = ("0" + d.getDate()).slice(-2);
+  let month = ("0" + (d.getMonth() + 1)).slice(-2);
+  let year = ("0" + (d.getFullYear())).slice(1);
   for(let i=0;i<this.storepayment.length;i++){
-    this.final1.push( this.storepayment[i].map((o, i) => ({ ...o, Voucher_Type: this.card1[i], o,Type:"Card"})))
+    this.final1.push( this.storepayment[i].map((o, i) => ({ ...o, Voucher_Type: this.card1[i],o,RootID:i<1?"5":"12",Type:"Card",T_Day:date, T_Month:month,T_Year:year})))
 }
   }
-  for(let i=0;i<this.storepayment3.length;i++){
+  let lengths=this.storepayment3[0].length
+  for(let i=0;i<lengths;i++){
     this.card.push("C","D")
+  
    }
 if(this.storepayment3.length !=="0"){
+  let d = new Date();
+  let date = ("0" + d.getDate()).slice(-2);
+  let month = ("0" + (d.getMonth() + 1)).slice(-2);
+  let year = ("0" + (d.getFullYear())).slice(1);
   for(let i=0;i<this.storepayment3.length;i++){
-    this.final.push(this.storepayment3[i].map((o, i) => ({ ...o, Voucher_Type: this.card[i],o,Type:i>=2?"DefaultInterest":"Card"})))
+    this.final.push(this.storepayment3[i].map((o, i) => ({ ...o, Voucher_Type: this.card[i],o,Type:i>=2?"DefaultInterest":"Card",RootID:i<1?"5":i<2?"12":"11",T_Day:date, T_Month:month,T_Year:year})))
    
 }
   }
