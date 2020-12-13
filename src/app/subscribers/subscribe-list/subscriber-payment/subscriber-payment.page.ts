@@ -50,9 +50,10 @@ export class SubscriberPaymentPage implements OnInit {
 payment_data:{Amount: any;AppReceiptno: String;BranchID: any;ChitGroupId: any; Head_Id: any;ISActive: any;IsAccepted: any; IsDeleted: any;
   M_Id: any; MemberID: any; MoneyCollId: any;Other_Trans_Type:any;ReceievedBy: any;RootID: any;Series:any;T_Day: string;
   T_Month: string;T_Year: string;Trans_Medium:any; Trans_Type: any; TransactionKey: any; Type: any; Voucher_No:any; Voucher_Type: any;
-// PArrear:any;NPArrear:any;CurrentDue:any;
+PArrear:any;NPArrear:any;
+// CurrentDue:any;
 Interest:any;
-// VoucherCount:any;
+VoucherCount:any;
 Narration:any};
   personaldetail: any;
   output: boolean;
@@ -166,11 +167,11 @@ for(let i=0;i<this.grandtotal.length;i++){
       // ChoosenDate:this.currentdate,
       // CreatedDate:this.currentdate,
       // ModifiedDate:this.currentdate,
-      // PArrear:this.grandtotal[i].PrizedArrier,
-      // NPArrear:this.grandtotal[i].NonPrizedArrier,
+      PArrear:this.grandtotal[i].PrizedArrier,
+      NPArrear:this.grandtotal[i].NonPrizedArrier,
       // CurrentDue:this.grandtotal[i].CurrentDueAmount,
       Interest:"1",
-      // VoucherCount:this.vouchercounts
+      VoucherCount:this.vouchercounts
     }
 }
   this.storepayment1.push(this.payment_data)
@@ -269,7 +270,16 @@ for(let i=0;i<this.carddata.length;i++){
 delete this.carddata[i].o
 }
 console.log(this.carddata)
-this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
+// this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
+//   console.log(res)
+
+// })
+for(let i=0;i<this.carddata.length;i++)
+this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,
+  this.carddata[i].Head_Id,this.carddata[i].ISActive,this.carddata[i].IsAccepted,this.carddata[i].IsDeleted,this.carddata[i].M_Id,this.carddata[i].MemberID,
+  this.carddata[i].MoneyCollId,this.carddata[i].Narration,this.carddata[i].Other_Trans_Type,this.carddata[i].ReceievedBy,this.carddata[i].RootID,this.carddata[i].Series,
+  this.carddata[i].T_Day,this.carddata[i].T_Month,this.carddata[i].T_Year,this.carddata[i].Trans_Medium,this.carddata[i].Trans_Type,this.carddata[i].TransactionKey,this.carddata[i].Type,
+  this.carddata[i].Voucher_No,this.carddata[i].Voucher_Type,this.carddata[i].PArrear,this.carddata[i].NPArrear,this.carddata[i].Interest,this.carddata[i].VoucherCount).subscribe(res=>{
   console.log(res)
 
 })
@@ -383,26 +393,26 @@ RazorpayCheckout.open(options)
 
 
 makePayment(payment){
-this.storepayment=[];
-var mem_id=localStorage.getItem('memberid')
-  for(let i=0;i<this.grandtotal.length;i++){
-    if(this.grandtotal[i].CurrentDueAmount){
-      let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
-      this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
-        MemberId:mem_id,PayableAmount :this.grandtotal[i].CurrentDueAmount,
-        ArrierAmount  :arrearamount,
-        InterestAmount:0,
-        Prized:this.grandtotal[i].IsPrized,
-        Branch :this.grandtotal[i].BranchName,
-        Current_insta_no :this.grandtotal[i].Runningcall}
-    }
-  this.storepayment.push(this.payment_detail)
-  this.subscribeServ.makepayment(this.storepayment).subscribe(res=>{
-       console.log(res)
-       console.log(payment)
-       this.router.navigate(["subscribe-list/subscriber-recepit"])
-    })
-  }
+// this.storepayment=[];
+// var mem_id=localStorage.getItem('memberid')
+//   for(let i=0;i<this.grandtotal.length;i++){
+//     if(this.grandtotal[i].CurrentDueAmount){
+//       let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
+//       this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
+//         MemberId:mem_id,PayableAmount :this.grandtotal[i].CurrentDueAmount,
+//         ArrierAmount  :arrearamount,
+//         InterestAmount:0,
+//         Prized:this.grandtotal[i].IsPrized,
+//         Branch :this.grandtotal[i].BranchName,
+//         Current_insta_no :this.grandtotal[i].Runningcall}
+//     }
+//   this.storepayment.push(this.payment_detail)
+//   this.subscribeServ.makepayment(this.storepayment).subscribe(res=>{
+//        console.log(res)
+//        console.log(payment)
+//        this.router.navigate(["subscribe-list/subscriber-recepit"])
+//     })
+//   }
 
 }
 ngOnDestroy(){
