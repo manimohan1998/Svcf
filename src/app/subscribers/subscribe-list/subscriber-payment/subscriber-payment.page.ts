@@ -170,7 +170,7 @@ for(let i=0;i<this.grandtotal.length;i++){
       PArrear:this.grandtotal[i].PrizedArrier,
       NPArrear:this.grandtotal[i].NonPrizedArrier,
       // CurrentDue:this.grandtotal[i].CurrentDueAmount,
-      Interest:"1",
+      Interest:"0",
       VoucherCount:this.vouchercounts
     }
 }
@@ -212,10 +212,13 @@ if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0" 
     this.final1.push( this.storepayment[i].map((o, i) => ({ ...o, Voucher_Type: this.card1[i],o,RootID:i<1?"5":"12",Type:"Card",T_Day:date, T_Month:month,T_Year:year})))
 }
   }
-  let lengths=this.storepayment3[0].length
-  for(let i=0;i<lengths;i++){
-    this.card.push("C","D")
-  
+  if(this.storepayment3.length !="0"){
+    let lengths=this.storepayment3[0].length
+    for(let i=0;i<lengths;i++){
+      this.card.push("C","D")
+    
+  }
+ 
    }
 if(this.storepayment3.length !=="0"){
   let d = new Date();
