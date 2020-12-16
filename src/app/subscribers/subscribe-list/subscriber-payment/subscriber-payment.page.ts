@@ -273,19 +273,19 @@ for(let i=0;i<this.carddata.length;i++){
 delete this.carddata[i].o
 }
 console.log(this.carddata)
-// this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
-//   console.log(res)
-
-// })
-for(let i=0;i<this.carddata.length;i++)
-this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,
-  this.carddata[i].Head_Id,this.carddata[i].ISActive,this.carddata[i].IsAccepted,this.carddata[i].IsDeleted,this.carddata[i].M_Id,this.carddata[i].MemberID,
-  this.carddata[i].MoneyCollId,this.carddata[i].Narration,this.carddata[i].Other_Trans_Type,this.carddata[i].ReceievedBy,this.carddata[i].RootID,this.carddata[i].Series,
-  this.carddata[i].T_Day,this.carddata[i].T_Month,this.carddata[i].T_Year,this.carddata[i].Trans_Medium,this.carddata[i].Trans_Type,this.carddata[i].TransactionKey,this.carddata[i].Type,
-  this.carddata[i].Voucher_No,this.carddata[i].Voucher_Type,this.carddata[i].PArrear,this.carddata[i].NPArrear,this.carddata[i].Interest,this.carddata[i].VoucherCount).subscribe(res=>{
+this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
   console.log(res)
 
 })
+// for(let i=0;i<this.carddata.length;i++)
+// this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,
+//   this.carddata[i].Head_Id,this.carddata[i].ISActive,this.carddata[i].IsAccepted,this.carddata[i].IsDeleted,this.carddata[i].M_Id,this.carddata[i].MemberID,
+//   this.carddata[i].MoneyCollId,this.carddata[i].Narration,this.carddata[i].Other_Trans_Type,this.carddata[i].ReceievedBy,this.carddata[i].RootID,this.carddata[i].Series,
+//   this.carddata[i].T_Day,this.carddata[i].T_Month,this.carddata[i].T_Year,this.carddata[i].Trans_Medium,this.carddata[i].Trans_Type,this.carddata[i].TransactionKey,this.carddata[i].Type,
+//   this.carddata[i].Voucher_No,this.carddata[i].Voucher_Type,this.carddata[i].PArrear,this.carddata[i].NPArrear,this.carddata[i].Interest,this.carddata[i].VoucherCount).subscribe(res=>{
+//   console.log(res)
+
+// })
   }
 
 // newly added
