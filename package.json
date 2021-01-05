@@ -21,6 +21,7 @@
     "@angular/router": "~10.0.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/dialogs": "^5.28.0",
+    "@ionic-native/http": "^5.30.0",
     "@ionic-native/network": "^5.28.0",
     "@ionic-native/social-sharing": "^5.28.0",
     "@ionic-native/splash-screen": "^5.0.0",
