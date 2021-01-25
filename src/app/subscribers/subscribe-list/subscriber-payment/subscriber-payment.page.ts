@@ -124,7 +124,8 @@ for(let i=0;i<this.grandtotal.length;i++){
   this.count +=1
   this.no=this.count
   this.vouchercounts=this.no
-  this.receiptno.push(receiptno+id+this.no)
+  let customer="C-"
+  this.receiptno.push(customer+this.grandtotal[i].BranchPrefix+this.no)
   console.log(this.receiptno)
 }
 
