@@ -15,6 +15,7 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   user: string;
   member_id:any;
+  token: any;
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService,public toastController: ToastController) { 
     this.loginForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -37,7 +38,10 @@ export class LoginPage implements OnInit {
         this.commonserv.loginCredentials(val.name,val.password).subscribe(res=>{
           console.log(res)
           this.member_id = res['MemberIDNew']
-          localStorage.setItem('memberid',this.member_id)
+          this.token=res["JWToken"]
+          console.log(this.token)
+          localStorage.setItem('memberid',this.member_id) 
+          localStorage.setItem('token',this.token) 
           if(res['Message'] === "Login Details Correct" && val['name'].length === val['password'].length){
             this.router.navigate(['/reset'])
             this.presentToast("Please Reset Your Password");

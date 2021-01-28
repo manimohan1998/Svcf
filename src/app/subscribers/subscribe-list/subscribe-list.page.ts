@@ -38,8 +38,13 @@ export class SubscribeListPage implements OnInit {
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
   }
-ngOnInit() {
+async ngOnInit() {
   this.arrayvalue=[];
+  const loading = await this.loadingcontroller.create({
+    message: 'Please Wait',
+    translucent: true,
+  });
+  await loading.present();
   let memidnew=localStorage.getItem('memberid')
     this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
       console.log(res)
@@ -52,6 +57,7 @@ ngOnInit() {
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
       localStorage.setItem("personaldatas",JSON.stringify(this.personaldetail))
+      loading.dismiss();
   }) 
     
 }
@@ -91,6 +97,7 @@ ionViewWillEnter(){
   let count="CPAPP"
   this.subscribeServ.voucherCount(count).subscribe((res)=>{
   let voucher=res
+  console.log(res)
   localStorage.setItem("voucher",JSON.stringify(voucher))
  }) 
 }

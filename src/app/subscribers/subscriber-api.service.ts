@@ -28,5 +28,7 @@ export class SubscriberApiService {
   voucherCount(count){
     return this.http.get(environment.url+'GetReceiptNo?series='+count)
   }
-  
+  receipt(){
+    return this.http.get(environment.url+'ReceiptPrint')
+  }
 }

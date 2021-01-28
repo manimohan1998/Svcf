@@ -22,9 +22,12 @@ public sendTo   : any;
  
   ngOnInit() {
     
-    // this.subscribeServ.ReceiveRecipt(id).subscribe(res=>{
-    //    console.log(res)
-    // })
+  
+  }
+  ionViewWillEnter(){
+   this.subscribeServ.receipt().subscribe(res=>{
+      console.log(res)
+   })
   }
   back(){
 this.router.navigate(["/subscribe-list"])
