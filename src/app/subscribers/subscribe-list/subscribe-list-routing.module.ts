@@ -19,7 +19,11 @@ const routes: Routes = [
   {
     path: 'person-detail',
     loadChildren: () => import('./person-detail/person-detail.module').then( m => m.PersonDetailPageModule)
+  },  {
+    path: 'payment-success',
+    loadChildren: () => import('./payment-success/payment-success.module').then( m => m.PaymentSuccessPageModule)
   }
+
 ];
 
 @NgModule({

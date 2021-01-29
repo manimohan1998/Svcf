@@ -280,7 +280,7 @@ this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
     queryParams: { states:JSON.stringify(res)},
     
   };
-this.router.navigate(["/subscribe-list/subscriber-recepit"],navigationExtras)
+this.router.navigate(["/subscribe-list/payment-success"],navigationExtras)
 })
 // for(let i=0;i<this.carddata.length;i++)
 // this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,

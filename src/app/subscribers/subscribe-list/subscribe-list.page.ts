@@ -38,13 +38,13 @@ export class SubscribeListPage implements OnInit {
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
   }
-async ngOnInit() {
+ ngOnInit() {
   this.arrayvalue=[];
-  const loading = await this.loadingcontroller.create({
-    message: 'Please Wait',
-    translucent: true,
-  });
-  await loading.present();
+  // const loading = await this.loadingcontroller.create({
+  //   message: 'Please Wait',
+  //   translucent: true,
+  // });
+  // await loading.present();
   let memidnew=localStorage.getItem('memberid')
     this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
       console.log(res)
@@ -58,42 +58,66 @@ async ngOnInit() {
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
       localStorage.setItem("personaldatas",JSON.stringify(this.personaldetail))
-      loading.dismiss();
+      // loading.dismiss();
   }) 
     
 }
-ionViewWillEnter(){
+async ionViewWillEnter(){
   this.userlist3=[];
   this.arrayvalue=[];
-  this.platform.ready().then(()=>{
-    this.loadingcontroller.create({
-      message:"loading..."
-    }).then((HTMLIonLoadingElement)=>{
-      HTMLIonLoadingElement.present();
-      this.ref=this;
+   const loading = await this.loadingcontroller.create({
+    message: 'Please Wait',
+    translucent: true,
+  });
+  await loading.present();
         this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
-        this.ref.loadingcontroller.dismiss();
+       
         this.userlist1=(res['chits']) 
         if (Array.isArray(this.userlist1) && this.userlist1.length){ 
-               this.output = true; 
-        }
-            else {this.output = false; this.ionViewWillEnter()}
-         if(this.output===true){       
-        for(let i=0;i<this.userlist1.length;i++){
+       for(let i=0;i<this.userlist1.length;i++){
     if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
         this.userlist3.push(this.userlist1[i]);
         this.chit_length=this.userlist3.length
-        }}
-     if(this.chit_length===0){
-          this.presentToast("You Have No Runnning Chits");
-        }  
-      }
+        loading.dismiss();
+        }}}
+    //  if(this.chit_length===0){
+    //       this.presentToast("You Have No Runnning Chits");
+    //     }  
+      
       },error=>{
         alert(console.log(error));
       }) ;
     
-    })  
-  })
+
+  // this.platform.ready().then(()=>{
+  //   this.loadingcontroller.create({
+  //     message:"loading..."
+  //   }).then((HTMLIonLoadingElement)=>{
+  //     HTMLIonLoadingElement.present();
+  //     this.ref=this;
+  //       this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
+  //       this.ref.loadingcontroller.dismiss();
+  //       this.userlist1=(res['chits']) 
+  //       if (Array.isArray(this.userlist1) && this.userlist1.length){ 
+  //              this.output = true; 
+  //       }
+  //           else {this.output = false; this.ionViewWillEnter()}
+  //        if(this.output===true){       
+  //       for(let i=0;i<this.userlist1.length;i++){
+  //   if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
+  //       this.userlist3.push(this.userlist1[i]);
+  //       this.chit_length=this.userlist3.length
+  //       }}
+  //    if(this.chit_length===0){
+  //         this.presentToast("You Have No Runnning Chits");
+  //       }  
+  //     }
+  //     },error=>{
+  //       alert(console.log(error));
+  //     }) ;
+    
+  //   })  
+  // })
   
   let count="CPAPP"
   this.subscribeServ.voucherCount(count).subscribe((res)=>{

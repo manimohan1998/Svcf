@@ -25,19 +25,7 @@ public sendTo   : any;
 
   constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,
     private router:Router,public route: ActivatedRoute,private fb:FormBuilder) { 
-   this.route.queryParams.subscribe(params => {
-      console.log(params.states)
-      if(params.states !=undefined){
-      this.payment_details = JSON.parse(params.states);
-      console.log(this.payment_details)
-      for(let i=0;i<this.payment_details.listVou.length;i++){
-         this.subscribeServ.receipt(this.payment_details.listVou[i]).subscribe(res=>{
-            console.log(res)
-         })
-      }
-   }
-
-    })
+   
     this.dateform = this.fb.group({
       startdate: ['', Validators.required],
       enddate: ['', Validators.required],
@@ -57,8 +45,8 @@ this.router.navigate(["/subscribe-list"])
   datefilter(dates){
     let enddate=dates.enddate;
     let startdate=dates.enddate;
-   let start= format(new Date(enddate), "dd-MM-yyyy");
-   let end= format(new Date(startdate), "dd-MM-yyyy");
+   let start= format(new Date(enddate), "yyyy/MM/dd");
+   let end= format(new Date(startdate), "yyyy/MM/dd");
 console.log(start,end)
 let customerid=localStorage.getItem("memberid")
 this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
