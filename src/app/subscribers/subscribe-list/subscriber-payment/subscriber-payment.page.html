@@ -23,7 +23,10 @@
               <p>Total Chit Value:<span>Rs.{{this.payment_details[i].ChitValue}}</span></p>
               <p class="chit_no">{{this.payment_details[i].ChitNo}}</p>
             </ion-card-header>
-            <ion-card-content>
+            <ion-card-content class="chit_details_sec">
+              <div  class="chit_status"  [ngClass]="this.payment_details[i].IsPrized === 'Y'?'green':'red'">
+                <p>{{this.payment_details[i].IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
+            </div>
               <ion-item>
                 <ion-label position="stacked">Amount Payable</ion-label>
                 <ion-input formControlName="AmountPayable" type="number" value="" placeholder="Amount Payable" readonly>

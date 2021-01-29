@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import {Router, ActivatedRoute} from'@angular/router';
+import {Router, ActivatedRoute,NavigationExtras} from'@angular/router';
 
 import { SubscriberApiService } from '../../subscriber-api.service';
 
@@ -276,7 +276,11 @@ delete this.carddata[i].o
 console.log(this.carddata)
 this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
   console.log(res)
-
+  let navigationExtras: NavigationExtras = {
+    queryParams: { states:JSON.stringify(res)},
+    
+  };
+this.router.navigate(["/subscribe-list/subscriber-recepit"],navigationExtras)
 })
 // for(let i=0;i<this.carddata.length;i++)
 // this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,

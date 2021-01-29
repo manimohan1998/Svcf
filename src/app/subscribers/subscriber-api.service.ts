@@ -28,7 +28,10 @@ export class SubscriberApiService {
   voucherCount(count){
     return this.http.get(environment.url+'GetReceiptNo?series='+count)
   }
-  receipt(){
-    return this.http.get(environment.url+'ReceiptPrint')
+  receipt(id){
+    return this.http.get(environment.url+'ReceiptPrint?appReceiptno='+id+'&series=CPAPP')
+  }
+  receipthistory(start,end,customerid){
+    return this.http.get(environment.url+'ReceiptsHistorymemberId='+customerid+'&from='+start+'&to='+end+'')
   }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SubscriberApiService } from '../../subscriber-api.service';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx'
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {format} from "date-fns";
 @Component({
   selector: 'app-subscriber-recepit',
   templateUrl: './subscriber-recepit.page.html',
@@ -14,24 +16,56 @@ export class SubscriberRecepitPage implements OnInit {
   
 public sendTo   : any; 
   public subject  : string = 'Message from Social Sharing App';
+   payment_details: any=[];
+   dateform: FormGroup;
+   currentdate:string;
 
 
 
 
-  constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing, private router:Router) { }
+  constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,
+    private router:Router,public route: ActivatedRoute,private fb:FormBuilder) { 
+   this.route.queryParams.subscribe(params => {
+      console.log(params.states)
+      if(params.states !=undefined){
+      this.payment_details = JSON.parse(params.states);
+      console.log(this.payment_details)
+      for(let i=0;i<this.payment_details.listVou.length;i++){
+         this.subscribeServ.receipt(this.payment_details.listVou[i]).subscribe(res=>{
+            console.log(res)
+         })
+      }
+   }
+
+    })
+    this.dateform = this.fb.group({
+      startdate: ['', Validators.required],
+      enddate: ['', Validators.required],
+      });
+  }
  
   ngOnInit() {
-    
+ 
   
   }
   ionViewWillEnter(){
-   this.subscribeServ.receipt().subscribe(res=>{
-      console.log(res)
-   })
+  
   }
   back(){
 this.router.navigate(["/subscribe-list"])
   }
+  datefilter(dates){
+    let enddate=dates.enddate;
+    let startdate=dates.enddate;
+   let start= format(new Date(enddate), "dd-MM-yyyy");
+   let end= format(new Date(startdate), "dd-MM-yyyy");
+console.log(start,end)
+let customerid=localStorage.getItem("memberid")
+this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
+   console.log(res)
+})
+  }
+
 shareViaEmail(img){
          this.socialshare.canShareViaEmail().then(() => {
             this.socialshare.shareViaEmail(img, this.subject, this.sendTo) .then((data) =>{

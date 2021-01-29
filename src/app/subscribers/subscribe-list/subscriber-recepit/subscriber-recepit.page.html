@@ -12,6 +12,14 @@
     <div class="page_title">
       <h3>Summary</h3>
     </div>
+  <form [formGroup]="dateform" (ngSubmit)="datefilter(dateform.value)">
+    <ion-row>
+      <ion-datetime display-format="DD:MM:YYYY"  formControlName="startdate" placeholder="--START DATE--"></ion-datetime>
+      <ion-datetime display-format="DD:MM:YYYY"  formControlName="enddate" placeholder="--END DATE--"></ion-datetime>
+      <ion-button [disabled]="!dateform.valid" type="submit">filter</ion-button>
+    </ion-row>
+   
+  </form>
   </section>
 
   <div *ngFor="let img of data">
