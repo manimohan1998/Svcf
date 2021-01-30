@@ -40,6 +40,7 @@ export class LoginPage implements OnInit {
           this.member_id = res['MemberIDNew']
           this.token=res["JWToken"]
           console.log(this.token)
+          console.log(this.member_id)
           localStorage.setItem('memberid',this.member_id) 
           localStorage.setItem('token',this.token) 
           if(res['Message'] === "Login Details Correct" && val['name'].length === val['password'].length){

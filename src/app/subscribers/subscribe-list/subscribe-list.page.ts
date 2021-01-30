@@ -60,7 +60,7 @@ async ionViewWillEnter(){
       localStorage.setItem("subid",this.sub_id)
       this.customername=this.personaldetail[0].CustomerName
       this.customerid=this.personaldetail[0].MemberID
-      localStorage.setItem("memberid",this.customerid)
+      // localStorage.setItem("memberid",this.customerid)
       console.log(this.mem_id,this.sub_id)
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
