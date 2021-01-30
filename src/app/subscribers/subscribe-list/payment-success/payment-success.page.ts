@@ -9,6 +9,9 @@ import { SubscriberApiService } from '../../subscriber-api.service';
 })
 export class PaymentSuccessPage implements OnInit {
   payment_details: any=[];
+  receiptdata: any=[];
+  arrearamount: number;
+  arrears: any=[];
 
   constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute) { 
     this.route.queryParams.subscribe(params => {
@@ -19,7 +22,17 @@ export class PaymentSuccessPage implements OnInit {
       for(let i=0;i<this.payment_details.listVou.length;i++){
          this.subscribeServ.receipt(this.payment_details.listVou[i]).subscribe(res=>{
             console.log(res)
+            this.receiptdata=res["lstReceipt"]
+            console.log(this.receiptdata)
+            for(let j=0;j<this.receiptdata.length;j++){
+              this.arrearamount=0;
+              this.arrearamount +=(parseFloat(this.receiptdata[j].NPArrear))
+              this.arrearamount +=(parseFloat(this.receiptdata[j].PArrear))
+              this.arrears.push(this.arrearamount)
+              console.log(this.arrears)
+             }
          })
+        
       }
    }
 
@@ -28,5 +41,7 @@ export class PaymentSuccessPage implements OnInit {
 
   ngOnInit() {
   }
-
+  paymentsuccess(){
+    this.router.navigate(["/subscribe-list"])
+  }
 }

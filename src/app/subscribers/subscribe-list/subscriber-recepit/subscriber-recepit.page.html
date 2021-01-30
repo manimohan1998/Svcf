@@ -22,13 +22,13 @@
   </form>
   </section>
 
-  <div *ngFor="let img of data">
+  <div *ngFor="let data of receiptdata;let i=index">
     <ion-card class="card_bg">
       <ion-card-content>
           <div class="ofz_img">
             <img src="../../../assets/images/img.png">
             <div class="branch_name">
-              <p>Branch Name:<span>New street branch</span></p>
+              <p>Branch Name:<span>{{data.branchName}}</span></p>
               <p>Form No: <span>VF1</span></p>
             </div>
           </div>
@@ -55,17 +55,26 @@
             </h3>
             <div class="receipt_no">
               <p>AGT No: <span>#1234</span></p>
-              <p>Online Payment Receipt No: <span>03</span></p>
+              <p>Online Payment Receipt No: <span>{{data.appReceiptno}}</span></p>
             </div>
             <table class="table receipt_amts">
               <tbody>
-
+                <tr>
+                  <th>chitNo</th>
+                  <td>:</td>
+                  <td>{{data.chitNo}}</td>
+                </tr>
+                <tr>
                 <tr>
                   <th>Received From</th>
                   <td>:</td>
                   <td>ghjghjbj</td>
                 </tr>
-
+                <tr>
+                  <th>Current Due</th>
+                  <td>:</td>
+                  <td>Rs.{{data.currentDue}}</td>
+                </tr>
                 <tr>
                   <th>Current Inst No (03)</th>
                   <td>:</td>
@@ -75,9 +84,11 @@
                 <tr>
                   <th>Arrears</th>
                   <td>:</td>
-                  <td>Rs. 00.00</td>
+                  <td>Rs. {{this.arrears1[i]}}</td>
                 </tr>
                 <tr>
+              
+                  <tr>
                   <th>Penalty For Over Due</th>
                   <td>:</td>
                   <td>Rs. 00.00</td>
@@ -87,6 +98,11 @@
                   <td>:</td>
                   <td>Rs. 00.00</td>
                 </tr>
+                <tr>
+                  <th>Paid Date</th>
+                  <td>:</td>
+                  <td>{{data.paidDate}}</td>
+                </tr>
 
               </tbody>
             </table>
@@ -95,7 +111,7 @@
     </ion-card>
   </div>
 
-  <p class="grand_total">Grand Total:<span>Rs.00.00</span>
+  <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
   </p>
 </ion-content>
 

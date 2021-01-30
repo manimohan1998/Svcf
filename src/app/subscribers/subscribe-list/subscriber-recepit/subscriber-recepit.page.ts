@@ -4,6 +4,7 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx'
 import { Router, ActivatedRoute } from '@angular/router';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {format} from "date-fns";
+import { ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-subscriber-recepit',
   templateUrl: './subscriber-recepit.page.html',
@@ -19,12 +20,18 @@ public sendTo   : any;
    payment_details: any=[];
    dateform: FormGroup;
    currentdate:string;
+   receiptdata: any=[];
+   arrearamount: number;
+   arrears: any=[];
+   grandtotal: number;
+   arrearamount1: number;
+   arrears1: any=[];
 
 
 
 
   constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,
-    private router:Router,public route: ActivatedRoute,private fb:FormBuilder) { 
+    private router:Router,public route: ActivatedRoute,private fb:FormBuilder,public toastController: ToastController) { 
    
     this.dateform = this.fb.group({
       startdate: ['', Validators.required],
@@ -43,6 +50,7 @@ public sendTo   : any;
 this.router.navigate(["/subscribe-list"])
   }
   datefilter(dates){
+   this.arrears=[]
     let enddate=dates.enddate;
     let startdate=dates.enddate;
    let start= format(new Date(enddate), "yyyy/MM/dd");
@@ -51,8 +59,39 @@ console.log(start,end)
 let customerid=localStorage.getItem("memberid")
 this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
    console.log(res)
+   this.receiptdata=res["AllReceipts"]
+   console.log(this.receiptdata)
+   for(let j=0;j<this.receiptdata.length;j++){
+     this.arrearamount=0;
+     this.arrearamount +=(parseFloat(this.receiptdata[j].currentDue))
+     this.arrears.push(this.arrearamount)
+     console.log(this.arrears)
+     for(let k=0;k<this.arrears.length;k++){
+     this.grandtotal=this.arrears[k]
+     }
+    }
+    for(let j=0;j<this.receiptdata.length;j++){
+      this.arrearamount1=0;
+      this.arrearamount1 +=(parseFloat(this.receiptdata[j].nonPrizedArrear))
+      this.arrearamount1 +=(parseFloat(this.receiptdata[j].prizedArrear))
+      this.arrears1.push(this.arrearamount1)
+      console.log(this.arrears1)
+    }
+    if(Array.isArray(this.receiptdata) && this.receiptdata.length){
+
+    }
+    else{
+      this.presentToast("no data")
+    }
 })
   }
+  async presentToast(message) {
+   const toast = await this.toastController.create({
+       message: message,
+       duration: 2000
+    });
+     toast.present();
+ }
 
 shareViaEmail(img){
          this.socialshare.canShareViaEmail().then(() => {
