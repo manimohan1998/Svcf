@@ -12,7 +12,7 @@
           <div class="ofz_img">
             <img src="../../../assets/images/img.png">
             <div class="branch_name">
-              <p>Branch Name:<span>{{data.BranchName}}</span></p>
+              <p>Branch Name:<span>{{data[0].BranchName}}</span></p>
               <p>Form No: <span>VF1</span></p>
             </div>
           </div>
@@ -38,8 +38,8 @@
               CD/REC.SERIES
             </h3>
             <div class="receipt_no">
-              <p>AGT No: <span>#1234</span></p>
-              <p>Online Payment Receipt No: <span>{{data.AppReceiptno}}</span></p>
+              <p>AGT No: <span>#{{data[0].AgreementNo}}</span></p>
+              <p>Online Payment Receipt No: <span>{{data[0].AppReceiptno}}</span></p>
             </div>
             <table class="table receipt_amts">
               <tbody>
@@ -47,18 +47,18 @@
                 <tr>
                   <th>  ChitNumber</th>
                   <td>:</td>
-                  <td>{{data.ChitNumber}}</td>
+                  <td>{{data[0].ChitNumber}}</td>
                 </tr>
                 <tr>
                   <th>Received From</th>
                   <td>:</td>
-                  <td>ghjghjbj</td>
+                  <td>{{data[0].CustomerName}}</td>
                 </tr>
 
                 <tr>
-                  <th>Current Inst No (03)</th>
+                  <th>Current Inst No</th>
                   <td>:</td>
-                  <td>Rs. 00.00</td>
+                  <td>{{data[0].CurrentInstno}}</td>
                 </tr>
 
                 <tr>
@@ -69,27 +69,27 @@
                 <tr>
                   <th>Penalty For Over Due</th>
                   <td>:</td>
-                  <td>Rs. {{data.Interest}}</td>
+                  <td>Rs. {{data[0].Interest}}</td>
                 </tr>
                 <tr>
                   <th>Other Receipts</th>
                   <td>:</td>
-                  <td>Rs. 00.00</td>
+                  <td>Rs.{{data[0].OtherReceipts}}</td>
                 </tr>
                 <tr>
                   <th>Total paid</th>
                   <td>:</td>
-                  <td>Rs. {{data.TotalPaid}}</td>
+                  <td>Rs. {{data[0].TotalPaid}}</td>
                 </tr>
                 <tr>
                   <th>Series</th>
                   <td>:</td>
-                  <td>Rs. {{data.Series}}</td>
+                  <td>{{data[0].Series}}</td>
                 </tr>
                 <tr>
                   <th>ReceiptDate</th>
                   <td>:</td>
-                  <td>Rs. {{data.ReceiptDate}}</td>
+                  <td>{{data[0].ReceiptDate}}</td>
                 </tr>
 
               </tbody>

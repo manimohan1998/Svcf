@@ -86,217 +86,10 @@ console.log(this.formcount)
   ionViewWillEnter(){
   
     this.addmethod();
-
+    let values=10
+    let number=this.padLeadingZeros(values, 8);
+    console.log(number)
    }
-
-
-// newly added
- ionViewDidEnter(){
-  this.new();
- }
-
-new() {
-  
- this.receiptno=[];
- this.storepayment3=[];
- this.storepayment1=[];
- this.storepayment=[];
- this.card=[];
- this.card1=[];
- this.final=[];
- this.final1=[];
- this.finals=[];
- this.vouchercounts=[];
-let d = new Date();
-this.day=d.getDate();
-this.month=d.getMonth()+1;
-this.year=d.getFullYear();
-this.currentdate=this.month+"/"+this.day+"/"+this.year;
-this.getvouchercount=(JSON.parse(localStorage.getItem("voucher")))
-this.count=this.getvouchercount
-console.log(this.getvouchercount)
-this.personal=(JSON.parse(localStorage.getItem("personaldatas")))
-console.log(this.personal)
-for(let i=0;i<this.grandtotal.length;i++){
-  console.log( this.grandtotal[i].BranchName.substring(0,3).toUpperCase()) 
-  let receiptno= this.grandtotal[i].BranchName.substring(0,3).toUpperCase()
-  let id=this.personal[0].MemberID
-  this.count +=1
-  this.no=this.count
-  this.vouchercounts=this.no
-  let customer="C-"
-  this.receiptno.push(customer+this.grandtotal[i].BranchPrefix+this.no)
-  console.log(this.receiptno)
-}
-
-for(let i=0;i<this.grandtotal.length;i++){
-  
-  if(this.grandtotal[i].CurrentDueAmount){
-   this.payamount=0;
-   this.arrearamount=parseFloat(this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier)
-   this.Amounts=parseFloat(this.grandtotal[i].CurrentDueAmount)
-   this.payamount +=this.arrearamount
-   this.payamount +=this.Amounts
-  
-    this.payment_data={
-      Amount: this.payamount,
-      AppReceiptno: this.receiptno[i],
-      BranchID:this.personal[0].BranchId,
-      ChitGroupId:this.grandtotal[i].ChitGroupId,
-      Head_Id:this.grandtotal[i].Head_Id,
-      ISActive:true,
-      IsAccepted:"0",
-      IsDeleted:0,
-      M_Id:this.personal[0].MemberID, 
-      MemberID: this.personal[0].MemberID,
-      MoneyCollId:this.grandtotal[i].MoneyCollId,
-      Narration: "test",
-      Other_Trans_Type:1,
-      ReceievedBy: "admin",
-      RootID: "",
-      Series:"CPAPP",
-      T_Day: "",
-      T_Month: "",
-      T_Year: "",
-      Trans_Medium:"0",
-      Trans_Type: "1", 
-      TransactionKey:0, 
-      Type: "",
-      Voucher_No:1000,
-      Voucher_Type: "",
-      // CurrDate:this.currentdate,
-      // ChoosenDate:this.currentdate,
-      // CreatedDate:this.currentdate,
-      // ModifiedDate:this.currentdate,
-      PArrear:this.grandtotal[i].PrizedArrier,
-      NPArrear:this.grandtotal[i].NonPrizedArrier,
-      // CurrentDue:this.grandtotal[i].CurrentDueAmount,
-      Interest:"0",
-      VoucherCount:this.vouchercounts
-    }
-}
-  this.storepayment1.push(this.payment_data)
-  if(this.grandtotal.length===this.storepayment1.length){
-this.method1(this.storepayment1);
-  }
-
-}
-}
-  method1(data) {
-    this.storepayment2=data;
-    console.log(this.storepayment2)
-for(let i=0;i<this.storepayment2.length;i++){
-if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0" && this.storepayment2[i].Interest !==""){
-  
-  let filledArray = new Array(2).fill(this.storepayment2[i]);
-  this.storepayment.push(filledArray)
-
-    }
-    if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest !=="0"&& this.storepayment2[i].Interest !==""){
-    let filledArray = new Array(4).fill(this.storepayment2[i]);
-    this.storepayment3.push(filledArray)
-     
-      }
-    }
- console.log(this.storepayment)
- console.log(this.storepayment3)
- 
- for(let i=0;i<this.storepayment.length;i++){
-  this.card1.push("C","D")
- }
- if(this.storepayment.length !=="0"){
-  let d = new Date();
-  let date = ("0" + d.getDate()).slice(-2);
-  let month = ("0" + (d.getMonth() + 1)).slice(-2);
-  let year = ("0" + (d.getFullYear())).slice(1);
-  for(let i=0;i<this.storepayment.length;i++){
-    this.final1.push( this.storepayment[i].map((o, i) => ({ ...o, Voucher_Type: this.card1[i],o,RootID:i<1?"5":"12",Type:"Card",T_Day:date, T_Month:month,T_Year:year})))
-}
-  }
-  if(this.storepayment3.length !="0"){
-    let lengths=this.storepayment3[0].length
-    for(let i=0;i<lengths;i++){
-      this.card.push("C","D")
-    
-  }
- 
-   }
-if(this.storepayment3.length !=="0"){
-  let d = new Date();
-  let date = ("0" + d.getDate()).slice(-2);
-  let month = ("0" + (d.getMonth() + 1)).slice(-2);
-  let year = ("0" + (d.getFullYear())).slice(1);
-  for(let i=0;i<this.storepayment3.length;i++){
-    this.final.push(this.storepayment3[i].map((o, i) => ({ ...o, Voucher_Type: this.card[i],o,Type:i>=2?"DefaultInterest":"Card",RootID:i<1?"5":i<2?"12":"11",T_Day:date, T_Month:month,T_Year:year})))
-   
-}
-  }
-console.log(this.card)
-console.log(this.card1)
-console.log(this.storepayment3)
-console.log(this.final)
-console.log(this.final1)
-if(this.final1.length !=="0" && this.final.length !=="0"){
-for(let i=0;i<this.final1.length;i++){
-  this.finals.push(this.final1[i])
-        this.carddata = [].concat.apply([], this.finals);
-
-}
- 
-for(let i=0;i<this.final.length;i++){
-  this.finals.push(this.final[i])
-        this.carddata = [].concat.apply([], this.finals);
-
-}
-  
-}
- else if(this.final1.length !=="0"){
-  
-  for(let i=0;i<this.final1.length;i++){
-    this.finals.push(this.final1[i])
-          this.carddata = [].concat.apply([], this.finals);
-
-  }
-}
- else if(this.final.length !=="0"){
- 
-  for(let i=0;i<this.final.length;i++){
-    this.finals.push(this.final[i])
-      this.carddata = [].concat.apply([], this.finals);
-
-   
-  }
-}
-console.log(this.finals)
-console.log(this.carddata)
-
-for(let i=0;i<this.carddata.length;i++){
-delete this.carddata[i].o
-}
-console.log(this.carddata)
-this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
-  console.log(res)
-  let navigationExtras: NavigationExtras = {
-    queryParams: { states:JSON.stringify(res)},
-    
-  };
-this.router.navigate(["/subscribe-list/payment-success"],navigationExtras)
-})
-// for(let i=0;i<this.carddata.length;i++)
-// this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,
-//   this.carddata[i].Head_Id,this.carddata[i].ISActive,this.carddata[i].IsAccepted,this.carddata[i].IsDeleted,this.carddata[i].M_Id,this.carddata[i].MemberID,
-//   this.carddata[i].MoneyCollId,this.carddata[i].Narration,this.carddata[i].Other_Trans_Type,this.carddata[i].ReceievedBy,this.carddata[i].RootID,this.carddata[i].Series,
-//   this.carddata[i].T_Day,this.carddata[i].T_Month,this.carddata[i].T_Year,this.carddata[i].Trans_Medium,this.carddata[i].Trans_Type,this.carddata[i].TransactionKey,this.carddata[i].Type,
-//   this.carddata[i].Voucher_No,this.carddata[i].Voucher_Type,this.carddata[i].PArrear,this.carddata[i].NPArrear,this.carddata[i].Interest,this.carddata[i].VoucherCount).subscribe(res=>{
-//   console.log(res)
-
-// })
-  }
-
-// newly added
-
-
-
 
   back(){
     this.router.navigate(["/subscribe-list"])
@@ -399,28 +192,208 @@ RazorpayCheckout.on('payment.cancel', cancelCallback)
 RazorpayCheckout.open(options)
 }
 
+padLeadingZeros(num, size) {
+  var s = num+"";
+  while (s.length < size) s = "0" + s;
+  return s;
+}
 
 makePayment(payment){
-// this.storepayment=[];
-// var mem_id=localStorage.getItem('memberid')
-//   for(let i=0;i<this.grandtotal.length;i++){
-//     if(this.grandtotal[i].CurrentDueAmount){
-//       let arrearamount=this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier
-//       this. payment_detail={Chitnumber :this.grandtotal[i].ChitNo,
-//         MemberId:mem_id,PayableAmount :this.grandtotal[i].CurrentDueAmount,
-//         ArrierAmount  :arrearamount,
-//         InterestAmount:0,
-//         Prized:this.grandtotal[i].IsPrized,
-//         Branch :this.grandtotal[i].BranchName,
-//         Current_insta_no :this.grandtotal[i].Runningcall}
-//     }
-//   this.storepayment.push(this.payment_detail)
-//   this.subscribeServ.makepayment(this.storepayment).subscribe(res=>{
-//        console.log(res)
-//        console.log(payment)
-//        this.router.navigate(["subscribe-list/subscriber-recepit"])
-//     })
-//   }
+  this.receiptno=[];
+  this.storepayment3=[];
+  this.storepayment1=[];
+  this.storepayment=[];
+  this.card=[];
+  this.card1=[];
+  this.final=[];
+  this.final1=[];
+  this.finals=[];
+  this.vouchercounts=[];
+  let d = new Date();
+  this.day=d.getDate();
+  this.month=d.getMonth()+1;
+  this.year=d.getFullYear();
+  this.currentdate=this.month+"/"+this.day+"/"+this.year;
+  this.getvouchercount=(JSON.parse(localStorage.getItem("voucher")))
+  this.count=this.getvouchercount
+  console.log(this.getvouchercount)
+  this.personal=(JSON.parse(localStorage.getItem("personaldatas")))
+  console.log(this.personal)
+  for(let i=0;i<this.grandtotal.length;i++){
+   console.log( this.grandtotal[i].BranchName.substring(0,3).toUpperCase()) 
+   let receiptno= this.grandtotal[i].BranchName.substring(0,3).toUpperCase()
+   let id=this.personal[0].MemberID
+   this.count +=1
+  let number=this.padLeadingZeros(this.count, 8);
+  //  this.no=this.count
+   this.vouchercounts=number
+   let customer="C-"
+   this.receiptno.push(customer+this.grandtotal[i].BranchPrefix+number)
+   console.log(this.receiptno)
+  }
+  
+  for(let i=0;i<this.grandtotal.length;i++){
+   
+   if(this.grandtotal[i].CurrentDueAmount){
+    this.payamount=0;
+    this.arrearamount=parseFloat(this.grandtotal[i].IsPrized=="Y"? this.grandtotal[i].PrizedArrier:this.grandtotal[i].NonPrizedArrier)
+    this.Amounts=parseFloat(this.grandtotal[i].CurrentDueAmount)
+    this.payamount +=this.arrearamount
+    this.payamount +=this.Amounts
+   
+     this.payment_data={
+       Amount: this.payamount,
+       AppReceiptno: this.receiptno[i],
+       BranchID:this.personal[0].BranchId,
+       ChitGroupId:this.grandtotal[i].ChitGroupId,
+       Head_Id:this.grandtotal[i].Head_Id,
+       ISActive:true,
+       IsAccepted:"0",
+       IsDeleted:0,
+       M_Id:this.personal[0].MemberID, 
+       MemberID: this.personal[0].MemberID,
+       MoneyCollId:this.grandtotal[i].MoneyCollId,
+       Narration: "test",
+       Other_Trans_Type:1,
+       ReceievedBy: "admin",
+       RootID: "",
+       Series:"CPAPP",
+       T_Day: "",
+       T_Month: "",
+       T_Year: "",
+       Trans_Medium:"0",
+       Trans_Type: "1", 
+       TransactionKey:0, 
+       Type: "",
+       Voucher_No:1000,
+       Voucher_Type: "",
+       // CurrDate:this.currentdate,
+       // ChoosenDate:this.currentdate,
+       // CreatedDate:this.currentdate,
+       // ModifiedDate:this.currentdate,
+       PArrear:this.grandtotal[i].PrizedArrier,
+       NPArrear:this.grandtotal[i].NonPrizedArrier,
+       // CurrentDue:this.grandtotal[i].CurrentDueAmount,
+       Interest:"0",
+       VoucherCount:this.vouchercounts
+     }
+  }
+   this.storepayment1.push(this.payment_data)
+   if(this.grandtotal.length===this.storepayment1.length){
+  this.method1(this.storepayment1);
+   }
+  
+  }
+  }
+   method1(data) {
+     this.storepayment2=data;
+     console.log(this.storepayment2)
+  for(let i=0;i<this.storepayment2.length;i++){
+  if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest ==="0" && this.storepayment2[i].Interest !==""){
+   
+   let filledArray = new Array(2).fill(this.storepayment2[i]);
+   this.storepayment.push(filledArray)
+  
+     }
+     if(this.storepayment2[i].Amount !=="0" && this.storepayment2[i].Interest !=="0"&& this.storepayment2[i].Interest !==""){
+     let filledArray = new Array(4).fill(this.storepayment2[i]);
+     this.storepayment3.push(filledArray)
+      
+       }
+     }
+  console.log(this.storepayment)
+  console.log(this.storepayment3)
+  
+  for(let i=0;i<this.storepayment.length;i++){
+   this.card1.push("C","D")
+  }
+  if(this.storepayment.length !=="0"){
+   let d = new Date();
+   let date = ("0" + d.getDate()).slice(-2);
+   let month = ("0" + (d.getMonth() + 1)).slice(-2);
+   let year = ("0" + (d.getFullYear())).slice(1);
+   for(let i=0;i<this.storepayment.length;i++){
+     this.final1.push( this.storepayment[i].map((o, i) => ({ ...o, Voucher_Type: this.card1[i],o,RootID:i<1?"5":"12",Type:"Card",T_Day:date, T_Month:month,T_Year:year})))
+  }
+   }
+   if(this.storepayment3.length !="0"){
+     let lengths=this.storepayment3[0].length
+     for(let i=0;i<lengths;i++){
+       this.card.push("C","D")
+     
+   }
+  
+    }
+  if(this.storepayment3.length !=="0"){
+   let d = new Date();
+   let date = ("0" + d.getDate()).slice(-2);
+   let month = ("0" + (d.getMonth() + 1)).slice(-2);
+   let year = ("0" + (d.getFullYear())).slice(1);
+   for(let i=0;i<this.storepayment3.length;i++){
+     this.final.push(this.storepayment3[i].map((o, i) => ({ ...o, Voucher_Type: this.card[i],o,Type:i>=2?"DefaultInterest":"Card",RootID:i<1?"5":i<2?"12":"11",T_Day:date, T_Month:month,T_Year:year})))
+    
+  }
+   }
+  console.log(this.card)
+  console.log(this.card1)
+  console.log(this.storepayment3)
+  console.log(this.final)
+  console.log(this.final1)
+  if(this.final1.length !=="0" && this.final.length !=="0"){
+  for(let i=0;i<this.final1.length;i++){
+   this.finals.push(this.final1[i])
+         this.carddata = [].concat.apply([], this.finals);
+  
+  }
+  
+  for(let i=0;i<this.final.length;i++){
+   this.finals.push(this.final[i])
+         this.carddata = [].concat.apply([], this.finals);
+  
+  }
+   
+  }
+  else if(this.final1.length !=="0"){
+   
+   for(let i=0;i<this.final1.length;i++){
+     this.finals.push(this.final1[i])
+           this.carddata = [].concat.apply([], this.finals);
+  
+   }
+  }
+  else if(this.final.length !=="0"){
+  
+   for(let i=0;i<this.final.length;i++){
+     this.finals.push(this.final[i])
+       this.carddata = [].concat.apply([], this.finals);
+  
+    
+   }
+  }
+  console.log(this.finals)
+  console.log(this.carddata)
+  
+  for(let i=0;i<this.carddata.length;i++){
+  delete this.carddata[i].o
+  }
+  console.log(this.carddata)
+  this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
+   console.log(res)
+   let navigationExtras: NavigationExtras = {
+     queryParams: { states:JSON.stringify(res)},
+     
+   };
+  this.router.navigate(["/subscribe-list/payment-success"],navigationExtras)
+  })
+// for(let i=0;i<this.carddata.length;i++)
+// this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,
+//   this.carddata[i].Head_Id,this.carddata[i].ISActive,this.carddata[i].IsAccepted,this.carddata[i].IsDeleted,this.carddata[i].M_Id,this.carddata[i].MemberID,
+//   this.carddata[i].MoneyCollId,this.carddata[i].Narration,this.carddata[i].Other_Trans_Type,this.carddata[i].ReceievedBy,this.carddata[i].RootID,this.carddata[i].Series,
+//   this.carddata[i].T_Day,this.carddata[i].T_Month,this.carddata[i].T_Year,this.carddata[i].Trans_Medium,this.carddata[i].Trans_Type,this.carddata[i].TransactionKey,this.carddata[i].Type,
+//   this.carddata[i].Voucher_No,this.carddata[i].Voucher_Type,this.carddata[i].PArrear,this.carddata[i].NPArrear,this.carddata[i].Interest,this.carddata[i].VoucherCount).subscribe(res=>{
+//   console.log(res)
+
+// })
 
 }
 ngOnDestroy(){

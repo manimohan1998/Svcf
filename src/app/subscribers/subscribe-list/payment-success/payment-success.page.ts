@@ -10,37 +10,45 @@ import { SubscriberApiService } from '../../subscriber-api.service';
 export class PaymentSuccessPage implements OnInit {
   payment_details: any=[];
   receiptdata: any=[];
-  arrearamount: number;
+  arrearamount: number=0;
   arrears: any=[];
+  personaldetail: any=[];
+  customername: any=[];
 
-  constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute) { 
+  constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute) {
+    let memidnew=localStorage.getItem('memberid')
+    this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
+      console.log(res)
+      this.personaldetail=res['UserDetails'];
+      this.customername=this.personaldetail[0].CustomerName
+    }) 
     this.route.queryParams.subscribe(params => {
       console.log(params.states)
       if(params.states !=undefined){
+        this.receiptdata=[]
       this.payment_details = JSON.parse(params.states);
       console.log(this.payment_details)
       for(let i=0;i<this.payment_details.listVou.length;i++){
          this.subscribeServ.receipt(this.payment_details.listVou[i]).subscribe(res=>{
             console.log(res)
-            this.receiptdata=res["lstReceipt"]
+            this.receiptdata.push(res["lstReceipt"])
             console.log(this.receiptdata)
-            for(let j=0;j<this.receiptdata.length;j++){
-              this.arrearamount=0;
-              this.arrearamount +=(parseFloat(this.receiptdata[j].NPArrear))
-              this.arrearamount +=(parseFloat(this.receiptdata[j].PArrear))
+            if(Array.isArray(this.receiptdata) && this.receiptdata.length){
+              this.arrearamount +=(parseFloat(this.receiptdata[i][0].NPArrear))
+              this.arrearamount +=(parseFloat(this.receiptdata[i][0].PArrear))
               this.arrears.push(this.arrearamount)
-              console.log(this.arrears)
-             }
-         })
-        
-      }
-   }
-
+              this.arrearamount=0;
+            }
+          })
+         }
+    }
+     
     })
   }
 
   ngOnInit() {
   }
+
   paymentsuccess(){
     this.router.navigate(["/subscribe-list"])
   }
