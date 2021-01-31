@@ -91,6 +91,12 @@ console.log(this.formcount)
     console.log(number)
    }
 
+//    ionViewDidEnter(){
+//      this.new();
+//    }
+// new(){
+ 
+// }
   back(){
     this.router.navigate(["/subscribe-list"])
       }
@@ -250,8 +256,8 @@ makePayment(payment){
        ISActive:true,
        IsAccepted:"0",
        IsDeleted:0,
-       M_Id:this.personal[0].MemberID, 
-       MemberID: this.personal[0].MemberID,
+       M_Id:this.personal[0].MemberIDNew, 
+       MemberID: this.personal[0].MemberIDNew,
        MoneyCollId:this.grandtotal[i].MoneyCollId,
        Narration: "test",
        Other_Trans_Type:1,
