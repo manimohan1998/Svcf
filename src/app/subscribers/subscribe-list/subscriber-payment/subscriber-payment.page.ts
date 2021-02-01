@@ -280,7 +280,7 @@ makePayment(payment){
        PArrear:this.grandtotal[i].PrizedArrier,
        NPArrear:this.grandtotal[i].NonPrizedArrier,
        // CurrentDue:this.grandtotal[i].CurrentDueAmount,
-       Interest:"0",
+       Interest:this.grandtotal[i].Interest,
        VoucherCount:this.vouchercounts
      }
   }

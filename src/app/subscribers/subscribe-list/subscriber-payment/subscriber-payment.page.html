@@ -37,6 +37,12 @@
                 <ion-input formControlName="Arrearamount" type="number" value="" placeholder="Arrear Amount" readonly>
                 </ion-input>
               </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Interest Amount</ion-label>
+                <ion-input  readonly>
+                  {{this.payment_details[i].Interest}}
+                </ion-input>
+              </ion-item>
               <p class="total">
                 Total:<span>
                   {{this.total_details[i]}}</span>
