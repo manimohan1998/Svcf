@@ -13,7 +13,7 @@ declare var RazorpayCheckout: any;
 })
 export class SubscriberPaymentPage implements OnInit {
 
-  payment_details:[]=[];
+  payment_details:any=[];
   formcount:any;
   PaymentForm:FormGroup;
   grandtotal:any=[];
@@ -59,6 +59,7 @@ Narration:any};
   output: boolean;
   count: number=0;
   no: number=0;
+  data3: number;
 // newly added
   constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
    this.route.queryParams.subscribe(params => {
@@ -73,30 +74,24 @@ Narration:any};
   
 }
   ngOnInit() {
-    
-console.log(this.formcount)
-   for( let i=0;i<this.formcount;i++){
-    this.AmountDetail()
-    this.addrow();
-    this.newArray();
-  
-   }
- 
-  }
+     }
   ionViewWillEnter(){
+    console.log(this.formcount)
+    for( let i=0;i<this.formcount;i++){
+     this.AmountDetail()
+     this.addrow();
+     this.newArray();
+   
+    }
   
-    this.addmethod();
-    let values=10
-    let number=this.padLeadingZeros(values, 8);
-    console.log(number)
+  
    }
 
-//    ionViewDidEnter(){
-//      this.new();
-//    }
-// new(){
- 
-// }
+   ionViewDidEnter(){
+    this.addmethod();
+    
+   }
+
   back(){
     this.router.navigate(["/subscribe-list"])
       }
@@ -119,6 +114,7 @@ console.log(this.formcount)
           this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat( this.grandtotal[i].NonPrizedArrier));
           num +=(parseFloat( this.grandtotal[i].NonPrizedArrier))
         }
+        num +=(parseFloat(this.grandtotal[i].Interest))
         this.num=num 
         console.log(this.num)
       
@@ -132,11 +128,14 @@ console.log(this.formcount)
       this.data1=0;
       this.data2=0;
       this.total=0;
+      this.data3=0;
       this.data1=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
       this.data2 =parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
+      this.data3=parseFloat(this.grandtotal[i].Interest)
       console.log(this.data1)
       this.total += this.data1
       this.total += this.data2
+      this.total += this.data3
       this.total_details.push(this.total)
       console.log( this.total_details)
     }
