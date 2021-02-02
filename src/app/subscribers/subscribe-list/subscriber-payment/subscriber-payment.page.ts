@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import {Router, ActivatedRoute,NavigationExtras} from'@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 import { SubscriberApiService } from '../../subscriber-api.service';
 
@@ -61,7 +62,7 @@ Narration:any};
   no: number=0;
   data3: number;
 // newly added
-  constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController) {
    this.route.queryParams.subscribe(params => {
      console.log(params.state)
      this.payment_details = JSON.parse(params.state);
@@ -91,6 +92,7 @@ Narration:any};
     this.addmethod();
     
    }
+ 
 
   back(){
     this.router.navigate(["/subscribe-list"])
@@ -182,14 +184,14 @@ payWithRazorpay(){
     color: '#3399cc'
       }
   }
-var successCallback = function(success) {
+var successCallback = (success) =>{
 var paymentId = success.razorpay_payment_id
 var signature = success.razorpay_signature
 this.makePayment(paymentId); 
 
 
 }
-var cancelCallback = function(error) {
+var cancelCallback = (error) =>{
 alert(error.description + ' (Error '+error.code+')')
 }
 RazorpayCheckout.on('payment.success', successCallback)
@@ -203,7 +205,12 @@ padLeadingZeros(num, size) {
   return s;
 }
 
-makePayment(payment){
+async makePayment(payment){
+  const loading = await this.loadingController.create({
+    message: 'Please Wait',
+    translucent: true,
+  });
+  await loading.present();
   this.receiptno=[];
   this.storepayment3=[];
   this.storepayment1=[];
@@ -289,6 +296,7 @@ makePayment(payment){
    }
   
   }
+  loading.dismiss();
   }
    method1(data) {
      this.storepayment2=data;
@@ -339,6 +347,7 @@ makePayment(payment){
     
   }
    }
+   
   console.log(this.card)
   console.log(this.card1)
   console.log(this.storepayment3)
@@ -384,11 +393,13 @@ makePayment(payment){
   console.log(this.carddata)
   this.subscribeServ.makepayment(this.carddata).subscribe(res=>{
    console.log(res)
-   let navigationExtras: NavigationExtras = {
-     queryParams: { states:JSON.stringify(res)},
+   localStorage.setItem("receipt",JSON.stringify(res))
+  //  let navigationExtras: NavigationExtras = {
+  //    queryParams: { states:JSON.stringify(res)},
      
-   };
-  this.router.navigate(["/subscribe-list/payment-success"],navigationExtras)
+  //  };
+   this.router.navigate(["/subscribe-list/payment-success"])
+  // this.router.navigate(["/subscribe-list/payment-success"],navigationExtras)
   })
 // for(let i=0;i<this.carddata.length;i++)
 // this.subscribeServ.makepayment(i,this.carddata[i].Amount,this.carddata[i].AppReceiptno,this.carddata[i].BranchID,this.carddata[i].ChitGroupId,
