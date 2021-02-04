@@ -10,11 +10,11 @@
 
   <section class="customer_details">
     <ion-row size="12">
-      <ion-col class="customer_name" size="9">
+      <ion-col class="customer_name" size="8">
         <h2 size="8">{{customername}}</h2>
         <h5 size="8">ID:{{customerid}}</h5>
       </ion-col>
-      <ion-col class="profile_img" size="2">
+      <ion-col class="profile_img" size="3">
         <!-- <ion-avatar><span>{{this.Logo}}</span></ion-avatar> -->
         <ion-avatar><span>
             <img src="../../../assets/images/user.jpg">
@@ -97,8 +97,8 @@
       <p>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
     </div>
     <div class="bottom_sec">
-      <p size="6">current Due : <span>{{val.CurrentDueAmount}}</span></p>
-      <p size="6">Total paid : <span>{{val.TotalPaid}}</span></p>
+      <p size="6">current Due : <span>₹ {{val.CurrentDueAmount}}</span></p>
+      <p size="6">Total paid : <span>₹ {{val.TotalPaid}}</span></p>
     </div>
   </ion-card>
   <section class="p-24">
@@ -111,7 +111,7 @@
 
   <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
     <ion-icon name="person"></ion-icon>
-    <ion-label>Person</ion-label>
+    <ion-label>Profile</ion-label>
   </ion-tab-button>
 
   <ion-tab-button [routerLink]="['/subscribe-list']">

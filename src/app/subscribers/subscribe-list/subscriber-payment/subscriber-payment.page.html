@@ -10,9 +10,9 @@
 <ion-content fullscreen class="ion-padding svcf_payment_page">
   <section class="payment">
     <div class="page_title">
-      <h3>Chits Details</h3>
-      <ion-icon name="create-outline" slot="end"></ion-icon>
-    </div>
+      <h3>Chit Details</h3>
+<!--       <ion-icon name="create-outline" slot="end"></ion-icon>
+ -->    </div>
     <form [formGroup]="PaymentForm" (ngSubmit)="submit()" class="payment_form">
 
       <ion-list formGroupName="AmountDetails">
@@ -20,7 +20,7 @@
 
           <ion-card>
             <ion-card-header>
-              <p>Total Chit Value:<span>Rs.{{this.payment_details[i].ChitValue}}</span></p>
+              <p>Chit Value:<span>₹ {{this.payment_details[i].ChitValue}}</span></p>
               <p class="chit_no">{{this.payment_details[i].ChitNo}}</p>
             </ion-card-header>
             <ion-card-content class="chit_details_sec">
@@ -28,8 +28,8 @@
                 <p>{{this.payment_details[i].IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
             </div>
               <ion-item>
-                <ion-label position="stacked">Amount Payable</ion-label>
-                <ion-input formControlName="AmountPayable" type="number" value="" placeholder="Amount Payable" readonly>
+                <ion-label position="stacked">Current Due</ion-label>
+                <ion-input formControlName="AmountPayable" type="number" value="" placeholder="Current Due" readonly>
                 </ion-input>
               </ion-item>
               <ion-item>
@@ -44,8 +44,8 @@
                 </ion-input>
               </ion-item>
               <p class="total">
-                Total:<span>
-                  {{this.total_details[i]}}</span>
+                Total<span>
+                  ₹ {{this.total_details[i]}}</span>
               </p>
               <!-- <ion-item>
           <ion-label position="floating">Other Amount</ion-label>
@@ -63,7 +63,7 @@
         </div>
       </ion-list>
       <!-- <ion-button (click)="addrow()">add</ion-button> -->
-      <p class="grand_total">Grand Total:<span>Rs.{{this.num}}</span>
+      <p class="grand_total">Grand Total<span>₹ {{this.num}}</span>
       </p>
       <section>
 

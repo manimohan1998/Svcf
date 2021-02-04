@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
             this.presentToast("Please Reset Your Password");
           }else if (res['Message'] === "Login Details Correct" && val['name'].length != val['password'].length){
             this.router.navigate(['/subscribe-list'])
-            this.presentToast("Login Successfully");
+            this.presentToast("Logged in Successfully");
           }else{
             // alert("Please Enter Valid credentials")
             this.presentToast("Please Enter Valid credentials");

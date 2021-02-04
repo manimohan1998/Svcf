@@ -4,7 +4,132 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content class="ion-padding svcf_recepit_page">
+
+<ion-header>
+  <ion-toolbar>
+  <ion-item>
+  <ion-icon name="arrow-back-outline" (click)="previous()"></ion-icon>
+  <ion-title>Receipt</ion-title>
+  </ion-item>
+  </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen class="svcf_recepit_page svcf_dashboard_page">
+  <section class="payment">
+    <div class="page_title">
+      <h3>Chit Details</h3>
+    </div>
+    <div *ngFor="let data of receiptdata">
+      <ion-card class="card_bg">
+      <ion-card-content>
+      <div class="ofz_img">
+        <img src="../../../assets/images/img.png">
+        <div class="branch_name">
+          <p>Branch Name:<span>{{data[0].BranchName}}</span></p>
+          <p>Form No: <span>VF1</span></p>
+        </div>
+      </div>
+      <div class="logo">
+        <img src="../../../assets/images/logo.png">
+      </div>
+      <div class="ofz_address">
+        <h1>SREE VISALAM CHIT FUND LTD.</h1>
+        <p>Register Office: Tirunelveli - 3</p>
+        <p>(See Section 23 and Rule 25) </p>
+        <p>Receipt issued under the chit funds Act 1982</p>
+      </div>
+      <div class="receipt_content">
+        <h3>
+        CD/REC.SERIES
+        </h3>
+        <p>Date/Time: <span>{{data[0]?.ReceiptDate |date:'dd-MM-yyyy HH:mm'}}</span></p>
+        <div class="receipt_no">
+          <p>Receipt No: <span>{{data[0]?.AppReceiptno}}</span></p>
+        </div>
+        <table class="table receipt_amts">
+          <tbody>
+          <tr>
+              <th>Received From</th>
+              <td>:</td>
+              <td>{{data[0].CustomerName}}</td>
+            </tr>
+            <tr>
+              <th>Chit No</th>
+              <td>:</td>
+              <td>{{data[0]?.ChitNumber}}</td>
+            </tr>
+            <tr>
+              <th>Current Due</th>
+              <td>:</td>
+              <td>{{data[0]?.CurrentDue}}</td>
+            </tr>
+          
+
+            <tr>
+              <th>Current Inst No</th>
+              <td>:</td>
+              <td>{{data[0].CurrentInstno}}</td>
+            </tr>
+
+            <tr>
+              <th>Arrears</th>
+              <td>:</td>
+              <td *ngIf="data[0].NPArrear!= 0">₹
+                 {{data[0].NPArrear}}</td>
+              <td *ngIf="data[0].PArrear!= 0">₹
+                 {{data[0].PArrear}}</td>
+
+            </tr>
+            <tr>
+              <th>Interest</th>
+              <td>:</td>
+              <td>{{data[0]?.Interest}}</td>
+            </tr>
+            <!-- <tr>
+              <th>Total paid</th>
+              <td>:</td>
+              <td> {{data[0].TotalPaid}}</td>
+            </tr> -->
+         
+          </tbody>
+        </table>
+        <div class="space_margin">
+          <p class="grand_total"> Total<span>₹ {{data[0]?.TotalPaid}}</span></p>
+        </div>
+      </div>
+      </ion-card-content>
+      </ion-card>
+      <p  class="sig"><span>Note: </span> This is a computer generated Receipt hence signature is not required</p>
+    </div>
+    </section>
+    <div class="done">
+      <ion-button color="success" expand="full" (click)="paymentsuccess()">Done</ion-button>
+    </div>
+  </ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-content class="ion-padding svcf_recepit_page">
   
   <div *ngFor="let data of receiptdata;let i=index">
     <ion-card class="card_bg">
@@ -28,11 +153,7 @@
             <p>Receipt issued under the chit funds Act 1982</p>
           </div>
 
-          <!-- <section class="ofz_time">
-            <p>
-              21.11.2020 / 04.00 PM
-            </p>
-          </section> -->
+        
           <div class="receipt_content">
             <h3>
               CD/REC.SERIES
@@ -79,7 +200,7 @@
                 <tr>
                   <th>Total paid</th>
                   <td>:</td>
-                  <td>Rs. {{data[0].TotalPaid}}</td>
+                  <td> {{data[0].TotalPaid}}</td>
                 </tr>
                 <tr>
                   <th>Series</th>
@@ -100,4 +221,4 @@
   </div>
   <ion-button color="success" expand="full" (click)="paymentsuccess()">Done</ion-button>
   
-</ion-content>
+</ion-content> -->
