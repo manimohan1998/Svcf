@@ -23,20 +23,23 @@ export class ResetPage implements OnInit {
       newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})")]],
       confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpassword')]],
    })
-    let mobilenumber=localStorage.getItem('memberid');
-   this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
-     this.mobilepass=res
-     console.log(this.mobilepass)
-     if(this.mobilepass.MobileNo.length>0){
-      let mobile=this.mobilepass.MobileNo.replaceAll(' ', "")
-      this.resetForms.get("mobilenumber").setValue(mobile);
-      }
-      else{
-        this.resetForms.get('mobilenumber').reset("");
-      }
-  })
+   
    }
      ngOnInit() {
+    }
+    ionViewWillEnter(){
+      let mobilenumber=localStorage.getItem('memberid');
+      this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
+        this.mobilepass=res
+        console.log(this.mobilepass)
+        if(this.mobilepass.MobileNo.length>0){
+         let mobile=this.mobilepass.MobileNo.replaceAll(' ', "")
+         this.resetForms.get("mobilenumber").setValue(mobile);
+         }
+         else{
+           this.resetForms.get('mobilenumber').reset("");
+         }
+     })
     }
      CheckSpace(event)
 {
