@@ -39,7 +39,7 @@
   <ion-card class="card_bg" *ngFor="let val of userlist3 | filter:term; let i=index">
     <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
     <div class="chits_item_details">
-      <ion-checkbox (ionChange)="passParams($event,val)"></ion-checkbox>
+      <ion-checkbox [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" (ionChange)="passParams($event,val)"></ion-checkbox>
       <table class="table chit_details">
         <tbody>
           <tr>
