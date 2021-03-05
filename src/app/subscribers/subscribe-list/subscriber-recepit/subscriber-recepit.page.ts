@@ -26,6 +26,7 @@ public sendTo   : any;
    grandtotal: number;
    arrearamount1: number;
    arrears1: any=[];
+   show: boolean;
 
 
 
@@ -44,12 +45,14 @@ public sendTo   : any;
   
   }
   ionViewWillEnter(){
-  
+   this.show=false
+   this.presentToast1("Click to select start date and end date to filter your receipts")
   }
   back(){
 this.router.navigate(["/subscribe-list"])
   }
   datefilter(dates){
+     this.show=true;
    this.arrears=[]
     let enddate=dates.enddate;
     let startdate=dates.enddate;
@@ -89,6 +92,14 @@ this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
    const toast = await this.toastController.create({
        message: message,
        duration: 2000
+    });
+     toast.present();
+ }
+
+ async presentToast1(message) {
+   const toast = await this.toastController.create({
+       message: message,
+       duration: 3000
     });
      toast.present();
  }

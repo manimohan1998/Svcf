@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar style="--min-height:0px !important">
    <ion-item>
     <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
     <ion-title>Report Details</ion-title>
@@ -12,13 +12,25 @@
     <div class="page_title">
       <h3>Summary</h3>
     </div>
+
   <form [formGroup]="dateform" (ngSubmit)="datefilter(dateform.value)">
-    <ion-row>
-      <ion-datetime display-format="DD:MM:YYYY"  formControlName="startdate" placeholder="--START DATE--"></ion-datetime>
-      <ion-datetime display-format="DD:MM:YYYY"  formControlName="enddate" placeholder="--END DATE--"></ion-datetime>
-      <ion-button [disabled]="!dateform.valid" type="submit">filter</ion-button>
-    </ion-row>
-   
+    <ion-grid>
+      <ion-row  *ngIf="this.show==true" size="12" style="border: 1px solid black;text-align: center;">
+        <ion-col  style="border: 1px solid black;text-align: center;" size="6">
+          START DATE
+        </ion-col>
+        <ion-col  style="border: 1px solid black;text-align: center;" size="6">
+          END DATE
+        </ion-col>
+      </ion-row>
+      <ion-row size="12" style="border: 1px solid black;text-align: center;">
+        <ion-col  style="border: 1px solid black;text-align: center;" size="6"><ion-datetime display-format="YYYY:MM:DD"  formControlName="startdate" placeholder="START DATE"></ion-datetime></ion-col>
+        <ion-col  style="border: 1px solid black;text-align: center;" size="6"><ion-datetime display-format="YYYY:MM:DD"  formControlName="enddate" placeholder="END DATE"></ion-datetime></ion-col>
+        </ion-row>
+    </ion-grid>
+    
+      <ion-item><ion-button [disabled]="!dateform.valid" class="btn1" type="submit">filter</ion-button></ion-item>
+ 
   </form>
   </section>
 
@@ -54,7 +66,7 @@
               CD/REC.SERIES
             </h3>
             <div class="receipt_no">
-              <p>AGT No: <span>#1234</span></p>
+              <p>AGT No: <span>#{{data.AgreementNo}}</span></p>
               <p>Online Payment Receipt No: <span>{{data.appReceiptno}}</span></p>
             </div>
             <table class="table receipt_amts">
@@ -76,9 +88,9 @@
                   <td>Rs.{{data.currentDue}}</td>
                 </tr>
                 <tr>
-                  <th>Current Inst No (03)</th>
+                  <th>Current Inst No</th>
                   <td>:</td>
-                  <td>Rs. 00.00</td>
+                  <td>Rs.{{data.CurrentInstNo}}</td>
                 </tr>
 
                 <tr>
@@ -94,11 +106,11 @@
                   </tr>
                   <tr>
                
-                  <tr>
+                  <!-- <tr>
                   <th>Penalty For Over Due</th>
                   <td>:</td>
                   <td>Rs. 00.00</td>
-                </tr>
+                </tr> -->
                 <!-- <tr>
                   <th>Other Receipts</th>
                   <td>:</td>

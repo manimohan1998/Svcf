@@ -32,6 +32,6 @@ export class SubscriberApiService {
     return this.http.get(environment.url+'ReceiptPrint?appReceiptno='+id+'&series=CPAPP')
   }
   receipthistory(start,end,customerid){
-    return this.http.get(environment.url+'ReceiptsHistory?memberId='+customerid+'&from='+start+'&to='+end+'')
+    return this.http.get(environment.url+'ReceiptsHistory?memberId='+customerid+'&from='+start+'&to='+end+'&series=CPAPP')
   }
 }

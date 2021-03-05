@@ -20,7 +20,7 @@ export class ResetPage implements OnInit {
       name: ['', [Validators.required, Validators.minLength(5)]],
       mobilenumber: ['',Validators.maxLength(11)], 
       oldpassword: ['',[Validators.required]], 
-      newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})")]],
+      newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
       confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpassword')]],
    })
    
@@ -95,7 +95,7 @@ export class ResetPage implements OnInit {
     'newpassword': [
         { type: 'required', message: 'Newpassword is required.' },
       
-        { type: 'pattern', message: 'New password must be at least 9 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
+        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
 
     'confirmpassword': [
         { type: 'required', message: 'Confirm Password is required.' },],

@@ -13,8 +13,8 @@ export class ResetPasswordPage implements OnInit {
   resetForm: FormGroup;
 constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController) { 
     this.resetForm = this.fb.group({
-      newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})")]],
-      confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpass')]],
+      newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
+      confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})"),this.equalto('newpass')]],
    })
   }
 
@@ -46,7 +46,7 @@ constructor(private router:Router,private fb:FormBuilder, public commonserv: Com
       'newpass': [
         { type: 'required', message: 'New password is required.' },
       
-        { type: 'pattern', message: 'New password must be at least 9 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
+        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
     }
     'confirmpass': [
       { type: 'required', message: 'Confirm password is required.' },
