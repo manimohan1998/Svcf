@@ -15,7 +15,7 @@
     <div class="profile_desc">
       <h4>{{val.CustomerName}}</h4>
       <p>{{val.MobileNo}}</p>
-      <p>user8991@gmail.com</p>
+      <p>chelladurai@gmail.com</p>
     </div>
   </section>
 
@@ -32,7 +32,7 @@
 
         <ion-item class="persondet">
           <ion-label>Email</ion-label>
-          <ion-note slot="end">user8991@gmail.com</ion-note>
+          <ion-note slot="end">chelladurai@gmail.com</ion-note>
         </ion-item>
 
         <ion-item class="persondet">
@@ -93,8 +93,8 @@
 <ion-tab-bar slot="bottom">
  
   <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
-    <ion-icon name="person"></ion-icon>
-    <ion-label>Person</ion-label>
+    <ion-icon color="primary" name="person"></ion-icon>
+    <ion-label color="primary">Person</ion-label>
   </ion-tab-button>
 
   <ion-tab-button [routerLink]="['/subscribe-list']">
@@ -107,7 +107,7 @@
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
   
-  <ion-tab-button [routerLink]="['/reset']">
+  <ion-tab-button (click)="reset()">
     <ion-icon name="refresh"></ion-icon>
     <ion-label>Reset</ion-label>
   </ion-tab-button>

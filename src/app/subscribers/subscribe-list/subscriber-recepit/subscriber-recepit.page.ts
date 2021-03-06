@@ -84,7 +84,7 @@ this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
 
     }
     else{
-      this.presentToast("no data")
+      this.presentToast("No Data Found")
     }
 })
   }
@@ -99,7 +99,7 @@ this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
  async presentToast1(message) {
    const toast = await this.toastController.create({
        message: message,
-       duration: 3000
+       duration: 2000
     });
      toast.present();
  }

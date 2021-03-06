@@ -27,8 +27,10 @@ export class AppComponent {
     this.statusBar.backgroundColorByHexString('#30ADFF');
     if(navigator.onLine){
     this.platform.ready().then(() => {
+      setTimeout(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      },300)
     });
   }else{
     this.presentToast("Please Check Network Connection...");

@@ -122,7 +122,7 @@
           <ion-list>
             <ion-item>
               <ion-label position="stacked">Name</ion-label>
-              <ion-input formControlName="name" type="text" (ionChange)="checkname()" (keypress)="CheckSpace($event)"
+              <ion-input formControlName="name" type="text" [debounce]="0" (ionChange)="checkname()" (keypress)="CheckSpace($event)"
                 placeholder="Enter your name">
               </ion-input>
               <ion-icon name="person-outline" slot="end"></ion-icon>
@@ -152,12 +152,12 @@
             </div>
             <ion-item>
               <ion-label position="stacked">Old password</ion-label>
-              <ion-input formControlName="oldpassword" type="password" (keypress)="CheckSpace($event)">
+              <ion-input formControlName="oldpassword" readonly type="password" (keypress)="CheckSpace($event)">
               </ion-input>
-              <div (click)="show=!show" slot="end" class="eye_icon">
+              <!-- <div (click)="show=!show" slot="end" class="eye_icon">
                 <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
                 <ion-icon name="eye" *ngIf="show"></ion-icon>
-              </div>
+              </div> -->
             </ion-item>
             <div class="text-danger">
               <ng-container *ngFor="let validation of validation_messages.oldpassword">

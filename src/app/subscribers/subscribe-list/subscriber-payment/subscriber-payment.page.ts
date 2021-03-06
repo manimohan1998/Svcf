@@ -154,9 +154,9 @@ erasedata(){
 this.payment_details=[];
 console.log(this.payment_details)
 }
-  public submit() {
-   this.newcheck('8')
-}
+//   public submit() {
+//    this.newcheck('8')
+// }
 payWithRazorpay(){
   let amount=this.num*100;
   var options = {

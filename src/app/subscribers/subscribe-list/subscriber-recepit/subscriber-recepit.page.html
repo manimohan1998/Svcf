@@ -24,8 +24,8 @@
         </ion-col>
       </ion-row>
       <ion-row size="12" style="border: 1px solid black;text-align: center;">
-        <ion-col  style="border: 1px solid black;text-align: center;" size="6"><ion-datetime display-format="YYYY:MM:DD"  formControlName="startdate" placeholder="START DATE"></ion-datetime></ion-col>
-        <ion-col  style="border: 1px solid black;text-align: center;" size="6"><ion-datetime display-format="YYYY:MM:DD"  formControlName="enddate" placeholder="END DATE"></ion-datetime></ion-col>
+        <ion-col  style="border: 1px solid black;text-align: center;" size="6"><ion-datetime display-format="DD-MM-YYYY"  formControlName="startdate" placeholder="START DATE"></ion-datetime></ion-col>
+        <ion-col  style="border: 1px solid black;text-align: center;" size="6"><ion-datetime display-format="DD-MM-YYYY"  formControlName="enddate" placeholder="END DATE"></ion-datetime></ion-col>
         </ion-row>
     </ion-grid>
     
@@ -128,7 +128,7 @@
       </ion-card-content>
     </ion-card>
   </div>
-
+  <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="this.receiptdata.length===0">No Data</div>
   <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
   </p>
 </ion-content>
@@ -143,8 +143,8 @@
     <ion-label>Home</ion-label>
   </ion-tab-button>
   <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
-    <ion-icon name="reader-outline"></ion-icon>
-    <ion-label>Receipt</ion-label>
+    <ion-icon color="primary"  name="reader-outline"></ion-icon>
+    <ion-label color="primary">Receipt</ion-label>
   </ion-tab-button>
 </ion-tab-bar>
 

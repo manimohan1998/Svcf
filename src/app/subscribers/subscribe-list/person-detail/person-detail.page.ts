@@ -9,7 +9,7 @@ import {Platform,LoadingController} from '@ionic/angular';
   styleUrls: ['./person-detail.page.scss'],
 })
 export class PersonDetailPage implements OnInit {
-personaldetail:any;
+personaldetail:any=[];
 ref:any
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
   public loadingcontroller:LoadingController) { }
@@ -18,23 +18,27 @@ ref:any
    
   }
 
-ionViewWillEnter(){
-  let memidnew=localStorage.getItem('memberid')
-  this.platform.ready().then(()=>{
-    this.loadingcontroller.create({
-      message:"loading..."
-    }).then((HTMLIonLoadingElement)=>{
-      HTMLIonLoadingElement.present();
-      this.ref=this;
+ async ionViewWillEnter(){
+  const loading = await this.loadingcontroller.create({
+    message: 'Please Wait',
+    translucent: true,
+  });
+  await loading.present();
+let memidnew=localStorage.getItem('memberid')
   this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
-    this.ref.loadingcontroller.dismiss();
+
       console.log(res)
       this.personaldetail=res['UserDetails'];
-      }) 
-    })
-  })
+      loading.dismiss();
+      })
+
 }
 back(){
   this.router.navigate(["/subscribe-list"])
+    }
+
+    reset(){
+      localStorage.setItem("customer",this.personaldetail[0].CustomerName);
+      this.router.navigate(['/reset-password'])
     }
 }

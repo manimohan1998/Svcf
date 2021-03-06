@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
    submitForm(val){        
         this.commonserv.loginCredentials(val.name,val.password).subscribe(res=>{
           console.log(res)
+          console.log(val)
           this.member_id = res['MemberIDNew']
           this.token=res["JWToken"]
           console.log(this.token)
@@ -44,6 +45,7 @@ export class LoginPage implements OnInit {
           localStorage.setItem('memberid',this.member_id) 
           localStorage.setItem('token',this.token) 
           if(res['Message'] === "Login Details Correct" && val['name'].length === val['password'].length){
+            localStorage.setItem("firstdata",JSON.stringify(val));
             this.router.navigate(['/reset'])
             this.presentToast("Please Reset Your Password");
           }else if (res['Message'] === "Login Details Correct" && val['name'].length != val['password'].length){

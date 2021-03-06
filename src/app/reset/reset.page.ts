@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import {Router} from'@angular/router'
 import { CommonApiService } from 'src/app/Login/common-api.service';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-reset',
@@ -14,32 +14,45 @@ export class ResetPage implements OnInit {
   mobilepass: any;
   patternval: boolean=false;
   mob: any;
+  userdata: any=[];
 
-  constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController) {
+  constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController,
+    public loadingcontroller:LoadingController) {
     this.resetForms = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(5)]],
+      name: [''],
       mobilenumber: ['',Validators.maxLength(11)], 
       oldpassword: ['',[Validators.required]], 
       newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
-      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{9})"),this.equalto('newpassword')]],
+      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})"),this.equalto('newpassword')]],
    })
    
    }
      ngOnInit() {
     }
-    ionViewWillEnter(){
+   async ionViewWillEnter(){
+      const loading = await this.loadingcontroller.create({
+        message: 'Please Wait',
+        translucent: true,
+      });
+      await loading.present();
+      let data=JSON.parse(localStorage.getItem("firstdata"));
+      this.resetForms.get("oldpassword").setValue(data.password);
+      console.log(data.password)
       let mobilenumber=localStorage.getItem('memberid');
       this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
         this.mobilepass=res
         console.log(this.mobilepass)
+        loading.dismiss();
         if(this.mobilepass.MobileNo.length>0){
          let mobile=this.mobilepass.MobileNo.replaceAll(' ', "")
          this.resetForms.get("mobilenumber").setValue(mobile);
          }
          else{
            this.resetForms.get('mobilenumber').reset("");
+           loading.dismiss();
          }
      })
+  
     }
      CheckSpace(event)
 {
@@ -52,13 +65,15 @@ export class ResetPage implements OnInit {
 
   checkname(){
    let names=this.resetForms.get('name').value
-   if(names.length>=5){
+
+   if(names.length>=1){
    this.commonserv.sameUsername(names).subscribe((res) => {
+     console.log(res)
       if(res['Message'] === "UserName is Available"){
        this.presentToast('UserName is valid.');
        
      }
-      if(res['Message'] === "UserName is not Available"){
+     else if(res['Message'] === "UserName is not Available"){
        this.presentToast('UserName is invalid.');
        this.resetForms.get('name').reset("");
      }
@@ -68,7 +83,7 @@ export class ResetPage implements OnInit {
    async presentToast(message) {
       const toast = await this.toastController.create({
           message: message,
-          duration: 2000
+          duration: 1000
        });
         toast.present();
     }
