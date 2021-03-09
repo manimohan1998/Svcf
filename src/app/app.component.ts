@@ -42,7 +42,7 @@ export class AppComponent {
       toast.present();
     }
     backButtonEvent(){
-      this.platform.backButton.subscribeWithPriority(10,()=>{
+      this.platform.backButton.subscribeWithPriority(1,()=>{
         if (!this.routerOutlet.canGoBack()){
           this.backButtonAlert();
         }else{
