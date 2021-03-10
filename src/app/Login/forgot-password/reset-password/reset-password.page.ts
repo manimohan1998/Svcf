@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import { CommonApiService } from 'src/app/Login/common-api.service';
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,7 +11,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class ResetPasswordPage implements OnInit {
   resetForm: FormGroup;
-constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController) { 
+constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
+  private platform: Platform) { 
     this.resetForm = this.fb.group({
       newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
       confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})"),this.equalto('newpass')]],
@@ -20,7 +21,11 @@ constructor(private router:Router,private fb:FormBuilder, public commonserv: Com
 
   ngOnInit() {
   }
-
+ionViewWillEnter(){
+  this.platform.backButton.subscribeWithPriority(1, () => {
+    this.router.navigateByUrl('/forgot-password')
+       });
+}
   
 	equalto(field_name): ValidatorFn {
 		return (control: AbstractControl): {[key: string]: any} => {

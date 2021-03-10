@@ -128,7 +128,10 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="this.receiptdata.length===0">No Data</div>
+  <div *ngIf="this.show1==true">
+    <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="this.receiptdata.length===0">No Data</div>
+  </div>
+  
   <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
   </p>
 </ion-content>

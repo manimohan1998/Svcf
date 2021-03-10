@@ -100,8 +100,29 @@ async ionViewWillEnter(){
   //   })  
   // })
 
-}
+  this.platform.backButton.subscribeWithPriority(1, () => {
+  this.backButtonAlert();
+     });
 
+}
+async backButtonAlert(){
+  const alert =await this.alertController.create({
+    message:'Do you want to exit app',
+    buttons: [{
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+        console.log('Cancel clicked');
+      }
+    },{
+      text: 'Close app',
+      handler: () =>{
+        navigator['app'].exitApp();
+      }
+    }]
+  })
+  await alert.present();
+}
 async ionViewDidEnter(){
   const loading = await this.loadingcontroller.create({
     message: 'Please Wait',

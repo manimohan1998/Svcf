@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { SubscriberApiService } from '../../subscriber-api.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class PaymentSuccessPage implements OnInit {
   customername: any=[];
 
   constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute,
-    public loadingController: LoadingController) {
+    public loadingController: LoadingController,private platform: Platform) {
     
   //   this.route.queryParams.subscribe(params => {
   //     console.log(params.states)
@@ -33,6 +33,9 @@ export class PaymentSuccessPage implements OnInit {
 
   }
 ionViewWillEnter(){
+  this.platform.backButton.subscribeWithPriority(1, () => {
+    this.router.navigateByUrl('/subscribe-list')
+       });
   this.receiptdata=[]
   this.payment_details=JSON.parse(localStorage.getItem("receipt"))
 this.method(this.payment_details);

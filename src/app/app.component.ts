@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -12,14 +13,17 @@ import { Location } from '@angular/common';
 })
 export class AppComponent {
   @ViewChild(IonRouterOutlet, { static : true}) routerOutlet: IonRouterOutlet;
+  counter: number;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     public toastController: ToastController,
     public alertController:AlertController,
-    public location:Location
+    public location:Location,
+    private router:Router
   ) {
+    this.backButtonEvent()
     this.initializeApp();
   }
 
@@ -28,7 +32,9 @@ export class AppComponent {
     if(navigator.onLine){
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      setTimeout(() => {
+        this.splashScreen.hide();
+      },10000);
     });
   }else{
     this.presentToast("Please Check Network Connection...");
@@ -42,14 +48,21 @@ export class AppComponent {
       toast.present();
     }
     backButtonEvent(){
-      this.platform.backButton.subscribeWithPriority(1,()=>{
-        if (!this.routerOutlet.canGoBack()){
-          this.backButtonAlert();
-        }else{
-          this.location.back();
-        }
-        
-      })
+    //  this.platform.ready().then(() => {
+    //   document.addEventListener("backbutton", () => {
+    //   if(this.router.url == "/" || this.router.url == "/tabs/tab1"){
+    //     if (this.counter == 0) {
+    //       this.counter++;
+    //      this.backButtonAlert()
+    //       setTimeout(() => { this.counter = 0 }, 2000)
+    //     }
+    //     else if
+    //     else {
+    //       navigator['app'].exitApp();
+    //       }
+    //     }
+    //   });
+    // })
     }
     async backButtonAlert(){
       const alert =await this.alertController.create({

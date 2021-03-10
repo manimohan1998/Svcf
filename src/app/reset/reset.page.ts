@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import {Router} from'@angular/router'
 import { CommonApiService } from 'src/app/Login/common-api.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Component({
   selector: 'app-reset',
@@ -17,7 +17,7 @@ export class ResetPage implements OnInit {
   userdata: any=[];
 
   constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController,
-    public loadingcontroller:LoadingController) {
+    public loadingcontroller:LoadingController,private platform: Platform) {
     this.resetForms = this.fb.group({
       name: [''],
       mobilenumber: ['',Validators.maxLength(11)], 
@@ -35,6 +35,9 @@ export class ResetPage implements OnInit {
         translucent: true,
       });
       await loading.present();
+      this.platform.backButton.subscribeWithPriority(1, () => {
+        this.router.navigateByUrl('/login')
+           });
       let data=JSON.parse(localStorage.getItem("firstdata"));
       this.resetForms.get("oldpassword").setValue(data.password);
       console.log(data.password)

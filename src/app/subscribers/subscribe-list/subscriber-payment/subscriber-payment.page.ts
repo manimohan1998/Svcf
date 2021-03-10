@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import {Router, ActivatedRoute,NavigationExtras} from'@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
 import { SubscriberApiService } from '../../subscriber-api.service';
@@ -58,7 +58,8 @@ year:any;
   cashdata:any=[];
   cashdata1:any;
   receiptno:any=[];
-  constructor(private formBuilder: FormBuilder,public toastController: ToastController, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController) {
+  constructor(private formBuilder: FormBuilder,public toastController: ToastController, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController,
+    public platform:Platform) {
     this.route.queryParams.subscribe(params => {
       this.payment_details = JSON.parse(params.state);
            console.log(this.payment_details)
@@ -83,6 +84,9 @@ this.newArray();
 }
 
 ionViewDidEnter(){
+  this.platform.backButton.subscribeWithPriority(1, () => {
+    this.router.navigateByUrl('/subscribe-list')
+       });
 this.addmethod();
 }
 back(){

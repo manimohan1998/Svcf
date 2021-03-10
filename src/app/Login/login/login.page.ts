@@ -4,7 +4,7 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {Network} from '@ionic-native/network/ngx';
 import {Dialogs} from '@ionic-native/dialogs/ngx';
 import { CommonApiService } from 'src/app/Login/common-api.service';
-import { ToastController } from '@ionic/angular';
+import { AlertController, Platform, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,8 @@ export class LoginPage implements OnInit {
   user: string;
   member_id:any;
   token: any;
-  constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService,public toastController: ToastController) { 
+  constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService,public toastController: ToastController,
+    private platform: Platform,public alertController:AlertController) { 
     this.loginForm = this.fb.group({
       name: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -32,8 +33,29 @@ export class LoginPage implements OnInit {
   }
   ionViewWillEnter(){
     this.loginForm.reset("");
+    this.platform.backButton.subscribeWithPriority(1, () => {
+      this.backButtonAlert();
+         });
   }
  
+async backButtonAlert(){
+    const alert =await this.alertController.create({
+      message:'Do you want to exit app',
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },{
+        text: 'Close app',
+        handler: () =>{
+          navigator['app'].exitApp();
+        }
+      }]
+    })
+    await alert.present();
+  }
    submitForm(val){        
         this.commonserv.loginCredentials(val.name,val.password).subscribe(res=>{
           console.log(res)

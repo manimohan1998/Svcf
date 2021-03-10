@@ -4,7 +4,7 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx'
 import { Router, ActivatedRoute } from '@angular/router';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {format} from "date-fns";
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-subscriber-recepit',
   templateUrl: './subscriber-recepit.page.html',
@@ -27,12 +27,13 @@ public sendTo   : any;
    arrearamount1: number;
    arrears1: any=[];
    show: boolean;
+   show1: boolean;
 
 
 
 
   constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,
-    private router:Router,public route: ActivatedRoute,private fb:FormBuilder,public toastController: ToastController) { 
+    private router:Router,public route: ActivatedRoute,private fb:FormBuilder,public toastController: ToastController,public platform:Platform) { 
    
     this.dateform = this.fb.group({
       startdate: ['', Validators.required],
@@ -45,7 +46,11 @@ public sendTo   : any;
   
   }
   ionViewWillEnter(){
+   this.platform.backButton.subscribeWithPriority(1, () => {
+      this.router.navigateByUrl('/subscribe-list')
+         });
    this.show=false
+   this.show1=false;
    this.presentToast1("Click to select start date and end date to filter your receipts")
   }
   back(){
@@ -81,10 +86,11 @@ this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
       console.log(this.arrears1)
     }
     if(Array.isArray(this.receiptdata) && this.receiptdata.length){
-
+      this.show1=false;
     }
     else{
       this.presentToast("No Data Found")
+      this.show1=true;
     }
 })
   }

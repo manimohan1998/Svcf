@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonApiService } from './../common-api.service';
-import { ToastController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
@@ -15,7 +15,8 @@ export class ForgotPasswordPage implements OnInit {
   
   otp: any;
   forgot: boolean;
-  constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController) { 
+  constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
+    private platform: Platform) { 
     this.forgotForm = this.fb.group({
       Customer: ['', [Validators.required, Validators.minLength(4)]],
       // mobile: ['', [Validators.required, Validators.maxLength(10),Validators.pattern("[0-9]{10}")]],
@@ -32,6 +33,9 @@ export class ForgotPasswordPage implements OnInit {
     this.forgotForm.reset("");
     this.forgotForms.reset("");
     this.forgot=false;
+    this.platform.backButton.subscribeWithPriority(1, () => {
+      this.router.navigateByUrl('/login')
+         });
   }
   submitsForm(){
     console.log(this.forgotForm['value']['Customer'])
