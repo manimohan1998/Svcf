@@ -69,4 +69,7 @@ async  method(data) {
   paymentsuccess(){
     this.router.navigate(["/subscribe-list"])
   }
+  previous(){
+    this.router.navigate(["/subscribe-list"])
+  }
 }

@@ -15,7 +15,7 @@ export class ResetPage implements OnInit {
   patternval: boolean=false;
   mob: any;
   userdata: any=[];
-
+  show:boolean;
   constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController,
     public loadingcontroller:LoadingController,private platform: Platform) {
     this.resetForms = this.fb.group({

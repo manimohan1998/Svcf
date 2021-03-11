@@ -11,6 +11,7 @@ import { Platform, ToastController } from '@ionic/angular';
 })
 export class ResetPasswordPage implements OnInit {
   resetForm: FormGroup;
+  show:boolean;
 constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
   private platform: Platform) { 
     this.resetForm = this.fb.group({
@@ -52,11 +53,13 @@ ionViewWillEnter(){
         { type: 'required', message: 'New password is required.' },
       
         { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
+       
+        'confirmpass': [
+          { type: 'required', message: 'Confirm password is required.' },
+        
+          { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ]
     }
-    'confirmpass': [
-      { type: 'required', message: 'Confirm password is required.' },
     
-      { type: 'pattern', message: 'New password must be at least 9 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ]
 
   submitsForm(){
     // let data={userid:"1",password:this.resetForm['value']['newpass']}

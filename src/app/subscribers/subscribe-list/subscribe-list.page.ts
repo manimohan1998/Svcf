@@ -34,6 +34,7 @@ export class SubscribeListPage implements OnInit {
   prized_chits:any[]=[];
   Logo: any;
   customerid: any;
+  term="";
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -117,6 +118,7 @@ async backButtonAlert(){
     },{
       text: 'Close app',
       handler: () =>{
+        localStorage.clear();
         navigator['app'].exitApp();
       }
     }]

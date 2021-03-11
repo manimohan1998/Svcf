@@ -29,16 +29,18 @@ export class AppComponent {
 
   initializeApp() {
     this.statusBar.backgroundColorByHexString('#30ADFF');
-    if(navigator.onLine){
+    // this.splashScreen.hide();
+    // if(navigator.onLine){
     this.platform.ready().then(() => {
+      this.splashScreen.hide();
       this.statusBar.styleDefault();
-      setTimeout(() => {
-        this.splashScreen.hide();
-      },10000);
+      // setTimeout(() => {
+        
+      // },300);
     });
-  }else{
-    this.presentToast("Please Check Network Connection...");
-  }
+  // }else{
+  //   this.presentToast("Please Check Network Connection...");
+  // }
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
