@@ -13,7 +13,7 @@
       <h3>Chit Details</h3>
 <!--       <ion-icon name="create-outline" slot="end"></ion-icon>
  -->    </div>
-    <form [formGroup]="PaymentForm"  class="payment_form">
+    <form [formGroup]="PaymentForm"  class="payment_form" (ngSubmit)="payWithRazorpay()">
 
       <ion-list formGroupName="AmountDetails">
         <div *ngFor="let data of AmountDetail().controls; let i=index " [formGroupName]="i">

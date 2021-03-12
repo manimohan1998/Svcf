@@ -67,9 +67,16 @@ ionViewWillEnter(){
     let username=localStorage.getItem('customer')
     this.commonserv.resetPassword(username,password).subscribe(res=>{
       console.log(res)
-      this.presentToast('Password Changed Successfully.');
+      if(res['Message']==="Password Changed Successfully"){
+        this.presentToast('Password Changed Successfully.');
+        this.router.navigate(['/login'])
+      }
+      else{
+        this.presentToast('Password Changed unSuccessfully.');
+      }
+     
     })
-    this.router.navigate(['/login'])
+   
   }
   async presentToast(message) {
     const toast = await this.toastController.create({

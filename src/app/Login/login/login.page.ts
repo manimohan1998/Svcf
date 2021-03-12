@@ -46,7 +46,9 @@ async backButtonAlert(){
         text: 'Cancel',
         role: 'cancel',
         handler: () => {
+          alert.dismiss();
           console.log('Cancel clicked');
+          this.router.navigateByUrl('/login')
         }
       },{
         text: 'Close app',

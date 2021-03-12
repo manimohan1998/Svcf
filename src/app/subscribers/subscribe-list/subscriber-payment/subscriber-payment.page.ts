@@ -182,7 +182,8 @@ this.newcheck(paymentId);
 
 }
 var cancelCallback = (error) =>{
-alert(error.description + ' (Error '+error.code+')')
+// alert(error.description + ' (Error '+error.code+')')
+alert(error.description)
 }
 RazorpayCheckout.on('payment.success', successCallback)
 RazorpayCheckout.on('payment.cancel', cancelCallback)
