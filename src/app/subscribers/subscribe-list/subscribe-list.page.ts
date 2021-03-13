@@ -36,6 +36,7 @@ export class SubscribeListPage implements OnInit {
   customerid: any;
   term="";
   alerts: any=[];
+  count: number=0;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -101,23 +102,26 @@ async ionViewWillEnter(){
     
   //   })  
   // })
-
+  this.count=0
   this.platform.backButton.subscribeWithPriority(1, () => {
-  this.backButtonAlert();
-     });
+    this.count +=1;
+    console.log(this.count)
+    if(this.count==2){
+      this.backButtonAlert();
+      this.count-=1;
+    }
+  });
 
 }
 async backButtonAlert(){
+    
   const alert =await this.alertController.create({
     message:'Do you want to exit app',
     buttons: [{
       text: 'Cancel',
       role: 'cancel',
       handler: () => {
-        alert.dismiss();
-        console.log('Cancel clicked');
-        this.router.navigateByUrl('/subscribe-list')
-      }
+       }
     },{
       text: 'Close app',
       handler: () =>{
@@ -274,6 +278,7 @@ async logout(){
         role: 'cancel',
         handler: () => {
           console.log('Cancel clicked');
+          this.ionViewWillEnter();
         }
       },
       {

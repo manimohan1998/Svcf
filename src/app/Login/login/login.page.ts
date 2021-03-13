@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   member_id:any;
   token: any;
   show:boolean;
+  count: number=0;
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService,public toastController: ToastController,
     private platform: Platform,public alertController:AlertController) { 
     this.loginForm = this.fb.group({
@@ -33,9 +34,15 @@ export class LoginPage implements OnInit {
       })
   }
   ionViewWillEnter(){
+    this.count=0;
     this.loginForm.reset("");
     this.platform.backButton.subscribeWithPriority(1, () => {
+    this.count +=1;
+    console.log(this.count)
+    if(this.count==2){
       this.backButtonAlert();
+      this.count-=1;
+    }
          });
   }
  
@@ -46,9 +53,6 @@ async backButtonAlert(){
         text: 'Cancel',
         role: 'cancel',
         handler: () => {
-          alert.dismiss();
-          console.log('Cancel clicked');
-          this.router.navigateByUrl('/login')
         }
       },{
         text: 'Close app',
