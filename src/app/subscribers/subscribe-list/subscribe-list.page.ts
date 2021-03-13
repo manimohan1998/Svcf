@@ -35,6 +35,7 @@ export class SubscribeListPage implements OnInit {
   Logo: any;
   customerid: any;
   term="";
+  alerts: any=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -125,6 +126,7 @@ async backButtonAlert(){
       }
     }]
   })
+
   await alert.present();
 }
 async ionViewDidEnter(){
@@ -151,7 +153,11 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
 
   
   },error=>{
-    alert(console.log(error));
+    // alert(console.log(error));
+    this.presentToast("please try again later")
+    loading.dismiss();
+    this.router.navigate(['/login'])
+    localStorage.clear()
   }) ;
 
   
@@ -284,7 +290,6 @@ async logout(){
       
     ]
 })
-
 await alert_info.present();
     }
     ngOnDestroy(){
@@ -292,6 +297,7 @@ await alert_info.present();
       this.userlist1=[];
       this.arrayvalue=[];
     }
+
     
 }
 
