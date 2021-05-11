@@ -32,8 +32,8 @@ sameMobileNumber(member1){
 reset(id,name,password,number){
   return this.http.get(environment.url+'RestPassword?MemberIDNew='+id+"&&userName"+name+'&&Password='+password+'&&MobileNo='+number)
 }
-personalDetails(memidnew){
-  return this.http.get(environment.url+'UserDetails?MemberIDNew='+memidnew)
-}
+// personalDetails(memidnew){
+//   return this.http.get(environment.url+'UserDetails?MemberIDNew='+memidnew)
+// }
 }
 

@@ -12,7 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {Network} from '@ionic-native/network/ngx'
 import {Dialogs} from '@ionic-native/dialogs/ngx'
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './core/interceptor';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -24,6 +25,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
      HttpClientModule],
      
   providers: [
+    Interceptor,
+    { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
     StatusBar,
     SplashScreen,
     Network,

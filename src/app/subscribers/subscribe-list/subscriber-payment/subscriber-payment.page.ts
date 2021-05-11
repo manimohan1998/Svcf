@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import {Router, ActivatedRoute,NavigationExtras} from'@angular/router';
-import { LoadingController, Platform } from '@ionic/angular';
+import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
 import { SubscriberApiService } from '../../subscriber-api.service';
 import 'moment/locale/pt-br';
 import * as moment from 'moment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 declare var RazorpayCheckout: any; 
 @Component({
@@ -15,51 +16,56 @@ declare var RazorpayCheckout: any;
   styleUrls: ['./subscriber-payment.page.scss'],
 })
 export class SubscriberPaymentPage implements OnInit {
-  payment_details:any=[];
-  formcount:any;
-  PaymentForm:FormGroup;
-  grandtotal:any=[];
-  personal:any=[];
-  num: number;
-  total_details:any=[];
-  storepayment: any;
-  payment_detail: { Chitnumber: any; MemberId: string; PayableAmount: any; ArrierAmount: any; InterestAmount: number; Prized: any; Branch: any; Current_insta_no: any; };
-  total: number;
-  data1: number;
-  data2: number;
- // newly added
-  arrearamount: number;
-  Amounts: number;
-  payamount:number;
-  // day:number;
-  // month:number;
-  // year:number;
-  currentdate:string;
-  storepayment1: any;
-  carddata:any;
-  storepayment2: any;
-  storepayment3: any;
-  array:any=[];
-nedate:any;
-day:any;
-month:any;
-year:any;
-  card:any;
-  card1:any;
-  final:any;
-  final1:any;
-  finals:any;
-  vouchercounts:any;
-   count: number=0;
+    payment_details:any=[];
+    formcount:any;
+    PaymentForm:FormGroup;
+    grandtotal:any=[];
+    personal:any=[];
+    num: number;
+    total_details:any=[];
+    storepayment: any;
+    payment_detail: { Chitnumber: any; MemberId: string; PayableAmount: any; ArrierAmount: any; InterestAmount: number; Prized: any; Branch: any; Current_insta_no: any; };
+    total: number;
+    data1: number;
+    data2: number;
+    // newly added
+    arrearamount: number;
+    Amounts: number;
+    payamount:number;
+    // day:number;
+    // month:number;
+    // year:number;
+    currentdate:string;
+    storepayment1: any;
+    carddata:any;
+    storepayment2: any;
+    storepayment3: any;
+    array:any=[];
+    nedate:any;
+    day:any;
+    month:any;
+    year:any;
+    card:any;
+    card1:any;
+    final:any;
+    final1:any;
+    finals:any;
+    vouchercounts:any;
+    count: number=0;
     data3: number;
 
-  getvouchercount:any=[];
-  payment_data:any=[];
-  cashdata:any=[];
-  cashdata1:any;
-  receiptno:any=[];
+    getvouchercount:any=[];
+    payment_data:any=[];
+    cashdata:any=[];
+    cashdata1:any;
+    receiptno:any=[];
+    receiptletters: any=[];
+    Receipt_code: any;
+    todaypaidamount: any;
+  totals: number;
+  enteramount: any;
   constructor(private formBuilder: FormBuilder,public toastController: ToastController, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController,
-    public platform:Platform) {
+    public platform:Platform,public alertController: AlertController) {
     this.route.queryParams.subscribe(params => {
       this.payment_details = JSON.parse(params.state);
            console.log(this.payment_details)
@@ -137,6 +143,43 @@ for(let i=0;i<this.grandtotal.length;i++){
     console.log( this.total_details)
   }
 
+  function colName(n) {
+    var ordA = 'a'.charCodeAt(0);
+    var ordZ = 'z'.charCodeAt(0);
+    var len = ordZ - ordA + 1;
+  
+    var s = "";
+    while(n >= 0) {
+        s = String.fromCharCode(n % len + ordA) + s;
+        n = Math.floor(n / len) - 1;
+    }
+    return s;
+  }
+  
+  // Example:
+  this.receiptletters=[]
+  for(let n = 0; n < 18278; n++){
+    var val=  colName(n)
+    this.receiptletters.push(val)
+  }
+  console.log(this.receiptletters)
+  let token=localStorage.getItem('token')
+  
+this.subscribeServ.Vouchercode(token).subscribe(res=>{
+  console.log(res['VoucherCode'],"vouchercode")
+  this.Receipt_code=res['VoucherCode']
+  console.log(this.Receipt_code)
+},(error:HttpErrorResponse)=>{
+  if(error.status ===401){    
+    this.presentToast("Session timeout, please login to continue.");
+    this.router.navigate(["/login"]);
+ }
+ else if(error.status ===400){    
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
+}
+
+})
 }
 
 AmountDetail():FormArray{
@@ -161,6 +204,79 @@ console.log(this.payment_details)
 //   public submit() {
 //    this.newcheck('8')
 // }
+submit(){
+  let memidnew=localStorage.getItem('memberid')
+  let token=localStorage.getItem('token')
+  this.subscribeServ.duplicantpaymentdetails(token).subscribe(res=>{
+    console.log(res)
+    let balancetime=res['BalanceExpiration']
+    console.log(balancetime)
+    if(balancetime>300){
+     this.check();
+    }else{
+      this.presentToast1("Session timeout, please login to continue.");
+      this.router.navigate(["/login"]);
+    }
+  },(error:HttpErrorResponse)=>{
+    if(error.status ===401){    
+      this.presentToast("Session timeout, please login to continue.");
+      this.router.navigate(["/login"]);
+   }
+   else if(error.status ===400){    
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+  }
+  
+})
+}
+
+  check(){
+    this.totals=0
+    let memidnew=localStorage.getItem('memberid')
+    let token=localStorage.getItem('token')
+    this.subscribeServ.toddayamount(memidnew,token).subscribe(res=>{
+      console.log(res["TotalPaidAmount"])
+      this.todaypaidamount= res['TotalPaidAmount']
+      this.enteramount=this.num
+      if(this.todaypaidamount>-1){
+        this.totals +=this.todaypaidamount
+        this.totals += this.num
+        console.log(this.totals)
+        if(this.totals<200000){
+        this.payWithRazorpay()
+        }
+        else{
+        this.presentAlertConfirm2();
+        }
+      }}
+      ,(error:HttpErrorResponse)=>{
+        if(error.status ===401){    
+          this.presentToast("Session timeout, please login to continue.");
+          this.router.navigate(["/login"]);
+       }
+       else if(error.status ===400){    
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+      }
+      
+})
+  }
+
+async presentAlertConfirm2() {
+  const alert = await this.alertController.create({
+  message: 'You have exceeded the Cash limit of ₹2 lakh/day',
+  buttons: [
+   {
+  text: 'Ok',
+  role: 'cancel',
+  handler: () => {
+  }
+  }
+  ]
+  });
+  await alert.present();
+  }
+
 payWithRazorpay(){
   let amount=this.num*100;
   var options = {
@@ -214,11 +330,15 @@ async newcheck(payment){
    //let receiptno= this.grandtotal[i].BranchName.substring(0,3).toUpperCase()
    let id=this.personal[0].MemberID
    this.count +=1
-  let number=this.padLeadingZeros(this.count, 8);
+   if(this.count>9999999){
+    this.count=1;
+    this.Receipt_code +=1
+   }
+  let number=this.padLeadingZeros(this.count, 7);
   //  this.no=this.count
    this.vouchercounts=number
-   let customer="C-"
-   this.receiptno.push(customer+this.grandtotal[i].BranchPrefix+number)
+   let customer="C-PAL-"
+   this.receiptno.push(customer+this.receiptletters[this.Receipt_code]+number)
    console.log(this.receiptno)
   }
   
@@ -257,7 +377,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     CurrentDue:this.grandtotal[i].CurrentDueAmount,
     //Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts  
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
   },
   {
     Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier,
@@ -291,7 +412,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     CurrentDue:this.grandtotal[i].CurrentDueAmount,
     //Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: this.grandtotal[i].Interest,
@@ -324,7 +446,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     //CurrentDue:this.grandtotal[i].CurrentDueAmount,
     Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: this.grandtotal[i].Interest,
@@ -357,7 +480,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
   //  CurrentDue:this.grandtotal[i].CurrentDueAmount,
   Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     }
   ]
   }
@@ -395,7 +519,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     CurrentDue:this.grandtotal[i].CurrentDueAmount,
     //Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier,
@@ -428,7 +553,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     CurrentDue:this.grandtotal[i].CurrentDueAmount,
     //Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: +this.grandtotal[i].Interest,
@@ -461,7 +587,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     //CurrentDue:this.grandtotal[i].CurrentDueAmount,
     Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts 
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
    },
   {
     Amount: this.grandtotal[i].Interest,
@@ -494,7 +621,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     //CurrentDue:this.grandtotal[i].CurrentDueAmount,
     Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     }
   ]
   }
@@ -531,7 +659,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     CurrentDue:this.grandtotal[i].CurrentDueAmount,
     //Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: this.grandtotal[i].CurrentDueAmount,
@@ -564,7 +693,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     CurrentDue:this.grandtotal[i].CurrentDueAmount,
     //Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: this.grandtotal[i].Interest,
@@ -597,7 +727,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     //CurrentDue:this.grandtotal[i].CurrentDueAmount,
     Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     },
   {
     Amount: this.grandtotal[i].Interest,
@@ -630,7 +761,8 @@ async newcheck(payment){
     NPArrear:this.grandtotal[i].NonPrizedArrier,
     //CurrentDue:this.grandtotal[i].CurrentDueAmount,
     Interest:this.grandtotal[i].Interest,
-    VoucherCount:this.vouchercounts
+    VoucherCount:this.vouchercounts,  
+    VoucherCode:this.Receipt_code
     }
   ]
   
@@ -645,7 +777,8 @@ async newcheck(payment){
   console.log(this.cashdata1,"intewre")
   }
 }
-  this.subscribeServ.makepayment(this.cashdata1).subscribe(res=>{
+let token=localStorage.getItem("token")
+  this.subscribeServ.makepayment(this.cashdata1,token).subscribe(res=>{
      console.log(res)
      if(res){
       localStorage.setItem("receipt",JSON.stringify(res))
@@ -658,13 +791,30 @@ async newcheck(payment){
        
     //  };
     // this.router.navigate(["/subscribe-list/payment-success"],navigationExtras)
-    })
+    },(error:HttpErrorResponse)=>{
+      if(error.status ===401){     
+        loading.dismiss()     
+        this.presentToast("Session timeout, please login to continue.");
+        this.router.navigate(["/login"]);
+     }
+     else if(error.status ===400){   
+      loading.dismiss()     
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+    } })
   
 }
 async presentToast(message) {
   const toast = await this.toastController.create({
       message: message,
       duration: 2000
+   });
+    toast.present();
+}
+async presentToast1(message) {
+  const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
    });
     toast.present();
 }

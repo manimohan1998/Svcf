@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {Router, NavigationExtras} from'@angular/router';
 import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service';
@@ -55,7 +55,8 @@ async ionViewWillEnter(){
   await loading.present();
   
   let memidnew=localStorage.getItem('memberid')
-    this.subscribeServ.personalDetails(memidnew).subscribe((res)=>{
+  let token=localStorage.getItem("token")
+    this.subscribeServ.personalDetails(memidnew,token).subscribe((res)=>{
       console.log(res)
       this.personaldetail=res['UserDetails'];
       this.mem_id=localStorage.getItem('memberid')
@@ -69,7 +70,20 @@ async ionViewWillEnter(){
       localStorage.setItem('iniitial_logo',this.Logo)
       localStorage.setItem("personaldatas",JSON.stringify(this.personaldetail))
       loading.dismiss();
-  }) 
+  }
+  ,(error:HttpErrorResponse)=>{
+    if(error.status ===401){          
+      loading.dismiss();
+      this.presentToast("Session timeout, please login to continue.");
+      this.router.navigate(["/login"]);
+   }
+   else if(error.status ===400){     
+    loading.dismiss();      
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+ }
+ }
+  ) 
 
       
 
@@ -141,7 +155,8 @@ async ionViewDidEnter(){
   await loading.present();
   let memid=localStorage.getItem('memberid')
   let sub_id=localStorage.getItem('subid')
-  this.subscribeServ.subscriberList(memid,sub_id).subscribe(res=>{
+  let token=localStorage.getItem("token")
+  this.subscribeServ.subscriberList(memid,sub_id,token).subscribe(res=>{
        
     this.userlist1=(res['chits']) 
 
@@ -156,21 +171,34 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
     }}}
 
   
-  },error=>{
-    // alert(console.log(error));
-    this.presentToast("please try again later")
-    loading.dismiss();
-    this.router.navigate(['/login'])
-    localStorage.clear()
-  }) ;
+  },(error:HttpErrorResponse)=>{
+    if(error.status ===401){      
+      loading.dismiss();    
+      this.presentToast("Session timeout, please login to continue.");
+      this.router.navigate(["/login"]);
+   }
+   else if(error.status ===400){     
+    loading.dismiss();   
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+  } }) ;
 
   
   let count="CPAPP"
-  this.subscribeServ.voucherCount(count).subscribe((res)=>{
+  this.subscribeServ.voucherCount(count,token).subscribe((res)=>{
   let voucher=res
   console.log(res)
   localStorage.setItem("voucher",JSON.stringify(voucher))
- }) 
+ }
+ ,(error:HttpErrorResponse)=>{
+  if(error.status ===401){          
+    this.presentToast("Session timeout, please login to continue.");
+    this.router.navigate(["/login"]);
+ }
+ else if(error.status ===400){        
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
+} }) 
 }
 async presentToast(message) {
   const toast = await this.toastController.create({
@@ -267,18 +295,20 @@ if (index > -1) {
 }
 }
 
-
+profile(){
+  this.router.navigate(['/subscribe-list/person-detail'])
+}
 async logout(){
   const alert_info = await this.alertController.create({
-    header: 'logout',
-    message: ``,
+    header: 'App termination',
+    message: 'Do you want to close the app?',
     buttons:[
       {
         text: 'Cancel',
         role: 'cancel',
         handler: () => {
           console.log('Cancel clicked');
-          this.ionViewWillEnter();
+          // this.ionViewWillEnter();
         }
       },
       {

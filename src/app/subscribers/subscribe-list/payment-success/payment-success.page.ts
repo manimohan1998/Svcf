@@ -1,6 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingController, Platform } from '@ionic/angular';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { SubscriberApiService } from '../../subscriber-api.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class PaymentSuccessPage implements OnInit {
   customername: any=[];
 
   constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute,
-    public loadingController: LoadingController,private platform: Platform) {
+    public loadingController: LoadingController,private platform: Platform,public toastController: ToastController) {
     
   //   this.route.queryParams.subscribe(params => {
   //     console.log(params.states)
@@ -47,8 +48,9 @@ async  method(data) {
       translucent: true,
     });
     await loading.present();
+    let token=localStorage.getItem("token")
     for(let i=0;i<data.listVou.length;i++){
-      this.subscribeServ.receipt(this.payment_details.listVou[i]).subscribe(res=>{
+      this.subscribeServ.receipt(this.payment_details.listVou[i],token).subscribe(res=>{
          console.log(res)
          loading.dismiss();
          this.receiptdata.push(res["lstReceipt"])
@@ -59,10 +61,28 @@ async  method(data) {
            this.arrears.push(this.arrearamount)
            this.arrearamount=0;
          }
-       })
+       }
+       ,(error:HttpErrorResponse)=>{
+        if(error.status ===401){       
+          loading.dismiss();   
+          this.presentToast("Session timeout, please login to continue.");
+          this.router.navigate(["/login"]);
+       }
+       else if(error.status ===400){     
+        loading.dismiss();   
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+      } })
       }
   }
 
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+        message: message,
+        duration: 2000
+     });
+      toast.present();
+  }
   ngOnInit() {
   }
 

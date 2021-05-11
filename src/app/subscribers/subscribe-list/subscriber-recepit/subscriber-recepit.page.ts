@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {format} from "date-fns";
 import { Platform, ToastController } from '@ionic/angular';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-subscriber-recepit',
   templateUrl: './subscriber-recepit.page.html',
@@ -60,12 +61,13 @@ this.router.navigate(["/subscribe-list"])
      this.show=true;
    this.arrears=[]
     let enddate=dates.enddate;
-    let startdate=dates.enddate;
+    let startdate=dates.startdate;
    let start= format(new Date(enddate), "yyyy/MM/dd");
    let end= format(new Date(startdate), "yyyy/MM/dd");
 console.log(start,end)
 let customerid=localStorage.getItem("memberid")
-this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
+let token=localStorage.getItem("token")
+this.subscribeServ.receipthistory(start,end,customerid,token).subscribe(res=>{
    console.log(res)
    this.receiptdata=res["AllReceipts"]
    console.log(this.receiptdata)
@@ -92,7 +94,15 @@ this.subscribeServ.receipthistory(start,end,customerid).subscribe(res=>{
       this.presentToast("No Data Found")
       this.show1=true;
     }
-})
+},(error:HttpErrorResponse)=>{
+   if(error.status ===401){          
+     this.presentToast("Session timeout, please login to continue.");
+     this.router.navigate(["/login"]);
+  }
+  else if(error.status ===400){        
+   this.presentToast("Server Error! Please try login again.");
+   this.router.navigate(["/login"]);
+ } })
   }
   async presentToast(message) {
    const toast = await this.toastController.create({
