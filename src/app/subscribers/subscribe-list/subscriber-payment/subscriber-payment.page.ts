@@ -3,7 +3,7 @@ import {Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import {Router, ActivatedRoute,NavigationExtras} from'@angular/router';
 import { AlertController, LoadingController, Platform } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
-
+import { WebIntent } from '@ionic-native/web-intent/ngx';
 import { SubscriberApiService } from '../../subscriber-api.service';
 import 'moment/locale/pt-br';
 import * as moment from 'moment';
@@ -65,7 +65,7 @@ export class SubscriberPaymentPage implements OnInit {
   totals: number;
   enteramount: any;
   constructor(private formBuilder: FormBuilder,public toastController: ToastController, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController,
-    public platform:Platform,public alertController: AlertController) {
+    public platform:Platform,public alertController: AlertController,private webIntent: WebIntent) {
     this.route.queryParams.subscribe(params => {
       this.payment_details = JSON.parse(params.state);
            console.log(this.payment_details)
@@ -180,6 +180,7 @@ this.subscribeServ.Vouchercode(token).subscribe(res=>{
 }
 
 })
+
 }
 
 AmountDetail():FormArray{
@@ -243,7 +244,8 @@ submit(){
         this.totals += this.num
         console.log(this.totals)
         if(this.totals<200000){
-        this.payWithRazorpay()
+        // this.payWithRazorpay()
+        this.upialert()
         }
         else{
         this.presentAlertConfirm2();
@@ -277,33 +279,95 @@ async presentAlertConfirm2() {
   await alert.present();
   }
 
-payWithRazorpay(){
-  let amount=this.num*100;
-  var options = {
-  description: 'Credits towards consultation',
-  image: 'https://i.imgur.com/3g7nmJC.png',
-  currency: 'INR',
-  key:'rzp_test_j19AUM7dFqeMks',
-  amount:amount,
-  name: 'Acme Corp',
-  theme: {
-    color: '#3399cc'
+// payWithRazorpay(){
+//   let amount=this.num*100;
+//   var options = {
+//   description: 'Credits towards consultation',
+//   image: 'https://i.imgur.com/3g7nmJC.png',
+//   currency: 'INR',
+//   key:'rzp_test_j19AUM7dFqeMks',
+//   amount:amount,
+//   name: 'Acme Corp',
+//   theme: {
+//     color: '#3399cc'
+//       }
+//   }
+// var successCallback = (success) =>{
+// var paymentId = success.razorpay_payment_id
+// var signature = success.razorpay_signature
+// this.newcheck(paymentId); 
+
+
+// }
+// var cancelCallback = (error) =>{
+// // alert(error.description + ' (Error '+error.code+')')
+// alert(error.description)
+// }
+// RazorpayCheckout.on('payment.success', successCallback)
+// RazorpayCheckout.on('payment.cancel', cancelCallback)
+// RazorpayCheckout.open(options)
+// }
+async upialert(){
+    
+  const alert =await this.alertController.create({
+    message:'Make payment through available UPI',
+    buttons: [{
+      text: 'Cancel',
+      role: 'cancel',
+      handler: () => {
+       }
+    },{
+      text: 'Ok',
+      handler: () =>{
+        this.upiIntegraction()
       }
+    }]
+  })
+
+  await alert.present();
+}
+upiIntegraction() {
+  const tid = this.getRandomString();
+  const orderId = this.getRandomString();
+  const totalPrice = 1.00;
+  const UPI_ID = 'gokuldsp01@oksbi';
+  const UPI_NAME = 'Gokul%20Gogul';
+  const UPI_TXN_NOTE = 'Finance%20Amount';
+  const url = `upi://pay?pa=${UPI_ID}&pn=${UPI_NAME}&tid=${tid}&am=${totalPrice}&cu=INR&tn=${UPI_TXN_NOTE}&tr=${orderId}`;
+  const options = {
+    action: this.webIntent.ACTION_VIEW,
+    url
+  };
+  console.log(options)
+  this.webIntent.startActivityForResult(options).then(success => {
+    console.log(success);
+    if (success.extras.Status == 'SUCCESS') {
+      // SUCCESS RESPONSE
+      this.paymentSuccess(orderId, 'UPI');
+    } else if (success.extras.Status == 'SUBMITTED') {
+      this.paymentSuccess(orderId, 'UPI');
+      // SUBMITTED RESPONSE
+    } else if (success.extras.Status == 'Failed' || success.extras.Status == 'FAILURE') {
+      // FAILED RESPONSE
+    } else {
+      // FAILED RESPONSE
+    }
+  }, error => {
+    console.log(error);
+  });
+}
+getRandomString() {
+  const len = 10;
+  const arr = '1234567890asdfghjklqwertyuiopzxcvbnmASDFGHJKLQWERTYUIOPZXCVBNM';
+  let ans = '';
+  for (let i = len; i > 0; i--) {
+    ans += arr[Math.floor(Math.random() * arr.length)];
   }
-var successCallback = (success) =>{
-var paymentId = success.razorpay_payment_id
-var signature = success.razorpay_signature
-this.newcheck(paymentId); 
-
-
+  return ans;
 }
-var cancelCallback = (error) =>{
-// alert(error.description + ' (Error '+error.code+')')
-alert(error.description)
-}
-RazorpayCheckout.on('payment.success', successCallback)
-RazorpayCheckout.on('payment.cancel', cancelCallback)
-RazorpayCheckout.open(options)
+paymentSuccess(orderId: string, paymentMethod: string) {
+  alert(`Payment successful Order Id ${orderId} payment method ${paymentMethod}`);
+  this.newcheck(orderId); 
 }
 async newcheck(payment){
   const loading = await this.loadingController.create({
@@ -338,7 +402,8 @@ async newcheck(payment){
   //  this.no=this.count
    this.vouchercounts=number
    let customer="C-PAL-"
-   this.receiptno.push(customer+this.receiptletters[this.Receipt_code]+number)
+   let receiptcount=this.receiptletters[this.Receipt_code].toUpperCase()
+   this.receiptno.push(customer+receiptcount+number)
    console.log(this.receiptno)
   }
   
@@ -801,7 +866,11 @@ let token=localStorage.getItem("token")
       loading.dismiss()     
       this.presentToast("Server Error! Please try login again.");
       this.router.navigate(["/login"]);
-    } })
+    } 
+  
+  else{
+    alert(error.status)
+  }})
   
 }
 async presentToast(message) {

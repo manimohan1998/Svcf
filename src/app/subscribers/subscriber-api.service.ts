@@ -11,9 +11,8 @@ export class SubscriberApiService {
   subscriberList(mem_id,sub_id,token){
     return this.http.get('ChitDetails?MemberIDNew='+mem_id+'&&branchId='+sub_id+'&Token='+token)
   }
-
   makepayment(payment_detail,token){
-    return this.http.post('MobilePayment',payment_detail+'&Token='+token)
+    return this.http.post('MobilePayment/?token='+token,payment_detail)
   }
   personalDetails(memidnew,token){
     return this.http.get('UserDetails?MemberIDNew='+memidnew+'&Token='+token)

@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import {Network} from '@ionic-native/network/ngx'
 import {Dialogs} from '@ionic-native/dialogs/ngx'
-
+import { WebIntent } from '@ionic-native/web-intent/ngx';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './core/interceptor';
 @NgModule({
@@ -30,7 +30,7 @@ import { Interceptor } from './core/interceptor';
     StatusBar,
     SplashScreen,
     Network,
-    Dialogs,
+    Dialogs,WebIntent,
     SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
