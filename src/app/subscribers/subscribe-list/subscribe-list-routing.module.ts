@@ -22,6 +22,14 @@ const routes: Routes = [
   },  {
     path: 'payment-success',
     loadChildren: () => import('./payment-success/payment-success.module').then( m => m.PaymentSuccessPageModule)
+  },
+  {
+    path: 'all-chits',
+    loadChildren: () => import('./all-chits/all-chits.module').then( m => m.AllChitsPageModule)
+  },
+  {
+    path: 'show-chits',
+    loadChildren: () => import('./show-chits/show-chits.module').then( m => m.ShowChitsPageModule)
   }
 
 ];

@@ -23,7 +23,7 @@
         <!-- <ion-avatar><img src="https://www.lifewire.com/thmb/1na-tdifkQUT1obPOp7r0AwP2Bc=/1373x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ScreenShot2020-04-20at10.06.28AM-69855f4797cb4be4bbed72f51dff1ab5.jpg"></ion-avatar> -->
       </ion-col>
       <ion-col class="menu" size="1">
-        <ion-icon name="ellipsis-vertical-outline" (click)="logout()"></ion-icon>
+        <ion-icon  name="log-out-outline" (click)="logout()"></ion-icon>
       </ion-col>
     </ion-row>
     <!-- <ion-searchbar></ion-searchbar> -->
@@ -32,8 +32,16 @@
       <ion-searchbar placeholder="search" [(ngModel)]="term"></ion-searchbar>
       <!-- <input type="text" class="form-control" placeholder="search" [(ngModel)]="term"> -->
     </div>
-
-    <p *ngIf="chit_length !=0" class="total_chits">No. of Chits : <span>{{chit_length}}</span></p>
+<ion-row size="12">
+  <ion-col> <p *ngIf="chit_length !=0" class="total_chits">No. of Chits : <span>{{chit_length}}</span></p></ion-col>
+  <ion-col class="menu" size="3" (click)="allchits()">
+    <ion-row style="margin-left: 18px;"> <ion-icon name="layers-outline" ></ion-icon></ion-row>
+    <ion-row>  <ion-label class="menu1">Chit history</ion-label></ion-row>
+   </ion-col>
+</ion-row>
+   
+   
+    
   </section>
 
   <ion-card class="card_bg" *ngFor="let val of userlist3 | filter:term; let i=index">

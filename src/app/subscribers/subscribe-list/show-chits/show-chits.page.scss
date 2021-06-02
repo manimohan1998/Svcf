@@ -1,0 +1,15 @@
+.scroll{
+
+    flex-wrap: nowrap;
+    overflow-x: scroll!important;
+     .scroll-item {
+       flex: 0 0 auto;
+    }
+    font-size: 14px;
+    
+}
+#table-scroll {
+    height:100%;
+    overflow:auto;  
+    margin-top:20px;
+  }

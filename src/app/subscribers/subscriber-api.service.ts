@@ -35,4 +35,10 @@ export class SubscriberApiService {
   duplicantpaymentdetails(token){
     return this.http.get('BalanceExpiration?token='+token)
   }
+  allchits(customerid,token){
+    return this.http.get('ChitList?MemberIDNew='+customerid+'&token='+token)
+  }
+  allchitsdetails(headid,token){
+     return this.http.get('GetAllChitHistory?Head_Id='+headid+'&token='+token)
+  }
 }

@@ -64,6 +64,7 @@ async ionViewWillEnter(){
       localStorage.setItem("subid",this.sub_id)
       this.customername=this.personaldetail[0].CustomerName
       this.customerid=this.personaldetail[0].MemberID
+      localStorage.setItem("customername",this.customername)
       // localStorage.setItem("memberid",this.customerid)
       console.log(this.mem_id,this.sub_id)
       this.Logo = this.customername.charAt(0);
@@ -333,7 +334,9 @@ await alert_info.present();
       this.arrayvalue=[];
     }
 
-    
+    allchits(){
+      this.router.navigate(['/subscribe-list/all-chits'])
+    }
 }
 
 

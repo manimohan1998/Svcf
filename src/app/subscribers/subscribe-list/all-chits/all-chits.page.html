@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar style="--min-height:0px !important">
+   <ion-item>
+    <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+    <ion-title>All Chits</ion-title>
+   </ion-item>
+  </ion-toolbar>
+  <div class="search">
+    <ion-searchbar placeholder="search" [(ngModel)]="term"
+    ></ion-searchbar>
+  </div>
+</ion-header>
+
+<ion-content>
+<ion-card class="card_bg" *ngFor="let v of details | filter:term; let i=index">
+    <ion-item (click)="goto(v)">
+    <ion-label class="ion-text-wrap">
+    <h3 class="id">{{ v.Head_Id }}</h3>
+    <h3 class="name"> {{ v.GrpMemberID }}</h3>
+    </ion-label>
+    </ion-item>
+    </ion-card>
+    <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="(details | filter: term).length === 0">No matching Datas</div>
+</ion-content>

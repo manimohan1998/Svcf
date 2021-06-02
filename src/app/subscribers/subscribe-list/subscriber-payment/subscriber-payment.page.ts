@@ -329,7 +329,7 @@ async upialert(){
 upiIntegraction() {
   const tid = this.getRandomString();
   const orderId = this.getRandomString();
-  const totalPrice = 1.00;
+  const totalPrice = 5.00;
   const UPI_ID = 'gokuldsp01@oksbi';
   const UPI_NAME = 'Gokul%20Gogul';
   const UPI_TXN_NOTE = 'Finance%20Amount';

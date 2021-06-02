@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar style="--min-height:0px !important">
+    <ion-item>
+     <ion-icon name="arrow-back-outline" routerLink="/subscribe-list/all-chits"></ion-icon>
+     <ion-title>Chit History</ion-title>
+    </ion-item>
+   </ion-toolbar>
+   <div class="search">
+     <ion-searchbar placeholder="search" [(ngModel)]="term"
+     ></ion-searchbar>
+   </div>
+</ion-header>
+
+<ion-content>
+  <div id="table-scroll">
+   <ion-grid>
+     <ion-row>
+       <ion-col>
+         <ion-row>Chit&nbsp;No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{chitid}}</ion-row>
+         <ion-row>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;{{customername}}</ion-row>
+         <ion-row><b style="margin-left: 90px;">Account Copy</b></ion-row>
+       </ion-col>
+     </ion-row>
+   </ion-grid>
+  <table border class="scroll" >
+  <thead >
+       <tr>           
+         <th style="padding: 5px 0px 5px 0px;" *ngFor="let header of getHeaders()">{{header}}</th>
+       </tr>
+  </thead>
+  <tbody>
+       <tr *ngFor="let item of details| filter:term">           
+         <td style="padding: 5px 5px;" *ngFor="let key of getHeaders()">{{item[key]}}</td>
+       </tr>
+  </tbody>
+</table>
+</div>
+</ion-content>
