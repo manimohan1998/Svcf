@@ -37,6 +37,8 @@ export class SubscribeListPage implements OnInit {
   term="";
   alerts: any=[];
   count: number=0;
+  avoid_chits: any[]=[];
+  valid_chits: any[]=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -211,10 +213,19 @@ async presentToast(message) {
 
 processdata(){
   this.prized_chits=[];
+  this.avoid_chits=[];
+  this.valid_chits=[];
+  console.log(this.arrayvalue)
     if(this.arrayvalue.length !=0){
       for(var i=0; i<this.userlist3.length;i++){
        if(this.userlist3[i].IsPrized=='Y')  this.prized_chits.push(this.userlist3[i])
       }
+      for(var i=0; i<this.prized_chits.length;i++){
+        if(this.prized_chits[i].PrizedArrier=="0.00" && this.prized_chits[i].NonPrizedArrier=="0.00" )  this.avoid_chits.push(this.prized_chits[i])
+        if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" )  this.valid_chits.push(this.prized_chits[i])
+     }
+     console.log(this.avoid_chits,"avoid")
+   console.log(this.valid_chits,"valid")
       if(this.prized_chits.length!=0){
         if(this.arrayvalue.length <=1){ 
           console.log(this.arrayvalue[0])     
@@ -225,14 +236,23 @@ processdata(){
              
            };
          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-           }else return this.presentToast("Must choose atleast 1 Prized Chit");
+           }
+           else if(this.arrayvalue[0].IsPrized=='N' && this.valid_chits.length==0 && this.avoid_chits.length !=0){
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+             queryParams: { state:data },
+             
+           };
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+           }
+         else return this.presentToast("Must choose atleast 1 Prized Chit");
         }else if(this.arrayvalue.length ==2){
           for(let i=0;i<this.arrayvalue.length;i++){
           if(this.arrayvalue[i].IsPrized=="Y"){
             this.arrayprized.push(this.arrayvalue[i])            
           }
         }
-        if(this.arrayprized.length==0) return this.presentToast("Choose atleast 1 prized chits");
+        if(this.arrayprized.length==0 && this.valid_chits.length>=1) return this.presentToast("Choose atleast 1 prized chits");
         else{
          console.log("prized")
          let data = JSON.stringify(this.arrayvalue)
@@ -259,7 +279,7 @@ processdata(){
                
              }
            }
-           if(this.arrayprized.length <2){
+           if(this.arrayprized.length <2 && this.valid_chits.length >=2){
                  console.log("nonprized")
                  return this.presentToast("Choose atleast 2 prized chits");
                }else{           

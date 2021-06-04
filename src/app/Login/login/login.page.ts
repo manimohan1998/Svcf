@@ -109,8 +109,8 @@ async backButtonAlert(){
       this.router.navigate(['/forgot-password'])
   }
   
-  ngOnDestroy(){
-    this.loginForm.reset("");
+  ionViewWillLeave(){
+    this.loginForm.reset();
   }
   
 }

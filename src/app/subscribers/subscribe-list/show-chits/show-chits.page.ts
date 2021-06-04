@@ -48,7 +48,7 @@ export class ShowChitsPage implements OnInit {
   ionViewWillEnter(){
     this.customername=localStorage.getItem("customername")
     this.platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl('/all-chits')
+      this.router.navigateByUrl('/subscribe-list/all-chits')
          });
   }
   getHeaders() {
