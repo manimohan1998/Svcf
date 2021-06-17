@@ -61,7 +61,7 @@ back(){
     }
 
     reset(){
-      localStorage.setItem("customer",this.personaldetail[0].CustomerName);
+      localStorage.setItem("customer",this.personaldetail[0].username);
       this.router.navigate(['/reset-password'])
     }
 }

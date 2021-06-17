@@ -12,6 +12,7 @@ import { Platform, ToastController } from '@ionic/angular';
 export class ResetPasswordPage implements OnInit {
   resetForm: FormGroup;
   show:boolean;
+  show1:boolean;
 constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
   private platform: Platform) { 
     this.resetForm = this.fb.group({
@@ -72,7 +73,7 @@ ionViewWillEnter(){
         this.router.navigate(['/login'])
       }
       else{
-        this.presentToast('Password Changed unSuccessfully.');
+        this.presentToast('Password Changed UnSuccessfully.');
       }
      
     })
@@ -88,7 +89,7 @@ ionViewWillEnter(){
   back(){
     this.router.navigate(['/login'])
   }
-  ngOnDestroy(){
-    this.resetForm.reset("");
+  ionViewWillLeave(){
+    this.resetForm.reset();
   }
 }

@@ -16,11 +16,13 @@ export class ResetPage implements OnInit {
   mob: any;
   userdata: any=[];
   show:boolean;
+  show1:boolean;
+  mobile: any=[];
   constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController,
     public loadingcontroller:LoadingController,private platform: Platform) {
     this.resetForms = this.fb.group({
-      name: [''],
-      mobilenumber: ['',Validators.maxLength(11)], 
+      name: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
+      // mobilenumber: ['',Validators.maxLength(11)], 
       oldpassword: ['',[Validators.required]], 
       newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
       confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})"),this.equalto('newpassword')]],
@@ -40,20 +42,13 @@ export class ResetPage implements OnInit {
            });
       let data=JSON.parse(localStorage.getItem("firstdata"));
       this.resetForms.get("oldpassword").setValue(data.password);
-      console.log(data.password)
-      let mobilenumber=localStorage.getItem('memberid');
-      this.commonserv.sameMobileNumber(mobilenumber).subscribe((res) => {
+      let id=localStorage.getItem('memberid');
+      this.commonserv.sameMobileNumber(id).subscribe((res) => {
         this.mobilepass=res
-        console.log(this.mobilepass)
-        loading.dismiss();
-        if(this.mobilepass.MobileNo.length>0){
-         let mobile=this.mobilepass.MobileNo.replaceAll(' ', "")
-         this.resetForms.get("mobilenumber").setValue(mobile);
-         }
-         else{
-           this.resetForms.get('mobilenumber').reset("");
-           loading.dismiss();
-         }
+         loading.dismiss();
+        // if(this.mobilepass.MobileNo.length>0){
+         this.mobile=this.mobilepass?.MobileNo.replaceAll(' ', "")
+        //  }
      })
   
     }
@@ -102,7 +97,9 @@ export class ResetPage implements OnInit {
   
    validation_messages = {
     'name': [
-      { type: 'required', message: 'Name is required.' },],
+      { type: 'required', message: 'Customer id is required.' },
+      { type: 'pattern', message: 'Special Characters Not Allowed.' },
+    ],
 
     'mobilenumber': [
         { type: 'required', message: 'Mobile Number is required.' },],
@@ -111,7 +108,7 @@ export class ResetPage implements OnInit {
           { type: 'required', message: 'Old password is required.' },],
 
     'newpassword': [
-        { type: 'required', message: 'Newpassword is required.' },
+        { type: 'required', message: 'New password is required.' },
       
         { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
 
@@ -134,13 +131,12 @@ export class ResetPage implements OnInit {
     }
 
     submitsForm(val){
-      if(this.mobilepass.Password==this.resetForms.get("oldpassword").value && this.patternval===true ){
+      
        console.log(this.resetForms)
        let id= localStorage.getItem('memberid');
        let name=this.resetForms['value']['name']
        let password=this.resetForms['value']['confirmpassword']
-       let number=this.resetForms['value']['mobilenumber']
-       this.commonserv.reset(id,name,password,number).subscribe((res) => {
+       this.commonserv.reset(id,name,password).subscribe((res) => {
         console.log(res)
         if(res['Status']==="Success"){
           this.router.navigate(['/login'])
@@ -149,16 +145,11 @@ export class ResetPage implements OnInit {
         }
         else{
           this.presentToast('please Enter Valid Details');
-          this.resetForms.get("mobilenumber").reset("");
         }
        })
       }
-       else{
-        this.resetForms.get("oldpassword").reset("");
-        this.resetForms.get("mobilenumber").reset("");
-        this.presentToast('Please Enter Valid Old Password or Mobile Number.');
-      }
-     }
+  
+     
    
   back(){
 this.router.navigate(['/login'])

@@ -1,113 +1,4 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-item>
-      <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
-      <ion-title>Reset Password</ion-title>
-    </ion-item>
-
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <form [formGroup]="resetForms" (ngSubmit)="submitsForm(resetForms.value)">
-    <ion-list>
-      <ion-item>
-        <ion-label position="stacked">Name</ion-label>
-        <ion-input formControlName="name" type="text" (ionChange)="checkname()" (keypress)="CheckSpace($event)">
-        </ion-input>
-        <ion-icon name="person-outline" slot="end"></ion-icon>
-      </ion-item>
-      <div class="text-danger">
-        <ng-container *ngFor="let validation of validation_messages.name">
-          <div class="error-message"
-            *ngIf="resetForms.get('name').hasError(validation.type) && (resetForms.get('name').dirty || resetForms.get('name').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-      <ion-item>
-        <ion-label position="stacked">Mobile Number</ion-label>
-        <ion-input formControlName="mobilenumber" (ionChange)="checkMobNo()" (keypress)="CheckSpace($event)"
-          type="text"></ion-input>
-        <ion-icon name="phone-portrait-outline" slot="end"></ion-icon>
-      </ion-item>
-      <div class="text-danger">
-        <ng-container *ngFor="let validation of validation_messages.mobilenumber">
-          <div class="error-message"
-            *ngIf="resetForms.get('mobilenumber').hasError(validation.type) && (resetForms.get('mobilenumber').dirty || resetForms.get('mobilenumber').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-      <ion-item>
-        <ion-label position="stacked">Old password</ion-label>
-        <ion-input formControlName="oldpassword" type="password" (keypress)="CheckSpace($event)"></ion-input>
-        <div (click)="show=!show" slot="end" class="eye_icon">
-          <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
-          <ion-icon name="eye" *ngIf="show"></ion-icon>
-        </div>
-      </ion-item>
-      <div class="text-danger">
-        <ng-container *ngFor="let validation of validation_messages.oldpassword">
-          <div class="error-message"
-            *ngIf="resetForms.get('oldpassword').hasError(validation.type) && (resetForms.get('oldpassword').dirty || resetForms.get('oldpassword').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-      <ion-item>
-        <ion-label position="stacked">New password</ion-label>
-        <ion-input formControlName="newpassword" [type]="show ? 'text' : 'password'" (keypress)="CheckSpace($event)">
-        </ion-input>
-        <div (click)="show=!show" slot="end" class="eye_icon">
-          <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
-          <ion-icon name="eye" *ngIf="show"></ion-icon>
-        </div>
-      </ion-item>
-      <div class="text-danger">
-        <ng-container *ngFor="let validation of validation_messages.newpassword">
-          <div class="error-message"
-            *ngIf="resetForms.get('newpassword').hasError(validation.type) && (resetForms.get('newpassword').dirty || resetForms.get('newpassword').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-      <ion-item>
-        <ion-label position="stacked">Confirm password</ion-label>
-        <ion-input formControlName="confirmpassword" [type]="show ? 'text' : 'password'"
-          (keypress)="CheckSpace($event)"></ion-input>
-
-        <div (click)="show=!show" slot="end" class="eye_icon">
-          <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
-          <ion-icon name="eye" *ngIf="show"></ion-icon>
-        </div>
-
-      </ion-item>
-      <div class="text-danger">
-        <ng-container *ngFor="let validation of validation_messages.confirmpassword">
-          <div class="error-message"
-            *ngIf="resetForms.get('confirmpassword').hasError(validation.type) && (resetForms.get('confirmpassword').dirty || resetForms.get('confirmpassword').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-      <ion-button [disabled]="!resetForms.valid" type="ngSubmit">Reset Password</ion-button>
-      <ion-item>
-        <ion-label (click)="back()">Back</ion-label>
-      </ion-item>
-    </ion-list>
-  </form>
-</ion-content> -->
-
-
-
 <ion-app>
-  <!-- <ion-header translucent>
-    <ion-toolbar>
-      <ion-title></ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-
   <ion-content fullscreen class="svcf_page">
     <section class="logo_sec" id="svcf_login">
       <img class="logo" src="../../../assets/images/logo.png" />
@@ -121,9 +12,9 @@
         <form [formGroup]="resetForms" (ngSubmit)="submitsForm(resetForms.value)" autocomplete="off">
           <ion-list>
             <ion-item>
-              <ion-label position="stacked">Name</ion-label>
+              <ion-label position="stacked">Customer Id</ion-label>
               <ion-input formControlName="name" type="text" [debounce]="0" (ionChange)="checkname()" (keypress)="CheckSpace($event)"
-                placeholder="Enter your name">
+                placeholder="Enter new Customer ID">
               </ion-input>
               <ion-icon name="person-outline" slot="end"></ion-icon>
             </ion-item>
@@ -136,28 +27,27 @@
               </ng-container>
             </div>
             <ion-item>
-              <ion-label position="stacked">Mobile Number</ion-label>
-              <ion-input formControlName="mobilenumber" (ionChange)="checkMobNo()" (keypress)="CheckSpace($event)"
-                type="number" placeholder="Enter mobile no">
-              </ion-input>
+              <ion-col>
+                <ion-row> <ion-label position="stacked">Mobile Number</ion-label></ion-row>
+                <ion-row><ion-label>{{this.mobilepass?.MobileNo}}</ion-label></ion-row>
+              </ion-col>
+             <!-- <ion-input disabled formControlName="mobilenumber" (ionChange)="checkMobNo()" (keypress)="CheckSpace($event)"
+                type="number">{{mobile}}
+              </ion-input> -->
               <ion-icon name="call-outline" slot="end"></ion-icon>
             </ion-item>
-            <div class="text-danger">
+            <!-- <div class="text-danger">
               <ng-container *ngFor="let validation of validation_messages.mobilenumber">
                 <div class="error-message"
                   *ngIf="resetForms.get('mobilenumber').hasError(validation.type) && (resetForms.get('mobilenumber').dirty || resetForms.get('mobilenumber').touched)">
                   {{ validation.message }}
                 </div>
               </ng-container>
-            </div>
+            </div> -->
             <ion-item>
               <ion-label position="stacked">Old password</ion-label>
-              <ion-input formControlName="oldpassword" readonly type="password" (keypress)="CheckSpace($event)">
+              <ion-input formControlName="oldpassword" disabled type="password" (keypress)="CheckSpace($event)">
               </ion-input>
-              <!-- <div (click)="show=!show" slot="end" class="eye_icon">
-                <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
-                <ion-icon name="eye" *ngIf="show"></ion-icon>
-              </div> -->
             </ion-item>
             <div class="text-danger">
               <ng-container *ngFor="let validation of validation_messages.oldpassword">
@@ -187,12 +77,12 @@
             </div>
             <ion-item>
               <ion-label position="stacked">Confirm password</ion-label>
-              <ion-input formControlName="confirmpassword" [type]="show ? 'text' : 'password'"
+              <ion-input formControlName="confirmpassword" [type]="show1 ? 'text' : 'password'"
                 (keypress)="CheckSpace($event)">
               </ion-input>
-              <div (click)="show=!show" slot="end" class="eye_icon">
-                <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
-                <ion-icon name="eye" *ngIf="show"></ion-icon>
+              <div (click)="show1=!show1" slot="end" class="eye_icon">
+                <ion-icon name="eye-off" *ngIf="!show1"></ion-icon>
+                <ion-icon name="eye" *ngIf="show1"></ion-icon>
               </div>
             </ion-item>
             <div class="text-danger">
