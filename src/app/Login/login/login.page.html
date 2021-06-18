@@ -20,13 +20,13 @@
           <ion-list>
             <ion-item>
               <ion-label position="stacked">Customer Id</ion-label>
-              <ion-input formControlName="name" (keypress)="CheckSpace($event)" type="text"
+              <ion-input formControlName="name" maxlength="15"  type="text"
                 placeholder="Enter customer id"></ion-input>
               <ion-icon name="person-outline" slot="end"></ion-icon>
             </ion-item>
             <ion-item>
               <ion-label position="stacked">Password</ion-label>
-              <ion-input formControlName="password" (keypress)="CheckSpace($event)" [type]="show ? 'text' : 'password'"
+              <ion-input formControlName="password" maxlength="10"  [type]="show ? 'text' : 'password'"
                 placeholder="Enter password">
               </ion-input>
               <div (click)="show=!show" slot="end" class="eye_icon">
@@ -44,7 +44,7 @@
 
     <div class="route_link_sec">
       <section>
-        <a (click)="Forgot()" class="root_link">Forgot Password</a>
+        <a (click)="Forgot()" class="root_link">Forgot Password?</a>
       </section>
      <!--  <section>
         <p>Don't have an account?

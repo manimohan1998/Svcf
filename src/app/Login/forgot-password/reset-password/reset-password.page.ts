@@ -16,8 +16,8 @@ export class ResetPasswordPage implements OnInit {
 constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
   private platform: Platform) { 
     this.resetForm = this.fb.group({
-      newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
-      confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})"),this.equalto('newpass')]],
+      newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)]],
+      confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/),this.equalto('newpass')]],
    })
   }
 
@@ -53,30 +53,36 @@ ionViewWillEnter(){
       'newpass': [
         { type: 'required', message: 'New password is required.' },
       
-        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
+        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”) and without space.' }, ],
        
         'confirmpass': [
           { type: 'required', message: 'Confirm password is required.' },
         
-          { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ]
+          { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”) and without space.' }, ]
     }
     
 
   submitsForm(){
     // let data={userid:"1",password:this.resetForm['value']['newpass']}
     let password=this.resetForm['value']['newpass']
+    let conpassword=this.resetForm['value']['confirmpass']
     let username=localStorage.getItem('customer')
-    this.commonserv.resetPassword(username,password).subscribe(res=>{
-      console.log(res)
-      if(res['Message']==="Password Changed Successfully"){
-        this.presentToast('Password Changed Successfully.');
-        this.router.navigate(['/login'])
-      }
-      else{
-        this.presentToast('Password Changed UnSuccessfully.');
-      }
-     
-    })
+    if(password===conpassword){
+      this.commonserv.resetPassword(username,password).subscribe(res=>{
+        console.log(res)
+        if(res['Message']==="Password Changed Successfully"){
+          this.presentToast('Password Changed Successfully.');
+          this.router.navigate(['/login'])
+        }
+        else{
+          this.presentToast('Password Changed UnSuccessfully.');
+        }
+       
+      })
+    }else{
+      this.presentToast('New Password and Confirm Password Does not Match.');
+    }
+  
    
   }
   async presentToast(message) {

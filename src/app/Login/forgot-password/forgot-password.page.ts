@@ -18,11 +18,11 @@ export class ForgotPasswordPage implements OnInit {
   constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
     private platform: Platform) { 
     this.forgotForm = this.fb.group({
-      Customer: ['', [Validators.required, Validators.minLength(4)]],
+      Customer: ['', [Validators.required,Validators.pattern(/^\S*$/)]],
       // mobile: ['', [Validators.required, Validators.maxLength(10),Validators.pattern("[0-9]{10}")]],
       })
     this.forgotForms = this.fb.group({
-      OTP: ['', [Validators.required]],
+      OTP: ['', [Validators.required,Validators.pattern('^[1-9][0-9]{3}$')]],
      })
   }
 

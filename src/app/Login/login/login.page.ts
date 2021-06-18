@@ -21,8 +21,8 @@ export class LoginPage implements OnInit {
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService,public toastController: ToastController,
     private platform: Platform,public alertController:AlertController) { 
     this.loginForm = this.fb.group({
-      name: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      name: ['', [Validators.required,Validators.pattern(/^\S*$/)]],
+      password: ['', [Validators.required,Validators.pattern(/^\S*$/)]],
    })
   }
   ngOnInit() {

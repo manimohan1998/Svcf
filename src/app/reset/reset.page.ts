@@ -24,8 +24,8 @@ export class ResetPage implements OnInit {
       name: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
       // mobilenumber: ['',Validators.maxLength(11)], 
       oldpassword: ['',[Validators.required]], 
-      newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})")]],
-      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})"),this.equalto('newpassword')]],
+      newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)]],
+      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/),this.equalto('newpassword')]],
    })
    
    }
@@ -62,22 +62,24 @@ export class ResetPage implements OnInit {
 }
 
   checkname(){
-   let names=this.resetForms.get('name').value
-
-   if(names.length>=1){
-   this.commonserv.sameUsername(names).subscribe((res) => {
-     console.log(res)
-      if(res['Message'] === "UserName is Available"){
-       this.presentToast('UserName is valid.');
-       
-     }
-     else if(res['Message'] === "UserName is not Available"){
-       this.presentToast('UserName is invalid.');
-       this.resetForms.get('name').reset("");
-     }
-     })
-    }
-  }
+  
+   setTimeout(()=>{
+    let names=this.resetForms.get('name').value                           
+    if(names.length>=1){
+      this.commonserv.sameUsername(names).subscribe((res) => {
+        console.log(res)
+         if(res['Message'] === "UserName is Available"){
+          this.presentToast('UserName is valid.');
+          
+        }
+        else if(res['Message'] === "UserName is not Available"){
+          this.presentToast('UserName is invalid.');
+          this.resetForms.get('name').reset("");
+        }
+        })
+       }
+}, 3000);
+ }
    async presentToast(message) {
       const toast = await this.toastController.create({
           message: message,
@@ -110,7 +112,7 @@ export class ResetPage implements OnInit {
     'newpassword': [
         { type: 'required', message: 'New password is required.' },
       
-        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”).' }, ],
+        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”) and without space.' }, ],
 
     'confirmpassword': [
         { type: 'required', message: 'Confirm Password is required.' },],

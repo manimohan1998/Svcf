@@ -13,7 +13,7 @@
           <ion-list>
             <ion-item>
               <ion-label position="stacked">Customer Id</ion-label>
-              <ion-input formControlName="name" type="text" [debounce]="0" (ionChange)="checkname()" (keypress)="CheckSpace($event)"
+              <ion-input formControlName="name" type="text" maxlength="15"  (ionChange)="checkname()" (keypress)="CheckSpace($event)"
                 placeholder="Enter new Customer ID">
               </ion-input>
               <ion-icon name="person-outline" slot="end"></ion-icon>
@@ -60,7 +60,7 @@
             <ion-item>
               <ion-label position="stacked">New password</ion-label>
               <ion-input formControlName="newpassword" [type]="show ? 'text' : 'password'"
-                (keypress)="CheckSpace($event)">
+                >
               </ion-input>
               <div (click)="show=!show" slot="end" class="eye_icon">
                 <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
@@ -78,7 +78,7 @@
             <ion-item>
               <ion-label position="stacked">Confirm password</ion-label>
               <ion-input formControlName="confirmpassword" [type]="show1 ? 'text' : 'password'"
-                (keypress)="CheckSpace($event)">
+               >
               </ion-input>
               <div (click)="show1=!show1" slot="end" class="eye_icon">
                 <ion-icon name="eye-off" *ngIf="!show1"></ion-icon>
