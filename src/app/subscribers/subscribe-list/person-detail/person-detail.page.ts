@@ -61,7 +61,10 @@ back(){
     }
 
     reset(){
-      localStorage.setItem("customer",this.personaldetail[0].username);
-      this.router.navigate(['/reset-password'])
+      let data={name:this.personaldetail[0].username,password:this.personaldetail[0].password}
+      localStorage.setItem("firstdata",JSON.stringify(data));
+      this.router.navigate(['/reset'])
+      // localStorage.setItem("customer",this.personaldetail[0].username);
+      // this.router.navigate(['/reset-password'])
     }
 }
