@@ -43,6 +43,11 @@
                   {{this.payment_details[i].Interest}}
                 </ion-input>
               </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Amount</ion-label>
+                <ion-input formControlName="extraamount" type="number" value="" placeholder="Enter Amount" (ionChange)="extraamount(i)">
+                </ion-input>
+              </ion-item>
               <p class="total">
                 Total<span>
                   ₹ {{this.total_details[i]}}</span>
@@ -73,8 +78,8 @@
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab> -->
-
-      <ion-button type="submit" expand="block" [disabled]="!PaymentForm.valid" class="btn">Submit </ion-button>
+      <!-- [disabled]="!PaymentForm.valid" -->
+      <ion-button type="submit" expand="block"  class="btn">Submit </ion-button>
 
     </form>
   </section>

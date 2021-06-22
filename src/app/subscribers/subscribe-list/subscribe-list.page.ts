@@ -6,6 +6,7 @@ import {Platform,LoadingController} from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { isEmpty } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -39,6 +40,8 @@ export class SubscribeListPage implements OnInit {
   count: number=0;
   avoid_chits: any[]=[];
   valid_chits: any[]=[];
+  imageUrl: any;
+  profileimage: any;
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -67,6 +70,8 @@ async ionViewWillEnter(){
       this.customername=this.personaldetail[0].CustomerName
       this.customerid=this.personaldetail[0].MemberID
       localStorage.setItem("customername",this.customername)
+      this.imageUrl = environment.Imageurl;
+      this.profileimage=this.personaldetail[0].ImgUrl;
       // localStorage.setItem("memberid",this.customerid)
       console.log(this.mem_id,this.sub_id)
       this.Logo = this.customername.charAt(0);

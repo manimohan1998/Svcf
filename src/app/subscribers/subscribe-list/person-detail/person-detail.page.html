@@ -10,7 +10,8 @@
 <ion-content *ngFor="let val of personaldetail" class="profile_page">
   <section class="profile">
     <div class="profile_img">
-      <img src="../../../../assets/images/user.jpg" />
+      <!-- <img src="../../../../assets/images/user.jpg" /> -->
+      <img src="{{imageUrl}}{{person}}" onError="this.src='../../../assets/images/user.jpg'"/>
     </div>
     <div class="profile_desc">
       <h4>{{val.CustomerName}}</h4>

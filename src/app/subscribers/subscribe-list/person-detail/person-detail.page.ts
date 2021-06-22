@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service';
 import { Router } from '@angular/router';
 import {Platform,LoadingController, ToastController} from '@ionic/angular';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-person-detail',
   templateUrl: './person-detail.page.html',
@@ -11,6 +12,9 @@ import {Platform,LoadingController, ToastController} from '@ionic/angular';
 export class PersonDetailPage implements OnInit {
 personaldetail:any=[];
 ref:any
+  imageUrl: any;
+  profileimage: any;
+  person:"/MemberImages/B.Prabhu.png"
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
   public loadingcontroller:LoadingController,public toastController: ToastController) { }
 
@@ -33,6 +37,8 @@ let token=localStorage.getItem("token")
 
       console.log(res)
       this.personaldetail=res['UserDetails'];
+      this.imageUrl = environment.Imageurl;
+      this.profileimage=this.personaldetail[0].ImgUrl;
       loading.dismiss();
       },(error:HttpErrorResponse)=>{
         if(error.status ===401){       
