@@ -17,7 +17,7 @@
       <ion-col class="profile_img" size="3">
         <!-- <ion-avatar><span>{{this.Logo}}</span></ion-avatar> -->
         <ion-avatar><span>
-          <img src="{{imageUrl}}{{profileimage}}" onError="this.src='../../../assets/images/user.jpg'" (click)="profile()">
+          <img src="{{imageUrl}}{{profileimage}}" onError="this.src='../../../assets/images/customer.png'" (click)="profile()">
             <!-- <img src="" > -->
           </span></ion-avatar>
 
@@ -48,7 +48,8 @@
   <ion-card class="card_bg" *ngFor="let val of userlist3 | filter:term; let i=index">
     <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
     <div class="chits_item_details">
-      <ion-checkbox [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" (ionChange)="passParams($event,val)"></ion-checkbox>
+      <!-- [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" -->
+      <ion-checkbox  (ionChange)="passParams($event,val)"></ion-checkbox>
       <table class="table chit_details">
         <tbody>
           <tr>
@@ -128,9 +129,14 @@
     <ion-icon color="primary" name="home"></ion-icon>
     <ion-label color="primary">Home</ion-label>
   </ion-tab-button>
+ 
 
   <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
+  </ion-tab-button>
+  <ion-tab-button [routerLink]="['/subscribe-list/payforothers']">
+    <ion-icon name="people-outline"></ion-icon>
+    <ion-label>Pay others</ion-label>
   </ion-tab-button>
 </ion-tab-bar>

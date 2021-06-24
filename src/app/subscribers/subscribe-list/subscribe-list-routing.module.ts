@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'show-chits',
     loadChildren: () => import('./show-chits/show-chits.module').then( m => m.ShowChitsPageModule)
+  },
+  {
+    path: 'payforothers',
+    loadChildren: () => import('./payforothers/payforothers.module').then( m => m.PayforothersPageModule)
   }
 
 ];

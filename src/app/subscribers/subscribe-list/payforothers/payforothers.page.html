@@ -1,0 +1,138 @@
+
+
+<ion-app>
+  <ion-content fullscreen class="svcf_page svcf_dashboard_page" >
+    <section class="logo_sec" id="svcf_login">
+      <img class="logo" src="../../../assets/images/logo.png" />
+      <ion-text>
+        <h4>Pay For Others</h4>
+      </ion-text>
+    </section>
+
+    <ion-card class="card_bg"  *ngIf="!chitpage">
+      <ion-card-content fullscreen>
+         <form [formGroup]="payforother" (ngSubmit)="submitsForm(payforother.value)" autocomplete="off">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked">Chit Number</ion-label>
+              <ion-input formControlName="chitnumber" type="text" maxlength="10" (ionChange)="caps($event.detail.value)" 
+                placeholder="Enter Chit Number">
+              </ion-input>
+              <ion-icon name="person-outline" slot="end"></ion-icon>
+              <ion-button slot="end" (click)="checking()">
+                check
+              </ion-button>
+            </ion-item>
+            <ion-card *ngIf="this.valid==true">
+            <ion-row size="12">
+              <ion-col size="3">
+                <ion-avatar><span>
+                  <img src="../../../assets/images/customer.png">
+                  </span></ion-avatar>
+              </ion-col>
+              <ion-col size="9">
+                <ion-row>
+                  Name:{{customerdetails.MemberName}}
+                </ion-row>
+                <ion-row>
+                  Mobile Number:{{customerdetails?.MobileNo}}
+                </ion-row>
+              </ion-col>
+            </ion-row>
+            </ion-card>
+            <ion-item *ngIf="this.valid==true">
+              <ion-label position="stacked">Enter your password</ion-label>
+              <ion-input formControlName="password"  maxlength="10"  [type]="show ? 'text' : 'password'"
+                placeholder="Enter your password">
+              </ion-input>
+              <div (click)="show=!show" slot="end" class="eye_icon">
+                <ion-icon name="eye-off" *ngIf="!show"></ion-icon>
+                <ion-icon name="eye" *ngIf="show"></ion-icon>
+              </div>
+            </ion-item>
+            
+           </ion-list>
+            </form>
+        </ion-card-content>
+       
+        </ion-card>
+        <div  *ngIf="chitpage">
+        <ion-card  class="card_bg" *ngFor="let val of userlist3" >
+          <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
+          <div class="chits_item_details">
+            <!-- [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" -->
+            <!-- <ion-checkbox  (ionChange)="passParams($event,val)"></ion-checkbox> -->
+            <table class="table chit_details">
+              <tbody>
+                <tr>
+                  <td>
+                    <span class="branch_name">{{val.BranchName}}</span>
+                  </td>
+                </tr>
+      
+                <tr>
+                  <th>Chit No</th>
+                  <td>
+                    <p>:</p>
+                  </td>
+                  <td>
+                    <span>{{val.ChitNo}}</span>
+                  </td>
+                </tr>
+      
+                <tr>
+                  <th>Current inst no</th>
+                  <td>
+                    <p>:</p>
+                  </td>
+                  <td>
+                    <span>{{val.Runningcall}}</span>
+                  </td>
+                </tr>
+      
+      
+                <tr>
+                  <th>Arrear Amount</th>
+                  <td>
+                    <p>:</p>
+                  </td>
+                  <td>
+                    <span>{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</span>
+                  </td>
+                </tr>
+      
+      
+                <tr>
+                  <th>Interest Amount</th>
+                  <td>
+                    <p>:</p>
+                  </td>
+                  <td>
+                    <span>{{val.Interest}}</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      
+          <div class="chit_status"  [ngClass]="val.IsPrized === 'Y'?'green':'red'">
+            <p>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
+          </div>
+          <div class="bottom_sec">
+            <p size="6">current Due : <span>₹ {{val.CurrentDueAmount}}</span></p>
+            <p size="6">Total paid : <span>₹ {{val.TotalPaid}}</span></p>
+          </div>
+        </ion-card>
+      </div>
+          <section class="p-24" *ngIf="this.valid==true && !chitpage">
+          <ion-button expand="block" [disabled]="!this.payforother.valid" (click)="verify()" class="btn">
+            Continue
+          </ion-button>
+          </section>
+          <section class="p-24" *ngIf="chitpage">
+            <ion-button expand="block" [disabled]="!this.payforother.valid" (click)="gotolist()" class="btn">
+              Continue
+            </ion-button>
+            </section>
+  </ion-content>
+</ion-app>

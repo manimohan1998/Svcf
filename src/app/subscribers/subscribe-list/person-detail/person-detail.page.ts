@@ -14,7 +14,7 @@ personaldetail:any=[];
 ref:any
   imageUrl: any;
   profileimage: any;
-  person:"/MemberImages/B.Prabhu.png"
+  
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
   public loadingcontroller:LoadingController,public toastController: ToastController) { }
 

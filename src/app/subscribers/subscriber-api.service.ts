@@ -41,4 +41,13 @@ export class SubscriberApiService {
   allchitsdetails(headid,token){
      return this.http.get('GetAllChitHistory?Head_Id='+headid+'&token='+token)
   }
+  chitnumbercheck(chitno,token){
+    return this.http.get('GetAddOnChitNumber?chitno='+chitno+'&token='+token)
+  }
+  getchitdetails(memid,headid,token){
+    return this.http.get('ConfirmCustomerChit?MemberId='+memid+'&HeadId='+headid+'&token='+token)
+  }
+  getchitdetailslist(headid,branchid,token){
+    return this.http.get('AddOnChitDetails?HeadId='+headid+'&branchId='+branchid+'&token=='+token)
+  }
 }
