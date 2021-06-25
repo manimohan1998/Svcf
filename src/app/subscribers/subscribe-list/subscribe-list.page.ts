@@ -40,8 +40,8 @@ export class SubscribeListPage implements OnInit {
   count: number=0;
   avoid_chits: any[]=[];
   valid_chits: any[]=[];
-  imageUrl: any;
   profileimage: any;
+  Imageurl:"http://3.7.244.11"
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -70,7 +70,7 @@ async ionViewWillEnter(){
       this.customername=this.personaldetail[0].CustomerName
       this.customerid=this.personaldetail[0].MemberID
       localStorage.setItem("customername",this.customername)
-      this.imageUrl = environment.Imageurl;
+      
       this.profileimage=this.personaldetail[0].ImgUrl;
       // localStorage.setItem("memberid",this.customerid)
       console.log(this.mem_id,this.sub_id)

@@ -14,7 +14,7 @@ personaldetail:any=[];
 ref:any
   imageUrl: any;
   profileimage: any;
-  
+  Imageurl:"http://3.7.244.11"
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
   public loadingcontroller:LoadingController,public toastController: ToastController) { }
 
@@ -37,7 +37,6 @@ let token=localStorage.getItem("token")
 
       console.log(res)
       this.personaldetail=res['UserDetails'];
-      this.imageUrl = environment.Imageurl;
       this.profileimage=this.personaldetail[0].ImgUrl;
       loading.dismiss();
       },(error:HttpErrorResponse)=>{

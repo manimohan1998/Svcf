@@ -7,7 +7,7 @@ export const environment = {
   // url:"192.168.0.241" //example id here u can set backend ip and common data
   // url:"http://3.16.238.30/SVCF_WCF/api/SVCFAPI/"
   url:"https://api.sreevisalam.com/SVCF_WCF/api/SVCFAPI/",
-  Imageurl:'http://3.7.244.11'
+
   //  Imageurl:'https://emp.sreevisalam.com'
   // http://3.7.244.11/MemberImages/ARU's%20Photo%202.jpg
 };
