@@ -104,6 +104,7 @@
     this.subscribeServ.getchitdetailslist(this.headid,this.customerdetails.BranchId,token).subscribe((res)=>{
     console.log(res)
     this.userlist3=res['ChitDetail']
+    console.log(this.userlist3[0].IsBlocked)
     this.chitpage=true
 
     let token=localStorage.getItem("token")
@@ -117,6 +118,7 @@
     }
     }
     gotolist(){
+      if(this.arrayvalue?.length !=0){
     this.arrayvalue=[];
     this.arrayvalue.push(this.userlist3[0]);
     let data = JSON.stringify(this.arrayvalue)
@@ -125,6 +127,18 @@
 
     };
     this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
-    }
+    }else return this.presentToast("Please choose atleast one chit");
+  }
+    passParams(event,val:any){
+      if(event.detail.checked){
+        this.arrayvalue.push(val);
+        }
+      if (!event.detail.checked) {
+        let index = this.arrayvalue.indexOf(val);
+      if (index > -1) {
+        this.arrayvalue.splice(index, 1);
+        }
+      }
+      }
     }
 

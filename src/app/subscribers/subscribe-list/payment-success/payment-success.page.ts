@@ -16,7 +16,7 @@ export class PaymentSuccessPage implements OnInit {
   arrears: any=[];
   personaldetail: any=[];
   customername: any=[];
-  pagname: any;
+
 
   constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute,
     public loadingController: LoadingController,private platform: Platform,public toastController: ToastController) {
@@ -35,9 +35,8 @@ export class PaymentSuccessPage implements OnInit {
 
   }
 ionViewWillEnter(){
-  this.pagname=localStorage.getItem("whichpage")
   this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl(this.pagname)
+    this.router.navigateByUrl("/subscribe-list")
        });
   this.receiptdata=[]
   this.payment_details=JSON.parse(localStorage.getItem("receipt"))
@@ -89,9 +88,9 @@ async  method(data) {
   }
 
   paymentsuccess(){
-    this.router.navigate([this.pagname])
+    this.router.navigate(["/subscribe-list"])
   }
   previous(){
-    this.router.navigate([this.pagname])
+    this.router.navigate(["/subscribe-list"])
   }
 }

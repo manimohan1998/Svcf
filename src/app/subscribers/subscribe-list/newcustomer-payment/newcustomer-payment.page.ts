@@ -873,7 +873,6 @@
     console.log(res)
     if(res){
     localStorage.setItem("receipt",JSON.stringify(res))
-    localStorage.setItem("whichpage","/subscribe-list/payforothers")
     this.router.navigate(["/subscribe-list/payment-success"])
     loading.dismiss()
     this.presentToast('Saved successfully')

@@ -249,7 +249,9 @@ submit(){
   }
   
 })
-  }
+  }else{
+    this.presentToast("please Enter a Valid Amount")
+    }
 }
 
   check(){
@@ -868,7 +870,6 @@ let token=localStorage.getItem("token")
      console.log(res)
      if(res){
       localStorage.setItem("receipt",JSON.stringify(res))
-      localStorage.setItem("whichpage","/subscribe-list")
       this.router.navigate(["/subscribe-list/payment-success"])
       loading.dismiss()
       this.presentToast('Saved successfully')

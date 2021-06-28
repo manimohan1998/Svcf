@@ -17,7 +17,7 @@
       <ion-col class="profile_img" size="3">
         <!-- <ion-avatar><span>{{this.Logo}}</span></ion-avatar> -->
         <ion-avatar><span>
-          <img src="{{Imageurl}}{{profileimage}}" onError="this.src='../../../assets/images/customer.png'" (click)="profile()">
+          <img src="http://3.7.244.11{{profileimage}}" onError="this.src='../../../assets/images/customer.png'" (click)="profile()">
             <!-- <img src="" > -->
           </span></ion-avatar>
 
@@ -49,7 +49,7 @@
     <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
     <div class="chits_item_details">
       <!-- [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" -->
-      <ion-checkbox  (ionChange)="passParams($event,val)"></ion-checkbox>
+      <ion-checkbox [disabled]="val.IsBlocked==1"(ionChange)="passParams($event,val)"></ion-checkbox>
       <table class="table chit_details">
         <tbody>
           <tr>
@@ -99,6 +99,16 @@
               <span>{{val.Interest}}</span>
             </td>
           </tr>
+          <tr *ngIf="val.IsBlocked==1">
+            <th></th>
+            <td>
+              <p></p>
+            </td>
+            <td>
+              <span style="color:#F00A0A;">Blocked</span>
+            </td>
+          </tr>
+          <!-- <td> <p size="6" *ngIf="val.IsBlocked==0" style="color:#F00A0A;">Blocked</p> </td> -->
         </tbody>
       </table>
     </div>

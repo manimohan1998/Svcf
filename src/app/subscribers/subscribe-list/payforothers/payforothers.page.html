@@ -62,6 +62,7 @@
           <div class="chits_item_details">
             <!-- [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" -->
             <!-- <ion-checkbox  (ionChange)="passParams($event,val)"></ion-checkbox> -->
+            <ion-checkbox [disabled]="val.IsBlocked==1"(ionChange)="passParams($event,val)"></ion-checkbox>
             <table class="table chit_details">
               <tbody>
                 <tr>
@@ -109,6 +110,15 @@
                   </td>
                   <td>
                     <span>{{val.Interest}}</span>
+                  </td>
+                </tr>
+                <tr *ngIf="val.IsBlocked==1">
+                  <th></th>
+                  <td>
+                    <p></p>
+                  </td>
+                  <td>
+                    <span style="color:#F00A0A;">Blocked</span>
                   </td>
                 </tr>
               </tbody>
