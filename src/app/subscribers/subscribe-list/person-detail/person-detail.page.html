@@ -11,7 +11,7 @@
   <section class="profile">
     <div class="profile_img">
       <!-- <img src="../../../../assets/images/user.jpg" /> -->
-      <img src="http://3.7.244.11{{profileimage}}" onError="this.src='../../../assets/images/customer.png'"/>
+      <img [src]="profileimage" onError="this.src='../../../assets/images/customer.png'"/>
     </div>
     <div class="profile_desc">
       <h4>{{val.CustomerName}}</h4>

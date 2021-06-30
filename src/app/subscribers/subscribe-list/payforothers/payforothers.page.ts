@@ -92,9 +92,9 @@
     });
     toast.present();
     }
-    caps(value){
-    this.payforother.get(['chitnumber']).setValue(value.toUpperCase())
-    }
+    // caps(value){
+    // this.payforother.get(['chitnumber']).setValue(value.toUpperCase())
+    // }
 
     verify(){
     console.log(this.payforother.value.password)

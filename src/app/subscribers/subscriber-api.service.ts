@@ -50,4 +50,7 @@ export class SubscriberApiService {
   getchitdetailslist(headid,branchid,token){
     return this.http.get('AddOnChitDetails?HeadId='+headid+'&branchId='+branchid+'&token=='+token)
   }
+  getprofileimg(memid,token){
+    return this.http.get('ProfileImage?MemberIDNew='+memid+'&token='+token)
+  }
 }

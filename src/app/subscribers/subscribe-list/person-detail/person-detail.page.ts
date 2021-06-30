@@ -14,7 +14,6 @@ personaldetail:any=[];
 ref:any
   imageUrl: any;
   profileimage: any;
-  Imageurl:"http://3.7.244.11"
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
   public loadingcontroller:LoadingController,public toastController: ToastController) { }
 
@@ -37,7 +36,6 @@ let token=localStorage.getItem("token")
 
       console.log(res)
       this.personaldetail=res['UserDetails'];
-      this.profileimage=this.personaldetail[0].ImgUrl;
       loading.dismiss();
       },(error:HttpErrorResponse)=>{
         if(error.status ===401){       
@@ -50,7 +48,10 @@ let token=localStorage.getItem("token")
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
       } })
-
+      this.subscribeServ.getprofileimg(memidnew,token).subscribe((res)=>{
+        console.log(res)
+        this.profileimage=res['ImageUrl']
+      })
 }
 
 async presentToast(message) {

@@ -41,7 +41,9 @@ export class SubscribeListPage implements OnInit {
   avoid_chits: any[]=[];
   valid_chits: any[]=[];
   profileimage: any;
-  Imageurl:"http://3.7.244.11"
+  imageUrl:any;
+  blocked_chits: any=[];
+  perfect_chits: any=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -51,14 +53,14 @@ export class SubscribeListPage implements OnInit {
     
 }
 async ionViewWillEnter(){
-  this.userlist3=[];
-  this.arrayvalue=[];
+  
    const loading = await this.loadingcontroller.create({
     message: 'Please Wait',
     translucent: true,
   });
   await loading.present();
-  
+  this.userlist3=[];
+  this.arrayvalue=[];
   let memidnew=localStorage.getItem('memberid')
   let token=localStorage.getItem("token")
     this.subscribeServ.personalDetails(memidnew,token).subscribe((res)=>{
@@ -70,14 +72,15 @@ async ionViewWillEnter(){
       this.customername=this.personaldetail[0].CustomerName
       this.customerid=this.personaldetail[0].MemberID
       localStorage.setItem("customername",this.customername)
-      
-      this.profileimage=this.personaldetail[0].ImgUrl;
-      // localStorage.setItem("memberid",this.customerid)
+ 
+       // localStorage.setItem("memberid",this.customerid)
       console.log(this.mem_id,this.sub_id)
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
       localStorage.setItem("personaldatas",JSON.stringify(this.personaldetail))
+      // this.imagecall(this.imageUrl+this.personaldetail[0]["ImgUrl"]);
       loading.dismiss();
+     
   }
   ,(error:HttpErrorResponse)=>{
     if(error.status ===401){          
@@ -124,6 +127,12 @@ async ionViewWillEnter(){
     
   //   })  
   // })
+  
+  this.subscribeServ.getprofileimg(memidnew,token).subscribe((res)=>{
+    console.log(res)
+    this.profileimage=res['ImageUrl']
+  })
+
   this.count=0
   this.platform.backButton.subscribeWithPriority(1, () => {
     this.count +=1;
@@ -135,6 +144,9 @@ async ionViewWillEnter(){
   });
 
 }
+  // imagecall(val) {
+  //   this.profileimage=val
+  // }
 async backButtonAlert(){
     
   const alert =await this.alertController.create({
@@ -156,6 +168,7 @@ async backButtonAlert(){
   await alert.present();
 }
 async ionViewDidEnter(){
+  
   const loading = await this.loadingcontroller.create({
     message: 'Please Wait',
     translucent: true,
@@ -220,6 +233,8 @@ processdata(){
   this.prized_chits=[];
   this.avoid_chits=[];
   this.valid_chits=[];
+  this.blocked_chits=[];
+  this.perfect_chits=[];
   console.log(this.arrayvalue)
     if(this.arrayvalue.length !=0){
       for(var i=0; i<this.userlist3.length;i++){
@@ -228,10 +243,12 @@ processdata(){
       for(var i=0; i<this.prized_chits.length;i++){
         if(this.prized_chits[i].PrizedArrier=="0.00" && this.prized_chits[i].NonPrizedArrier=="0.00" )  this.avoid_chits.push(this.prized_chits[i])
         if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" )  this.valid_chits.push(this.prized_chits[i])
-     }
+        if(this.prized_chits[i].IsBlocked =="1")  this.blocked_chits.push(this.prized_chits[i])
+        if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" && this.prized_chits[i].IsBlocked =="0")  this.perfect_chits.push(this.prized_chits[i])
+      }
      console.log(this.avoid_chits,"avoid")
    console.log(this.valid_chits,"valid")
-      if(this.prized_chits.length!=0){
+      if(this.prized_chits.length!=0 && this.blocked_chits.length==0){
         if(this.arrayvalue.length <=1){ 
           console.log(this.arrayvalue[0])     
            if(this.arrayvalue[0].IsPrized=='Y'){
@@ -298,7 +315,80 @@ processdata(){
                }
           }
         }
-      }else{
+      }
+      else if(this.prized_chits.length!=0 && this.blocked_chits.length !=0){
+        if(this.arrayvalue.length <=1){ 
+          console.log(this.arrayvalue[0])     
+           if(this.arrayvalue[0].IsPrized=='Y'){
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+             queryParams: { state:data },
+             
+           };
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+           }
+          
+          else if(this.arrayvalue[0].IsPrized=='N' && this.valid_chits.length==0 && this.avoid_chits.length !=0 && this.perfect_chits.length ==0){
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+             queryParams: { state:data },
+             
+           };
+         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+           }
+         else return this.presentToast("Must choose atleast 1 Prized Chit");
+          }
+       else if(this.arrayvalue.length ==2){
+            for(let i=0;i<this.arrayvalue.length;i++){
+            if(this.arrayvalue[i].IsPrized=="Y"){
+              this.arrayprized.push(this.arrayvalue[i])            
+            }
+          }
+          if(this.arrayprized.length==0 && this.valid_chits.length>=1 && this.perfect_chits.length>=1) return this.presentToast("Choose atleast 1 prized chits");
+          else{
+           console.log("prized")
+           let data = JSON.stringify(this.arrayvalue)
+           let navigationExtras: NavigationExtras = {
+            queryParams: { state:data },
+            
+          };
+          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+          }
+          } 
+          else if(this.arrayvalue.length >2){
+            console.log(this.prized_chits)
+            if(this.prized_chits.length==1){
+              let data = JSON.stringify(this.arrayvalue)
+              let navigationExtras: NavigationExtras = {
+               queryParams: { state:data },
+               
+             };
+           this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+            }else if(this.prized_chits.length>=2){
+              console.log(this.prized_chits)
+              for(let i=0;i<this.arrayvalue.length;i++){
+               if(this.arrayvalue[i].IsPrized=="Y"){
+                 this.arrayprized.push(this.arrayvalue[i])
+                 
+               }
+             }
+             if(this.arrayprized.length <2 && this.valid_chits.length >=2 && this.perfect_chits.length >=2){
+                   console.log("nonprized")
+                   return this.presentToast("Choose atleast 2 prized chits");
+                 }else{           
+                  console.log("prized")
+                  let data = JSON.stringify(this.arrayvalue)
+                  let navigationExtras: NavigationExtras = {
+                   queryParams: { state:data },
+                   
+                 };
+               this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+                 }
+            }
+          }
+      }
+      
+      else{
             let data = JSON.stringify(this.arrayvalue)
               let navigationExtras: NavigationExtras = {
                 queryParams: { state:data },
