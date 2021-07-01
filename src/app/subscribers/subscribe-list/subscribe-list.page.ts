@@ -52,6 +52,11 @@ export class SubscribeListPage implements OnInit {
  
     
 }
+blockchits(val){
+  if(val.IsBlocked==1){
+    this.presentToast(" This chit Number " +val.ChitNo+ " is blocked. Please contact admin");
+  }
+}
 async ionViewWillEnter(){
   
    const loading = await this.loadingcontroller.create({
@@ -96,38 +101,7 @@ async ionViewWillEnter(){
  }
   ) 
 
-      
-
-  // this.platform.ready().then(()=>{
-  //   this.loadingcontroller.create({
-  //     message:"loading..."
-  //   }).then((HTMLIonLoadingElement)=>{
-  //     HTMLIonLoadingElement.present();
-  //     this.ref=this;
-  //       this.subscribeServ.subscriberList( this.mem_id,this.sub_id).subscribe(res=>{
-  //       this.ref.loadingcontroller.dismiss();
-  //       this.userlist1=(res['chits']) 
-  //       if (Array.isArray(this.userlist1) && this.userlist1.length){ 
-  //              this.output = true; 
-  //       }
-  //           else {this.output = false; this.ionViewWillEnter()}
-  //        if(this.output===true){       
-  //       for(let i=0;i<this.userlist1.length;i++){
-  //   if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.userlist1[i].NonPrizedArrier!='0.00' || this.userlist1[i].PrizedArrier!='0.00'))){
-  //       this.userlist3.push(this.userlist1[i]);
-  //       this.chit_length=this.userlist3.length
-  //       }}
-  //    if(this.chit_length===0){
-  //         this.presentToast("You Have No Runnning Chits");
-  //       }  
-  //     }
-  //     },error=>{
-  //       alert(console.log(error));
-  //     }) ;
-    
-  //   })  
-  // })
-  
+       
   this.subscribeServ.getprofileimg(memidnew,token).subscribe((res)=>{
     console.log(res)
     this.profileimage=res['ImageUrl']
@@ -144,9 +118,7 @@ async ionViewWillEnter(){
   });
 
 }
-  // imagecall(val) {
-  //   this.profileimage=val
-  // }
+
 async backButtonAlert(){
     
   const alert =await this.alertController.create({
