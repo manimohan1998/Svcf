@@ -14,6 +14,7 @@ personaldetail:any=[];
 ref:any
   imageUrl: any;
   profileimage: any;
+  personage: number=0;
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
   public loadingcontroller:LoadingController,public toastController: ToastController) { }
 
@@ -36,6 +37,7 @@ let token=localStorage.getItem("token")
 
       console.log(res)
       this.personaldetail=res['UserDetails'];
+      this.ageFromDateOfBirthday1(this.personaldetail[0].DOB)
       loading.dismiss();
       },(error:HttpErrorResponse)=>{
         if(error.status ===401){       
@@ -54,6 +56,20 @@ let token=localStorage.getItem("token")
       })
 }
 
+public ageFromDateOfBirthday1(dateOfBirth: any): any {
+  const today = new Date();
+  const birthDate = new Date(dateOfBirth);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+    this.personage +=age
+  }
+
+  
+  
+}
 async presentToast(message) {
   const toast = await this.toastController.create({
       message: message,

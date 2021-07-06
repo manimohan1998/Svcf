@@ -77,6 +77,15 @@
               <span>{{val.Runningcall}}</span>
             </td>
           </tr>
+          <tr>
+            <th>current Due</th>
+            <td>
+              <p>:</p>
+            </td>
+            <td>
+              <span>{{val.CurrentDueAmount}}</span>
+            </td>
+          </tr>
 
 
           <tr>
@@ -117,7 +126,7 @@
       <p>{{val.IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
     </div>
     <div class="bottom_sec">
-      <p size="6">current Due : <span>₹ {{val.CurrentDueAmount}}</span></p>
+      <p size="6"></p>
       <p size="6">Total paid : <span>₹ {{val.TotalPaid}}</span></p>
     </div>
   </ion-card>

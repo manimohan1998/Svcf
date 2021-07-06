@@ -23,6 +23,7 @@ export class ResetPage implements OnInit {
     this.resetForms = this.fb.group({
       name: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
       // mobilenumber: ['',Validators.maxLength(11)], 
+      dob: ['', Validators.required],
       oldpassword: ['',[Validators.required]], 
       newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)]],
       confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/),this.equalto('newpassword')]],
@@ -41,7 +42,8 @@ export class ResetPage implements OnInit {
         this.router.navigateByUrl('/login')
            });
       let data=JSON.parse(localStorage.getItem("firstdata"));
-      this.resetForms.get("oldpassword").setValue(data.password);
+      console.log(data)
+      this.resetForms.get("oldpassword").setValue(data.name);
       let id=localStorage.getItem('memberid');
       this.commonserv.sameMobileNumber(id).subscribe((res) => {
         this.mobilepass=res
@@ -138,7 +140,8 @@ export class ResetPage implements OnInit {
        let id= localStorage.getItem('memberid');
        let name=this.resetForms['value']['name']
        let password=this.resetForms['value']['confirmpassword']
-       this.commonserv.reset(id,name,password).subscribe((res) => {
+       let dob=this.resetForms['value']['dob']
+       this.commonserv.reset(id,name,password,dob).subscribe((res) => {
         console.log(res)
         if(res['Status']==="Success"){
           this.router.navigate(['/login'])

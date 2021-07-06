@@ -33,62 +33,38 @@
 
         <ion-item class="persondet" *ngIf="val?.email">
           <ion-label>Email</ion-label>
-          <ion-note slot="end">{{val?.Email}}</ion-note>
+          <ion-note slot="end" style="text-align: left;">{{val?.Email}}</ion-note>
         </ion-item>
 
         <ion-item class="persondet">
           <ion-label>Mobile Number</ion-label>
-          <ion-note slot="end">{{val.MobileNo}}</ion-note>
+          <ion-note slot="end" style="text-align: left;">{{val.MobileNo}}</ion-note>
         </ion-item>
 
         <ion-item class="persondet">
           <ion-label>Gender</ion-label>
-          <ion-note slot="end">{{val.Gender}}</ion-note>
+          <ion-note slot="end" style="text-align: left;">{{val.Gender}}</ion-note>
         </ion-item>
 
 
         <ion-item>
           <ion-label class="persondet">Age</ion-label>
-          <ion-note slot="end">{{val.Age}} Years</ion-note>
+          <ion-note slot="end" style="text-align: left;" *ngIf="personage==0">Age not available</ion-note>
+          <ion-note slot="end" style="text-align: left;" *ngIf="personage>0">{{this.personage}} Years </ion-note>
         </ion-item>
 
 
         <ion-item class="address_sec"> 
           <ion-label>Address</ion-label>
-          <ion-note slot="end">{{val.AddressForCommunication}}</ion-note>
+          <ion-note slot="end" style="text-align: left;">{{val.AddressForCommunication}}</ion-note>
         </ion-item>
 
-        <!-- <ion-item>
-          <ion-label>City </ion-label>
-          <ion-note slot="end">Coimbatore</ion-note>
-        </ion-item>
-
-        <ion-item>
-          <ion-label>State </ion-label>
-          <ion-note slot="end">TamilNadu</ion-note>
-        </ion-item>
-
-
-        <ion-item>
-          <ion-label> Pincode</ion-label>
-          <ion-note slot="end">567577</ion-note>
-        </ion-item> -->
-
-
-        <!-- <ion-item>
-          <ion-label>Identity </ion-label>
-          <ion-note slot="end">{{val.MemberID}}</ion-note>
-        </ion-item> -->
-
-
-        <ion-item class="persondet">
-          <ion-label> Account Type</ion-label>
-          <ion-note slot="end">Authentication</ion-note>
-        </ion-item>
-
-      </ion-list>
+       </ion-list>
     </ion-card-content>
   </ion-card>
+  <section class="p-24">
+    <ion-button expand="block" class="btn" (click)="reset()">RESET YOUR ACCOUNT</ion-button>
+  </section>
 </ion-content>
 
 <ion-tab-bar slot="bottom">
@@ -107,9 +83,5 @@
     <ion-icon name="reader-outline"></ion-icon>
     <ion-label>Receipt</ion-label>
   </ion-tab-button>
-  
-  <ion-tab-button (click)="reset()">
-    <ion-icon name="refresh"></ion-icon>
-    <ion-label>Reset</ion-label>
-  </ion-tab-button>
+
 </ion-tab-bar>

@@ -29,8 +29,8 @@ sameUsername(user){
 sameMobileNumber(member1){
   return this.http.get(environment.url+'GetPassword?MemberIDNew='+member1)
 }
-reset(id,name,password){
-  return this.http.get(environment.url+'RestPassword?MemberIDNew='+id+"&&userName="+name+'&&Password='+password)
+reset(id,name,password,dob){
+  return this.http.get(environment.url+'RestPassword?MemberIDNew='+id+"&&userName="+name+'&&Password='+password+'&&DOB='+dob)
 }
 // personalDetails(memidnew){
 //   return this.http.get(environment.url+'UserDetails?MemberIDNew='+memidnew)

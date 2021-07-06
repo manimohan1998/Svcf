@@ -216,7 +216,7 @@ processdata(){
         if(this.prized_chits[i].PrizedArrier=="0.00" && this.prized_chits[i].NonPrizedArrier=="0.00" )  this.avoid_chits.push(this.prized_chits[i])
         if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" )  this.valid_chits.push(this.prized_chits[i])
         if(this.prized_chits[i].IsBlocked =="1")  this.blocked_chits.push(this.prized_chits[i])
-        if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" && this.prized_chits[i].IsBlocked =="0")  this.perfect_chits.push(this.prized_chits[i])
+        // if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" && this.prized_chits[i].IsBlocked =="0")  this.perfect_chits.push(this.prized_chits[i])
       }
      console.log(this.avoid_chits,"avoid")
    console.log(this.valid_chits,"valid")
@@ -288,77 +288,80 @@ processdata(){
           }
         }
       }
-      else if(this.prized_chits.length!=0 && this.blocked_chits.length !=0){
-        if(this.arrayvalue.length <=1){ 
-          console.log(this.arrayvalue[0])     
-           if(this.arrayvalue[0].IsPrized=='Y'){
-            let data = JSON.stringify(this.arrayvalue)
-            let navigationExtras: NavigationExtras = {
-             queryParams: { state:data },
-             
-           };
-         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-           }
-          
-          else if(this.arrayvalue[0].IsPrized=='N' && this.valid_chits.length==0 && this.avoid_chits.length !=0 && this.perfect_chits.length ==0){
-            let data = JSON.stringify(this.arrayvalue)
-            let navigationExtras: NavigationExtras = {
-             queryParams: { state:data },
-             
-           };
-         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-           }
-         else return this.presentToast("Must choose atleast 1 Prized Chit");
-          }
-       else if(this.arrayvalue.length ==2){
-            for(let i=0;i<this.arrayvalue.length;i++){
-            if(this.arrayvalue[i].IsPrized=="Y"){
-              this.arrayprized.push(this.arrayvalue[i])            
-            }
-          }
-          if(this.arrayprized.length==0 && this.valid_chits.length>=1 && this.perfect_chits.length>=1) return this.presentToast("Choose atleast 1 prized chits");
-          else{
-           console.log("prized")
-           let data = JSON.stringify(this.arrayvalue)
-           let navigationExtras: NavigationExtras = {
-            queryParams: { state:data },
-            
-          };
-          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-          }
-          } 
-          else if(this.arrayvalue.length >2){
-            console.log(this.prized_chits)
-            if(this.prized_chits.length==1){
-              let data = JSON.stringify(this.arrayvalue)
-              let navigationExtras: NavigationExtras = {
-               queryParams: { state:data },
-               
-             };
-           this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-            }else if(this.prized_chits.length>=2){
-              console.log(this.prized_chits)
-              for(let i=0;i<this.arrayvalue.length;i++){
-               if(this.arrayvalue[i].IsPrized=="Y"){
-                 this.arrayprized.push(this.arrayvalue[i])
-                 
-               }
-             }
-             if(this.arrayprized.length <2 && this.valid_chits.length >=2 && this.perfect_chits.length >=2){
-                   console.log("nonprized")
-                   return this.presentToast("Choose atleast 2 prized chits");
-                 }else{           
-                  console.log("prized")
-                  let data = JSON.stringify(this.arrayvalue)
-                  let navigationExtras: NavigationExtras = {
-                   queryParams: { state:data },
-                   
-                 };
-               this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-                 }
-            }
-          }
+      else if(this.blocked_chits?.length !=0){
+        this.presentToast("This chit Number is blocked. Please contact admin");
       }
+      // else if(this.prized_chits.length!=0 && this.blocked_chits.length !=0){
+      //   if(this.arrayvalue.length <=1){ 
+      //     console.log(this.arrayvalue[0])     
+      //      if(this.arrayvalue[0].IsPrized=='Y'){
+      //       let data = JSON.stringify(this.arrayvalue)
+      //       let navigationExtras: NavigationExtras = {
+      //        queryParams: { state:data },
+             
+      //      };
+      //    this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+      //      }
+          
+      //     else if(this.arrayvalue[0].IsPrized=='N' && this.valid_chits.length==0 && this.avoid_chits.length !=0 && this.perfect_chits.length ==0){
+      //       let data = JSON.stringify(this.arrayvalue)
+      //       let navigationExtras: NavigationExtras = {
+      //        queryParams: { state:data },
+             
+      //      };
+      //    this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+      //      }
+      //    else return this.presentToast("Must choose atleast 1 Prized Chit");
+      //     }
+      //  else if(this.arrayvalue.length ==2){
+      //       for(let i=0;i<this.arrayvalue.length;i++){
+      //       if(this.arrayvalue[i].IsPrized=="Y"){
+      //         this.arrayprized.push(this.arrayvalue[i])            
+      //       }
+      //     }
+      //     if(this.arrayprized.length==0 && this.valid_chits.length>=1 && this.perfect_chits.length>=1) return this.presentToast("Choose atleast 1 prized chits");
+      //     else{
+      //      console.log("prized")
+      //      let data = JSON.stringify(this.arrayvalue)
+      //      let navigationExtras: NavigationExtras = {
+      //       queryParams: { state:data },
+            
+      //     };
+      //     this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+      //     }
+      //     } 
+      //     else if(this.arrayvalue.length >2){
+      //       console.log(this.prized_chits)
+      //       if(this.prized_chits.length==1){
+      //         let data = JSON.stringify(this.arrayvalue)
+      //         let navigationExtras: NavigationExtras = {
+      //          queryParams: { state:data },
+               
+      //        };
+      //      this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+      //       }else if(this.prized_chits.length>=2){
+      //         console.log(this.prized_chits)
+      //         for(let i=0;i<this.arrayvalue.length;i++){
+      //          if(this.arrayvalue[i].IsPrized=="Y"){
+      //            this.arrayprized.push(this.arrayvalue[i])
+                 
+      //          }
+      //        }
+      //        if(this.arrayprized.length <2 && this.valid_chits.length >=2 && this.perfect_chits.length >=2){
+      //              console.log("nonprized")
+      //              return this.presentToast("Choose atleast 2 prized chits");
+      //            }else{           
+      //             console.log("prized")
+      //             let data = JSON.stringify(this.arrayvalue)
+      //             let navigationExtras: NavigationExtras = {
+      //              queryParams: { state:data },
+                   
+      //            };
+      //          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+      //            }
+      //       }
+      //     }
+      // }
       
       else{
             let data = JSON.stringify(this.arrayvalue)

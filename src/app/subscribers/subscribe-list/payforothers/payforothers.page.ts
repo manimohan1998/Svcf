@@ -25,6 +25,8 @@
       userlist4: any=[];
       prized_chits: any=[];
       valid_chits: any=[];
+      blocked_chits: any=[];
+      primarycustomer: any=[];
     constructor(private router:Router,
     private fb:FormBuilder,
     public toastController: ToastController,
@@ -34,7 +36,8 @@
 
     this.payforother = this.fb.group({
     chitnumber: ['',[Validators.required]],
-    password: ['',[Validators.required,Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)]],
+    password: ['',[Validators.required]],
+    // Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)
     })
     }
 
@@ -97,18 +100,22 @@
     });
     toast.present();
     }
-    // caps(value){
-    // this.payforother.get(['chitnumber']).setValue(value.toUpperCase())
-    // }
 
    async verify(){
+     this.blocked_chits=[];
+     this.prized_chits=[];
+     this.userlist3=[];
+     this.userlist4=[];
+     this.valid_chits=[];
     const loading = await this.loadingcontroller.create({
       message: 'Please Wait',
       translucent: true,
     });
     await loading.present();
     console.log(this.payforother.value.password)
+    this.primarycustomer=JSON.parse(localStorage.getItem("personaldatas")) 
     let token=localStorage.getItem("token")
+    if(this.payforother.value.password !==this.primarycustomer[0]?.password){
     if(this.payforother.value.password===this.customerdetails.Password){
     this.presentToast("Verified Successfully");
     this.subscribeServ.getchitdetailslist(this.headid,this.customerdetails.BranchId,token).subscribe((res)=>{
@@ -138,9 +145,11 @@
       }}
       for(var i=0; i<this.userlist4.length;i++){
         if(this.userlist4[i].IsPrized=='Y')  this.prized_chits.push(this.userlist4[i])
+        if( this.userlist4[i].IsBlocked =="1" )  this.blocked_chits.push(this.userlist4[i])
        }
        for(var i=0; i<this.prized_chits.length;i++){
          if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" && this.prized_chits[i].IsBlocked =="0" )  this.valid_chits.push(this.prized_chits[i])
+        
        }
      console.log(this.valid_chits?.length)
     
@@ -160,30 +169,41 @@
     })
 
     }else{
+      loading.dismiss();
       this.presentToast("Password Doesn't Match");
+
     }
+  }else{
+    loading.dismiss();
+    this.presentToast("Not Allowed to Pay your Chit's");
+  }
     }
     gotolist(){
       if(this.arrayvalue?.length !=0){
-       if(this.userlist3[0]?.IsPrized=='Y'){
-          this.arrayvalue=[];
-          this.arrayvalue.push(this.userlist3[0]);
-          let data = JSON.stringify(this.arrayvalue)
-          let navigationExtras: NavigationExtras = {
-          queryParams: { state:data },
-      };
-          this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
+        if(this.blocked_chits?.length !=0){
+          this.presentToast("chit's are blocked. Please contact admin");
+        }else{
+          if(this.userlist3[0]?.IsPrized=='Y'){
+            this.arrayvalue=[];
+            this.arrayvalue.push(this.userlist3[0]);
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+            queryParams: { state:data },
+        };
+            this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
+          }
+          else if(this.userlist3[0]?.IsPrized=='N' && this.valid_chits?.length==0){
+            this.arrayvalue=[];
+            this.arrayvalue.push(this.userlist3[0]);
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+            queryParams: { state:data },
+        };
+            this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
+          }
+           else return this.presentToast("Sorry! Prized Chits are preferred");
         }
-        else if(this.userlist3[0]?.IsPrized=='N' && this.valid_chits?.length==0){
-          this.arrayvalue=[];
-          this.arrayvalue.push(this.userlist3[0]);
-          let data = JSON.stringify(this.arrayvalue)
-          let navigationExtras: NavigationExtras = {
-          queryParams: { state:data },
-      };
-          this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
-        }
-         else return this.presentToast("Sorry! Prized Chits are preferred");
+  
     }else return this.presentToast("Please choose atleast one chit");
   }
     passParams(event,val:any){
