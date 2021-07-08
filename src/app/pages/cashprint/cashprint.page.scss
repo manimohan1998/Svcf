@@ -1,0 +1,115 @@
+.flex_arrow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.done{
+    text-align:center;
+}
+.logout{
+    padding-top: 2rem;
+    padding-right: 2rem;
+    color: #fff;
+}
+.grand_total{
+    font-weight:bold;
+}
+.exit{
+    color: #fff;
+    display: inline-block;
+    font-size: 22px;
+    vertical-align: middle;
+}
+.page_title{
+    font-weight:bold;
+}
+.arrow{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    background: linear-gradient(to right, #222428 0%, #354466 100%) !important;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 30px;
+}
+
+
+ion-img{
+    width:100px;
+    padding-top:2rem;
+    
+}
+
+.mt-1{
+    margin-top: 10px;
+}
+.print_branch{
+display:flex;
+justify-content: space-between;
+}
+.image{
+    padding-left: 8rem;
+}
+.sv{
+    text-align:center;
+    padding-top:12px;
+}
+.regd{
+    color:#7F7F7F;
+}
+.sv_p{
+    font-weight: bold;
+}
+.buttons{
+    margin:16px;
+    .sms{
+        margin-left:12px;
+        background: white;
+        color:#413E95;
+        width:25%;
+        height:32px;
+        border-radius:15px;
+        border:1px solid #413E95;
+    }
+}
+.sig{
+    line-height: 24px;
+    color: #7F7F7F;
+    padding: 16px;
+    text-transform:inherit;
+    font-size:14px;
+
+}
+.text1{
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 10px;
+    color: white;
+}
+.icon_tool{
+    padding-top: 1rem;
+    padding-right: 1rem;
+ }
+ .receipt{
+ padding:40px;
+     span{
+         float: right;
+     }
+     p{
+        color:black;
+
+     }
+ }
+ .branch_name{
+     text-align:center;
+ }
+ .receipt_date{
+ padding:20px;
+ }
+ .space_margin{
+     margin-top: 20px;
+ }
+ p.sig span {
+    font-size: 14px;
+    color: #000;
+    font-weight: 600;
+}

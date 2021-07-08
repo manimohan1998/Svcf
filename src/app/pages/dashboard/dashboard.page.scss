@@ -1,0 +1,57 @@
+.chit{
+    text-align: right;
+    color:#9898A3;
+}
+ion-img{
+    height: 80px;
+    width: 80px;
+    }
+    .flex{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .total_chits{
+float:right;
+    }
+    .logout{
+        padding-top: 2rem;
+        padding-right: 2rem;
+        color:#fff;
+    }
+    .header{
+        font-size: 17px;
+        color: #fff;
+        margin-left: 6px;
+        font-weight: bold;
+    }
+    .name{
+        color:#323148;
+        font-weight: bold;
+    }
+    .id{
+        color:#323148;
+    }
+    ion-header ion-toolbar:first-child{
+    background: linear-gradient(to right, #222428 0%, #354466 100%) !important;
+    }
+    .login-name{
+        font-size: 16px;
+    color: white;
+    text-transform: capitalize;
+    font-weight: 400;
+margin-bottom: 0;
+    }
+ion-spinner  {
+    stroke: #ff0000;
+    fill: #8b0000;
+    position: fixed;
+    z-index: 999;
+    height: 5em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }

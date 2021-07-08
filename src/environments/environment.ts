@@ -5,7 +5,7 @@ export const environment = {
   
   production: false,
   url:"https://api.sreevisalam.com/SVCF_WCF/api/SVCFAPI/",
- 
+  Imageurl:"http://3.7.244.11"
 };
 
 /*

@@ -1,0 +1,173 @@
+<ion-header>
+<ion-toolbar style="--min-height:0px !important">
+<ion-item>
+<ion-icon name="arrow-back-outline" (click)="previous()"></ion-icon>
+<ion-title>Receipt History</ion-title>
+</ion-item>
+</ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="svcf_recepit_page svcf_dashboard_page">
+<form [formGroup]="receiptFormGroup" autocomplete="off" class="receipt_form">
+  <mat-form-field style="width: 110px;" >
+  <input matInput [matDatepicker]="picker"  placeholder="From Date"  formControlName="from_date"
+  (click)="picker.open()">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker ></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field style="width: 110px;">
+  <input matInput [matDatepicker]="picker1"  placeholder="To Date"  formControlName="to_date"
+  (click)="picker1.open()">
+  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+  <mat-datepicker #picker1 ></mat-datepicker>
+  </mat-form-field>
+  <ion-button type="submit" class="btn_right" style="width: 70px;" [disabled]="!receiptFormGroup.valid" (click)="history()">Submit
+  </ion-button>
+</form>
+<p *ngIf="show == true" class="total">
+          Total<span>
+          ₹ {{history_tot}}</span>
+        </p>
+
+<!-- <div class="search" *ngIf="length != 0">
+    <ion-searchbar placeholder="search" [(ngModel)]="receipt" 
+    ></ion-searchbar>
+  </div> -->
+  <section class="payment" *ngIf="length != 0">
+  <div *ngFor="let p of receipt_history" class="history_card">
+    <ion-card class="card_bg">
+    <ion-card-content>
+    <!-- <div class="ofz_img">
+      <img src="../../../assets/images/img.png">
+      <div class="branch_name">
+        <p>Branch Name:<span>{{p.branchName}}</span></p>
+        <p>Form No: <span>XVI</span></p>
+      </div>
+    </div> -->
+    <!-- <div class="logo">
+      <ion-item style="padding: 0px;">
+        <img src="../../../assets/images/logo.png">
+      <p slot="end">Form No: <span>XVI</span></p>
+      </ion-item>
+      
+    </div> -->
+    <ion-grid>
+      <ion-row style="justify-content: center;">
+        <ion-col size="4">
+         </ion-col>
+        <ion-col size="4">
+          <img src="../../../assets/images/logo.png">
+        </ion-col>
+        <ion-col size="4">
+          <p>Form No: <span>XVI</span></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- <div>
+      <ion-item style="padding: 0px;">
+        <img src="../../../assets/images/logo.png">
+      <p slot="end">Form No: <span>XVI</span></p>
+      </ion-item>
+      
+    </div> -->
+    <div class="ofz_address">
+      <h1>SREE VISALAM CHIT FUND LTD.</h1>
+      <p>Registered Office: Tirunelveli - 6</p>
+      <p>(See Section 23 and Rule 25) </p>
+      <p>Receipt issued under the chit funds Act 1982</p>
+      <p><b>Branch Name: <span>{{p.branchName}}</span></b></p>
+    </div>
+    <div class="receipt_content">
+      <ion-row size="12">
+        <ion-col size="6">
+      <h3>
+      CD/REC.SERIES
+      </h3>
+    </ion-col>
+    <ion-col size="6">
+        <p>Date: <span>{{p.paidDate |date:'dd-MM-yyyy '}}</span></p>
+        <p>Time: <span>{{p.paidDate |date:'HH:mm a'}}</span></p>
+
+      </ion-col>
+              </ion-row>
+      <div class="receipt_no">
+
+        <p>Receipt No: <span>{{p.appReceiptno}}</span></p>
+      
+      </div>
+      <table class="table receipt_amts">
+        <tbody>
+          <tr>
+            <th>Received From</th>
+            <td>:</td>
+            <td>{{p.customerName}}</td>
+          </tr>
+          <!-- <tr>
+            <th>Branch Name</th>
+            <td>:</td>
+            <td>{{p.branchName}}</td>
+          </tr> -->
+         
+          <tr>
+            <th>Ag. No/Year</th>
+            <td>:</td>
+            <td>{{p.chitAgreementno}}</td>
+          </tr>
+          <tr>
+            <th>Chit No</th>
+            <td>:</td>
+            <td>{{p.chitNo}}</td>
+          </tr>
+          <!-- <tr>
+            <th>Chit Installment No</th>
+            <td>:</td>
+            <td>{{p.currentInstno}}</td>
+          </tr> -->
+          <tr>
+            <th>Installment No</th>
+            <td>:</td>
+            <td>{{p.paidInstmentNo===''?'---':p.paidInstmentNo}}</td>
+          </tr>
+          <!--  <tr>
+            <th>Current due</th>
+            <td>:</td>
+            <td>{{p.currentDue}}</td>
+          </tr>
+             <tr *ngIf="p?.prizedArrear != 0">
+            <th>Arrear</th>
+            <td>:</td>
+            <td>{{p.prizedArrear}}</td>
+          </tr>
+             <tr *ngIf="p?.nonPrizedArrear != 0">
+            <th>Arrear</th>
+            <td>:</td>
+            <td>{{p.nonPrizedArrear}}</td>
+          </tr> -->
+           <tr>
+            <th>Amount Received</th>
+            <td>:</td>
+            <td>{{p.Amount===''?'0.00':p.Amount}}</td>
+          </tr>
+          <tr>
+            <th>Interest</th>
+            <td>:</td>
+            <td>{{p.interest===''?'0.00':p.interest}}</td>
+          </tr>
+            <tr>
+            <th>Other Receipts</th>
+            <td>:</td>
+            <td>{{p.otherReceipts===''?'0.00':p.otherReceipts}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="space_margin">
+        <p class="grand_total">Total<span>₹
+ {{p.total}}</span></p>
+      </div>
+      <p  class="sig"><span>Note: </span> This is a computer generated Receipt hence signature is not required</p>
+    </div>
+    </ion-card-content>
+    </ion-card>
+  </div>
+</section>
+<div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="this.show1==false;">No Receipts Found </div>
+</ion-content>
