@@ -84,22 +84,22 @@
                   <td>:</td>
                   <td>{{data.customerName}}</td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <th>Current Due</th>
                   <td>:</td>
                   <td>Rs.{{data.currentDue}}</td>
-                </tr>
+                </tr> -->
                 <tr>
                   <th>Current Inst No</th>
                   <td>:</td>
-                  <td>Rs.{{data.CurrentInstNo}}</td>
+                  <td>{{data.CurrentInstNo}}</td>
                 </tr>
 
-                <tr>
+                <!-- <tr>
                   <th>Arrears</th>
                   <td>:</td>
                   <td>Rs. {{this.arrears1[i]}}</td>
-                </tr>
+                </tr> -->
                 <tr>
                   <tr>
                     <th>Interest</th>
@@ -123,9 +123,15 @@
                   <td>:</td>
                   <td>{{data.paidDate}}</td>
                 </tr>
-
+                <tr>
+                  <th>Other Receipts</th>
+                  <td>:</td>
+                  <td>Rs.{{data.otherReceipts===''?'0.00':data.otherReceipts}}</td>
+                </tr>
               </tbody>
             </table>
+            <p  class="grand_total">Total:<span>Rs.{{data.Total}}</span>
+            </p>
           </div>
       </ion-card-content>
     </ion-card>

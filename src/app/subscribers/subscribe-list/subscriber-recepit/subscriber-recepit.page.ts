@@ -24,7 +24,7 @@ public sendTo   : any;
    receiptdata: any=[];
    arrearamount: number;
    arrears: any=[];
-   grandtotal: number;
+   grandtotal: number=0;
    arrearamount1: number;
    arrears1: any=[];
    show: boolean;
@@ -62,8 +62,8 @@ this.router.navigate(["/subscribe-list"])
    this.arrears=[]
     let enddate=dates.enddate;
     let startdate=dates.startdate;
-   let start= format(new Date(enddate), "yyyy/MM/dd");
-   let end= format(new Date(startdate), "yyyy/MM/dd");
+   let start= format(new Date(startdate), "yyyy/MM/dd");
+   let end= format(new Date(enddate), "yyyy/MM/dd");
 console.log(start,end)
 let customerid=localStorage.getItem("memberid")
 let token=localStorage.getItem("token")
@@ -73,20 +73,20 @@ this.subscribeServ.receipthistory(start,end,customerid,token).subscribe(res=>{
    console.log(this.receiptdata)
    for(let j=0;j<this.receiptdata.length;j++){
      this.arrearamount=0;
-     this.arrearamount +=(parseFloat(this.receiptdata[j].currentDue))
+     this.arrearamount +=(parseFloat(this.receiptdata[j].Total))
      this.arrears.push(this.arrearamount)
      console.log(this.arrears)
      for(let k=0;k<this.arrears.length;k++){
-     this.grandtotal=this.arrears[k]
+     this.grandtotal +=this.arrears[k]
      }
     }
-    for(let j=0;j<this.receiptdata.length;j++){
-      this.arrearamount1=0;
-      this.arrearamount1 +=(parseFloat(this.receiptdata[j].nonPrizedArrear))
-      this.arrearamount1 +=(parseFloat(this.receiptdata[j].prizedArrear))
-      this.arrears1.push(this.arrearamount1)
-      console.log(this.arrears1)
-    }
+   //  for(let j=0;j<this.receiptdata.length;j++){
+   //    this.arrearamount1=0;
+   //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].nonPrizedArrear))
+   //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].prizedArrear))
+   //    this.arrears1.push(this.arrearamount1)
+   //    console.log(this.arrears1)
+   //  }
     if(Array.isArray(this.receiptdata) && this.receiptdata.length){
       this.show1=false;
     }
