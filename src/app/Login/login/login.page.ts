@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ElementRef, AfterViewInit} from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {Network} from '@ionic-native/network/ngx';
 import {Dialogs} from '@ionic-native/dialogs/ngx';
 import { CommonApiService } from 'src/app/Login/common-api.service';
 import { AlertController, Platform, ToastController } from '@ionic/angular';
-
+import { Observable } from 'rxjs/Rx';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   token: any;
   show:boolean;
   count: number=0;
+  sec:boolean=true;
   constructor(private fb:FormBuilder,private network:Network,private dialogs:Dialogs,private router:Router, public commonserv: CommonApiService,public toastController: ToastController,
     private platform: Platform,public alertController:AlertController) { 
     this.loginForm = this.fb.group({
@@ -32,7 +33,9 @@ export class LoginPage implements OnInit {
       this.network.onConnect().subscribe(()=>{
       console.log(this.network.type)
       })
+      
   }
+  
   ionViewWillEnter(){
     this.count=0;
     this.loginForm.reset("");
@@ -45,7 +48,7 @@ export class LoginPage implements OnInit {
     }
          });
   }
- 
+  
 async backButtonAlert(){
     const alert =await this.alertController.create({
       message:'Do you want to exit app',

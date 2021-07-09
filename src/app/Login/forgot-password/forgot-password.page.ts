@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonApiService } from './../common-api.service';
 import { Platform, ToastController } from '@ionic/angular';
+import { Observable } from 'rxjs/Rx';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
@@ -12,10 +13,11 @@ import { Platform, ToastController } from '@ionic/angular';
 export class ForgotPasswordPage implements OnInit {
   forgotForm: FormGroup;
   forgotForms: FormGroup;
-  
+  completed: boolean=false;
   otp: any;
   forgot: boolean;
-  constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
+  otp1: boolean;
+  constructor(private router:Router,private elementRef: ElementRef,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
     private platform: Platform) { 
     this.forgotForm = this.fb.group({
       Customer: ['', [Validators.required,Validators.pattern(/^\S*$/)]],
@@ -38,25 +40,43 @@ export class ForgotPasswordPage implements OnInit {
          });
   }
   submitsForm(){
-    console.log(this.forgotForm['value']['Customer'])
-    this.forgot=true;
    var otp_request=this.forgotForm['value']['Customer']
    if(otp_request!==null && this.forgotForm.valid){
     this.commonserv.requestOtp(otp_request).subscribe(res=>{
       console.log(res)
      if(res['Status']=="Success"){
      this.otp=res['OTP']
+     this.otp1=true
+     this.completed=true
+     var callDuration = this.elementRef.nativeElement.querySelector('#time');
+    this.startTimer(callDuration);
      }else{
-      this.presentToast("Mobile Number is not updated for this User.Please Contact Branch");
+      this.presentToast("Mobile Number is not updated for this user.Please Contact Branch");
       this.forgotForm.reset("")
+      this.completed=false
+      this.otp1=false
      }
     })
   }else{
-    this.presentToast("Enter a valid customer Id");
+    this.presentToast("Enter customer Id");
     this.forgotForm.reset("")
   }
   }
-  
+  startTimer(display) {
+    var timer = 50;
+    var seconds;
+    Observable.interval(1000).subscribe(x => {
+        seconds = Math.floor(timer % 60);
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = `Resend OTP in <b>${seconds}s</b>`
+        --timer;
+        if (timer < 0 ) {
+             display.textContent =  "";
+             this.otp=""
+             this.forgot=true;
+        }
+    })
+}
   CheckSpace(event)
   {
      if(event.which ==32)
@@ -79,12 +99,12 @@ export class ForgotPasswordPage implements OnInit {
     // })
     var otpdata=this.forgotForms['value']['OTP']
     console.log(otpdata)
-    if(otpdata==this.otp && otpdata !==null && this.forgotForms.valid && this.forgotForm.valid){
+    if(otpdata==this.otp && otpdata !==null && this.forgotForms.valid){
       localStorage.setItem('customer',this.forgotForm['value']['Customer'])
       this.router.navigate(['/reset-password'])
     }
    else{
-      this.presentToast("Please Enter Valid Customer Id or OTP");
+      this.presentToast("Please Enter Valid OTP");
       this.forgotForms.reset("");
     }
    
@@ -97,7 +117,8 @@ export class ForgotPasswordPage implements OnInit {
       console.log(res)
       if(res['Status']=="Success"){
         this.otp=res['OTP']
-       
+        var callDuration = this.elementRef.nativeElement.querySelector('#time');
+    this.startTimer(callDuration);
         }else{
        this.presentToast("Mobile Number is not updated for this User.Please Contact Branch");
        this.forgotForm.reset("")
