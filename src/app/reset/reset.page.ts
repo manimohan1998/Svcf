@@ -38,9 +38,6 @@ export class ResetPage implements OnInit {
         translucent: true,
       });
       await loading.present();
-      this.platform.backButton.subscribeWithPriority(1, () => {
-        this.router.navigateByUrl('/login')
-           });
       let data=JSON.parse(localStorage.getItem("firstdata"));
       console.log(data)
       this.resetForms.get("oldpassword").setValue(data.name);

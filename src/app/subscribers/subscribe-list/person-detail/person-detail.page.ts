@@ -28,9 +28,6 @@ ref:any
     translucent: true,
   });
   await loading.present();
-  this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl('/subscribe-list')
-       });
 let memidnew=localStorage.getItem('memberid')
 let token=localStorage.getItem("token")
   this.subscribeServ.personalDetails(memidnew,token).subscribe((res)=>{

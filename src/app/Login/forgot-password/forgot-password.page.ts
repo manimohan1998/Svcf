@@ -35,13 +35,14 @@ export class ForgotPasswordPage implements OnInit {
     this.forgotForm.reset("");
     this.forgotForms.reset("");
     this.forgot=false;
-    this.platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl('/login')
-         });
+  
   }
   submitsForm(){
    var otp_request=this.forgotForm['value']['Customer']
-   if(otp_request!==null && this.forgotForm.valid){
+   this.commonserv.usertype(otp_request).subscribe(res=>{
+console.log(res)
+if(res['userType']=='Customer'){
+  if(otp_request!==null && this.forgotForm.valid){
     this.commonserv.requestOtp(otp_request).subscribe(res=>{
       console.log(res)
      if(res['Status']=="Success"){
@@ -61,6 +62,11 @@ export class ForgotPasswordPage implements OnInit {
     this.presentToast("Enter customer Id");
     this.forgotForm.reset("")
   }
+}else{
+  this.presentToast("Access denied. please contact Admin");
+}
+   })
+
   }
   startTimer(display) {
     var timer = 50;
@@ -68,7 +74,7 @@ export class ForgotPasswordPage implements OnInit {
     Observable.interval(1000).subscribe(x => {
         seconds = Math.floor(timer % 60);
         seconds = seconds < 10 ? "0" + seconds : seconds;
-        display.textContent = `Resend OTP in <b>${seconds}s</b>`
+        display.textContent = `Resend OTP in ${seconds}s`
         --timer;
         if (timer < 0 ) {
              display.textContent =  "";

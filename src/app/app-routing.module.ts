@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'selectapp',
     pathMatch: 'full'
   },
   {
@@ -43,6 +43,11 @@ const routes: Routes = [
     path: 'receipthistory',
     loadChildren: () => import('./pages/receipthistory/receipthistory.module').then( m => m.ReceipthistoryPageModule)
   },
+  {
+    path: 'selectapp',
+    loadChildren: () => import('./selectapp/selectapp.module').then( m => m.SelectappPageModule)
+  },
+
 
 ]; 
 

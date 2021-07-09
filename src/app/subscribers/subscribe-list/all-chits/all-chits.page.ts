@@ -19,11 +19,7 @@ export class AllChitsPage implements OnInit {
    
   }
   ionViewWillEnter(){
-    this.platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl('/subscribe-list')
-         });
-
-    let memidnew=localStorage.getItem('memberid')
+  let memidnew=localStorage.getItem('memberid')
     let token=localStorage.getItem("token")
       this.subscribeServ.allchits(memidnew,token).subscribe((res)=>{
       console.log(res)

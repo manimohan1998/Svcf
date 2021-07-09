@@ -35,9 +35,7 @@ export class PaymentSuccessPage implements OnInit {
 
   }
 ionViewWillEnter(){
-  this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl("/subscribe-list")
-       });
+
   this.receiptdata=[]
   this.payment_details=JSON.parse(localStorage.getItem("receipt"))
 this.method(this.payment_details);

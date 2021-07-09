@@ -44,9 +44,6 @@
     ngOnInit() {
     }
     ionViewWillEnter(){
-    this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl('/subscribe-list')
-    });
     }
     back(){
     this.router.navigate(["/subscribe-list"])

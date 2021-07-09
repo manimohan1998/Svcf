@@ -91,9 +91,6 @@
     }
     }
     ionViewDidEnter(){
-    this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl('/subscribe-list/payforothers')
-    });
     this.addmethod();
     }
     back(){

@@ -1,0 +1,28 @@
+<ion-app>
+  <!-- <ion-header translucent>
+    <ion-toolbar>
+      <ion-title></ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-content fullscreen class="svcf_page">
+    <section class="logo_sec" id="svcf_login">
+      <img class="logo" src="../../../assets/images/logo.png" />
+      <ion-text>
+        <h4>SVCF</h4>
+      </ion-text>
+    </section> 
+<ion-card style="display: flex;">
+        <div class="avatar" (click)="select('employee')">
+        <ion-avatar >
+        <img src="../../../assets/images/employee.jpg">
+        </ion-avatar>
+        <ion-label style="text-align: center;">Employee</ion-label></div>
+        <div class="avatar" (click)="select('customer')">
+        <ion-avatar >
+        <img src="../../../assets/images/customer.png">
+        </ion-avatar>
+        <ion-label style="text-align: center;">Customer</ion-label></div>    
+        </ion-card>
+    </ion-content>
+</ion-app>

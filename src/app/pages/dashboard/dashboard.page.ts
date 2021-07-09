@@ -39,9 +39,9 @@ this.moneycoll_name=localStorage.getItem("col_name")
 this.moneycoll_id = localStorage.getItem("col_id");
 console.log(this.moneycoll_id)
 let token=localStorage.getItem("tokens");
-// this.present();
+this.present();
 this.dashboardservice.user_details(this.moneycoll_id,token).subscribe(res => {
-// this.dismiss();
+this.dismiss();
 this.details = res;
  this.filterItems= this.details;
 
@@ -97,7 +97,7 @@ handler: (blah) => {
 text: 'Logout',
 handler: () => {
 localStorage.clear();
-this.router.navigate(['login']);
+this.router.navigate(['selectapp']);
 }
 }
 ]

@@ -107,37 +107,6 @@ async ionViewWillEnter(){
     this.profileimage=res['ImageUrl']
   })
 
-  this.count=0
-  this.platform.backButton.subscribeWithPriority(1, () => {
-    this.count +=1;
-    console.log(this.count)
-    if(this.count==2){
-      this.backButtonAlert();
-      this.count-=1;
-    }
-  });
-
-}
-
-async backButtonAlert(){
-    
-  const alert =await this.alertController.create({
-    message:'Do you want to exit app',
-    buttons: [{
-      text: 'Cancel',
-      role: 'cancel',
-      handler: () => {
-       }
-    },{
-      text: 'Close app',
-      handler: () =>{
-        localStorage.clear();
-        navigator['app'].exitApp();
-      }
-    }]
-  })
-
-  await alert.present();
 }
 async ionViewDidEnter(){
   
@@ -408,7 +377,7 @@ async logout(){
           console.log('ok clicked');
           // localStorage.removeItem('token');
           // localStorage.removeItem('memberid');
-          this.router.navigate(['/login'])
+          this.router.navigate(['/selectapp'])
           localStorage.clear()
           this.presentToast("Logout Successfully");
           }

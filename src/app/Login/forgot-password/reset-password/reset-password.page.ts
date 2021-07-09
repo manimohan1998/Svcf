@@ -24,9 +24,7 @@ constructor(private router:Router,private fb:FormBuilder, public commonserv: Com
   ngOnInit() {
   }
 ionViewWillEnter(){
-  this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl('/forgot-password')
-       });
+
 }
   
 	equalto(field_name): ValidatorFn {

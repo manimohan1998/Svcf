@@ -47,9 +47,9 @@ public sendTo   : any;
   
   }
   ionViewWillEnter(){
-   this.platform.backButton.subscribeWithPriority(1, () => {
-      this.router.navigateByUrl('/subscribe-list')
-         });
+   // this.platform.backButton.subscribeWithPriority(1, () => {
+   //    this.router.navigateByUrl('/subscribe-list')
+   //       });
    this.show=false
    this.show1=false;
    this.presentToast1("Click to select start date and end date to filter your receipts")

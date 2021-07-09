@@ -90,9 +90,6 @@ this.newArray();
 }
 
 ionViewDidEnter(){
-  this.platform.backButton.subscribeWithPriority(1, () => {
-    this.router.navigateByUrl('/subscribe-list')
-       });
 this.addmethod();
 }
 back(){
