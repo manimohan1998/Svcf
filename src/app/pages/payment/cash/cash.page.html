@@ -1,0 +1,86 @@
+<ion-content class="svcf_dashboard_page svcf_payment_page">
+<section class="customer_details">
+    <ion-icon name="arrow-back-outline" style="font-size: 25px;" (click)="previous()"></ion-icon>
+
+    <ion-row size="12">
+    <ion-col class="customer_name" size="11">
+    <h2 size="8">{{i_details[0].Membername}}</h2>
+    <h5 size="8">{{today | date:'dd/MM/yyyy'}}</h5>
+    </ion-col>
+    <ion-col class="menu" size="1">
+    <ion-icon name="exit" (click)="logout()"></ion-icon>
+    </ion-col>
+    </ion-row>
+</section>
+<div class="payment card_bg space_padding">
+    <div class="page_title">
+        <h3>Chit Details</h3>
+        <ion-icon name="create-outline" slot="end"></ion-icon>
+    </div>
+    <form [formGroup]="cashForm" >
+        <div [formArrayName]="'formArrayName'" class="payment_form">
+            <div *ngFor="let n of i_details; let i = index">
+                <div [formGroupName]="i">
+                    <ion-card>
+                    <ion-card-header>
+                    <p>Chit Value<span>₹ {{n?.totalchitvalue}}</span></p>
+                    <p class="chit_no">{{n?.groupno}}</p>
+
+                    </ion-card-header>
+                    <ion-card-content>
+                   <p class="payable">Amount payable<span>₹ {{n?.TotalPayable}}</span></p>
+          <div class="inner">
+                    <ion-item >
+                     <ion-label position="stacked">Current Due</ion-label>
+                    <ion-input formControlName="amountreceived"  value=""
+                    placeholder="Current Due" readonly>
+                    </ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="n?.isprized == 'Prized'">
+                    <ion-label position="stacked">Arrear </ion-label>
+                    <ion-input formControlName="prizedarrear"  value=""
+                    placeholder="Prized Arrear" readonly  >
+                    </ion-input>
+                    </ion-item>
+                    <ion-item *ngIf="n?.isprized == 'Non-Prized' ">
+                    <ion-label position="stacked"> Arrear</ion-label>
+                    <ion-input formControlName="nonprizedarrear" 
+                    placeholder="Non Prized Arrear" readonly  >
+                    </ion-input>
+                    </ion-item>
+                    <ion-item >
+                     <ion-label position="stacked">Amount Received</ion-label>
+                    <ion-input (keypress)="CheckSpace($event)" formControlName="amountpayable" value=""
+                    placeholder="Amount Received"   >
+                    </ion-input>
+                    </ion-item>
+                    <ion-item >
+                    <ion-label position="stacked">Interest</ion-label>
+                    <ion-input (keypress)="CheckSpace($event)" formControlName="interest"   value="" placeholder="Interest" 
+                    >
+                    </ion-input>
+                    </ion-item>
+                    <ion-item>
+                    <ion-label position="stacked">Other Amount</ion-label>
+                    <ion-input (keypress)="CheckSpace($event)" formControlName="otheramount"  value=""
+                    placeholder="Other Amount">
+                    </ion-input>
+                    </ion-item>
+                    <!-- <ion-item>
+                    <ion-label position="stacked">
+                    Write Narrations
+                    </ion-label>
+                    <ion-input formControlName="narration" type="text" value=""
+                    placeholder="Narration" required >
+                    </ion-input>
+                    </ion-item> -->
+                </div>
+                    </ion-card-content>
+                    </ion-card>
+                </div>
+            </div>
+        </div>
+        <ion-button type="submit" expand="block"  (click)="submit(cashForm.value)" class="btn" [disabled]="!cashForm.valid " >Submit </ion-button>
+    </form>
+</div>
+</ion-content>

@@ -1,0 +1,133 @@
+<ion-header>
+<ion-toolbar style="--min-height:0px !important">
+<ion-item>
+<ion-icon name="arrow-back-outline" (click)="previous()"></ion-icon>
+<ion-title>Receipt</ion-title>
+</ion-item>
+</ion-toolbar>
+</ion-header>
+<ion-content fullscreen class="svcf_recepit_page svcf_dashboard_page">
+<section class="payment">
+  <div class="page_title">
+    <h3>Chit Details</h3>
+  </div>
+  <div *ngFor="let p of print_cash_page" id="printable-area" #my>
+    <ion-card class="card_bg">
+    <ion-card-content>
+    <!-- <div class="ofz_img">
+      <img src="../../../assets/images/img.png">
+      <div class="branch_name">
+        <p>Branch Name:<span>{{p.branchName}}</span></p>
+        <p>Form No: <span>XVI</span></p>
+      </div>
+    </div> -->
+    <!-- <div class="logo">
+      <img src="../../../assets/images/logo.png">
+    </div> -->
+    <ion-grid>
+      <ion-row style="justify-content: center;">
+        <ion-col size="4">
+         </ion-col>
+        <ion-col size="4">
+          <img src="../../../assets/images/logo.png">
+        </ion-col>
+        <ion-col size="4">
+          <p>Form No: <span>XVI</span></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class="ofz_address">
+      <h1>SREE VISALAM CHIT FUND LTD.</h1>
+      <p>Registered Office: Tirunelveli - 6</p>
+      <p>(See Section 23 and Rule 25) </p>
+      <p>Receipt issued under the chit funds Act 1982</p>
+      <p><b>Branch Name: <span>{{p.branchName}}</span></b></p>
+    </div>
+    <div class="receipt_content">
+      <ion-row size="12">
+        <ion-col size="6">
+      <h3>
+      CD/REC.SERIES
+      </h3>
+    </ion-col>
+    <ion-col size="6">
+      <p>Date: <span>{{p?.datetime |date:'dd/MM/yyyy '}}</span></p>
+      <p>Time: <span>{{p?.datetime |date:' HH:mm a'}}</span></p>
+
+    </ion-col>
+    </ion-row>
+      <div class="receipt_no">
+        <p>Receipt No: <span>{{p?.cashReceiptNo}}</span></p>
+      </div>
+      <table class="table receipt_amts">
+        <tbody>
+          <tr>
+            <th>Received From</th>
+            <td>:</td>
+            <td>{{p?.customerName}}</td>
+          </tr>
+           <tr>
+            <th>Ag. No/Year</th>
+            <td>:</td>
+            <td>{{p?.agreementNo}}</td>
+          </tr>
+          <tr>
+            <th>Chit No</th>
+            <td>:</td>
+            <td>{{p?.chitNo}}</td>
+          </tr>
+             <!-- <tr>
+            <th>Current Inst No</th>
+            <td>:</td>
+            <td>{{p?.currentInstalmentNo}}</td>
+          </tr> -->
+         <tr>
+            <th>Installment No</th>
+            <td>:</td>
+            <td>{{p.paidInstmentNo===''?'---':p.paidInstmentNo}}</td>
+          </tr>
+          <tr>
+            <th>Amount Received</th>
+            <td>:</td>
+            <td>{{p.amount===''?'0.00':p.amount}}</td>
+          </tr>
+       <!--    <tr>
+            <th>Current Due</th>
+            <td>:</td>
+            <td>{{p?.currentdue}}</td>
+          </tr>
+          <tr *ngIf ="p?.pArrear != 0">
+            <th>Arrear amount</th>
+            <td>:</td>
+            <td>{{p?.pArrear}}</td>
+          </tr>
+          <tr *ngIf ="p?.NpArrear != 0">
+            <th>Arrear amount</th>
+            <td>:</td>
+            <td>{{p?.NpArrear}}</td>
+          </tr> -->
+          <tr>
+            <th>Interest</th>
+            <td>:</td>
+            <td>{{p.penaltyForOverdue===''?'0.00':p.penaltyForOverdue}}</td>
+          </tr>
+          <tr>
+            <th>Other Receipts</th>
+            <td>:</td>
+            <td>{{p.otherReceipts===''?'0.00':p.otherReceipts}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="space_margin">
+        <p class="grand_total"> Total Paid<span>₹ {{p?.total}}</span></p>
+      </div>
+    </div>
+    </ion-card-content>
+    </ion-card>
+    <p  class="sig"><span>Note: </span>This is a computer generated Receipt hence signature is not required</p>
+  </div>
+  </section>
+  <div class="done">
+<ion-button (click)="done()">Done</ion-button>
+</div>
+</ion-content>

@@ -1,0 +1,32 @@
+<ion-content class="svcf_dashboard_page">
+<section class="customer_details">
+  <ion-row size="12">
+  <ion-col class="customer_name" size="11">
+  <ion-img src="assets/images/logo.png"></ion-img>
+<!--   <h3 class="header">SVCF LTD</h3>
+ -->    <ion-button class="total_chits" (click)="history()">History</ion-button>
+
+  <h3 class="login-name">{{moneycoll_name}}</h3>
+  </ion-col>
+  
+  <ion-col class="menu" size="1">
+  <ion-icon name="exit" (click)="logout()"></ion-icon>
+  </ion-col>
+  </ion-row>
+  <div class="search">
+    <ion-searchbar placeholder="search" [(ngModel)]="terms" 
+    ></ion-searchbar>
+  </div>
+</section>
+<ion-card class="card_bg" *ngFor="let v of details |filter:terms">
+<ion-item (click)="goto(v)">
+<ion-label class="ion-text-wrap">
+<h3 class="id">{{ v.GrpMemberID }}</h3>
+<h3 class="name"> {{ v.MemberName }}</h3>
+</ion-label>
+<ion-label class="chit">No. of chits ({{v.chitcount}})</ion-label>
+</ion-item>
+</ion-card>
+<!-- <p *ngIf= "terms == ''">dsf</p> -->
+<!-- <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="(details | filter: terms).length === 0">No Results Found</div> -->
+</ion-content>

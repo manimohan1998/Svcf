@@ -1,0 +1,133 @@
+<ion-content class="svcf_dashboard_page svcf_payment_page">
+<section class="customer_details">
+      <ion-icon name="arrow-back-outline" style="font-size: 25px;" (click)="previous()"></ion-icon>
+
+  <ion-row size="12">
+  <ion-col class="customer_name" size="11">
+  <h2 size="8">{{new10[0]?.Membername}}</h2>
+  <h5 size="8">{{today | date:'dd/MM/yyyy'}}</h5>
+  </ion-col>
+  <ion-col class="menu" size="1">
+  <ion-icon name="exit" (click)="logout()"></ion-icon>
+  </ion-col>
+  </ion-row>
+</section>
+<div class="payment card_bg space_padding">
+  <div class="page_title">
+    <h3>Chit Details</h3>
+    <ion-icon name="create-outline" slot="end"></ion-icon>
+  </div>
+  <form [formGroup]="submitForm" novalidate class="payment_form">
+    <ion-list [formArrayName]="'formArrayName'">
+    <div *ngFor="let d of result; let i = index">
+      <div [formGroupName]="i">
+        <ion-card>
+        <ion-card-header>
+        <p>Chit Value<span>₹ {{d.totalchit}}</span></p>
+        <p class="chit_no">{{d.groupno}}</p>
+        </ion-card-header>
+        <ion-card-content>
+        <ion-item>
+        <ion-label position="stacked">Current Due</ion-label>
+        <ion-input formControlName="amountreceived"  value="" placeholder="Current Due"
+        readonly>
+        </ion-input>
+        </ion-item>
+        <ion-item *ngIf="d?.prizedarrear !=0 ">
+        <ion-label position="stacked">Prized Arrear </ion-label>
+        <ion-input formControlName="prizedarrear"  value="" placeholder="Prized Arrear" readonly>
+        </ion-input>
+        </ion-item>
+        <ion-item *ngIf="d?.nonprizedarrear !=0">
+        <ion-label position="stacked">Non-Prized Arrear</ion-label>
+        <ion-input formControlName="nonprizedarrear"  value="" placeholder="Non-Prized Arrear"
+        readonly>
+        </ion-input>
+        </ion-item>
+         <ion-item >
+        <ion-label position="stacked">Amount Received</ion-label>
+        <ion-input formControlName="amountpayable"  value="" placeholder="Amount Received"
+        readonly>
+        </ion-input>
+        </ion-item>
+        <ion-item >
+        <ion-label position="stacked">Interest</ion-label>
+        <ion-input formControlName="interest"  value="" placeholder="interest" readonly>
+        </ion-input>
+        </ion-item>
+        <ion-item>
+        <ion-label position="stacked">Other Amount</ion-label>
+        <ion-input formControlName="otheramount"  value="" placeholder="otheramount" readonly>
+        </ion-input>
+        </ion-item>
+        <!-- <ion-item>
+        <ion-label position="stacked">
+        Write Narrations
+        </ion-label>
+        <ion-input formControlName="narration" type="text" value="" placeholder="narration" readonly>
+        </ion-input>
+        </ion-item> -->
+      <div class="total">
+          <span> Total</span><span class="total1">
+            ₹ {{d.total1}}</span>
+      </div>
+     <!-- <p class="total">
+          Total<span>
+          ₹ {{d.total1}}</span>
+        </p> -->
+        </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+    </ion-list>
+  </form>
+  <p class="grand_total">Grand Total<span>₹ {{grandtotal1}}</span>
+</p>
+<ion-button type="submit" expand="block" (click)="submitfunction(submitForm.value)" class="btn">Submit </ion-button>
+</div>
+</ion-content>
+<!-- <ion-content class="cash-content">
+<form [formGroup]="submitForm" novalidate>
+<div [formArrayName]="'formArrayName'">
+  <div *ngFor="let d of result; let i = index">
+    <div [formGroupName]="i">
+      <div class="align">
+        <input type="text" formControlName="branchname" readonly style="border:0;padding-left:15px;">
+        <input type="text" formControlName="groupno" readonly style="border:0;padding-left:15px;">
+        <p style="white-space: nowrap; font-size:14px;">Total Chit Value:&nbsp;</p>
+        <input type="text" formControlName="totalchit" readonly style="border:0">
+        <input type="text" formControlName="branchid" readonly style="display:none">
+        <input type="text" formControlName="memberid" readonly style="display: none">
+        <input type="text" formControlName="rootid" readonly style="display:none">
+        <input type="text" formControlName="headid" readonly style="display: none">
+        <input type="text" formControlName="chitgroupid" readonly style="display: none">
+        <input type="text" formControlName="m_id" readonly style="display:none">
+        <input type="text" formControlName="agreement" readonly style="display:none">
+        <input type="text" formControlName="installment" readonly style="display:none">
+      </div>
+      <mat-form-field>
+      <input matInput placeholder="Amount Received" formControlName="amountreceived" [readonly]="true">
+      </mat-form-field>
+      <mat-form-field *ngIf="d?.prizedarrear !=0 ">
+      <input matInput placeholder="Prized Arrear" formControlName="prizedarrear" [readonly]="true">
+      </mat-form-field>
+      <mat-form-field *ngIf="d?.nonprizedarrear !=0">
+      <input matInput placeholder="Non Prized Arrear" formControlName="nonprizedarrear" [readonly]="true">
+      </mat-form-field>
+      <mat-form-field>
+      <input matInput placeholder="Interest" formControlName="interest" [readonly]="true">
+      </mat-form-field>
+      <mat-form-field>
+      <input matInput placeholder="Other Amount" formControlName="otheramount" [readonly]="true">
+      </mat-form-field>
+      <mat-form-field>
+      <input matInput placeholder="Write Narrations" formControlName="narration" [readonly]="true">
+      </mat-form-field>
+      <p>Total:<span>{{d.total}}</span></p>
+    </div>
+  </div>
+</div>
+</form>
+<p>Grand Total:<span>{{grand_total}}</span>
+<button class=" next" color="secondary" type="submit" (click)="submitcash(submitForm.value)">Submit</button>
+</ion-content> -->

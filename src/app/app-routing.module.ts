@@ -31,9 +31,20 @@ const routes: Routes = [
   {
     path: 'reset',
     loadChildren: () => import('./reset/reset.module').then( m => m.ResetPageModule)
-  }
+  },
  
-];
+
+  //employee
+  
+  { path: 'dashboard', loadChildren:()=> import('./pages/dashboard/dashboard.module').then(m=> m.DashboardPageModule)},
+  { path: 'payment', loadChildren:()=> import('./pages/payment/payment.module').then(m=> m.PaymentPageModule)},
+  { path: 'cashprint', loadChildren:()=> import('./pages/cashprint/cashprint.module').then(m=> m.CashprintPageModule)},
+  {
+    path: 'receipthistory',
+    loadChildren: () => import('./pages/receipthistory/receipthistory.module').then( m => m.ReceipthistoryPageModule)
+  },
+
+]; 
 
 @NgModule({
   imports: [

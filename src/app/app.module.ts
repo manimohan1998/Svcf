@@ -14,15 +14,19 @@ import {Dialogs} from '@ionic-native/dialogs/ngx'
 import { WebIntent } from '@ionic-native/web-intent/ngx';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './core/interceptor';
+import { MaterialModule } from  './material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
+    MaterialModule,
      IonicModule.forRoot(), 
      AppRoutingModule,
      ReactiveFormsModule,
      FormsModule,
-     HttpClientModule],
+     HttpClientModule,
+     BrowserAnimationsModule],
      
   providers: [
     Interceptor,
