@@ -69,12 +69,15 @@ if(res['userType']=='Customer'){
 
   }
   startTimer(display) {
-    var timer = 50;
+    var timer = 120;
     var seconds;
+    var minutes;
     Observable.interval(1000).subscribe(x => {
         seconds = Math.floor(timer % 60);
+        minutes = Math.floor(timer / 60);
         seconds = seconds < 10 ? "0" + seconds : seconds;
-        display.textContent = `Resend OTP in ${seconds}s`
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        display.textContent = `Resend OTP in ${minutes + ":" + seconds}s`
         --timer;
         if (timer < 0 ) {
              display.textContent =  "";
