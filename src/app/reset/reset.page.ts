@@ -3,7 +3,7 @@ import {Validators, FormBuilder, FormGroup, ValidatorFn, AbstractControl } from 
 import {Router} from'@angular/router'
 import { CommonApiService } from 'src/app/Login/common-api.service';
 import { LoadingController, Platform, ToastController } from '@ionic/angular';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import {format} from "date-fns";
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.page.html',
@@ -41,6 +41,7 @@ export class ResetPage implements OnInit {
       let data=JSON.parse(localStorage.getItem("firstdata"));
       console.log(data)
       this.resetForms.get("oldpassword").setValue(data.name);
+      this.resetForms.get("dob").setValue(data.dob);
       let id=localStorage.getItem('memberid');
       this.commonserv.sameMobileNumber(id).subscribe((res) => {
         this.mobilepass=res
@@ -138,10 +139,11 @@ export class ResetPage implements OnInit {
        let name=this.resetForms['value']['name']
        let password=this.resetForms['value']['confirmpassword']
        let dob=this.resetForms['value']['dob']
-       this.commonserv.reset(id,name,password,dob).subscribe((res) => {
+       let Dob= format(new Date(dob), "yyyy/MM/dd");
+       this.commonserv.reset(id,name,password,Dob).subscribe((res) => {
         console.log(res)
         if(res['Status']==="Success"){
-          this.router.navigate(['/login'])
+          this.router.navigate(['/selectapp'])
           localStorage.clear()
           this.presentToast('Password Changed Successfully And Use New Password To Login.');
         }
