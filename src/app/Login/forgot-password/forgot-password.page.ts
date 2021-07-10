@@ -3,7 +3,6 @@ import {Router} from'@angular/router'
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CommonApiService } from './../common-api.service';
 import { Platform, ToastController } from '@ionic/angular';
-import { Observable } from 'rxjs/Rx';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
@@ -17,6 +16,10 @@ export class ForgotPasswordPage implements OnInit {
   otp: any;
   forgot: boolean;
   otp1: boolean;
+
+  maxTime: any=120;
+  hidevalue: boolean;
+  
   constructor(private router:Router,private elementRef: ElementRef,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
     private platform: Platform) { 
     this.forgotForm = this.fb.group({
@@ -35,6 +38,9 @@ export class ForgotPasswordPage implements OnInit {
     this.forgotForm.reset("");
     this.forgotForms.reset("");
     this.forgot=false;
+    this.completed=false
+    this.otp1=false
+    this.maxTime=120;
   
   }
   submitsForm(){
@@ -43,21 +49,18 @@ export class ForgotPasswordPage implements OnInit {
 console.log(res)
 if(res['userType']=='Customer'){
   if(otp_request!==null && this.forgotForm.valid){
-    this.commonserv.requestOtp(otp_request).subscribe(res=>{
-      console.log(res)
-     if(res['Status']=="Success"){
+   if(res['Status']=="Success"){
      this.otp=res['OTP']
      this.otp1=true
      this.completed=true
-     var callDuration = this.elementRef.nativeElement.querySelector('#time');
-    this.startTimer(callDuration);
+     this.StartTimer()
      }else{
       this.presentToast("Mobile Number is not updated for this user.Please Contact Branch");
       this.forgotForm.reset("")
       this.completed=false
       this.otp1=false
      }
-    })
+   
   }else{
     this.presentToast("Enter customer Id");
     this.forgotForm.reset("")
@@ -68,24 +71,29 @@ if(res['userType']=='Customer'){
    })
 
   }
-  startTimer(display) {
-    var timer = 120;
-    var seconds;
-    var minutes;
-    Observable.interval(1000).subscribe(x => {
-        seconds = Math.floor(timer % 60);
-        minutes = Math.floor(timer / 60);
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        display.textContent = `Resend OTP in ${minutes + ":" + seconds}s`
-        --timer;
-        if (timer < 0 ) {
-             display.textContent =  "";
-             this.otp=""
-             this.forgot=true;
-        }
-    })
-}
+
+timer:any;
+  StartTimer(){
+this.timer = setTimeout(x => 
+      {
+          if(this.maxTime <= 0) { }
+          this.maxTime -= 1;
+
+          if(this.maxTime>0){
+            this.hidevalue = false;
+            this.StartTimer();
+          }
+          
+          else{
+              this.hidevalue = true;
+              this.otp=""
+              this.forgot=true
+          }
+
+      }, 1000);
+ 
+
+  }
   CheckSpace(event)
   {
      if(event.which ==32)
@@ -103,14 +111,13 @@ if(res['userType']=='Customer'){
       toast.present();
   }
   otpform(){
-    // this.commonserv.otpVerification(this.forgotForms.value).subscribe(res=>{
-    //   console.log(res)
-    // })
-    var otpdata=this.forgotForms['value']['OTP']
+   var otpdata=this.forgotForms['value']['OTP']
     console.log(otpdata)
-    if(otpdata==this.otp && otpdata !==null && this.forgotForms.valid){
+    
+    if(otpdata==this.otp && this.forgotForms.valid){
       localStorage.setItem('customer',this.forgotForm['value']['Customer'])
       this.router.navigate(['/reset-password'])
+ 
     }
    else{
       this.presentToast("Please Enter Valid OTP");
@@ -122,12 +129,14 @@ if(res['userType']=='Customer'){
    
     var otp_request=this.forgotForm['value']['Customer']
     if(otp_request !==null && this.forgotForm.valid){
-    this.commonserv.requestOtp(otp_request).subscribe(res=>{
+      this.commonserv.usertype(otp_request).subscribe(res=>{
       console.log(res)
       if(res['Status']=="Success"){
         this.otp=res['OTP']
-        var callDuration = this.elementRef.nativeElement.querySelector('#time');
-    this.startTimer(callDuration);
+        console.log(this.otp)
+        this.maxTime=120;
+        this.StartTimer()
+  
         }else{
        this.presentToast("Mobile Number is not updated for this User.Please Contact Branch");
        this.forgotForm.reset("")
@@ -141,7 +150,13 @@ if(res['userType']=='Customer'){
   back(){
     this.router.navigate(['/login'])
   }
+  ionViewWillLeave(){
+      this.hidevalue = true
+      clearInterval(this.timer)
+    
+  }
   ngOnDestroy(){
+   
     this.forgotForm.reset("");
     this.forgotForms.reset("");
   }

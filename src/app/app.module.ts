@@ -16,6 +16,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { Interceptor } from './core/interceptor';
 import { MaterialModule } from  './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,7 +27,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
      ReactiveFormsModule,
      FormsModule,
      HttpClientModule,
-     BrowserAnimationsModule],
+     BrowserAnimationsModule,
+    
+    ],
      
   providers: [
     Interceptor,
