@@ -6,19 +6,19 @@
   </ion-header> -->
 
   <ion-content fullscreen class="svcf_page">
-    <section class="logo_sec" id="svcf_login">
-      <img class="logo" src="../../../assets/images/logo.png" />
-      <ion-text>
+    <section class="logo_sec as-logo_sec" id="svcf_login">
+      <img class="logo as-logo" src="../../../assets/images/logo.png" />
+      <ion-text class="as-logo-text">
         <h4>SVCF</h4>
       </ion-text>
     </section> 
-<ion-card style="display: flex;">
-        <div class="avatar" (click)="select('employee')">
+<ion-card  class="as-login-card">
+        <div class="avatar as-avatar" (click)="select('employee')">
         <ion-avatar >
         <img src="../../../assets/images/employee-svgrepo-com.svg ">
         </ion-avatar>
         <ion-label style="text-align: center;">Employee</ion-label></div>
-        <div class="avatar" (click)="select('customer')">
+        <div class="avatar as-avatar" (click)="select('customer')">
         <ion-avatar >
         <img src="../../../assets/images/user-svgrepo-com.svg">
         </ion-avatar>

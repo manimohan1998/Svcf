@@ -659,3 +659,36 @@ ion-tab-bar{
     .as-p-1{
     padding: 1rem 1px;
     }
+    .as-logo_sec{
+        height: 100vh;
+    }
+    .as-logo{
+        position: absolute;
+        top: 9rem !important;
+        left: 50%;
+    }
+    .as-logo-text{
+        
+    top: 17rem;
+    position: absolute;
+    right: 50%;
+
+    }
+    .as-login-card{
+        background: transparent;
+    box-shadow: none;
+    display: flex;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    }
+    .as-avatar {
+        margin: auto;
+        text-align: center;
+        background: white;
+        border-radius: 100%;
+        padding: 1rem 28px;
+        border: 5px solid #2e5082;
+        height: 8rem;
+        width: 8rem;
+    }
