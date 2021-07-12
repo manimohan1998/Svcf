@@ -104,7 +104,8 @@
 -->    </div>
 <div class="bottom_sec">
 <!--   <p size="6">Current Due ₹ <span>{{value?.CurrentDueAmount}}</span></p>
- -->  <p size="6">Chit Value  ₹ <span>{{value?.totalchitvalue}}</span></p><p size="6" *ngIf="value.IsBlocked==1" style="color:#F00A0A;"> Blocked</p>
+ -->  <p size="6" class="as-m-0">Chit Value  ₹ <span>{{value?.totalchitvalue}}</span></p>
+ <p size="6" class="as-m-0" *ngIf="value.IsBlocked==1" style="color:#F00A0A;"> Blocked</p>
 </div>
 </ion-card>
 <ion-card *ngIf="length1 === 0">

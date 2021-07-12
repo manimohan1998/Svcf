@@ -55,7 +55,7 @@ html {
 }
 .eye_icon {
     ion-icon {
-        font-size: 27px;
+        font-size: 22px;
         color: #2F2F2F;
     }
 }
@@ -277,7 +277,7 @@ ion-label {
             }
             .address_sec{
                 ion-note {
-                    text-align: end;
+                    // text-align: end;
                     width: 50%;
                     font-size: 14px;
                 }
@@ -334,6 +334,7 @@ ion-label {
     }
     .card_bg{ 
         margin-top: -12px;
+        margin-bottom: 2rem;
         .chits_item_details{
             display: flex;
             align-items: flex-start;
@@ -438,12 +439,13 @@ ion-label {
                     justify-content: space-between;
                     --background: #2E3A58;
                     align-items: center;
+                    margin-bottom: 1rem;
                     p{
                        &.chit_no{
                             background: #396DD4;
                 padding: 3px 10px;
-                right: -5px;
-                position: absolute;
+                // right: -5px;
+                // position: absolute;
                 border-radius: 15px;
                      }
                      span{
@@ -637,4 +639,23 @@ ion-tab-bar{
     }
     
 
-    
+    .as-m-0{
+        margin: 0 !important;
+        padding: .5rem 0;
+    }
+    .as-mt-1{
+        margin: 1rem 0;
+    }
+    .as-btn{
+        width: 50%;
+        margin-top: 1rem;
+    }
+    .as-text-center{
+        text-align: center;
+    }
+.as-width-50{
+    width: 50%;
+}
+    .as-p-1{
+    padding: 1rem 1px;
+    }

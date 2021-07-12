@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar style="--min-height:0px !important">
-    <ion-item>
+     <ion-item lines="full">
       <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
     <ion-title>View Profile</ion-title>
   </ion-item>
@@ -31,32 +31,33 @@
     <ion-card-content fullscreen>
       <ion-list>
 
-        <ion-item class="persondet" *ngIf="val?.email">
-          <ion-label>Email</ion-label>
-          <ion-note slot="end" style="text-align: left;">{{val?.Email}}</ion-note>
+         <ion-item lines="full" class="persondet" *ngIf="val?.email">
+          <ion-label class="as-width-50">Email</ion-label>
+          <ion-note class="as-width-50 as-p-1" >{{val?.Email}}</ion-note>
         </ion-item>
 
-        <ion-item class="persondet">
-          <ion-label>Mobile Number</ion-label>
-          <ion-note slot="end" style="text-align: left;">{{val.MobileNo}}</ion-note>
+         <ion-item lines="full" class="persondet"  >
+           
+          <ion-label class="as-width-50">Mobile Number</ion-label>
+          <ion-note class="as-width-50 as-p-1" >{{val.MobileNo}}</ion-note>
         </ion-item>
 
-        <ion-item class="persondet">
-          <ion-label>Gender</ion-label>
-          <ion-note slot="end" style="text-align: left;">{{val.Gender}}</ion-note>
-        </ion-item>
-
-
-        <ion-item>
-          <ion-label class="persondet">Age</ion-label>
-          <ion-note slot="end" style="text-align: left;" *ngIf="personage==0">------</ion-note>
-          <ion-note slot="end" style="text-align: left;" *ngIf="personage>0">{{this.personage}} Years </ion-note>
+         <ion-item lines="full" class="persondet">
+          <ion-label class="as-width-50">Gender</ion-label>
+          <ion-note class="as-width-50 as-p-1" >{{val.Gender}}</ion-note>
         </ion-item>
 
 
-        <ion-item class="address_sec"> 
-          <ion-label>Address</ion-label>
-          <ion-note slot="end" style="text-align: left;">{{val.AddressForCommunication}}</ion-note>
+         <ion-item lines="full">
+          <ion-label class="persondet as-width-50">Age</ion-label>
+          <ion-note class="as-width-50 as-p-1"  *ngIf="personage==0">------</ion-note>
+          <ion-note class="as-width-50 as-p-1"*ngIf="personage>0">{{this.personage}} Years </ion-note>
+        </ion-item>
+
+
+         <ion-item lines="full" class="address_sec"> 
+          <ion-label class="as-width-50">Address</ion-label>
+          <ion-note class="as-width-50 as-p-1" >{{val.AddressForCommunication}}</ion-note>
         </ion-item>
 
        </ion-list>

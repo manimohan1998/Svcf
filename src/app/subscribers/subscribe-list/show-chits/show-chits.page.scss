@@ -13,3 +13,16 @@
     overflow:auto;  
     margin-top:10px;
 }
+thead tr th{
+    background: #263053;
+    color: white;
+    text-align: center;
+}
+
+  
+  tr:nth-child(even) {
+    background: lightgray;
+  }
+  table{
+      width: 100%;
+  }

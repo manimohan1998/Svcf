@@ -12,8 +12,8 @@
     <ion-card class="card_bg"  *ngIf="!chitpage">
       <ion-card-content fullscreen>
          <form [formGroup]="payforother"  autocomplete="off">
-          <ion-list>
-            <ion-item>
+          <ion-list lines="full">
+             <ion-item  lines="full">
               <ion-label position="stacked">Chit Number</ion-label>
               <ion-input formControlName="chitnumber" type="text" maxlength="10" 
                 placeholder="Enter Chit Number">
@@ -40,7 +40,7 @@
               </ion-col>
             </ion-row>
             </ion-card>
-            <ion-item *ngIf="this.valid==true">
+             <ion-item  lines="full" *ngIf="this.valid==true">
               <ion-label position="stacked">Enter your password</ion-label>
               <ion-input formControlName="password"  maxlength="10"  [type]="show ? 'text' : 'password'"
                 placeholder="Enter your password">
