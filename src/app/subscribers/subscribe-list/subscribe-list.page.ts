@@ -396,6 +396,7 @@ await alert_info.present();
     allchits(){
       this.router.navigate(['/subscribe-list/all-chits'])
     }
+    
 }
 
 

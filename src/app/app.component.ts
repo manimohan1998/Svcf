@@ -12,8 +12,10 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  @ViewChild(IonRouterOutlet, { static : true}) routerOutlet: IonRouterOutlet;
-  counter: number=0;
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
+  // public counter = 0;
+  clickcount: any=[];
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -23,8 +25,8 @@ export class AppComponent {
     public location:Location,
     private router:Router
   ) {
-    this.initializeBackButtonCustomHandler()
-    this.initializeApp();
+   this.initializeApp();
+   this.backbutton()
   }
 
   initializeApp() {
@@ -43,11 +45,26 @@ export class AppComponent {
      });
       toast.present();
     }
-    initializeBackButtonCustomHandler() {
-      this.platform.backButton.subscribeWithPriority(1,()=>{
+    backbutton() {
+      this.platform.backButton.subscribeWithPriority(1000,async ()=>{
        
         if(window.location.pathname == '/dashboard' || window.location.pathname == '' ||  window.location.pathname=='/subscribe-list'||  window.location.pathname=='/selectapp'){
-          this.backButtonAlert();
+          if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+            // this.platform.exitApp(); // Exit from app
+            navigator['app'].exitApp(); // work in ionic 4
+
+          } else {
+            const toast = await this.toastController.create({
+              message: 'Press back again to exit App.',
+              duration: 2000,
+              position: 'bottom'
+            });
+            toast.present();
+            this.lastTimeBackPress = new Date().getTime();
+          }
+       
+         
+         
         }else if(window.location.pathname=="/subscribe-list/payment-success" || window.location.pathname=="/cashprint"){
             this.presentToast("backbutton will not work during payment")
         }
@@ -83,23 +100,8 @@ export class AppComponent {
   
       })
     }
-    async backButtonAlert(){
-      const alert =await this.alertController.create({
-        message:'Do you want to exit app',
-        buttons: [{
-          text: 'Cancel',
-         handler:()=>{
-           console.log("cancel clicked")
-         }
-        },{
-          text: 'Close app',
-          handler: () =>{
-            navigator['app'].exitApp();
-          }
-        }]
-      })
-      await alert.present();
-    }
+   
+
 
  
 }
