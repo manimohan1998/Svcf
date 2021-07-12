@@ -156,8 +156,13 @@ export class ResetPage implements OnInit {
      
    
   back(){
-this.router.navigate(['/login'])
-localStorage.clear()
+    if(localStorage.getItem("whichpage")=="login"){
+      this.router.navigate(['/login'])
+      localStorage.clear()
+    }else{
+      this.router.navigate(['/subscribe-list/person-detail'])
+    }
+
   }
   ngOnDestroy(){
     this.resetForms.reset("");

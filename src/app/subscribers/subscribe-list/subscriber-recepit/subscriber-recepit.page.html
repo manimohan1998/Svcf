@@ -2,7 +2,7 @@
   <ion-toolbar style="--min-height:0px !important">
    <ion-item>
     <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
-    <ion-title>Report Details</ion-title>
+    <ion-title>Receipt Details</ion-title>
    </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,7 @@
 <ion-content fullscreen class="ion-padding svcf_recepit_page">
   <section class="payment">
     <div class="page_title">
-      <h3>Summary</h3>
+      <h3>My Receipts</h3>
     </div>
 
   <form [formGroup]="dateform" (ngSubmit)="datefilter(dateform.value)">
@@ -18,12 +18,12 @@
     
           <ion-item>
             <ion-label>Start Date</ion-label>
-            <ion-datetime display-format="DD-MM-YYYY"  formControlName="startdate" placeholder="START DATE"></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;"  slot="end"></ion-icon>
+            <ion-datetime display-format="DD-MM-YYYY"  min="1994-03-14" formControlName="startdate"></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;"  slot="end"></ion-icon>
           </ion-item>
          
           <ion-item>
-            <ion-label>End Date</ion-label>
-            <ion-datetime display-format="DD-MM-YYYY"  formControlName="enddate" placeholder="END DATE"></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;" slot="end"></ion-icon>
+            <ion-label>End Date</ion-label> 
+            <ion-datetime display-format="DD-MM-YYYY" min="1994-03-14" formControlName="enddate" ></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;" slot="end"></ion-icon>
           </ion-item>
           <!-- <ion-col ></ion-col> -->
          

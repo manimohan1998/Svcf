@@ -60,8 +60,16 @@ export class AppComponent {
         else if(window.location.pathname=="/subscribe-list/newcustomer-payment"){
           this.router.navigate(['/subscribe-list/payforothers'])
         }
-        else if(window.location.pathname=="/forgot-password" || window.location.pathname=="/reset-password" || window.location.pathname=="/reset"){
+        else if(window.location.pathname=="/forgot-password" || window.location.pathname=="/reset-password"){
           this.router.navigate(['/login'])
+        }
+        else if( window.location.pathname=="/reset"){
+          if(localStorage.getItem("whichpage")=="login"){
+            this.router.navigate(['/login'])
+            localStorage.clear()
+          }else{
+            this.router.navigate(['/subscribe-list/person-detail'])
+          }
         }
         else if(window.location.pathname=="/login"){
           this.router.navigate(['/selectapp'])
@@ -80,7 +88,9 @@ export class AppComponent {
         message:'Do you want to exit app',
         buttons: [{
           text: 'Cancel',
-          role: 'cancel'
+         handler:()=>{
+           console.log("cancel clicked")
+         }
         },{
           text: 'Close app',
           handler: () =>{

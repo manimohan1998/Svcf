@@ -82,6 +82,7 @@ back(){
     reset(){
       let data={name:this.personaldetail[0].username,password:this.personaldetail[0].password,dob:this.personaldetail[0].DOB}
       localStorage.setItem("firstdata",JSON.stringify(data));
+      localStorage.setItem("whichpage","profile")
       this.router.navigate(['/reset'])
       // localStorage.setItem("customer",this.personaldetail[0].username);
       // this.router.navigate(['/reset-password'])

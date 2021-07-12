@@ -61,6 +61,10 @@ this.present();
 let token=localStorage.getItem("tokens");
 this.receiptFormGroup.value["from_date"] = moment(this.receiptFormGroup.value.from_date.toLocaleString()).format("MM/DD/YYYY");
 this.receiptFormGroup.value["to_date"] = moment(this.receiptFormGroup.value.to_date.toLocaleString()).format("MM/DD/YYYY");
+
+const strtdate = new Date(this.receiptFormGroup.value["from_date"]);
+   const eddate = new Date(this.receiptFormGroup.value["to_date"]);
+      if(strtdate < eddate){
 this.paymentservice.receipthistory(this.colid,this.receiptFormGroup.value.from_date,this.receiptFormGroup.value.to_date,token).subscribe(res=>{
 this.dismiss();
 console.log(res)
@@ -100,7 +104,10 @@ for(let i=0;i<this.receipt_history.length;i++){
  }
  
   } )
-
+	  }else{
+		this.dismiss();
+		this.presentToast("Start date should be less than end date");
+	  }
 }
 async presentToast(message) {
 this.toast.show(message, '2000', 'bottom').subscribe(

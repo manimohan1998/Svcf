@@ -47,12 +47,8 @@ public sendTo   : any;
   
   }
   ionViewWillEnter(){
-   // this.platform.backButton.subscribeWithPriority(1, () => {
-   //    this.router.navigateByUrl('/subscribe-list')
-   //       });
    this.show=false
    this.show1=false;
-   this.presentToast1("Click to select start date and end date to filter your receipts")
   }
   back(){
 this.router.navigate(["/subscribe-list"])
@@ -64,45 +60,54 @@ this.router.navigate(["/subscribe-list"])
     let startdate=dates.startdate;
    let start= format(new Date(startdate), "yyyy/MM/dd");
    let end= format(new Date(enddate), "yyyy/MM/dd");
-console.log(start,end)
-let customerid=localStorage.getItem("memberid")
-let token=localStorage.getItem("token")
-this.subscribeServ.receipthistory(start,end,customerid,token).subscribe(res=>{
-   console.log(res)
-   this.receiptdata=res["AllReceipts"]
-   console.log(this.receiptdata)
-   for(let j=0;j<this.receiptdata.length;j++){
-     this.arrearamount=0;
-     this.arrearamount +=(parseFloat(this.receiptdata[j].Total))
-     this.arrears.push(this.arrearamount)
-     console.log(this.arrears)
-     for(let k=0;k<this.arrears.length;k++){
-     this.grandtotal +=this.arrears[k]
-     }
-    }
-   //  for(let j=0;j<this.receiptdata.length;j++){
-   //    this.arrearamount1=0;
-   //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].nonPrizedArrear))
-   //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].prizedArrear))
-   //    this.arrears1.push(this.arrearamount1)
-   //    console.log(this.arrears1)
-   //  }
-    if(Array.isArray(this.receiptdata) && this.receiptdata.length){
-      this.show1=false;
-    }
-    else{
-      this.presentToast("No Data Found")
-      this.show1=true;
-    }
-},(error:HttpErrorResponse)=>{
-   if(error.status ===401){          
-     this.presentToast("Session timeout, please login to continue.");
-     this.router.navigate(["/login"]);
-  }
-  else if(error.status ===400){        
-   this.presentToast("Server Error! Please try login again.");
-   this.router.navigate(["/login"]);
- } })
+   const strtdate = new Date(startdate);
+   const eddate = new Date(enddate);
+      if(strtdate < eddate){
+         console.log(start,end)
+         let customerid=localStorage.getItem("memberid")
+         let token=localStorage.getItem("token")
+         this.subscribeServ.receipthistory(start,end,customerid,token).subscribe(res=>{
+            console.log(res)
+            this.receiptdata=res["AllReceipts"]
+            console.log(this.receiptdata)
+            for(let j=0;j<this.receiptdata.length;j++){
+              this.arrearamount=0;
+              this.arrearamount +=(parseFloat(this.receiptdata[j].Total))
+              this.arrears.push(this.arrearamount)
+              console.log(this.arrears)
+              for(let k=0;k<this.arrears.length;k++){
+              this.grandtotal +=this.arrears[k]
+              }
+             }
+            //  for(let j=0;j<this.receiptdata.length;j++){
+            //    this.arrearamount1=0;
+            //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].nonPrizedArrear))
+            //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].prizedArrear))
+            //    this.arrears1.push(this.arrearamount1)
+            //    console.log(this.arrears1)
+            //  }
+             if(Array.isArray(this.receiptdata) && this.receiptdata.length){
+               this.show1=false;
+             }
+             else{
+               this.presentToast("No Data Found")
+               this.show1=true;
+             }
+         },(error:HttpErrorResponse)=>{
+            if(error.status ===401){          
+              this.presentToast("Session timeout, please login to continue.");
+              this.router.navigate(["/login"]);
+           }
+           else if(error.status ===400){        
+            this.presentToast("Server Error! Please try login again.");
+            this.router.navigate(["/login"]);
+          } })
+      }
+       else{
+         this.presentToast("Start date should be less than end date");
+       }
+    
+
   }
   async presentToast(message) {
    const toast = await this.toastController.create({

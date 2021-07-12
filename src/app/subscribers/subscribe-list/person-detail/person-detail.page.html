@@ -21,13 +21,13 @@
   </section>
 
   <ion-card class="card_bg">
-    <ion-card-header>
+    <!-- <ion-card-header>
       <ion-card-title>
         <h3>
           Private Details <span>(read only)</span>
         </h3>
       </ion-card-title>
-    </ion-card-header>
+    </ion-card-header> -->
     <ion-card-content fullscreen>
       <ion-list>
 
@@ -47,9 +47,9 @@
         </ion-item>
 
 
-        <ion-item>
+        <ion-item *ngIf="personage>0">
           <ion-label class="persondet">Age</ion-label>
-          <ion-note slot="end" style="text-align: left;" *ngIf="personage==0">------</ion-note>
+          <!-- <ion-note slot="end" style="text-align: left;" *ngIf="personage==0">------</ion-note> -->
           <ion-note slot="end" style="text-align: left;" *ngIf="personage>0">{{this.personage}} Years </ion-note>
         </ion-item>
 
