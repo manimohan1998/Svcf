@@ -42,11 +42,14 @@
           <ion-note class="as-width-50 as-p-1" >{{val.MobileNo}}</ion-note>
         </ion-item>
 
-         <ion-item lines="full" class="persondet">
+         <!-- <ion-item lines="full" class="persondet">
           <ion-label class="as-width-50">Gender</ion-label>
           <ion-note class="as-width-50 as-p-1" >{{val.Gender}}</ion-note>
+        </ion-item> -->
+        <ion-item lines="full" class="persondet" *ngIf="val?.DOB">
+          <ion-label class="as-width-50">Dob</ion-label>
+          <ion-note class="as-width-50 as-p-1" >{{val.DOB}}</ion-note>
         </ion-item>
-
 
         <ion-item *ngIf="personage>0" lines="full">
           <ion-label class="persondet as-width-50">Age</ion-label>
@@ -62,7 +65,7 @@
     </ion-card-content>
   </ion-card>
   <section class="p-24">
-    <ion-button expand="block" class="btn" (click)="reset()">RESET YOUR ACCOUNT</ion-button>
+    <ion-button expand="block" class="btn" (click)="reset()">RESET YOUR PASSWORD</ion-button>
   </section>
 </ion-content>
 
@@ -70,7 +73,7 @@
  
   <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
     <ion-icon color="primary" name="person"></ion-icon>
-    <ion-label color="primary">Person</ion-label>
+    <ion-label color="primary">Profile</ion-label>
   </ion-tab-button>
 
   <ion-tab-button [routerLink]="['/subscribe-list']">

@@ -54,12 +54,12 @@ async  method(data) {
          loading.dismiss();
          this.receiptdata.push(res["lstReceipt"])
          console.log(this.receiptdata)
-         if(Array.isArray(this.receiptdata) && this.receiptdata.length){
-           this.arrearamount +=(parseFloat(this.receiptdata[i][0].NPArrear))
-           this.arrearamount +=(parseFloat(this.receiptdata[i][0].PArrear))
-           this.arrears.push(this.arrearamount)
-           this.arrearamount=0;
-         }
+        //  if(Array.isArray(this.receiptdata) && this.receiptdata.length){
+        //    this.arrearamount +=(parseFloat(this.receiptdata[i][0].NPArrear))
+        //    this.arrearamount +=(parseFloat(this.receiptdata[i][0].PArrear))
+        //    this.arrears.push(this.arrearamount)
+        //    this.arrearamount=0;
+        //  }
        }
        ,(error:HttpErrorResponse)=>{
         if(error.status ===401){       

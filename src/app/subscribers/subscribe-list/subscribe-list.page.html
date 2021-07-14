@@ -131,11 +131,11 @@
     </div>
   </ion-card>
   <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="(userlist3 | filter: term).length === 0">No matching Datas</div>
-  <section class="p-24">
-    <ion-button expand="block" *ngIf="(userlist3 | filter: term).length !== 0" (click)="processdata()" class="btn">Continue</ion-button>
-  </section>
+  
 </ion-content>
-
+<section class="p-24 as-btn-fix">
+  <ion-button expand="block" *ngIf="(userlist3 | filter: term).length !== 0" (click)="processdata()" class="btn">Continue</ion-button>
+</section>
 
 <ion-tab-bar slot="bottom" class="tab-selected">
 

@@ -692,3 +692,9 @@ ion-tab-bar{
         height: 8rem;
         width: 8rem;
     }
+    .as-btn-fix{
+        position: absolute;
+    width: 100%;
+    bottom: 36px;
+    z-index: 2;
+    }

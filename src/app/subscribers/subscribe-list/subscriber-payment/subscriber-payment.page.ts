@@ -64,6 +64,7 @@ export class SubscriberPaymentPage implements OnInit {
     todaypaidamount: any;
   totals: number;
   enteramount: any;
+  enteramounts: any=[];
   constructor(private formBuilder: FormBuilder,public toastController: ToastController, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController,
     public platform:Platform,public alertController: AlertController,private webIntent: WebIntent) {
     this.route.queryParams.subscribe(params => {
@@ -90,6 +91,7 @@ this.newArray();
 }
 
 ionViewDidEnter(){
+  
 this.addmethod();
 }
 back(){
@@ -188,31 +190,31 @@ newArray():FormGroup{
   return this.formBuilder.group({
     AmountPayable: ['',Validators.required],
     Arrearamount: ['',Validators.required],
-    extraamount:['',[Validators.pattern("^[a-zA-Z0-9]+$")]],
+    // extraamount:['',[Validators.pattern("^[a-zA-Z0-9]+$")]],
     })
 }
 addrow(){
   this.AmountDetail().push(this.newArray())
 }
-extraamount(i){
-  if(this.PaymentForm.valid){
-    if(this.PaymentForm.get('AmountDetails').value[i].extraamount){
-      this.total_details[i]=parseFloat(this.PaymentForm.get('AmountDetails').value[i].extraamount)+parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)+
-      parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)+parseFloat(this.grandtotal[i].Interest)
+// extraamount(i){
+//   if(this.PaymentForm.valid){
+//     if(this.PaymentForm.get('AmountDetails').value[i].extraamount){
+//       this.total_details[i]=parseFloat(this.PaymentForm.get('AmountDetails').value[i].extraamount)+parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)+
+//       parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)+parseFloat(this.grandtotal[i].Interest)
    
-    }else{
-      this.total_details[i]=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)+
-      parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)+parseFloat(this.grandtotal[i].Interest)
-    }
-  }else{
-    this.total_details[i]=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)+
-    parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)+parseFloat(this.grandtotal[i].Interest)
-  }
-  let sum: number = 0;
-  this.total_details.forEach(a => sum += a);
-  console.log(sum );
-      this.num=sum
- }
+//     }else{
+//       this.total_details[i]=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)+
+//       parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)+parseFloat(this.grandtotal[i].Interest)
+//     }
+//   }else{
+//     this.total_details[i]=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)+
+//     parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)+parseFloat(this.grandtotal[i].Interest)
+//   }
+//   let sum: number = 0;
+//   this.total_details.forEach(a => sum += a);
+//   console.log(sum );
+//       this.num=sum
+//  }
 erasedata(){
   console.log(this.payment_details)
 this.payment_details=[];
@@ -222,7 +224,6 @@ console.log(this.payment_details)
 //    this.newcheck('8')
 // }
 submit(){
-  if(this.num>0){
   let memidnew=localStorage.getItem('memberid')
   let token=localStorage.getItem('token')
   this.subscribeServ.duplicantpaymentdetails(token).subscribe(res=>{
@@ -246,9 +247,7 @@ submit(){
   }
   
 })
-  }else{
-    this.presentToast("please Enter a Valid Amount")
-    }
+
 }
 
   check(){
@@ -426,13 +425,19 @@ async newcheck(payment){
    this.receiptno.push(customer+receiptcount+number)
    console.log(this.receiptno)
   }
-  
+  this.enteramounts=[];
   for(let i=0;i<this.grandtotal.length;i++){
-     if(this.grandtotal[i].PrizedArrier != 0 ){
+    if(this.PaymentForm.get('AmountDetails').value[i].extraamount.length !=0){
+    this.enteramounts.push(this.PaymentForm.get('AmountDetails').value[i].extraamount)
+     }else{
+       this.enteramounts.push(0)
+     }}
+  for(let i=0;i<this.grandtotal.length;i++){
+  if(this.grandtotal[i].PrizedArrier != 0 ){
   
   this.payment_data = [
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier+ +this.total_details[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier+ +this.enteramounts[i],
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -466,7 +471,7 @@ async newcheck(payment){
     VoucherCode:this.Receipt_code
   },
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier+ +this.total_details[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier+ +this.enteramounts[i],
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -574,7 +579,7 @@ async newcheck(payment){
     
   this.payment_data = [
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier+ +this.total_details[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier+ +this.enteramounts[i],
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -608,7 +613,7 @@ async newcheck(payment){
     VoucherCode:this.Receipt_code
     },
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier+ +this.total_details[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier+ +this.enteramounts[i],
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -714,7 +719,7 @@ async newcheck(payment){
   else{
   this.payment_data = [
   {
-    Amount: this.grandtotal[i].CurrentDueAmount+ +this.total_details[i],
+    Amount: this.grandtotal[i].CurrentDueAmount+ +this.enteramounts[i],
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -748,7 +753,7 @@ async newcheck(payment){
     VoucherCode:this.Receipt_code
     },
   {
-    Amount: this.grandtotal[i].CurrentDueAmount+ +this.total_details[i],
+    Amount: this.grandtotal[i].CurrentDueAmount+ +this.enteramounts[i],
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,

@@ -44,6 +44,8 @@ export class SubscribeListPage implements OnInit {
   imageUrl:any;
   blocked_chits: any=[];
   perfect_chits: any=[];
+  Extra_amountchits: any=[];
+  v_amountchits: any=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -176,8 +178,14 @@ processdata(){
   this.valid_chits=[];
   this.blocked_chits=[];
   this.perfect_chits=[];
+  this.Extra_amountchits=[];
+  this.v_amountchits=[];
   console.log(this.arrayvalue)
     if(this.arrayvalue.length !=0){
+      for(var i=0; i<this.arrayvalue.length;i++){
+        if(this.arrayvalue[i].PrizedArrier=='0.00' && this.arrayvalue[i].NonPrizedArrier=='0.00' && this.arrayvalue[i].Interest=='0' && this.arrayvalue[i].CurrentDueAmount=='0.00')  this.Extra_amountchits.push(this.arrayvalue[i])
+       }
+       console.log(this.Extra_amountchits,"Extra amount chits")
       for(var i=0; i<this.userlist3.length;i++){
        if(this.userlist3[i].IsPrized=='Y')  this.prized_chits.push(this.userlist3[i])
       }
@@ -185,11 +193,11 @@ processdata(){
         if(this.prized_chits[i].PrizedArrier=="0.00" && this.prized_chits[i].NonPrizedArrier=="0.00" )  this.avoid_chits.push(this.prized_chits[i])
         if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" )  this.valid_chits.push(this.prized_chits[i])
         if(this.prized_chits[i].IsBlocked =="1")  this.blocked_chits.push(this.prized_chits[i])
-        // if(this.prized_chits[i].PrizedArrier !=="0.00" || this.prized_chits[i].NonPrizedArrier!=="0.00" && this.prized_chits[i].IsBlocked =="0")  this.perfect_chits.push(this.prized_chits[i])
+      
       }
      console.log(this.avoid_chits,"avoid")
    console.log(this.valid_chits,"valid")
-      if(this.prized_chits.length!=0 && this.blocked_chits.length==0){
+      if(this.prized_chits.length!=0 && this.blocked_chits.length==0 && this.Extra_amountchits.length==0){
         if(this.arrayvalue.length <=1){ 
           console.log(this.arrayvalue[0])     
            if(this.arrayvalue[0].IsPrized=='Y'){
@@ -260,78 +268,16 @@ processdata(){
       else if(this.blocked_chits?.length !=0){
         this.presentToast("This chit Number is blocked. Please contact admin");
       }
-      // else if(this.prized_chits.length!=0 && this.blocked_chits.length !=0){
-      //   if(this.arrayvalue.length <=1){ 
-      //     console.log(this.arrayvalue[0])     
-      //      if(this.arrayvalue[0].IsPrized=='Y'){
-      //       let data = JSON.stringify(this.arrayvalue)
-      //       let navigationExtras: NavigationExtras = {
-      //        queryParams: { state:data },
-             
-      //      };
-      //    this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-      //      }
-          
-      //     else if(this.arrayvalue[0].IsPrized=='N' && this.valid_chits.length==0 && this.avoid_chits.length !=0 && this.perfect_chits.length ==0){
-      //       let data = JSON.stringify(this.arrayvalue)
-      //       let navigationExtras: NavigationExtras = {
-      //        queryParams: { state:data },
-             
-      //      };
-      //    this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-      //      }
-      //    else return this.presentToast("Must choose atleast 1 Prized Chit");
-      //     }
-      //  else if(this.arrayvalue.length ==2){
-      //       for(let i=0;i<this.arrayvalue.length;i++){
-      //       if(this.arrayvalue[i].IsPrized=="Y"){
-      //         this.arrayprized.push(this.arrayvalue[i])            
-      //       }
-      //     }
-      //     if(this.arrayprized.length==0 && this.valid_chits.length>=1 && this.perfect_chits.length>=1) return this.presentToast("Choose atleast 1 prized chits");
-      //     else{
-      //      console.log("prized")
-      //      let data = JSON.stringify(this.arrayvalue)
-      //      let navigationExtras: NavigationExtras = {
-      //       queryParams: { state:data },
-            
-      //     };
-      //     this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-      //     }
-      //     } 
-      //     else if(this.arrayvalue.length >2){
-      //       console.log(this.prized_chits)
-      //       if(this.prized_chits.length==1){
-      //         let data = JSON.stringify(this.arrayvalue)
-      //         let navigationExtras: NavigationExtras = {
-      //          queryParams: { state:data },
-               
-      //        };
-      //      this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-      //       }else if(this.prized_chits.length>=2){
-      //         console.log(this.prized_chits)
-      //         for(let i=0;i<this.arrayvalue.length;i++){
-      //          if(this.arrayvalue[i].IsPrized=="Y"){
-      //            this.arrayprized.push(this.arrayvalue[i])
-                 
-      //          }
-      //        }
-      //        if(this.arrayprized.length <2 && this.valid_chits.length >=2 && this.perfect_chits.length >=2){
-      //              console.log("nonprized")
-      //              return this.presentToast("Choose atleast 2 prized chits");
-      //            }else{           
-      //             console.log("prized")
-      //             let data = JSON.stringify(this.arrayvalue)
-      //             let navigationExtras: NavigationExtras = {
-      //              queryParams: { state:data },
-                   
-      //            };
-      //          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-      //            }
-      //       }
-      //     }
-      // }
-      
+    else if(this.Extra_amountchits?.length!=0){
+      for(var i=0; i<this.arrayvalue.length;i++){
+        if(this.arrayvalue[i].PrizedArrier !='0.00' || this.arrayvalue[i].NonPrizedArrier !='0.00' || this.arrayvalue[i].Interest !='0' || this.arrayvalue[i].CurrentDueAmount !='0.00')  this.v_amountchits.push(this.arrayvalue[i])
+       }
+       if(this.v_amountchits.length !=0){
+        this.presentToast("You have choosed" +this.Extra_amountchits?.length+ "Eccess Amount Payment Chit's and "+ this.v_amountchits?.length+" Normal Payment chits");
+       }else{
+
+       }
+    }
       else{
             let data = JSON.stringify(this.arrayvalue)
               let navigationExtras: NavigationExtras = {
@@ -360,8 +306,7 @@ profile(){
 }
 async logout(){
   const alert_info = await this.alertController.create({
-    header: 'App termination',
-    message: 'Do you want to close the app?',
+    message: 'Are you sure want to logout?',
     buttons:[
       {
         text: 'Cancel',

@@ -78,7 +78,10 @@ export class LoginPage implements OnInit {
             this.presentToast("Please Enter Valid credentials");
             this.loginForm.reset("")
           }
-        })
+        }, error => {
+          this.dismiss();
+          this.presentToast("Server Error! Please try later.");
+          })
      } else{
       this.present();
       this.credentials = val;
@@ -119,7 +122,7 @@ export class LoginPage implements OnInit {
       
       }, error => {
       this.dismiss();
-      this.presentToast('Something went wrong');
+      this.presentToast("Server Error! Please try later.");
       //alert('Something went wrong')
       })
       }

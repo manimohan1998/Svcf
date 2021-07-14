@@ -43,11 +43,11 @@
                   {{this.payment_details[i].Interest}}
                 </ion-input>
               </ion-item>
-              <ion-item>
+              <!-- <ion-item>
                 <ion-label position="stacked">Amount</ion-label>
                 <ion-input formControlName="extraamount" type="number" value="" placeholder="Enter Amount" (ionChange)="extraamount(i)">
                 </ion-input>
-              </ion-item>
+              </ion-item> -->
               <p class="total">
                 Total<span>
                   ₹ {{this.total_details[i]}}</span>
@@ -56,29 +56,18 @@
           <ion-label position="floating">Other Amount</ion-label>
           <ion-input formControlName="OtherAmount"></ion-input>
         </ion-item>
-      
-        <ion-item>
-          <ion-label position="floating">Write Narrations</ion-label>
-          <ion-input formControlName="Narrations"></ion-input>
-        </ion-item> -->
-
-              <!-- <ion-button (click)="removeRow(i)">remove</ion-button> -->
+       -->
             </ion-card-content>
           </ion-card>
         </div>
       </ion-list>
-      <!-- <ion-button (click)="addrow()">add</ion-button> -->
+    
       <p class="grand_total">Grand Total<span>₹ {{this.num}}</span>
       </p>
       <section>
 
       </section>
-      <!-- <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-        <ion-fab-button>
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab> -->
-      <!-- [disabled]="!PaymentForm.valid" -->
+    
       <ion-button type="submit" expand="block"  class="btn">Submit </ion-button>
 
     </form>
