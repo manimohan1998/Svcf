@@ -48,6 +48,9 @@ this.newarr=[];
 this.pushvalue=[];
 this.user_details=JSON.parse(localStorage.getItem("user2"));
 let token=localStorage.getItem("tokens");
+this.paymentservice.getProfileImg(this.user_details.MemberID,token).subscribe(res=> {
+  this.profile=res
+})
 this.paymentservice.payment_details(this.user_details.MemberID,token).subscribe(res =>{
 this.payee_details=res;
 console.log(this.payee_details)
@@ -66,7 +69,6 @@ for (let i=0;i<this.payee_details.length;i++){
   return false;
   });
   this.length1=this.pushvalue.length;
-  this.profile=this.newarr[0].ImgUrl;
   }
   if(this.payee_details[i].isprized == 'N'){
   this.payee_details[i].isprized='Non-Prized';
