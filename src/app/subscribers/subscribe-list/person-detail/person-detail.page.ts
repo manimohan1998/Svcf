@@ -46,7 +46,12 @@ let token=localStorage.getItem("token")
         loading.dismiss();   
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
-      } })
+      } 
+      else{
+        loading.dismiss();   
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+       }})
       this.subscribeServ.getprofileimg(memidnew,token).subscribe((res)=>{
         console.log(res)
         this.profileimage=res['ImageUrl']

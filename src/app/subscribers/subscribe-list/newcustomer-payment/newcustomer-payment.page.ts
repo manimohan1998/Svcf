@@ -178,7 +178,10 @@
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
     }
-
+    else{
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     }
     })
 
     }
@@ -246,7 +249,10 @@
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
     }
-
+    else{
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     }
     })
   }
 
@@ -279,7 +285,10 @@
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
     }
-
+    else{
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     }
     })
     }
 
@@ -893,8 +902,9 @@
     } 
 
     else{
-    alert(error.status)
-    }})
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     }})
 
     }
     async presentToast(message) {

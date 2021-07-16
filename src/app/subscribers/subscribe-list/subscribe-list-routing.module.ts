@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'newcustomer-payment',
     loadChildren: () => import('./newcustomer-payment/newcustomer-payment.module').then( m => m.NewcustomerPaymentPageModule)
+  },
+  {
+    path: 'payeccess-amount',
+    loadChildren: () => import('./payeccess-amount/payeccess-amount.module').then( m => m.PayeccessAmountPageModule)
   }
 
 ];

@@ -101,7 +101,11 @@ this.router.navigate(["/subscribe-list"])
            else if(error.status ===400){        
             this.presentToast("Server Error! Please try login again.");
             this.router.navigate(["/login"]);
-          } })
+          }
+          else{
+            this.presentToast("Server Error! Please try login again.");
+            this.router.navigate(["/login"]);
+           } })
       }
        else{
          this.presentToast("Start date should be less than end date");

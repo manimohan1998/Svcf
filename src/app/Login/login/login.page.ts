@@ -101,23 +101,28 @@ export class LoginPage implements OnInit {
           }
           else{
               this.dismiss();
-              this.user_details = res;
-              console.log(res)
-              localStorage.setItem("tokens",this.user_details[0].JWTtoken)
-              // localStorage.setItem("tokens","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdDEiLCJpZCI6IjU1IiwiZGF0ZSI6IjI5LzAzLzIwMjEiLCJpYXQiOiIxNjE2OTk5MDIwIiwiZXhwIjoiMTYxNjk5OTMyMCJ9.K2fOyWO5kihkbqlqlFQuA-4F-P35mnI7d81mseD_LbY")
-              localStorage.setItem("col_id", this.user_details[0].moneycollid);
-              localStorage.setItem("col_name", this.user_details[0].moneycollname);
-              
-              this.coll_id = this.user_details[0].moneycollid;
-              this.coll_name = this.user_details[0].moneycollname;
-              let navigationExtras: NavigationExtras = {
-              state: {
-              //user: this.coll_id,
-              user1: this.coll_name
+              if(res[0]['IsBlocked']=="1"){
+                this.presentToast('You Account is blocked,please contact Admin');
+              }else{
+                this.user_details = res;
+                console.log(res)
+                localStorage.setItem("tokens",this.user_details[0].JWTtoken)
+                // localStorage.setItem("tokens","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoidGVzdDEiLCJpZCI6IjU1IiwiZGF0ZSI6IjI5LzAzLzIwMjEiLCJpYXQiOiIxNjE2OTk5MDIwIiwiZXhwIjoiMTYxNjk5OTMyMCJ9.K2fOyWO5kihkbqlqlFQuA-4F-P35mnI7d81mseD_LbY")
+                localStorage.setItem("col_id", this.user_details[0].moneycollid);
+                localStorage.setItem("col_name", this.user_details[0].moneycollname);
+                
+                this.coll_id = this.user_details[0].moneycollid;
+                this.coll_name = this.user_details[0].moneycollname;
+                let navigationExtras: NavigationExtras = {
+                state: {
+                //user: this.coll_id,
+                user1: this.coll_name
+                }
+                };
+                this.presentToast('You have Logged in successfully');
+                this.router.navigate(['dashboard'], navigationExtras);
               }
-              };
-              this.presentToast('You have Logged in successfully');
-              this.router.navigate(['dashboard'], navigationExtras);
+            
           }
       
       }, error => {

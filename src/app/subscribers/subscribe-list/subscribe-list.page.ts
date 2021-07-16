@@ -99,7 +99,12 @@ async ionViewWillEnter(){
     loading.dismiss();      
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
+ }else{
+  loading.dismiss();      
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
  }
+ 
  }
   ) 
 
@@ -107,7 +112,23 @@ async ionViewWillEnter(){
   this.subscribeServ.getprofileimg(memidnew,token).subscribe((res)=>{
     console.log(res)
     this.profileimage=res['ImageUrl']
-  })
+  },(error:HttpErrorResponse)=>{
+    if(error.status ===401){          
+      loading.dismiss();
+      this.presentToast("Session timeout, please login to continue.");
+      this.router.navigate(["/login"]);
+   }
+   else if(error.status ===400){     
+    loading.dismiss();      
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+ }else{
+  loading.dismiss();      
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
+ }
+ 
+ })
 
 }
 async ionViewDidEnter(){
@@ -145,7 +166,12 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
     loading.dismiss();   
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
-  } }) ;
+  } 
+  else{
+    loading.dismiss();      
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+   }}) ;
 
   
   let count="CPAPP"
@@ -162,7 +188,12 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
  else if(error.status ===400){        
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
-} }) 
+}
+else{
+  loading.dismiss();      
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
+ } }) 
 }
 async presentToast(message) {
   const toast = await this.toastController.create({
@@ -273,9 +304,14 @@ processdata(){
         if(this.arrayvalue[i].PrizedArrier !='0.00' || this.arrayvalue[i].NonPrizedArrier !='0.00' || this.arrayvalue[i].Interest !='0' || this.arrayvalue[i].CurrentDueAmount !='0.00')  this.v_amountchits.push(this.arrayvalue[i])
        }
        if(this.v_amountchits.length !=0){
-        this.presentToast("You have choosed" +this.Extra_amountchits?.length+ "Eccess Amount Payment Chit's and "+ this.v_amountchits?.length+" Normal Payment chits");
+        this.presentToast("Excess amount chit cannot be paid with Normal chit");
        }else{
-
+        let data = JSON.stringify(this.arrayvalue)
+        let navigationExtras: NavigationExtras = {
+         queryParams: { state:data },
+         
+       };
+     this.router.navigate(["/subscribe-list/payeccess-amount"],navigationExtras)
        }
     }
       else{

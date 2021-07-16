@@ -68,7 +68,7 @@ export class AppComponent {
         }else if(window.location.pathname=="/subscribe-list/payment-success" || window.location.pathname=="/cashprint"){
             this.presentToast("backbutton will not work during payment")
         }
-        else if(window.location.pathname=="/subscribe-list/subscriber-payment" || window.location.pathname=="/subscribe-list/subscriber-recepit" || window.location.pathname=="/subscribe-list/all-chits" || window.location.pathname=="/subscribe-list/person-detail" 
+        else if(window.location.pathname=="/subscribe-list/subscriber-payment" || window.location.pathname=="/subscribe-list/subscriber-recepit" || window.location.pathname=="/subscribe-list/all-chits" || window.location.pathname=="/subscribe-list/person-detail" || window.location.pathname=="/subscribe-list/payeccess-amount" 
         || window.location.pathname=="/subscribe-list/payforothers"){
          this.router.navigate(['/subscribe-list'])
         }else if(window.location.pathname=="/subscribe-list/show-chits"){

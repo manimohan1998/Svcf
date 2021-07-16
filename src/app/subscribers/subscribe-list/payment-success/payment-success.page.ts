@@ -71,7 +71,12 @@ async  method(data) {
         loading.dismiss();   
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
-      } })
+      } 
+      else{
+        loading.dismiss();
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+       }})
       }
   }
 

@@ -333,8 +333,8 @@ ion-label {
         }
     }
     .card_bg{ 
-        margin-top: -12px;
-        margin-bottom: 2rem;
+        margin-top: 0px;
+        margin-bottom: 1.25rem;
         .chits_item_details{
             display: flex;
             align-items: flex-start;
@@ -698,3 +698,12 @@ ion-tab-bar{
     bottom: 36px;
     z-index: 2;
     }
+
+    .svcf_dashboard_page div:nth-child(2) .card_bg
+    {
+    margin-top:-12px;
+}
+.as-hr-s{
+        background: #d0cdd3;
+    width: 75%;
+}

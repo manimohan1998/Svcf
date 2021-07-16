@@ -177,7 +177,10 @@ this.subscribeServ.Vouchercode(token).subscribe(res=>{
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
 }
-
+else{
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
+ }
 })
 
 }
@@ -245,7 +248,10 @@ submit(){
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
   }
-  
+  else{
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+   }
 })
 
 }
@@ -279,7 +285,10 @@ submit(){
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
       }
-      
+      else{
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+       }
 })
   }
 
@@ -893,9 +902,11 @@ let token=localStorage.getItem("token")
       this.router.navigate(["/login"]);
     } 
   
-  else{
-    alert(error.status)
-  }})
+    else{
+      loading.dismiss()
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     }})
   
 }
 async presentToast(message) {

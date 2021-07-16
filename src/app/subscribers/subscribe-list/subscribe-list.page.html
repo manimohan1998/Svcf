@@ -44,8 +44,8 @@
    
     
   </section>
-
-  <ion-card class="card_bg" *ngFor="let val of userlist3 | filter:term; let i=index">
+  <div *ngFor="let val of userlist3 | filter:term; let i=index">
+  <ion-card class="card_bg" >
     <!-- *ngIf="status(i,val.status)||val.status===checkbox -->
     <div class="chits_item_details" (click)="blockchits(val)">
       <!-- [disabled]="val.Interest=='0' && val.CurrentDueAmount =='0.00' && val.NonPrizedArrier =='0.00' && val.PrizedArrier =='0.00'" -->
@@ -130,6 +130,8 @@
       <p size="6">Total paid : <span>₹ {{val.TotalPaid}}</span></p>
     </div>
   </ion-card>
+  <hr class="as-hr-s" >
+ </div>
   <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="(userlist3 | filter: term).length === 0">No matching Datas</div>
   
 </ion-content>

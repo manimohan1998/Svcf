@@ -32,6 +32,9 @@ export class AllChitsPage implements OnInit {
        else if(error.status ===400){       
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
+     }else{
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
      }
      })
   }

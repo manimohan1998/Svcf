@@ -34,6 +34,10 @@ export class ShowChitsPage implements OnInit {
       this.presentToast("Server Error! Please try login again.");
       this.router.navigate(["/login"]);
    }
+   else{
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+   }
    })
   }
   async presentToast(message) {

@@ -72,7 +72,11 @@
     else if(error.status ===400){        
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
-    } })
+    } 
+    else{
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     }})
     }else{
     this.presentToast(res['message'])
     }
@@ -84,7 +88,11 @@
     else if(error.status ===400){        
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
-    } })
+    }
+    else{
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+     } })
     }else{
     this.presentToast("please Enter Chit Number");
     }
@@ -159,6 +167,10 @@
        }
        else if(error.status ===400){ 
         loading.dismiss();    
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+       }
+       else{
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
        }})

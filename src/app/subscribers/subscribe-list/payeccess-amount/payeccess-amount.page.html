@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar style="--min-height:0px !important">
+  <ion-item>
+    <ion-icon name="arrow-back-outline" (click)="back()"></ion-icon>
+    <ion-title>Payment Details</ion-title>
+  </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding svcf_payment_page">
+  <section class="payment">
+    <div class="page_title">
+      <h3>Chit Details</h3>
+<!--       <ion-icon name="create-outline" slot="end"></ion-icon>
+ -->    </div>
+    <form [formGroup]="PaymentForm"  class="payment_form" (ngSubmit)="submit()">
+
+      <ion-list formGroupName="AmountDetails">
+        <div *ngFor="let data of AmountDetail().controls; let i=index " [formGroupName]="i">
+
+          <ion-card>
+            <ion-card-header>
+              <p class="as-m-0">Chit Value:<span>₹ {{this.payment_details[i].ChitValue}}</span></p>
+              <p class="chit_no as-m-0">{{this.payment_details[i].ChitNo}}</p>
+            </ion-card-header>
+            <ion-card-content class="chit_details_sec">
+              <div  class="chit_status"  [ngClass]="this.payment_details[i].IsPrized === 'Y'?'green':'red'">
+                <p>{{this.payment_details[i].IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
+            </div>
+              <ion-item>
+                <ion-label position="stacked">Current Due</ion-label>
+                <ion-input formControlName="AmountPayable" type="number" value="" placeholder="Current Due" readonly>
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Arrear Amount</ion-label>
+                <ion-input formControlName="Arrearamount" type="number" value="" placeholder="Arrear Amount" readonly>
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Interest Amount</ion-label>
+                <ion-input  readonly>
+                  {{this.payment_details[i].Interest}}
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked"> Excess Amount</ion-label>
+                <ion-input formControlName="extraamount" type="number" value="" placeholder="Enter Amount" (ionChange)="extraamount(i)">
+                </ion-input>
+              </ion-item>
+              <p class="total">
+                Total<span>
+                  ₹ {{this.total_details[i]}}</span>
+              </p>
+              <!-- <ion-item>
+          <ion-label position="floating">Other Amount</ion-label>
+          <ion-input formControlName="OtherAmount"></ion-input>
+        </ion-item> -->
+
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </ion-list>
+      <p class="grand_total">Grand Total<span>₹ {{this.num}}</span>
+      </p>
+      <section>
+
+      </section>
+    
+      <ion-button type="submit" expand="block"  class="btn">Submit </ion-button>
+
+    </form>
+  </section>
+
+
+
+</ion-content>
+
+<ion-tab-bar slot="bottom">
+
+  <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
+    <ion-icon name="person"></ion-icon>
+    <ion-label>Profile</ion-label>
+  </ion-tab-button>
+  <ion-tab-button (click)="erasedata()" [routerLink]="['/subscribe-list']">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-tab-button>
+  <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
+    <ion-icon name="reader-outline"></ion-icon>
+    <ion-label>Receipt</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
