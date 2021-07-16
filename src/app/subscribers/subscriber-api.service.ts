@@ -53,4 +53,5 @@ export class SubscriberApiService {
   getprofileimg(memid,token){
     return this.http.get('ProfileImage?MemberIDNew='+memid+'&token='+token)
   }
+
 }

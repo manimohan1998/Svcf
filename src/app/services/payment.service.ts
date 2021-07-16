@@ -44,5 +44,7 @@ receipthistory(mid,fromdate,todate,token){
 toddayamount(id,token){
   return this.http.get('TotalPaidToday/MemberId?MemberId='+id+'&token='+token)
 }
-
+getProfileImg(id,token){
+  return this.http.get('GetProfileImage/MemberIdNew?MemberIdNew='+id+'&token='+token)
+}
 }
