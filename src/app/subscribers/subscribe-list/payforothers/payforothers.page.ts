@@ -27,6 +27,7 @@
       valid_chits: any=[];
       blocked_chits: any=[];
       primarycustomer: any=[];
+      Extra_amountchits: any=[];
     constructor(private router:Router,
     private fb:FormBuilder,
     public toastController: ToastController,
@@ -188,11 +189,15 @@
   }
     }
     gotolist(){
+      this.Extra_amountchits=[];
+      for(var i=0; i<this.arrayvalue.length;i++){
+        if(this.arrayvalue[i].PrizedArrier=='0.00' && this.arrayvalue[i].NonPrizedArrier=='0.00' && this.arrayvalue[i].Interest=='0' && this.arrayvalue[i].CurrentDueAmount=='0.00')  this.Extra_amountchits.push(this.arrayvalue[i])
+       }
       if(this.arrayvalue?.length !=0){
         if(this.blocked_chits?.length !=0){
           this.presentToast("chit's are blocked. Please contact admin");
         }else{
-          if(this.userlist3[0]?.IsPrized=='Y'){
+          if(this.userlist3[0]?.IsPrized=='Y' && this.Extra_amountchits.length==0){
             this.arrayvalue=[];
             this.arrayvalue.push(this.userlist3[0]);
             let data = JSON.stringify(this.arrayvalue)
@@ -201,7 +206,7 @@
         };
             this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
           }
-          else if(this.userlist3[0]?.IsPrized=='N' && this.valid_chits?.length==0){
+          else if(this.userlist3[0]?.IsPrized=='N' && this.valid_chits?.length==0 && this.Extra_amountchits.length==0){
             this.arrayvalue=[];
             this.arrayvalue.push(this.userlist3[0]);
             let data = JSON.stringify(this.arrayvalue)
@@ -209,6 +214,14 @@
             queryParams: { state:data },
         };
             this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
+          }else if(this.Extra_amountchits.length !=0){
+            let data = JSON.stringify(this.arrayvalue)
+            let navigationExtras: NavigationExtras = {
+             queryParams: { state:data },
+             
+           };
+           localStorage.setItem("excesspage","payforother")
+         this.router.navigate(["/subscribe-list/payeccess-amount"],navigationExtras)
           }
            else return this.presentToast("Sorry! Prized Chits are preferred");
         }

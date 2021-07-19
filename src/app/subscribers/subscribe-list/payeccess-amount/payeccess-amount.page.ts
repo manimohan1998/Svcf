@@ -15,7 +15,7 @@ import { SubscriberApiService } from '../../subscriber-api.service';
 export class PayeccessAmountPage implements OnInit {
 
   payment_details:any=[];
-  formcount:any;
+  formcount:any=[];
   PaymentForm:FormGroup;
   grandtotal:any=[];
   personal:any=[];
@@ -67,62 +67,65 @@ constructor(private formBuilder: FormBuilder,public toastController: ToastContro
   public platform:Platform,public alertController: AlertController,private webIntent: WebIntent) {
   this.route.queryParams.subscribe(params => {
     this.payment_details = JSON.parse(params.state);
-         console.log(this.payment_details)
-
-    this.formcount=this.payment_details.length     
+         console.log(this.payment_details) 
+         this.payment();    
   })
-   this.PaymentForm = this.formBuilder.group({
-     AmountDetails:this.formBuilder.array([])
-   });
+  this.PaymentForm = this.formBuilder.group({
+    AmountDetails:this.formBuilder.array([])
+  });
 
  
 }
-ngOnInit() {
+  payment() {
+    const arr = this.PaymentForm.controls.AmountDetails as FormArray;
+    while (0 !== arr.length) {
+      arr.removeAt(0);
 }
-ionViewWillEnter(){
-console.log(this.formcount)
-for( let i=0;i<this.formcount;i++){
-this.AmountDetail()
+    console.log(this.payment_details?.length)
+for( let i = 0; i < this.payment_details?.length; i++){
+this.AmountDetail();
 this.addrow();
 this.newArray();
 }
+this.addmethod();
+  }
+ngOnInit() {
 }
+//  ionViewWillEnter(){
+// }
 
 ionViewDidEnter(){
 
-this.addmethod();
 }
 back(){
-this.router.navigate(["/subscribe-list"])
+  if(localStorage.getItem("excesspage")=="subscribelist"){
+    this.router.navigate(["/subscribe-list"])
+  }else{
+    this.router.navigate(["/subscribe-list/payforothers"]);
+  }
+
   }
 addmethod() {
 this.grandtotal=this.payment_details
 var num = 0;
-for(let i=0;i<this.grandtotal.length;i++){
- if(this.grandtotal[i].CurrentDueAmount){
-this.PaymentForm.get(['AmountDetails', i, 'AmountPayable']).setValue(parseFloat(this.grandtotal[i].CurrentDueAmount));
-    if(this.grandtotal[i].IsPrized=="Y"){
-      this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat(this.grandtotal[i].PrizedArrier));
-      }
-     else {
-       this.PaymentForm.get(['AmountDetails', i, 'Arrearamount']).setValue(parseFloat( this.grandtotal[i].NonPrizedArrier));
-     }}}
-
 this.total_details=[];
 for(let i=0;i<this.grandtotal.length;i++){
   this.data1=0;
-  this.data2=0;
   this.total=0;
-  this.data3=0;
-  this.data1=parseFloat(this.PaymentForm.get('AmountDetails').value[i].AmountPayable)
-  this.data2 =parseFloat(this.PaymentForm.get('AmountDetails').value[i].Arrearamount)
-  this.data3=parseFloat(this.grandtotal[i].Interest)
-  console.log(this.data1)
-  this.total += this.data1
-  this.total += this.data2
-  this.total += this.data3
-  this.total_details.push(this.total)
-  console.log( this.total_details)
+  this.data1=parseFloat(this.PaymentForm.get('AmountDetails').value[i].extraamount)
+  if(this.data1>0){
+    alert("hi")
+    console.log(this.data1)
+    this.total += this.data1
+    this.total_details.push(this.total)
+    console.log( this.total_details)
+  }else{
+    this.data1=0
+    this.total += this.data1
+    this.total_details.push(this.total)
+    console.log( this.total_details)
+  }
+  
 }
 
 function colName(n) {
@@ -174,8 +177,6 @@ return this.PaymentForm.get('AmountDetails') as FormArray
 
 newArray():FormGroup{
 return this.formBuilder.group({
-  AmountPayable: ['',Validators.required],
-  Arrearamount: ['',Validators.required],
   extraamount:['',[Validators.pattern("^[a-zA-Z0-9]+$")]],
   })
 }
@@ -207,32 +208,37 @@ console.log(this.payment_details)
 // }
 submit(){
     //  this.newcheck('8')
-let memidnew=localStorage.getItem('memberid')
-let token=localStorage.getItem('token')
-this.subscribeServ.duplicantpaymentdetails(token).subscribe(res=>{
-  console.log(res)
-  let balancetime=res['BalanceExpiration']
-  console.log(balancetime)
-  if(balancetime>300){
-   this.check();
-  }else{
-    this.presentToast1("Session timeout, please login to continue.");
-    this.router.navigate(["/login"]);
-  }
-},(error:HttpErrorResponse)=>{
-  if(error.status ===401){    
-    this.presentToast("Session timeout, please login to continue.");
-    this.router.navigate(["/login"]);
- }
- else if(error.status ===400){    
-  this.presentToast("Server Error! Please try login again.");
-  this.router.navigate(["/login"]);
-}
-else{
-  this.presentToast("Server Error! Please try login again.");
-  this.router.navigate(["/login"]);
- }
-})
+    if(this.num>0){
+      let memidnew=localStorage.getItem('memberid')
+      let token=localStorage.getItem('token')
+      this.subscribeServ.duplicantpaymentdetails(token).subscribe(res=>{
+        console.log(res)
+        let balancetime=res['BalanceExpiration']
+        console.log(balancetime)
+        if(balancetime>300){
+         this.check();
+        }else{
+          this.presentToast1("Session timeout, please login to continue.");
+          this.router.navigate(["/login"]);
+        }
+      },(error:HttpErrorResponse)=>{
+        if(error.status ===401){    
+          this.presentToast("Session timeout, please login to continue.");
+          this.router.navigate(["/login"]);
+       }
+       else if(error.status ===400){    
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+      }
+      else{
+        this.presentToast("Server Error! Please try login again.");
+        this.router.navigate(["/login"]);
+       }
+      })
+    }else{
+      this.presentToast1("Please Enter Valid Excess Amount");
+    }
+
 
 }
 
@@ -704,5 +710,9 @@ var s = num+"";
 while (s.length < size) s = "0" + s;
 return s;
 }
-
+ionViewWillLeave(){
+  this.payment_details=[];
+  this.grandtotal=[];
+  
+}
 }

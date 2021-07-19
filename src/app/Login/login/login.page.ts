@@ -102,7 +102,7 @@ export class LoginPage implements OnInit {
           else{
               this.dismiss();
               if(res[0]['IsBlocked']=="1"){
-                this.presentToast('You Account is blocked,please contact Admin');
+                this.presentToast('You Account is blocked, please contact Admin');
               }else{
                 this.user_details = res;
                 console.log(res)

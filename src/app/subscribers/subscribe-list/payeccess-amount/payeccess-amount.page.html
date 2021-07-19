@@ -20,29 +20,14 @@
 
           <ion-card>
             <ion-card-header>
-              <p class="as-m-0">Chit Value:<span>₹ {{this.payment_details[i].ChitValue}}</span></p>
-              <p class="chit_no as-m-0">{{this.payment_details[i].ChitNo}}</p>
+              <p class="as-m-0">Chit Value:<span>₹ {{this.payment_details[i]?.ChitValue}}</span></p>
+              <p class="chit_no as-m-0">{{this.payment_details[i]?.ChitNo}}</p>
             </ion-card-header>
             <ion-card-content class="chit_details_sec">
-              <div  class="chit_status"  [ngClass]="this.payment_details[i].IsPrized === 'Y'?'green':'red'">
-                <p>{{this.payment_details[i].IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
+              <div  class="chit_status"  [ngClass]="this.payment_details[i]?.IsPrized === 'Y'?'green':'red'">
+                <p>{{this.payment_details[i]?.IsPrized === 'Y'?'Prized':'Non-Prized'}}</p>
             </div>
-              <ion-item>
-                <ion-label position="stacked">Current Due</ion-label>
-                <ion-input formControlName="AmountPayable" type="number" value="" placeholder="Current Due" readonly>
-                </ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Arrear Amount</ion-label>
-                <ion-input formControlName="Arrearamount" type="number" value="" placeholder="Arrear Amount" readonly>
-                </ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Interest Amount</ion-label>
-                <ion-input  readonly>
-                  {{this.payment_details[i].Interest}}
-                </ion-input>
-              </ion-item>
+   
               <ion-item>
                 <ion-label position="stacked"> Excess Amount</ion-label>
                 <ion-input formControlName="extraamount" type="number" value="" placeholder="Enter Amount" (ionChange)="extraamount(i)">

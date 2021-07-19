@@ -211,6 +211,7 @@ processdata(){
   this.perfect_chits=[];
   this.Extra_amountchits=[];
   this.v_amountchits=[];
+  this.arrayprized=[];
   console.log(this.arrayvalue)
     if(this.arrayvalue.length !=0){
       for(var i=0; i<this.arrayvalue.length;i++){
@@ -272,6 +273,7 @@ processdata(){
              queryParams: { state:data },
              
            };
+ 
          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
           }else if(this.prized_chits.length>=2){
             console.log(this.prized_chits)
@@ -281,16 +283,18 @@ processdata(){
                
              }
            }
-           if(this.arrayprized.length <2 && this.valid_chits.length >=2){
+           if(this.arrayprized.length ==0 || this.arrayprized.length ==1 && this.valid_chits.length >=1){
                  console.log("nonprized")
                  return this.presentToast("Choose atleast 2 prized chits");
-               }else{           
+               }else{         
+                 console.log(this.arrayprized)  
                 console.log("prized")
                 let data = JSON.stringify(this.arrayvalue)
                 let navigationExtras: NavigationExtras = {
                  queryParams: { state:data },
                  
                };
+         
              this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
                }
           }
@@ -311,6 +315,7 @@ processdata(){
          queryParams: { state:data },
          
        };
+       localStorage.setItem("excesspage","subscribelist")
      this.router.navigate(["/subscribe-list/payeccess-amount"],navigationExtras)
        }
     }

@@ -68,11 +68,17 @@ export class AppComponent {
         }else if(window.location.pathname=="/subscribe-list/payment-success" || window.location.pathname=="/cashprint"){
             this.presentToast("backbutton will not work during payment")
         }
-        else if(window.location.pathname=="/subscribe-list/subscriber-payment" || window.location.pathname=="/subscribe-list/subscriber-recepit" || window.location.pathname=="/subscribe-list/all-chits" || window.location.pathname=="/subscribe-list/person-detail" || window.location.pathname=="/subscribe-list/payeccess-amount" 
+        else if(window.location.pathname=="/subscribe-list/subscriber-payment" || window.location.pathname=="/subscribe-list/subscriber-recepit" || window.location.pathname=="/subscribe-list/all-chits" || window.location.pathname=="/subscribe-list/person-detail"  
         || window.location.pathname=="/subscribe-list/payforothers"){
          this.router.navigate(['/subscribe-list'])
         }else if(window.location.pathname=="/subscribe-list/show-chits"){
           this.router.navigate(['/subscribe-list/all-chits'])
+        }else if(window.location.pathname=="/subscribe-list/payeccess-amount"){
+          if(localStorage.getItem("excesspage")=="subscribelist"){
+            this.router.navigate(["/subscribe-list"])
+          }else{
+            this.router.navigate(["/subscribe-list/payforothers"]);
+          }
         }
         else if(window.location.pathname=="/subscribe-list/newcustomer-payment"){
           this.router.navigate(['/subscribe-list/payforothers'])
