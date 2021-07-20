@@ -209,7 +209,7 @@ console.log(this.payment_details)
 submit(){
     //  this.newcheck('8')
     if(this.num>0){
-      let memidnew=localStorage.getItem('memberid')
+      let memidnew=localStorage.getItem('exememberid')
       let token=localStorage.getItem('token')
       this.subscribeServ.duplicantpaymentdetails(token).subscribe(res=>{
         console.log(res)
@@ -244,7 +244,7 @@ submit(){
 
 check(){
   this.totals=0
-  let memidnew=localStorage.getItem('memberid')
+  let memidnew=localStorage.getItem('exememberid')
   let token=localStorage.getItem('token')
   this.subscribeServ.toddayamount(memidnew,token).subscribe(res=>{
     console.log(res["TotalPaidAmount"])
@@ -401,7 +401,7 @@ this.currentdate=this.month+"/"+this.day+"/"+this.year;
 this.getvouchercount=(JSON.parse(localStorage.getItem("voucher")))
 this.count=this.getvouchercount
 console.log(this.getvouchercount)
-this.personal=(JSON.parse(localStorage.getItem("personaldatas")))
+this.personal=(JSON.parse(localStorage.getItem("exepersonaldatas")))
 console.log(this.personal)
 console.log(this.grandtotal,"ghjg")
 for(let i=0;i<this.grandtotal.length;i++){

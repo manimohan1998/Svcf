@@ -69,6 +69,7 @@ async ionViewWillEnter(){
   this.userlist3=[];
   this.arrayvalue=[];
   let memidnew=localStorage.getItem('memberid')
+  localStorage.setItem('exememberid',memidnew)
   let token=localStorage.getItem("token")
     this.subscribeServ.personalDetails(memidnew,token).subscribe((res)=>{
       console.log(res)
@@ -85,6 +86,7 @@ async ionViewWillEnter(){
       this.Logo = this.customername.charAt(0);
       localStorage.setItem('iniitial_logo',this.Logo)
       localStorage.setItem("personaldatas",JSON.stringify(this.personaldetail))
+      localStorage.setItem("exepersonaldatas",JSON.stringify(this.personaldetail))
       // this.imagecall(this.imageUrl+this.personaldetail[0]["ImgUrl"]);
       loading.dismiss();
      
@@ -265,7 +267,8 @@ processdata(){
         };
         this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
         }
-        }else if(this.arrayvalue.length >2){
+        }
+        else if(this.arrayvalue.length >2){
           console.log(this.prized_chits)
           if(this.prized_chits.length==1){
             let data = JSON.stringify(this.arrayvalue)
@@ -273,7 +276,6 @@ processdata(){
              queryParams: { state:data },
              
            };
- 
          this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
           }else if(this.prized_chits.length>=2){
             console.log(this.prized_chits)
@@ -283,23 +285,59 @@ processdata(){
                
              }
            }
-           if(this.arrayprized.length ==0 || this.arrayprized.length ==1 && this.valid_chits.length >=1){
-                 console.log("nonprized")
-                 return this.presentToast("Choose atleast 2 prized chits");
-               }else{         
-                 console.log(this.arrayprized)  
+            if(this.arrayvalue.length ==3){
+              if(this.arrayprized.length ==0 ){
+                return this.presentToast("Choose atleast 1 prized chits");
+              }else{
                 console.log("prized")
                 let data = JSON.stringify(this.arrayvalue)
                 let navigationExtras: NavigationExtras = {
                  queryParams: { state:data },
                  
                };
-         
              this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
-               }
+              }
+
+           }
+           if(this.arrayvalue.length ==4 ){
+            if(this.arrayprized.length ==0 ){
+              return this.presentToast("Choose atleast 2 prized chits");
+            } else if(this.arrayprized.length >= 2){
+              console.log("prized")
+              let data = JSON.stringify(this.arrayvalue)
+              let navigationExtras: NavigationExtras = {
+               queryParams: { state:data },
+               
+             };
+           this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+            }
+            else{
+              console.log("prized")
+              let data = JSON.stringify(this.arrayvalue)
+              let navigationExtras: NavigationExtras = {
+               queryParams: { state:data },
+               
+             };
+           this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+            }
+
+         }
+           else if( this.arrayvalue.length > 4 && this.valid_chits.length >=1){
+             if(this.arrayprized.length < 2){
+              console.log("nonprized")
+              return this.presentToast("Choose atleast 2 prized chits");
+             }else{           
+              console.log("prized")
+              let data = JSON.stringify(this.arrayvalue)
+              let navigationExtras: NavigationExtras = {
+               queryParams: { state:data },
+               
+             };
+           this.router.navigate(["/subscribe-list/subscriber-payment"],navigationExtras)
+             }
+                }
           }
-        }
-      }
+      }}
       else if(this.blocked_chits?.length !=0){
         this.presentToast("This chit Number is blocked. Please contact admin");
       }

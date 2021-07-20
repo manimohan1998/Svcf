@@ -61,6 +61,7 @@
     this.headid=res['HeadId']
     this.memberid=res['MemberId']
     localStorage.setItem("newcusmemid",this.memberid)
+    localStorage.setItem('exememberid',this.memberid)
     this.subscribeServ.getchitdetails(res['MemberId'],res['HeadId'],token).subscribe((res1)=>{
     console.log(res1)
     this.customerdetails=res1
@@ -119,7 +120,8 @@
     });
     await loading.present();
     console.log(this.payforother.value.password)
-    this.primarycustomer=JSON.parse(localStorage.getItem("personaldatas")) 
+    this.primarycustomer=JSON.parse(localStorage.getItem("personaldatas"))
+
     let token=localStorage.getItem("token")
     if(this.payforother.value.password !==this.primarycustomer[0]?.password){
     if(this.payforother.value.password===this.customerdetails.Password){
@@ -136,6 +138,7 @@
     console.log(personaldetails)
     this.personaldetail=personaldetails['UserDetails'];
     localStorage.setItem("newcustomerdetails",JSON.stringify(this.personaldetail))
+    localStorage.setItem("exepersonaldatas",JSON.stringify(this.personaldetail))
     let token=localStorage.getItem("token")
       this.subscribeServ.subscriberList(this.memberid,this.personaldetail[0]?.BranchId,token).subscribe(res=>{
            

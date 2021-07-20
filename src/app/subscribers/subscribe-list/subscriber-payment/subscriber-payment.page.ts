@@ -434,19 +434,19 @@ async newcheck(payment){
    this.receiptno.push(customer+receiptcount+number)
    console.log(this.receiptno)
   }
-  this.enteramounts=[];
-  for(let i=0;i<this.grandtotal.length;i++){
-    if(this.PaymentForm.get('AmountDetails').value[i].extraamount.length !=0){
-    this.enteramounts.push(this.PaymentForm.get('AmountDetails').value[i].extraamount)
-     }else{
-       this.enteramounts.push(0)
-     }}
+  // this.enteramounts=[];
+  // for(let i=0;i<this.grandtotal.length;i++){
+  //   if(this.PaymentForm.get('AmountDetails').value[i].extraamount.length !=0){
+  //   this.enteramounts.push(this.PaymentForm.get('AmountDetails').value[i].extraamount)
+  //    }else{
+  //      this.enteramounts.push(0)
+  //    }}
   for(let i=0;i<this.grandtotal.length;i++){
   if(this.grandtotal[i].PrizedArrier != 0 ){
   
   this.payment_data = [
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier+ +this.enteramounts[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier,
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -480,7 +480,7 @@ async newcheck(payment){
     VoucherCode:this.Receipt_code
   },
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier+ +this.enteramounts[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].PrizedArrier,
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -588,7 +588,7 @@ async newcheck(payment){
     
   this.payment_data = [
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier+ +this.enteramounts[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier,
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -622,7 +622,7 @@ async newcheck(payment){
     VoucherCode:this.Receipt_code
     },
   {
-    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier+ +this.enteramounts[i],
+    Amount: +this.grandtotal[i].CurrentDueAmount+ +this.grandtotal[i].NonPrizedArrier,
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -728,7 +728,7 @@ async newcheck(payment){
   else{
   this.payment_data = [
   {
-    Amount: this.grandtotal[i].CurrentDueAmount+ +this.enteramounts[i],
+    Amount: this.grandtotal[i].CurrentDueAmount,
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
@@ -762,7 +762,7 @@ async newcheck(payment){
     VoucherCode:this.Receipt_code
     },
   {
-    Amount: this.grandtotal[i].CurrentDueAmount+ +this.enteramounts[i],
+    Amount: this.grandtotal[i].CurrentDueAmount,
     AppReceiptno: this.receiptno[i],
     BranchID:this.personal[0].BranchId,
     ChitGroupId:this.grandtotal[i].ChitGroupId,
