@@ -74,18 +74,11 @@ this.router.navigate(["/subscribe-list"])
               this.arrearamount=0;
               this.arrearamount +=(parseFloat(this.receiptdata[j].Total))
               this.arrears.push(this.arrearamount)
-              console.log(this.arrears)
+            //   console.log(this.arrears)
               for(let k=0;k<this.arrears.length;k++){
               this.grandtotal +=this.arrears[k]
               }
              }
-            //  for(let j=0;j<this.receiptdata.length;j++){
-            //    this.arrearamount1=0;
-            //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].nonPrizedArrear))
-            //    this.arrearamount1 +=(parseFloat(this.receiptdata[j].prizedArrear))
-            //    this.arrears1.push(this.arrearamount1)
-            //    console.log(this.arrears1)
-            //  }
              if(Array.isArray(this.receiptdata) && this.receiptdata.length){
                this.show1=false;
              }

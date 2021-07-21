@@ -150,5 +150,26 @@
               </ion-button>
               </section>
   </ion-content>
+  <ion-tab-bar slot="bottom" class="tab-selected">
+
+    <ion-tab-button [routerLink]="['/subscribe-list/person-detail']">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Profile</ion-label>
+    </ion-tab-button>
   
+    <ion-tab-button [routerLink]="['/subscribe-list']">
+      <ion-icon  name="home"></ion-icon>
+      <ion-label >Home</ion-label>
+    </ion-tab-button>
+   
+  
+    <ion-tab-button [routerLink]="['/subscribe-list/subscriber-recepit']">
+      <ion-icon name="reader-outline"></ion-icon>
+      <ion-label>Receipt</ion-label>
+    </ion-tab-button>
+    <ion-tab-button [routerLink]="['/subscribe-list/payforothers']">
+      <ion-icon color="primary" name="people-outline"></ion-icon>
+      <ion-label color="primary">Pay others</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
 </ion-app>

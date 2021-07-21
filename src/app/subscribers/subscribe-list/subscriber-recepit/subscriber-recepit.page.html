@@ -37,7 +37,7 @@
       </section>
   </form>
   </section>
-
+  <div scrollX="true" scrollY="true" id="scroll-list">
   <div *ngFor="let data of receiptdata;let i=index">
     <ion-card class="card_bg">
       <ion-card-content>
@@ -138,6 +138,7 @@
       </ion-card-content>
     </ion-card>
   </div>
+</div>
   <div *ngIf="this.show1==true">
     <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="this.receiptdata.length===0">No Data</div>
   </div>
