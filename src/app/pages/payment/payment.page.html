@@ -18,7 +18,7 @@
 </section>
 <ion-card class="card_bg" *ngFor="let value of newarr">
  
-<div class="chits_item_details">
+<div class="chits_item_details"  (click)="blockchits(value)">
  
   <div class="mr-1" >
     <ion-checkbox [disabled]="value.IsBlocked==1" (ionChange)="updateCheckedOptions(value, $event)"></ion-checkbox>

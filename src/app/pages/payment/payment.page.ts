@@ -111,7 +111,11 @@ for (let i=0;i<this.payee_details.length;i++){
   previous(){
   this.router.navigateByUrl('dashboard')
   }
-  
+  blockchits(val){
+    if(val.IsBlocked==1){
+      this.presentToast(" This chit Number " +val.groupno+ ` is blocked , Due to ${val.BlockReason}`);
+    }
+  }
   cash(){
   this.prized_chits=[];
   this.valid_chits=[];
@@ -195,7 +199,7 @@ for (let i=0;i<this.payee_details.length;i++){
         }
         }
         else if(this.blocked.length!=0){
-this.presentToast("This Chit Number is blocked,Contact admin")
+this.presentToast("Chit Number is blocked, Please Contact admin")
         }
           else{
         let data = JSON.stringify(this.arrayvalue)

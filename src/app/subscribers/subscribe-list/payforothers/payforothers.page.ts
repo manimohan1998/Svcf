@@ -244,7 +244,7 @@
       }
       blockchits(val){
         if(val.IsBlocked==1){
-          this.presentToast(" This chit Number " +val.ChitNo+ " is blocked. Please contact admin");
+          this.presentToast(" This chit Number " +val.ChitNo+ `is blocked , Due to ${val.BlockReason}`);
         }
       }
     }

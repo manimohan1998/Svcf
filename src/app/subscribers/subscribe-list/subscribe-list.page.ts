@@ -56,7 +56,7 @@ export class SubscribeListPage implements OnInit {
 }
 blockchits(val){
   if(val.IsBlocked==1){
-    this.presentToast(" This chit Number " +val.ChitNo+ " is blocked. Please contact admin");
+    this.presentToast(" This chit Number " +val.ChitNo+ `is blocked , Due to ${val.BlockReason}`);
   }
 }
 async ionViewWillEnter(){
@@ -339,7 +339,7 @@ processdata(){
           }
       }}
       else if(this.blocked_chits?.length !=0){
-        this.presentToast("This chit Number is blocked. Please contact admin");
+        this.presentToast("chit Number is blocked. Please contact admin");
       }
     else if(this.Extra_amountchits?.length!=0){
       for(var i=0; i<this.arrayvalue.length;i++){

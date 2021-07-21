@@ -58,18 +58,19 @@ let token=localStorage.getItem("token")
       })
 }
 
-public ageFromDateOfBirthday1(dateOfBirth: any): any {
-  const today = new Date();
-  const birthDate = new Date(dateOfBirth);
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
+public ageFromDateOfBirthday1(dateOfBirth: any): number {
+ 
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
 
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-    this.personage +=age
-  }
-
-  
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+      return age;
+    }
+    this.personage =age
+    console.log(this.personage)
   
 }
 async presentToast(message) {
