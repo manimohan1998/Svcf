@@ -55,7 +55,13 @@ to_date: ['', Validators.required],
 
 });
 }
-history(dates){
+async history(dates){
+	const loading = await this.loadingController.create({
+		message: 'Please Wait',
+		translucent: true,
+	  });
+	  await loading.present();
+this.show=false;
 this.receipt_history=[];
 let token=localStorage.getItem("tokens");
 let enddate=dates.to_date;
@@ -72,9 +78,11 @@ console.log(res)
 if(res['length'] == 0){
 	this.show=false;
 	this.show1=false;
+	loading.dismiss();
 this.presentToast('No data available')
 }
 else{
+	loading.dismiss();
 	this.show1=true;
 	this.show=true;
   this.receipt_history=res;
@@ -95,12 +103,12 @@ for(let i=0;i<this.receipt_history.length;i++){
 
 },(error:HttpErrorResponse)=>{
 	if(error.status ===401){    
-	       
+		loading.dismiss();
 	  this.presentToast("Session timeout, please login to continue.");
 	  this.router.navigate(["/login"]);
    }
    else if(error.status ===400){   
-	  
+	loading.dismiss();
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
  }
@@ -108,7 +116,7 @@ for(let i=0;i<this.receipt_history.length;i++){
   } 
   )
 	  }else{
-		
+		loading.dismiss();
 		this.presentToast("Start date should be less than end date");
 	  }
 }

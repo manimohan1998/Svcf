@@ -29,8 +29,10 @@
     <ion-label>End Date</ion-label> 
     <ion-datetime display-format="DD-MM-YYYY" min="1994-03-14" formControlName="to_date"></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;" slot="end"></ion-icon>
   </ion-item>
-  <ion-button type="submit" class="btn_right" style="width: 70px;" [disabled]="!receiptFormGroup.valid" >Submit
+  <section class="as-text-center">
+  <ion-button type="submit" class="btn as-btn" [disabled]="!receiptFormGroup.valid" >Submit
   </ion-button>
+  </section>
 </form>
 
 
