@@ -4,6 +4,7 @@ import { PaymentService } from '../../services/payment.service';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import * as moment from 'moment';
 import 'moment/locale/pt-br';
+import {format} from "date-fns";
 import { LoadingController } from '@ionic/angular';
 import { Toast } from '@ionic-native/toast/ngx';
 
@@ -54,19 +55,19 @@ to_date: ['', Validators.required],
 
 });
 }
-history(){
-
-	this.receipt_history=[];
-this.present();
+history(dates){
+this.receipt_history=[];
 let token=localStorage.getItem("tokens");
+let enddate=dates.to_date;
+let startdate=dates.from_date;
+console.log(enddate)
+let start= format(new Date(startdate), "yyyy/MM/dd");
+let end= format(new Date(enddate), "yyyy/MM/dd");
 this.receiptFormGroup.value["from_date"] = moment(this.receiptFormGroup.value.from_date.toLocaleString()).format("MM/DD/YYYY");
 this.receiptFormGroup.value["to_date"] = moment(this.receiptFormGroup.value.to_date.toLocaleString()).format("MM/DD/YYYY");
-
-const strtdate = new Date(this.receiptFormGroup.value["from_date"]);
-   const eddate = new Date(this.receiptFormGroup.value["to_date"]);
-      if(strtdate < eddate){
+      if(start < end){
+		  console.log(start,end)
 this.paymentservice.receipthistory(this.colid,this.receiptFormGroup.value.from_date,this.receiptFormGroup.value.to_date,token).subscribe(res=>{
-this.dismiss();
 console.log(res)
 if(res['length'] == 0){
 	this.show=false;
@@ -91,21 +92,23 @@ for(let i=0;i<this.receipt_history.length;i++){
 	console.log(this.history_tot)
 }
 }
+
 },(error:HttpErrorResponse)=>{
 	if(error.status ===401){    
-	   this.dismiss();       
+	       
 	  this.presentToast("Session timeout, please login to continue.");
 	  this.router.navigate(["/login"]);
    }
    else if(error.status ===400){   
-	this.dismiss();        
+	  
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
  }
  
-  } )
+  } 
+  )
 	  }else{
-		this.dismiss();
+		
 		this.presentToast("Start date should be less than end date");
 	  }
 }

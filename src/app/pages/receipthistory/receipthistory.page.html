@@ -7,32 +7,42 @@
 </ion-toolbar>
 </ion-header>
 <ion-content fullscreen class="svcf_recepit_page svcf_dashboard_page">
-<form [formGroup]="receiptFormGroup" autocomplete="off" class="receipt_form">
-  <mat-form-field style="width: 110px;" >
+<form [formGroup]="receiptFormGroup" autocomplete="off" (ngSubmit)="history(receiptFormGroup.value)" class="receipt_form">
+  <!-- <mat-form-field style="width: 110px;" >
   <input matInput [matDatepicker]="picker"  placeholder="From Date"  formControlName="from_date"
   (click)="picker.open()">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker ></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field style="width: 110px;">
+  </mat-form-field> -->
+  <!-- <mat-form-field style="width: 110px;">
   <input matInput [matDatepicker]="picker1"  placeholder="To Date"  formControlName="to_date"
   (click)="picker1.open()">
   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
   <mat-datepicker #picker1 ></mat-datepicker>
-  </mat-form-field>
-  <ion-button type="submit" class="btn_right" style="width: 70px;" [disabled]="!receiptFormGroup.valid" (click)="history()">Submit
+  </mat-form-field> -->
+  <ion-item>
+    <ion-label>Start Date</ion-label>
+    <ion-datetime display-format="DD-MM-YYYY"  min="1994-03-14" formControlName="from_date"></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;"  slot="end"></ion-icon>
+  </ion-item>
+ 
+  <ion-item>
+    <ion-label>End Date</ion-label> 
+    <ion-datetime display-format="DD-MM-YYYY" min="1994-03-14" formControlName="to_date"></ion-datetime><ion-icon name="calendar-outline" style="color: #30ADFF;" slot="end"></ion-icon>
+  </ion-item>
+  <ion-button type="submit" class="btn_right" style="width: 70px;" [disabled]="!receiptFormGroup.valid" >Submit
   </ion-button>
 </form>
-<p *ngIf="show == true" class="total">
-          Total<span>
-          ₹ {{history_tot}}</span>
-        </p>
+
 
 <!-- <div class="search" *ngIf="length != 0">
     <ion-searchbar placeholder="search" [(ngModel)]="receipt" 
     ></ion-searchbar>
   </div> -->
   <section class="payment" *ngIf="length != 0">
+    <p *ngIf="show == true" class="total">
+      Total<span>
+      ₹ {{history_tot}}</span>
+    </p>
   <div *ngFor="let p of receipt_history" class="history_card">
     <ion-card class="card_bg">
     <ion-card-content>
@@ -156,6 +166,16 @@
             <th>Other Receipts</th>
             <td>:</td>
             <td>{{p.otherReceipts===''?'0.00':p.otherReceipts}}</td>
+          </tr>
+          <tr *ngIf="p.isAccepted=='1'"> 
+            <th>Status</th>
+            <td>:</td>
+            <td *ngIf="p.isAccepted=='1'" style="color:green">Accepted</td>
+          </tr>
+          <tr *ngIf="p.isAccepted=='2'"> 
+            <th>Status</th>
+            <td>:</td>
+            <td *ngIf="p.isAccepted=='2'"  style="color:red">Rejected</td>
           </tr>
         </tbody>
       </table>

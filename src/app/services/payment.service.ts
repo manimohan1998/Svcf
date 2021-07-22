@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,7 +39,7 @@ receiptseries(series,token){
 receiptseries1(series,token){
 	return this.http.get('AppVoucherCode/Series?Series='+series+'&Token='+token)
 }
-receipthistory(mid,fromdate,todate,token){
+receipthistory(mid,fromdate,todate,token): Observable<any>{
   return this.http.get('VoucherHistory/Mid?Mid='+mid +'&&FromDate='+fromdate+'&&ToDate='+todate+'&Token='+token)
 }
 toddayamount(id,token){
