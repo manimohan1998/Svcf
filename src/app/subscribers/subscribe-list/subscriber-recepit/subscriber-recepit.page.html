@@ -37,6 +37,8 @@
       </section>
   </form>
   </section>
+  <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
+  </p>
   <div scrollX="true" scrollY="true" id="scroll-list">
   <div *ngFor="let data of receiptdata;let i=index">
     <ion-card class="card_bg">
@@ -143,8 +145,8 @@
     <div style="height: 250px;text-align: center;margin-top: 50%;" *ngIf="this.receiptdata.length===0">No Data</div>
   </div>
   
-  <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
-  </p>
+  <!-- <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
+  </p> -->
 </ion-content>
 
 <ion-tab-bar slot="bottom">

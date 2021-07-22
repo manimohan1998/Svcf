@@ -341,7 +341,7 @@ processdata(){
       else if(this.blocked_chits?.length !=0){
         this.presentToast("chit Number is blocked. Please contact admin");
       }
-    else if(this.Extra_amountchits?.length!=0){
+    else if(this.Extra_amountchits?.length !=0){
       for(var i=0; i<this.arrayvalue.length;i++){
         if(this.arrayvalue[i].PrizedArrier !='0.00' || this.arrayvalue[i].NonPrizedArrier !='0.00' || this.arrayvalue[i].Interest !='0' || this.arrayvalue[i].CurrentDueAmount !='0.00')  this.v_amountchits.push(this.arrayvalue[i])
        }

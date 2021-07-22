@@ -4,7 +4,7 @@ import {SocialSharing} from '@ionic-native/social-sharing/ngx'
 import { Router, ActivatedRoute } from '@angular/router';
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {format} from "date-fns";
-import { Platform, ToastController } from '@ionic/angular';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-subscriber-recepit',
@@ -34,7 +34,8 @@ public sendTo   : any;
 
 
   constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,
-    private router:Router,public route: ActivatedRoute,private fb:FormBuilder,public toastController: ToastController,public platform:Platform) { 
+    private router:Router,public route: ActivatedRoute,private fb:FormBuilder,public toastController: ToastController,public platform:Platform,
+    public loadingcontroller:LoadingController) { 
    
     this.dateform = this.fb.group({
       startdate: ['', Validators.required],
@@ -53,7 +54,12 @@ public sendTo   : any;
   back(){
 this.router.navigate(["/subscribe-list"])
   }
-  datefilter(dates){
+ async datefilter(dates){
+   const loading = await this.loadingcontroller.create({
+      message: 'Please Wait',
+      translucent: true,
+    });
+    await loading.present();
      this.show=true;
    this.arrears=[]
     let enddate=dates.enddate;
@@ -63,12 +69,13 @@ this.router.navigate(["/subscribe-list"])
    const strtdate = new Date(startdate);
    const eddate = new Date(enddate);
       if(strtdate < eddate){
-         console.log(start,end)
+       console.log(start,end)
          let customerid=localStorage.getItem("memberid")
          let token=localStorage.getItem("token")
          this.subscribeServ.receipthistory(start,end,customerid,token).subscribe(res=>{
             console.log(res)
             this.receiptdata=res["AllReceipts"]
+            loading.dismiss();
             console.log(this.receiptdata)
             for(let j=0;j<this.receiptdata.length;j++){
               this.arrearamount=0;
@@ -83,19 +90,23 @@ this.router.navigate(["/subscribe-list"])
                this.show1=false;
              }
              else{
+               loading.dismiss();
                this.presentToast("No Data Found")
                this.show1=true;
              }
          },(error:HttpErrorResponse)=>{
-            if(error.status ===401){          
+            if(error.status ===401){     
+               loading.dismiss();     
               this.presentToast("Session timeout, please login to continue.");
               this.router.navigate(["/login"]);
            }
-           else if(error.status ===400){        
+           else if(error.status ===400){ 
+            loading.dismiss();       
             this.presentToast("Server Error! Please try login again.");
             this.router.navigate(["/login"]);
           }
           else{
+            loading.dismiss();
             this.presentToast("Server Error! Please try login again.");
             this.router.navigate(["/login"]);
            } })

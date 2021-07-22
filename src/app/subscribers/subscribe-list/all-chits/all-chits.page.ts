@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Platform, ToastController } from '@ionic/angular';
+import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { SubscriberApiService } from '../../subscriber-api.service';
 
 @Component({
@@ -13,26 +13,35 @@ export class AllChitsPage implements OnInit {
   term="";
   details:any=[]
   constructor(private router:Router,public platform:Platform, public subscribeServ: SubscriberApiService,
-    public toastController: ToastController) { }
+    public toastController: ToastController,public loadingcontroller:LoadingController) { }
 
   ngOnInit() {
    
   }
-  ionViewWillEnter(){
+ async ionViewWillEnter(){
+    const loading = await this.loadingcontroller.create({
+      message: 'Please Wait',
+      translucent: true,
+    });
+    await loading.present();
   let memidnew=localStorage.getItem('memberid')
     let token=localStorage.getItem("token")
       this.subscribeServ.allchits(memidnew,token).subscribe((res)=>{
       console.log(res)
       this.details=res['ChitList']
+      loading.dismiss();
       },(error:HttpErrorResponse)=>{
         if(error.status ===401){          
+          loading.dismiss();
           this.presentToast("Session timeout, please login to continue.");
           this.router.navigate(["/login"]);
        }
-       else if(error.status ===400){       
+       else if(error.status ===400){   
+        loading.dismiss();    
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
      }else{
+      loading.dismiss();
       this.presentToast("Server Error! Please try login again.");
       this.router.navigate(["/login"]);
      }
