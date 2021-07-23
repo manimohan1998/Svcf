@@ -15,7 +15,7 @@
           <ion-list lines="full">
              <ion-item  lines="full">
               <ion-label position="stacked">Chit Number</ion-label>
-              <ion-input formControlName="chitnumber" type="text" maxlength="10" 
+              <ion-input formControlName="chitnumber" type="text" maxlength="15" 
                 placeholder="Enter Chit Number">
               </ion-input>
               <ion-icon name="person-outline" slot="end"></ion-icon>
@@ -42,7 +42,7 @@
             </ion-card>
              <ion-item  lines="full" *ngIf="this.valid==true">
               <ion-label position="stacked">Enter your password</ion-label>
-              <ion-input formControlName="password"  maxlength="10"  [type]="show ? 'text' : 'password'"
+              <ion-input formControlName="password"  maxlength="20"  [type]="show ? 'text' : 'password'"
                 placeholder="Enter your password">
               </ion-input>
               <div (click)="show=!show" slot="end" class="eye_icon">

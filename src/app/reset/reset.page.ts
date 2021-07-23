@@ -25,8 +25,8 @@ export class ResetPage implements OnInit {
       // mobilenumber: ['',Validators.maxLength(11)], 
       dob: ['', Validators.required],
       oldpassword: ['',[Validators.required]], 
-      newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)]],
-      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/),this.equalto('newpassword')]],
+      newpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" || /^\S*$/)]],
+      confirmpassword: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" || /^\S*$/),this.equalto('newpassword')]],
    })
    
    }
@@ -69,11 +69,11 @@ export class ResetPage implements OnInit {
       this.commonserv.sameUsername(names).subscribe((res) => {
         console.log(res)
          if(res['Message'] === "UserName is Available"){
-          this.presentToast('UserName is valid.');
+          this.presentToast('UserName is Available.');
           
         }
         else if(res['Message'] === "UserName is not Available"){
-          this.presentToast('UserName is invalid.');
+          this.presentToast('UserName is not Available.');
           this.resetForms.get('name').reset("");
         }
         })
@@ -112,7 +112,7 @@ export class ResetPage implements OnInit {
     'newpassword': [
         { type: 'required', message: 'New password is required.' },
       
-        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”) and without space.' }, ],
+        { type: 'pattern', message: 'Password should contain 8 to 20 characters ,1 digit,1 uppercase letter, 1 lowercase letter and 1 special symbol (“@#$%”) and without space.'} ],
 
     'confirmpassword': [
         { type: 'required', message: 'Confirm Password is required.' },],
@@ -157,12 +157,17 @@ export class ResetPage implements OnInit {
    
   back(){
     if(localStorage.getItem("whichpage")=="login"){
-      this.router.navigate(['/login'])
+      this.router.navigate(['/selectapp'])
       localStorage.clear()
     }else{
       this.router.navigate(['/subscribe-list/person-detail'])
     }
 
+  }
+
+  back1(){
+    this.router.navigate(['/selectapp'])
+    localStorage.clear()
   }
   ngOnDestroy(){
     this.resetForms.reset("");

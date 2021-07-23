@@ -16,8 +16,8 @@ export class ResetPasswordPage implements OnInit {
 constructor(private router:Router,private fb:FormBuilder, public commonserv: CommonApiService,public toastController: ToastController,
   private platform: Platform) { 
     this.resetForm = this.fb.group({
-      newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)]],
-      confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/),this.equalto('newpass')]],
+      newpass  : ['', [Validators.required,Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" || /^\S*$/)]],
+      confirmpass: ['', [Validators.required, Validators.minLength(8),Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" || /^\S*$/),this.equalto('newpass')]],
    })
   }
 
@@ -51,12 +51,12 @@ ionViewWillEnter(){
       'newpass': [
         { type: 'required', message: 'New password is required.' },
       
-        { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”) and without space.' }, ],
+        { type: 'pattern', message: 'Password should contain 8 to 20 characters ,1 digit,1 uppercase letter, 1 lowercase letter and 1 special symbol (“@#$%”) and without space.' }, ],
        
         'confirmpass': [
           { type: 'required', message: 'Confirm password is required.' },
         
-          { type: 'pattern', message: 'New password should be equal to 10 characters ,one digit, one upper case letter, one lower case letter and one special symbol (“@#$%”) and without space.' }, ]
+          { type: 'pattern', message: 'Password should contain 8 to 20 characters ,1 digit,1 uppercase letter, 1 lowercase letter and 1 special symbol (“@#$%”) and without space.' }, ]
     }
     
 

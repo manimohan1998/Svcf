@@ -88,7 +88,7 @@ export class AppComponent {
         }
         else if( window.location.pathname=="/reset"){
           if(localStorage.getItem("whichpage")=="login"){
-            this.router.navigate(['/login'])
+            this.router.navigate(['/selectapp'])
             localStorage.clear()
           }else{
             this.router.navigate(['/subscribe-list/person-detail'])

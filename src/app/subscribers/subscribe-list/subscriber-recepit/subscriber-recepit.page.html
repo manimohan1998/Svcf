@@ -125,7 +125,12 @@
                 <tr>
                   <th>Paid Date</th>
                   <td>:</td>
-                  <td>{{data.paidDate}}</td>
+                  <td>{{data.paidDate|date:'dd-MM-yyyy '}}</td>
+                </tr>
+                <tr>
+                  <th>Paid Time</th>
+                  <td>:</td>
+                  <td>{{data.paidDate|date:'HH:mm a'}}</td>
                 </tr>
                 <!-- <tr>
                   <th>Other Receipts</th>

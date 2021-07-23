@@ -37,8 +37,8 @@
 
     this.payforother = this.fb.group({
     chitnumber: ['',[Validators.required]],
-    password: ['',[Validators.required]],
-    // Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{10})" || /^\S*$/)
+    password: ['',[Validators.required,Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,10})" || /^\S*$/)]],
+    
     })
     }
 

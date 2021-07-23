@@ -13,7 +13,7 @@
           <ion-list>
             <ion-item>
               <ion-label position="stacked">Username</ion-label>
-              <ion-input formControlName="name" type="text" maxlength="15"  (ionChange)="checkname()" (keypress)="CheckSpace($event)"
+              <ion-input formControlName="name" type="text" minlength="3" maxlength="15"  (ionChange)="checkname()" (keypress)="CheckSpace($event)"
                 placeholder="Enter new username">
               </ion-input>
               <ion-icon name="person-outline" slot="end"></ion-icon>
@@ -63,7 +63,7 @@
             </ion-item>
             <ion-item>
               <ion-label position="stacked">New password</ion-label>
-              <ion-input formControlName="newpassword" [type]="show ? 'text' : 'password'"
+              <ion-input formControlName="newpassword" [type]="show ? 'text' : 'password'" maxlength="20"
                 >
               </ion-input>
               <div (click)="show=!show" slot="end" class="eye_icon">
@@ -81,7 +81,7 @@
             </div>
             <ion-item>
               <ion-label position="stacked">Confirm password</ion-label>
-              <ion-input formControlName="confirmpassword" [type]="show1 ? 'text' : 'password'"
+              <ion-input formControlName="confirmpassword" [type]="show1 ? 'text' : 'password'" maxlength="20"
                >
               </ion-input>
               <div (click)="show1=!show1" slot="end" class="eye_icon">
@@ -108,7 +108,7 @@
 
     <div class="route_link_sec">
       <section>
-        <a class="root_link" (click)="back()">Sign in</a>
+        <a class="root_link" (click)="back1()">Sign in</a>
       </section>
     </div>
 

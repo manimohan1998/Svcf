@@ -65,12 +65,12 @@ export class LoginPage implements OnInit {
           console.log(this.member_id)
           localStorage.setItem('memberid',this.member_id) 
           localStorage.setItem('token',this.token) 
-          if(res['Message'] === "Login Details Correct" && val['name'].length === val['password'].length){
+          if(res['Message'] === "Login Details Correct" && val['name'] === val['password']){
             localStorage.setItem("firstdata",JSON.stringify(val));
             localStorage.setItem("whichpage","login")
             this.router.navigate(['/reset'])
             this.presentToast("Please Reset Your Password");
-          }else if (res['Message'] === "Login Details Correct" && val['name'].length != val['password'].length){
+          }else if (res['Message'] === "Login Details Correct" && val['name'] != val['password']){
             this.router.navigate(['/subscribe-list'])
             this.presentToast("Logged in Successfully");
           }else{
