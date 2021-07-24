@@ -46,6 +46,7 @@ export class SubscribeListPage implements OnInit {
   perfect_chits: any=[];
   Extra_amountchits: any=[];
   v_amountchits: any=[];
+  v1_amountchits: any=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
     public loadingcontroller:LoadingController,public toastController: ToastController) { 
      
@@ -56,7 +57,7 @@ export class SubscribeListPage implements OnInit {
 }
 blockchits(val){
   if(val.IsBlocked==1){
-    this.presentToast(" This chit Number " +val.ChitNo+ `is blocked , Due to ${val.BlockReason}`);
+    this.presentToast(" This Chit Number " +val.ChitNo+ ` is blocked , Due to ${val.BlockReason}`);
   }
 }
 async ionViewWillEnter(){
@@ -214,6 +215,7 @@ processdata(){
   this.Extra_amountchits=[];
   this.v_amountchits=[];
   this.arrayprized=[];
+  this.v1_amountchits=[];
   console.log(this.arrayvalue)
     if(this.arrayvalue.length !=0){
       for(var i=0; i<this.arrayvalue.length;i++){
@@ -345,9 +347,17 @@ processdata(){
       for(var i=0; i<this.arrayvalue.length;i++){
         if(this.arrayvalue[i].PrizedArrier !='0.00' || this.arrayvalue[i].NonPrizedArrier !='0.00' || this.arrayvalue[i].Interest !='0' || this.arrayvalue[i].CurrentDueAmount !='0.00')  this.v_amountchits.push(this.arrayvalue[i])
        }
+      for(var i=0; i<this.userlist3.length;i++){
+     if(this.userlist3[i].PrizedArrier !='0.00' && this.userlist3[i].NonPrizedArrier =='0.00' || this.userlist3[i].Interest !='0' || this.userlist3[i].CurrentDueAmount !='0.00')  this.v1_amountchits.push(this.userlist3[i])
+       }
+
        if(this.v_amountchits.length !=0){
         this.presentToast("Excess amount chit cannot be paid with Normal chit");
-       }else{
+       }
+       else if(this.v1_amountchits.length !=0){
+        this.presentToast("You're having arrear amount chit so excess amount chit cannot be paid");
+       }
+       else{
         let data = JSON.stringify(this.arrayvalue)
         let navigationExtras: NavigationExtras = {
          queryParams: { state:data },

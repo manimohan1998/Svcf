@@ -58,7 +58,7 @@ for (let i=0;i<this.payee_details.length;i++){
   this.status=this.payee_details[i].status;
   this.arrear=this.payee_details[i].arrearamount;
   this.prized=this.payee_details[i].isprized;
-  if(this.status == 'R'||this.arrear > 0 ){
+  if(this.status == 'T'|| this.status == 'R'||this.arrear > 0 ){
   this.pushvalue.push(this.payee_details[i]);
   var dups = [];
   this.newarr = this.pushvalue.filter(function(el) {
@@ -232,7 +232,7 @@ this.presentToast("Chit Number is blocked, Please Contact admin")
         text: 'Logout',
         handler: () => {
         localStorage.clear();
-        this.router.navigate(['login']);
+        this.router.navigate(['/selectapp']);
         }
         }
         ]

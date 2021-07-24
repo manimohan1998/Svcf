@@ -44,7 +44,7 @@ this.dashboardservice.user_details(this.moneycoll_id,token).subscribe(res => {
 this.dismiss();
 this.details = res;
  this.filterItems= this.details;
-
+console.log(this.details)
 },(error:HttpErrorResponse)=>{
    if(error.status ===401){    
       this.dismiss();       

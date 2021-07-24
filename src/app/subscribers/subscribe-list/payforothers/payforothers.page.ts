@@ -28,6 +28,7 @@
       blocked_chits: any=[];
       primarycustomer: any=[];
       Extra_amountchits: any=[];
+      v1_amountchits: any;
     constructor(private router:Router,
     private fb:FormBuilder,
     public toastController: ToastController,
@@ -37,7 +38,7 @@
 
     this.payforother = this.fb.group({
     chitnumber: ['',[Validators.required]],
-    password: ['',[Validators.required,Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,10})" || /^\S*$/)]],
+    password: ['',[Validators.required,Validators.pattern("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})" || /^\S*$/)]],
     
     })
     }
@@ -193,9 +194,13 @@
     }
     gotolist(){
       this.Extra_amountchits=[];
+      this.v1_amountchits=[];
       for(var i=0; i<this.arrayvalue.length;i++){
         if(this.arrayvalue[i].PrizedArrier=='0.00' && this.arrayvalue[i].NonPrizedArrier=='0.00' && this.arrayvalue[i].Interest=='0' && this.arrayvalue[i].CurrentDueAmount=='0.00')  this.Extra_amountchits.push(this.arrayvalue[i])
        }
+       for(var i=0; i<this.userlist3.length;i++){
+        if(this.userlist3[i].PrizedArrier !='0.00' && this.userlist3[i].NonPrizedArrier =='0.00' || this.userlist3[i].Interest !='0' || this.userlist3[i].CurrentDueAmount !='0.00')  this.v1_amountchits.push(this.userlist3[i])
+          }
       if(this.arrayvalue?.length !=0){
         if(this.blocked_chits?.length !=0){
           this.presentToast("chit's are blocked. Please contact admin");
@@ -218,13 +223,19 @@
         };
             this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
           }else if(this.Extra_amountchits.length !=0){
-            let data = JSON.stringify(this.arrayvalue)
-            let navigationExtras: NavigationExtras = {
-             queryParams: { state:data },
-             
-           };
-           localStorage.setItem("excesspage","payforother")
-         this.router.navigate(["/subscribe-list/payeccess-amount"],navigationExtras)
+
+             if(this.v1_amountchits.length !=0){
+              this.presentToast("You're having arrear amount chit so excess amount chit cannot be paid");
+             }else{
+              let data = JSON.stringify(this.arrayvalue)
+              let navigationExtras: NavigationExtras = {
+               queryParams: { state:data },
+               
+             };
+             localStorage.setItem("excesspage","payforother")
+           this.router.navigate(["/subscribe-list/payeccess-amount"],navigationExtras)
+             }
+ 
           }
            else return this.presentToast("Sorry! Prized Chits are preferred");
         }
@@ -244,7 +255,7 @@
       }
       blockchits(val){
         if(val.IsBlocked==1){
-          this.presentToast(" This chit Number " +val.ChitNo+ `is blocked , Due to ${val.BlockReason}`);
+          this.presentToast(" This Chit Number " +val.ChitNo+ ` is blocked , Due to ${val.BlockReason}`);
         }
       }
     }

@@ -99,7 +99,7 @@ export class ResetPage implements OnInit {
   
    validation_messages = {
     'name': [
-      { type: 'required', message: 'Customer id is required.' },
+      { type: 'required', message: 'Username is required.' },
       { type: 'pattern', message: 'Special Characters Not Allowed.' },
     ],
 
