@@ -4,9 +4,11 @@ import { Validators, FormBuilder, FormGroup, FormControl, FormArray } from '@ang
 import { PaymentService } from '../../../services/payment.service';
 import 'moment/locale/pt-br';
 import * as moment from 'moment';
+import {format} from "date-fns";
 import { LoadingController } from '@ionic/angular';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Toast } from '@ionic-native/toast/ngx';
+import { Observable } from 'rxjs';
 @Component({
 selector: 'app-payment',
 templateUrl: './cashpay.page.html',
@@ -99,6 +101,9 @@ this.new_array = this.new;
 })
 }
 ngOnInit() {
+  // console.log(Date.now)
+
+  console.log(this.day,this.month,this.year)
   let token1=localStorage.getItem("tokens");
   this.userdata=JSON.parse(localStorage.getItem("user2"))
   let id=this.userdata["MemberID"]
@@ -122,13 +127,11 @@ if(this.todaypaidamount>-1){
   console.log(this.total1)
 }
 ,(error:HttpErrorResponse)=>{
-  if(error.status ===401){    
-     this.dismiss();       
+  if(error.status ===401){        
     this.presentToast("Session timeout, please login to continue.");
     this.router.navigate(["/login"]);
  }
- else if(error.status ===400){    
-  this.dismiss();       
+ else if(error.status ===400){      
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
 }
@@ -165,13 +168,11 @@ this.paymentservice.receiptseries('BCAPP',token).subscribe(res=>{
 this.voucher_count=res;
 console.log(this.voucher_count)
 },(error:HttpErrorResponse)=>{
-  if(error.status ===401){    
-     this.dismiss();       
+  if(error.status ===401){           
     this.presentToast("Session timeout, please login to continue.");
     this.router.navigate(["/login"]);
  }
- else if(error.status ===400){    
-  this.dismiss();       
+ else if(error.status ===400){         
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
 }
@@ -181,13 +182,11 @@ this.paymentservice.receiptseries1('BCAPP',token).subscribe(res=>{
   this.Receipt_code=res;
   console.log(this.Receipt_code)
   },(error:HttpErrorResponse)=>{
-    if(error.status ===401){    
-       this.dismiss();       
+    if(error.status ===401){          
       this.presentToast("Session timeout, please login to continue.");
       this.router.navigate(["/login"]);
    }
-   else if(error.status ===400){    
-    this.dismiss();       
+   else if(error.status ===400){         
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
   }
@@ -227,9 +226,9 @@ for (let i=0;i<this.result.length;i++){
 
   this.post_id= localStorage.getItem('col_id')
   this.nedate = new Date();
-  this.day = moment(this.nedate.toLocaleString()).format("DD");
-  this.month = moment(this.nedate.toLocaleString()).format("MM");
-  this.year = moment(this.nedate.toLocaleString()).format("YYYY");
+  // this.day = moment(this.nedate.toLocaleString()).format("DD");
+  // this.month = moment(this.nedate.toLocaleString()).format("MM");
+  // this.year = moment(this.nedate.toLocaleString()).format("YYYY");
   this.submitForm = new FormGroup({
   formArrayName: this.fb.array([])
   })
@@ -280,26 +279,22 @@ for (let i=0;i<this.result.length;i++){
 
 
 submitfunction(s){
-  
+    this.present();
     if(this.totals<200000 && this.total1==true){
     this.submitcash(s);
     }
     else{
+      this.dismiss();
       console.log("max limit")
       this.presentToast1("You have exceeded the Cash limit of ₹2 lakh/day")
     }
   
 }
 
-submitcash(s) {
-  this.present();
-  this.sampletest = s.formArrayName;
+ submitcash(s) {
+ this.sampletest = s.formArrayName;
   console.log(this.sampletest)
-//  let result = Array.from(this.sampletest_check, o=> Object.fromEntries(<any>Object.entries(o).filter((i) => i[1] != (null || ''))));
-// console.log(result)
-// this.sampletest=result
-  let token=localStorage.getItem("tokens");
-  this.paymentservice.cash_details(this.sampledata1,token).subscribe(res => {
+ this.paymentservice.cash_details(this.sampledata1,localStorage.getItem("tokens")).subscribe(res => {
   console.log(res);
   this.receipt_res = res;
   if (this.receipt_res != null) {
@@ -327,7 +322,7 @@ submitcash(s) {
   this.ReceiptTable1.push(this.ReceiptTable);
   console.log(this.ReceiptTable1);
   }
-  this.paymentservice.receipt_update(this.ReceiptTable1,token).subscribe(res => {
+  this.paymentservice.receipt_update(this.ReceiptTable1,localStorage.getItem("tokens")).subscribe(res => {
   console.log(res);
   this.res_status = res;
   console.log(this.res_status)
@@ -379,9 +374,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -411,9 +406,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -443,9 +438,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -475,9 +470,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -511,9 +506,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -536,16 +531,16 @@ console.log(this.sampletest[i].interest)
   },
   {
   "Amount": this.sampletest[i].amountpayable,
-    "CurrentDue":this.sampletest[i].amountreceived,
-    "B_Group":this.B_Groups[i],
+  "CurrentDue":this.sampletest[i].amountreceived,
+  "B_Group":this.B_Groups[i],
   "NPArrear":this.sampletest[i].nonprizedarrear,
   "IsDeleted": 0,
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -575,9 +570,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -607,9 +602,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -643,9 +638,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -675,9 +670,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -707,9 +702,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -739,9 +734,9 @@ console.log(this.sampletest[i].interest)
   "MemberID": this.sampletest[i].memberid,
   "ReceievedBy": "admin",
   "Series": "BCAPP",
-  "T_Day": this.day,
-  "T_Month": this.month,
-  "T_Year": this.year,
+  "T_Day": format(new Date(this.nedate), "dd"),
+  "T_Month": format(new Date(this.nedate), "MM"),
+  "T_Year": format(new Date(this.nedate), "yyyy"),
   "Trans_Medium": "0",
   "Trans_Type": "1",
   "TransactionKey": 0,
@@ -774,80 +769,86 @@ console.log(this.sampletest[i].interest)
   }
   }
   }
-  this.paymentservice.post_vouchercash(this.cashdata1,token).subscribe(res => {
-  if (res) {
-  this.dismiss();
-  this.voucher_res = res;
-  this.presentToast('sucessfully updated');
-   let navigationExtras: NavigationExtras = {
-    queryParams: { state:JSON.stringify(this.voucher_res )},
-    // skipLocationChange: true
-    };
-    console.log(this.voucher_res)
-    this.router.navigate(['/cashprint'],navigationExtras)
-  
+  if(this.cashdata1){
+    this.cashfunction(this.cashdata1)
+  }
+ 
   }
   else {
-  alert('voucher error');
+  // alert('error');
+  // loading.dismiss();
   this.dismiss();
   }
-  }
-
-  ,(error:HttpErrorResponse)=>{
+  } ,(error:HttpErrorResponse)=>{
     if(error.status ===401){    
-       this.dismiss();       
+      this.dismiss();
       this.presentToast("Session timeout, please login to continue.");
       this.router.navigate(["/login"]);
-   }
-   else if(error.status ===400){    
-    this.dismiss();       
+     }
+     else if(error.status ===400){   
+    this.dismiss();
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+   }else{
+    this.dismiss();
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
- }
+   }
+  })
   }
-  
-  );
-  }
-  else {
-  alert('error');
-  this.dismiss();
-  }
-  }
-    ,(error:HttpErrorResponse)=>{
+ 
+
+
+  },(error:HttpErrorResponse)=>{
+    if(error.status ===401){    
+      this.dismiss();
+      this.presentToast("Session timeout, please login to continue.");
+      this.router.navigate(["/login"]);
+     }
+     else if(error.status ===400){   
+    this.dismiss();
+      this.presentToast("Server Error! Please try login again.");
+      this.router.navigate(["/login"]);
+   }else{
+    this.dismiss();
+    this.presentToast("Server Error! Please try login again.");
+    this.router.navigate(["/login"]);
+   }
+  })
+
+}
+
+cashfunction(data:any){
+  this.paymentservice.post_vouchercash(data,localStorage.getItem("tokens")).subscribe((res:Observable<any>) => {
+    if(res){
+      this.voucher_res = res;
+      this.dismiss();
+      this.presentToast('sucessfully updated');
+       let navigationExtras: NavigationExtras = {
+        queryParams: { state:JSON.stringify(this.voucher_res )},
+        // skipLocationChange: true
+        };
+        console.log(this.voucher_res)
+        this.router.navigate(['/cashprint'],navigationExtras)
+    }
+},(error:HttpErrorResponse)=>{
   if(error.status ===401){    
-     this.dismiss();       
+    this.dismiss();
     this.presentToast("Session timeout, please login to continue.");
     this.router.navigate(["/login"]);
- }
- else if(error.status ===400){   
-  this.dismiss();        
-  this.presentToast("Server Error! Please try login again.");
-  this.router.navigate(["/login"]);
-}
- else{
-   this.dismiss();
-   alert('server error');
- }
-
-})
-  }
-  }
-  ,(error:HttpErrorResponse)=>{
-    if(error.status ===401){    
-       this.dismiss();       
-      this.presentToast("Session timeout, please login to continue.");
-      this.router.navigate(["/login"]);
    }
-   else if(error.status ===400){
-    this.dismiss();           
+   else if(error.status ===400){   
+  this.dismiss();
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
+ }else{
+  this.dismiss();
+  this.presentToast("Server Error! Please try login again.");
+  this.router.navigate(["/login"]);
  }
-  }
-  
-  )
-
+})
 }
+
   logout() {
   this.router.navigateByUrl('login');
   localStorage.clear();

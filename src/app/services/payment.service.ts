@@ -16,7 +16,7 @@ export class PaymentService {
 cash_details(branch,token){
   return this.http.post('ReceiptTable/AddList?token='+token,branch)
 }
-post_vouchercash(cashvoucher,token){
+post_vouchercash(cashvoucher,token):Observable<any>{
   return this.http.post('VoucherCreditDebit/AddList?token='+token,cashvoucher)
 
 }

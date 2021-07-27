@@ -193,14 +193,16 @@
   }
     }
     gotolist(){
+      console.log(this.userlist4)
       this.Extra_amountchits=[];
       this.v1_amountchits=[];
       for(var i=0; i<this.arrayvalue.length;i++){
         if(this.arrayvalue[i].PrizedArrier=='0.00' && this.arrayvalue[i].NonPrizedArrier=='0.00' && this.arrayvalue[i].Interest=='0' && this.arrayvalue[i].CurrentDueAmount=='0.00')  this.Extra_amountchits.push(this.arrayvalue[i])
        }
-       for(var i=0; i<this.userlist3.length;i++){
-        if(this.userlist3[i].PrizedArrier !='0.00' && this.userlist3[i].NonPrizedArrier =='0.00' || this.userlist3[i].Interest !='0' || this.userlist3[i].CurrentDueAmount !='0.00')  this.v1_amountchits.push(this.userlist3[i])
+       for(var i=0; i<this.userlist4.length;i++){
+        if(this.userlist4[i].PrizedArrier !='0.00' || this.userlist4[i].NonPrizedArrier !='0.00' || this.userlist4[i].Interest !='0' || this.userlist4[i].CurrentDueAmount !='0.00')  this.v1_amountchits.push(this.userlist4[i])
           }
+          console.log(this.v1_amountchits)
       if(this.arrayvalue?.length !=0){
         if(this.blocked_chits?.length !=0){
           this.presentToast("chit's are blocked. Please contact admin");
@@ -224,7 +226,7 @@
             this.router.navigate(["/subscribe-list/newcustomer-payment"],navigationExtras)
           }else if(this.Extra_amountchits.length !=0){
 
-             if(this.v1_amountchits.length !=0){
+             if( this.userlist3[0]?.IsPrized=='N' || this.userlist3[0]?.IsPrized=='Y' && this.v1_amountchits?.length !=0){
               this.presentToast("You're having arrear amount chit so excess amount chit cannot be paid");
              }else{
               let data = JSON.stringify(this.arrayvalue)

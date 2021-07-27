@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebIntent } from '@ionic-native/web-intent/ngx';
 import { AlertController, LoadingController, Platform, ToastController } from '@ionic/angular';
+import { format } from 'date-fns';
 import * as moment from 'moment';
 import { SubscriberApiService } from '../../subscriber-api.service';
 
@@ -390,9 +391,9 @@ const loading = await this.loadingController.create({
 });
 await loading.present();
 this.nedate = new Date();
-this.day = moment(this.nedate.toLocaleString()).format("DD");
-this.month = moment(this.nedate.toLocaleString()).format("MM");
-this.year = moment(this.nedate.toLocaleString()).format("YYYY");
+// this.day = moment(this.nedate.toLocaleString()).format("DD");
+// this.month = moment(this.nedate.toLocaleString()).format("MM");
+// this.year = moment(this.nedate.toLocaleString()).format("YYYY");
 
 //this.day=d.getDate();
 //this.month=d.getMonth()+1;
@@ -448,9 +449,9 @@ this.payment_data = [
   ReceievedBy: "admin",
   RootID: "",
   Series:"CPAPP",
-  T_Day: this.day,
-  T_Month: this.month,
-  T_Year: this.year,
+  T_Day: format(new Date(this.nedate), "dd"),
+  T_Month: format(new Date(this.nedate), "MM"),
+  T_Year: format(new Date(this.nedate), "yyyy"),
   Trans_Medium:"0",
   Trans_Type: "1", 
   TransactionKey:0, 
@@ -483,9 +484,9 @@ this.payment_data = [
   RootID: "",
   Series:"CPAPP",
   
-   T_Day: this.day,
-  T_Month: this.month,
-  T_Year: this.year,
+  T_Day: format(new Date(this.nedate), "dd"),
+  T_Month: format(new Date(this.nedate), "MM"),
+  T_Year: format(new Date(this.nedate), "yyyy"),
   Trans_Medium:"0",
   Trans_Type: "1", 
   TransactionKey:0, 
@@ -522,9 +523,9 @@ this.payment_data = [
   ReceievedBy: "admin",
   RootID: "",
   Series:"CPAPP",
-  T_Day: this.day,
-  T_Month: this.month,
-  T_Year: this.year,
+  T_Day: format(new Date(this.nedate), "dd"),
+    T_Month: format(new Date(this.nedate), "MM"),
+    T_Year: format(new Date(this.nedate), "yyyy"),
   Trans_Medium:"0",
   Trans_Type: "1", 
   TransactionKey:0, 
@@ -556,9 +557,9 @@ this.payment_data = [
   ReceievedBy: "admin",
   RootID: "",
   Series:"CPAPP",
-  T_Day: this.day,
-  T_Month: this.month,
-  T_Year: this.year,
+  T_Day: format(new Date(this.nedate), "dd"),
+    T_Month: format(new Date(this.nedate), "MM"),
+    T_Year: format(new Date(this.nedate), "yyyy"),
   Trans_Medium:"0",
   Trans_Type: "1", 
   TransactionKey:0, 
@@ -594,9 +595,9 @@ this.payment_data = [
   ReceievedBy: "admin",
   RootID: "",
   Series:"CPAPP",
-  T_Day: this.day,
-  T_Month: this.month,
-  T_Year: this.year,
+  T_Day: format(new Date(this.nedate), "dd"),
+  T_Month: format(new Date(this.nedate), "MM"),
+  T_Year: format(new Date(this.nedate), "yyyy"),
   Trans_Medium:"0",
   Trans_Type: "1", 
   TransactionKey:0, 
@@ -628,9 +629,9 @@ this.payment_data = [
   ReceievedBy: "admin",
   RootID: "",
   Series:"CPAPP",
-  T_Day: this.day,
-  T_Month: this.month,
-  T_Year: this.year,
+  T_Day: format(new Date(this.nedate), "dd"),
+  T_Month: format(new Date(this.nedate), "MM"),
+  T_Year: format(new Date(this.nedate), "yyyy"),
   Trans_Medium:"0",
   Trans_Type: "1", 
   TransactionKey:0, 
