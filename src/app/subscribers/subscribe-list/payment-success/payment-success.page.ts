@@ -96,4 +96,7 @@ async  method(data) {
   previous(){
     this.router.navigate(["/subscribe-list"])
   }
+  indianRupeeFormat(val: number) {
+    return Number(val).toLocaleString('en-IN');
+  }
 }

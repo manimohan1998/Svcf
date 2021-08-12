@@ -30,6 +30,7 @@ show:boolean=false;
 history_total:any;
 history_tot:any;
 	show1: boolean;
+	grandtotal: any=[];
 constructor(public fb: FormBuilder,private toast:Toast,public loadingController: LoadingController, private paymentservice:PaymentService,private router: Router,private route: ActivatedRoute) {
 this.route.queryParams.subscribe(params => {
 if (this.router.getCurrentNavigation().extras.state) {
@@ -99,6 +100,7 @@ for(let i=0;i<this.receipt_history.length;i++){
 })
 	console.log(this.history_tot)
 }
+this.grandtotal=this.history_tot.replace(/,/g, '');
 }
 
 },(error:HttpErrorResponse)=>{
@@ -146,6 +148,9 @@ async dismiss() {
 this.isLoading = false;
 return await this.loadingController.dismiss().then(() => console.log('dismissed'));
 }
+indianRupeeFormat(val: number) {
+	return Number(val).toLocaleString('en-IN');
+  }
 }
 
 

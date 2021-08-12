@@ -83,7 +83,7 @@
               <p>:</p>
             </td>
             <td>
-              <span>{{val.CurrentDueAmount}}</span>
+              <span> ₹ {{indianRupeeFormat(val.CurrentDueAmount)}}</span>
             </td>
           </tr>
 
@@ -94,7 +94,9 @@
               <p>:</p>
             </td>
             <td>
-              <span>{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</span>
+              <!-- <span>{{val.IsPrized === 'Y'?val.PrizedArrier:val.NonPrizedArrier}}</span> -->
+              <span *ngIf="val.IsPrized === 'Y'"> ₹ {{indianRupeeFormat(val.PrizedArrier)}}</span>
+              <span *ngIf="val.IsPrized === 'N'"> ₹ {{indianRupeeFormat(val.NonPrizedArrier)}}</span>
             </td>
           </tr>
 
@@ -105,7 +107,7 @@
               <p>:</p>
             </td>
             <td>
-              <span>{{val.Interest}}</span>
+              <span>₹ {{indianRupeeFormat(val.Interest)}}</span>
             </td>
           </tr>
           <tr *ngIf="val.IsBlocked==1">
@@ -127,7 +129,7 @@
     </div>
     <div class="bottom_sec">
       <p size="6"></p>
-      <p size="6">Total paid : <span>₹ {{val.TotalPaid}}</span></p>
+      <p size="6">Total paid : <span>₹ {{indianRupeeFormat(val.TotalPaid)}}</span></p>
     </div>
   </ion-card>
   <hr class="as-hr-s" >

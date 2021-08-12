@@ -62,7 +62,9 @@ ngOnInit() {
   localStorage.clear();
   
   }
-  
+  indianRupeeFormat(val: number) {
+    return Number(val).toLocaleString('en-IN');
+  }
   done(){
   //  this.presentToast('Payments may take upto 3 working days to get reflected in your account')
   this.router.navigateByUrl('dashboard')

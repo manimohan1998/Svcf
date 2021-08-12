@@ -23,12 +23,12 @@
                 <div [formGroupName]="i">
                     <ion-card>
                     <ion-card-header>
-                    <p class="as-m-0">Chit Value<span>₹ {{n?.totalchitvalue}}</span></p>
+                    <p class="as-m-0">Chit Value<span>₹ {{indianRupeeFormat(n?.totalchitvalue)}}</span></p>
                     <p class="chit_no as-m-0">{{n?.groupno}}</p>
 
                     </ion-card-header>
                     <ion-card-content>
-                   <p class="payable">Amount payable<span>₹ {{n?.TotalPayable}}</span></p>
+                   <p class="payable">Amount payable<span>₹ {{indianRupeeFormat(n?.TotalPayable)}}</span></p>
           <div class="inner">
                     <ion-item >
                      <ion-label position="stacked">Current Due</ion-label>

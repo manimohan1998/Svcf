@@ -24,21 +24,21 @@ export class ShowChitsPage implements OnInit {
         this.subscribeServ.allchitsdetails(this.chitdetails.Head_Id,token).subscribe((res)=>{
         console.log(res)
         this.details=res['chits']
-        })
-     },(error:HttpErrorResponse)=>{
-      if(error.status ===401){          
-        this.presentToast("Session timeout, please login to continue.");
+        },(error:HttpErrorResponse)=>{
+          if(error.status ===401){          
+            this.presentToast("Session timeout, please login to continue.");
+            this.router.navigate(["/login"]);
+         }
+         else if(error.status ===400){       
+          this.presentToast("Server Error! Please try login again.");
+          this.router.navigate(["/login"]);
+       }
+       else{
+        this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
-     }
-     else if(error.status ===400){       
-      this.presentToast("Server Error! Please try login again.");
-      this.router.navigate(["/login"]);
-   }
-   else{
-    this.presentToast("Server Error! Please try login again.");
-    this.router.navigate(["/login"]);
-   }
-   })
+       }})
+     })
+   
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
@@ -65,5 +65,7 @@ export class ShowChitsPage implements OnInit {
     }
     return headers;
   }
-
+  indianRupeeFormat(val: number) {
+    return Number(val).toLocaleString('en-IN');
+  }
 }

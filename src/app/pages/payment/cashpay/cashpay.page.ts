@@ -886,4 +886,8 @@ cashfunction(data:any){
     console.log(toast);
     });
     }
+
+    indianRupeeFormat(val: number) {
+      return Number(val).toLocaleString('en-IN');
+    }
   }

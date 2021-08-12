@@ -927,6 +927,9 @@ import { format } from 'date-fns';
     while (s.length < size) s = "0" + s;
     return s;
     }
+    indianRupeeFormat(val: number) {
+      return Number(val).toLocaleString('en-IN');
+    }
     ionViewWillLeave(){
 
     }

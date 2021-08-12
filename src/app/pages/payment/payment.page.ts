@@ -247,6 +247,8 @@ this.presentToast("Chit Number is blocked, Please Contact admin")
            });
             toast.present();
         }
-        
+        indianRupeeFormat(val: number) {
+          return Number(val).toLocaleString('en-IN');
+        }
         
         }

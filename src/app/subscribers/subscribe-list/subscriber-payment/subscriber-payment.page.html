@@ -20,7 +20,7 @@
 
           <ion-card>
             <ion-card-header>
-              <p class="as-m-0">Chit Value:<span>₹ {{this.payment_details[i].ChitValue}}</span></p>
+              <p class="as-m-0">Chit Value:<span>₹ {{indianRupeeFormat(this.payment_details[i].ChitValue)}}</span></p>
               <p class="chit_no as-m-0">{{this.payment_details[i].ChitNo}}</p>
             </ion-card-header>
             <ion-card-content class="chit_details_sec">
@@ -50,7 +50,7 @@
               </ion-item> -->
               <p class="total">
                 Total<span>
-                  ₹ {{this.total_details[i]}}</span>
+                  ₹ {{indianRupeeFormat(this.total_details[i])}}</span>
               </p>
               <!-- <ion-item>
           <ion-label position="floating">Other Amount</ion-label>
@@ -61,7 +61,7 @@
           </ion-card>
         </div>
       </ion-list>
-      <p class="grand_total">Grand Total<span>₹ {{this.num}}</span>
+      <p class="grand_total">Grand Total<span>₹ {{indianRupeeFormat(this.num)}}</span>
       </p>
       <section>
 

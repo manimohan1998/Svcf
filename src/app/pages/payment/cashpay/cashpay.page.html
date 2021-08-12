@@ -23,7 +23,7 @@
       <div [formGroupName]="i">
         <ion-card>
         <ion-card-header>
-        <p class="as-m-0">Chit Value<span>₹ {{d.totalchit}}</span></p>
+        <p class="as-m-0">Chit Value<span>₹ {{indianRupeeFormat(d.totalchit)}}</span></p>
         <p class="chit_no as-m-0">{{d.groupno}}</p>
         </ion-card-header>
         <ion-card-content>

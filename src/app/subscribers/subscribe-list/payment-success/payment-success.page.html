@@ -58,24 +58,24 @@
               <td>{{data[0]?.ChitNumber}}</td>
             </tr>
             <tr>
-              <th>Amount</th>
+              <th>Amount Paid</th>
               <td>:</td>
-              <td>{{data[0]?.Amount}}</td>
+              <td> ₹ {{indianRupeeFormat(data[0]?.Amount)}}</td>
             </tr>
-            <tr>
+            <!-- <tr>
               <th>Current Due</th>
               <td>:</td>
               <td>{{data[0]?.CurrentDue}}</td>
             </tr>
-          
+           -->
 
             <tr>
-              <th>Current Inst No</th>
+              <th>Installment No</th>
               <td>:</td>
               <td>{{data[0].CurrentInstno}}</td>
             </tr>
 
-            <tr>
+            <!-- <tr>
               <th>Arrears</th>
               <td>:</td>
               <td *ngIf="data[0].NPArrear!= 0">₹
@@ -83,11 +83,11 @@
               <td *ngIf="data[0].PArrear!= 0">₹
                  {{data[0].PArrear}}</td>
 
-            </tr>
+            </tr> -->
             <tr>
               <th>Interest</th>
               <td>:</td>
-              <td>{{data[0]?.Interest}}</td>
+              <td> ₹ {{indianRupeeFormat(data[0]?.Interest)}}</td>
             </tr>
             <!-- <tr>
               <th>Total paid</th>
@@ -98,7 +98,7 @@
           </tbody>
         </table>
         <div class="space_margin">
-          <p class="grand_total"> Total<span>₹ {{data[0]?.TotalPaid}}</span></p>
+          <p class="grand_total"> Total<span>₹ {{indianRupeeFormat(data[0]?.TotalPaid)}}</span></p>
         </div>
       </div>
       </ion-card-content>

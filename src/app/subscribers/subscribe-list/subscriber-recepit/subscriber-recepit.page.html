@@ -37,7 +37,7 @@
       </section>
   </form>
   </section>
-  <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{this.grandtotal}}</span>
+  <p *ngIf="this.arrears.length !==0" class="grand_total">Grand Total:<span>Rs.{{indianRupeeFormat(this.grandtotal)}}</span>
   </p>
   <div scrollX="true" scrollY="true" id="scroll-list">
   <div *ngFor="let data of receiptdata;let i=index">
@@ -78,7 +78,7 @@
             <table class="table receipt_amts">
               <tbody>
                 <tr>
-                  <th>chitNo</th>
+                  <th>ChitNo</th>
                   <td>:</td>
                   <td>{{data.chitNo}}</td>
                 </tr>
@@ -94,7 +94,7 @@
                   <td>Rs.{{data.currentDue}}</td>
                 </tr> -->
                 <tr>
-                  <th>Current Inst No</th>
+                  <th>Installment No</th>
                   <td>:</td>
                   <td>{{data.CurrentInstNo}}</td>
                 </tr>
@@ -108,10 +108,9 @@
                   <tr>
                     <th>Interest</th>
                     <td>:</td>
-                    <td>Rs. {{data.interest}}</td>
+                    <td>Rs. {{indianRupeeFormat(data.interest)}}</td>
                   </tr>
-                  <tr>
-               
+                  
                   <!-- <tr>
                   <th>Penalty For Over Due</th>
                   <td>:</td>
@@ -132,6 +131,17 @@
                   <td>:</td>
                   <td>{{data.paidDate|date:'HH:mm a'}}</td>
                 </tr>
+                <tr>
+                  <tr *ngIf="data.isAccepted=='1'"> 
+                    <th>Status</th>
+                    <td>:</td>
+                    <td *ngIf="data.isAccepted=='1'" style="color:green">Accepted</td>
+                  </tr>
+                  <tr *ngIf="data.isAccepted=='2'"> 
+                    <th>Status</th>
+                    <td>:</td>
+                    <td *ngIf="data.isAccepted=='2'"  style="color:red">Rejected</td>
+                  </tr>
                 <!-- <tr>
                   <th>Other Receipts</th>
                   <td>:</td>
@@ -139,7 +149,7 @@
                 </tr> -->
               </tbody>
             </table>
-            <p  class="grand_total">Total:<span>Rs.{{data.Total}}</span>
+            <p  class="grand_total">Total:<span>Rs.{{indianRupeeFormat(data.Total)}}</span>
             </p>
           </div>
       </ion-card-content>

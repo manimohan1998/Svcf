@@ -43,7 +43,7 @@
   <section class="payment" *ngIf="length != 0">
     <p *ngIf="show == true" class="total">
       Total<span>
-      ₹ {{history_tot}}</span>
+      ₹ {{indianRupeeFormat(grandtotal)}}</span>
     </p>
   <div *ngFor="let p of receipt_history" class="history_card">
     <ion-card class="card_bg">
@@ -157,17 +157,17 @@
            <tr>
             <th>Amount Received</th>
             <td>:</td>
-            <td>{{p.Amount===''?'0.00':p.Amount}}</td>
+            <td>{{p.Amount===''?'0.00':indianRupeeFormat(p.Amount)}}</td>
           </tr>
           <tr>
             <th>Interest</th>
             <td>:</td>
-            <td>{{p.interest===''?'0.00':p.interest}}</td>
+            <td>{{p.interest===''?'0.00':indianRupeeFormat(p.interest)}}</td>
           </tr>
             <tr>
             <th>Other Receipts</th>
             <td>:</td>
-            <td>{{p.otherReceipts===''?'0.00':p.otherReceipts}}</td>
+            <td>{{p.otherReceipts===''?'0.00':indianRupeeFormat(p.otherReceipts)}}</td>
           </tr>
           <tr *ngIf="p.isAccepted=='1'"> 
             <th>Status</th>
@@ -183,7 +183,7 @@
       </table>
       <div class="space_margin">
         <p class="grand_total">Total<span>₹
- {{p.total}}</span></p>
+ {{indianRupeeFormat(p.total)}}</span></p>
       </div>
       <p  class="sig"><span>Note: </span> This is a computer generated Receipt hence signature is not required</p>
     </div>

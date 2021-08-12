@@ -64,6 +64,7 @@ export class PayeccessAmountPage implements OnInit {
 totals: number;
 enteramount: any;
 enteramounts: any=[];
+valid:any=[]
 constructor(private formBuilder: FormBuilder,public toastController: ToastController, public subscribeServ: SubscriberApiService, private router:Router,public route: ActivatedRoute,public loadingController: LoadingController,
   public platform:Platform,public alertController: AlertController,private webIntent: WebIntent) {
   this.route.queryParams.subscribe(params => {
@@ -209,7 +210,14 @@ console.log(this.payment_details)
 // }
 submit(){
     //  this.newcheck('8')
-    if(this.num>0){
+    this.valid=[]
+    for(let i=0;i<this.PaymentForm.get('AmountDetails')?.value.length;i++){
+      if(this.total_details[i]==0 || this.total_details[i]==" "){
+      this.valid.push("invalid")
+      }
+      
+    }
+    if(this.num>0  && this.valid.length==0){
       let memidnew=localStorage.getItem('exememberid')
       let token=localStorage.getItem('token')
       this.subscribeServ.duplicantpaymentdetails(token).subscribe(res=>{
@@ -715,5 +723,8 @@ ionViewWillLeave(){
   this.payment_details=[];
   this.grandtotal=[];
   
+}
+indianRupeeFormat(val: number) {
+  return Number(val).toLocaleString('en-IN');
 }
 }

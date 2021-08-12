@@ -260,5 +260,8 @@
           this.presentToast(" This Chit Number " +val.ChitNo+ ` is blocked , Due to ${val.BlockReason}`);
         }
       }
+      indianRupeeFormat(val: number) {
+        return Number(val).toLocaleString('en-IN');
+      }
     }
 

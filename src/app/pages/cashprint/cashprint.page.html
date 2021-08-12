@@ -89,7 +89,7 @@
           <tr>
             <th>Amount Received</th>
             <td>:</td>
-            <td>{{p.amount===''?'0.00':p.amount}}</td>
+            <td>{{p.amount===''?'0.00':indianRupeeFormat(p.amount)}}</td>
           </tr>
        <!--    <tr>
             <th>Current Due</th>
@@ -109,17 +109,17 @@
           <tr>
             <th>Interest</th>
             <td>:</td>
-            <td>{{p.penaltyForOverdue===''?'0.00':p.penaltyForOverdue}}</td>
+            <td>{{p.penaltyForOverdue===''?'0.00':indianRupeeFormat(p.penaltyForOverdue)}}</td>
           </tr>
           <tr>
             <th>Other Receipts</th>
             <td>:</td>
-            <td>{{p.otherReceipts===''?'0.00':p.otherReceipts}}</td>
+            <td>{{p.otherReceipts===''?'0.00':indianRupeeFormat(p.otherReceipts)}}</td>
           </tr>
         </tbody>
       </table>
       <div class="space_margin">
-        <p class="grand_total"> Total Paid<span>₹ {{p?.total}}</span></p>
+        <p class="grand_total"> Total Paid<span>₹ {{indianRupeeFormat(p?.total)}}</span></p>
       </div>
     </div>
     </ion-card-content>

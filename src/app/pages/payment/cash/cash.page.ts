@@ -298,5 +298,7 @@ CheckSpace(event)
       return false;
    }
 }
-
+indianRupeeFormat(val: number) {
+  return Number(val).toLocaleString('en-IN');
+}
 }

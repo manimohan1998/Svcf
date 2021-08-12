@@ -113,6 +113,7 @@ this.router.navigate(["/subscribe-list"])
       }
        else{
          this.presentToast("Start date should be less than end date");
+         loading.dismiss();
        }
     
 
@@ -167,7 +168,9 @@ shareViaSMS(img) {
             alert('Sharing via SMS Not enabled');
          });
    }
-   
+   indianRupeeFormat(val: number) {
+      return Number(val).toLocaleString('en-IN');
+    }
   }
 
 

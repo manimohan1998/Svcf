@@ -82,7 +82,7 @@
           <p>:</p>
         </td>
         <td>
-          <span> ₹ {{value?.CurrentDueAmount}}</span>
+          <span> ₹ {{indianRupeeFormat(value?.CurrentDueAmount)}}</span>
         </td>
       </tr>
       <tr >
@@ -91,8 +91,8 @@
           <p>:</p>
         </td>
         <td>
-          <p *ngIf="value?.isprized === 'Non-Prized'"> <span>₹ {{value?.NonPrizedArrear}}</span></p>
-          <p *ngIf="value?.isprized === 'Prized'"><span>₹ {{value?.PrizedArrear}}</span></p>
+          <p *ngIf="value?.isprized === 'Non-Prized'"> <span>₹ {{indianRupeeFormat(value?.NonPrizedArrear)}}</span></p>
+          <p *ngIf="value?.isprized === 'Prized'"><span>₹ {{indianRupeeFormat(value?.PrizedArrear)}}</span></p>
         </td>
       </tr>
     </tbody>
@@ -104,7 +104,7 @@
 -->    </div>
 <div class="bottom_sec">
 <!--   <p size="6">Current Due ₹ <span>{{value?.CurrentDueAmount}}</span></p>
- -->  <p size="6" class="as-m-0">Chit Value  ₹ <span>{{value?.totalchitvalue}}</span></p>
+ -->  <p size="6" class="as-m-0">Chit Value  ₹ <span>{{indianRupeeFormat(value?.totalchitvalue)}}</span></p>
  <p size="6" class="as-m-0" *ngIf="value.IsBlocked==1" style="color:#F00A0A;"> Blocked</p>
 </div>
 </ion-card>
