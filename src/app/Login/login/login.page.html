@@ -37,20 +37,23 @@
             <section>
               <ion-button expand="block" [disabled]="!loginForm.valid" type="ngSubmit" class="btn">Sign in</ion-button>
             </section>
+            <div class="route_link_sec" *ngIf="Forgots">
+              <section>
+                <a (click)="Forgot()" class="root_link">Forgot Password?</a>
+              </section>
+            </div>
           </ion-list>
         </form>
       </ion-card-content>
     </ion-card>
 
     <div class="route_link_sec" *ngIf="Forgots">
-      <section>
+      <!-- <section>
         <a (click)="Forgot()" class="root_link">Forgot Password?</a>
-      </section>
-     <!--  <section>
-        <p>Don't have an account?
-          <a class="root_link">Sign up</a>
-        </p>
       </section> -->
-    </div>
+      <section>
+        <a (click)="terms()" class="root_link">Terms & Conditions</a>
+      </section>
+ </div>
   </ion-content>
 </ion-app>

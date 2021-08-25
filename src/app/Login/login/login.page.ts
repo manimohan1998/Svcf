@@ -177,5 +177,7 @@ export class LoginPage implements OnInit {
   ionViewWillLeave(){
     this.loginForm.reset();
   }
-  
+  terms(){
+    this.router.navigate(['/termscondition'])
+  }
 }

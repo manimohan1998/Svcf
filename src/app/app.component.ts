@@ -83,7 +83,7 @@ export class AppComponent {
         else if(window.location.pathname=="/subscribe-list/newcustomer-payment"){
           this.router.navigate(['/subscribe-list/payforothers'])
         }
-        else if(window.location.pathname=="/forgot-password" || window.location.pathname=="/reset-password"){
+        else if(window.location.pathname=="/forgot-password" || window.location.pathname=="/reset-password" || window.location.pathname=="/termscondition"){
           this.router.navigate(['/login'])
         }
         else if( window.location.pathname=="/reset"){

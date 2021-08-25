@@ -449,7 +449,7 @@ this.payment_data = [
   ISActive:true,
   IsAccepted:"0",
   IsDeleted:0,
-  M_Id:this.personal[0].MemberIDNew, 
+  M_Id:this.grandtotal[i].MoneyCollId, 
   MemberID: this.personal[0].MemberIDNew,
   MoneyCollId:this.grandtotal[i].MoneyCollId,
   
@@ -483,7 +483,7 @@ this.payment_data = [
   ISActive:true,
   IsAccepted:"0",
   IsDeleted:0,
-  M_Id:this.personal[0].MemberIDNew, 
+  M_Id:this.grandtotal[i].MoneyCollId, 
   MemberID: this.personal[0].MemberIDNew,
   MoneyCollId:this.grandtotal[i].MoneyCollId,
   
@@ -523,7 +523,7 @@ this.payment_data = [
   ISActive:true,
   IsAccepted:"0",
   IsDeleted:0,
-  M_Id:this.personal[0].MemberIDNew, 
+  M_Id:this.grandtotal[i].MoneyCollId, 
   MemberID: this.personal[0].MemberIDNew,
   MoneyCollId:this.grandtotal[i].MoneyCollId,
   
@@ -557,7 +557,7 @@ this.payment_data = [
   ISActive:true,
   IsAccepted:"0",
   IsDeleted:0,
-  M_Id:this.personal[0].MemberIDNew, 
+  M_Id:this.grandtotal[i].MoneyCollId, 
   MemberID: this.personal[0].MemberIDNew,
   MoneyCollId:this.grandtotal[i].MoneyCollId,
   
@@ -595,7 +595,7 @@ this.payment_data = [
   ISActive:true,
   IsAccepted:"0",
   IsDeleted:0,
-  M_Id:this.personal[0].MemberIDNew, 
+  M_Id:this.grandtotal[i].MoneyCollId, 
   MemberID: this.personal[0].MemberIDNew,
   MoneyCollId:this.grandtotal[i].MoneyCollId,
   
@@ -629,7 +629,7 @@ this.payment_data = [
   ISActive:true,
   IsAccepted:"0",
   IsDeleted:0,
-  M_Id:this.personal[0].MemberIDNew, 
+  M_Id:this.grandtotal[i].MoneyCollId, 
   MemberID: this.personal[0].MemberIDNew,
   MoneyCollId:this.grandtotal[i].MoneyCollId,
   

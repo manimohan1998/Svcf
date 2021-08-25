@@ -46,7 +46,11 @@ const routes: Routes = [
   {
     path: 'selectapp',
     loadChildren: () => import('./selectapp/selectapp.module').then( m => m.SelectappPageModule)
+  },  {
+    path: 'termscondition',
+    loadChildren: () => import('./Login/termscondition/termscondition.module').then( m => m.TermsconditionPageModule)
   },
+
 
 
 ]; 
