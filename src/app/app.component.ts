@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ToastController } from '@ionic/angular';
+import { DashboardService } from '../app/services/dashboard.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 @Component({
@@ -23,12 +24,21 @@ export class AppComponent {
     public toastController: ToastController,
     public alertController:AlertController,
     public location:Location,
-    private router:Router
+    private router:Router,
+    private service:DashboardService
   ) {
    this.initializeApp();
+   this.offapp();
    this.backbutton()
   }
-
+offapp(){
+  if(navigator['app']?.exitApp()){
+    this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    
+    })
+  }
+  
+}
   initializeApp() {
     // this.statusBar.backgroundColorByHexString('#30ADFF');
     // this.splashScreen.hide();

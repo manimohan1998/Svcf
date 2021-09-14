@@ -12,4 +12,7 @@ export class DashboardService {
     return this.http.get('membertogroupmasterMid/MId?Mid='+mem_id+'&Token='+token);
 
   }
+  logout(id){
+    return this.http.get('UpdateLogoutStatus?id='+id)
+  }
 }

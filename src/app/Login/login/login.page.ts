@@ -103,7 +103,11 @@ export class LoginPage implements OnInit {
               this.dismiss();
               if(res[0]['IsBlocked']=="1"){
                 this.presentToast('You Account is blocked, please contact Admin');
-              }else{
+              }
+              else if(res[0]['IsLoggedIn']=="1"){
+                this.presentToast('Your Account is already loged in with anouther device')
+              }
+              else{
                 this.user_details = res;
                 console.log(res)
                 localStorage.setItem("tokens",this.user_details[0].JWTtoken)
