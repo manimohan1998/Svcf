@@ -9,6 +9,7 @@ import { LoadingController } from '@ionic/angular';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Toast } from '@ionic-native/toast/ngx';
 import { Observable } from 'rxjs';
+import { DashboardService } from 'src/app/services/dashboard.service';
 @Component({
 selector: 'app-payment',
 templateUrl: './cashpay.page.html',
@@ -77,7 +78,7 @@ B_Groups: any=[];
   todayvalue: any;
   userdata: any=[];
   total1: boolean;
-constructor(private fb: FormBuilder,private toast: Toast,private http: HttpClient, public loadingController: LoadingController, private router: Router, private route: ActivatedRoute, public paymentservice: PaymentService) {
+constructor(private fb: FormBuilder,public dashboardservice:DashboardService,private toast: Toast,private http: HttpClient, public loadingController: LoadingController, private router: Router, private route: ActivatedRoute, public paymentservice: PaymentService) {
 this.route.queryParams.subscribe(params => {
 if (this.router.getCurrentNavigation().extras.state) {
 this.new = this.router.getCurrentNavigation().extras.state.user6;
@@ -129,6 +130,8 @@ if(this.todaypaidamount>-1){
 ,(error:HttpErrorResponse)=>{
   if(error.status ===401){        
     this.presentToast("Session timeout, please login to continue.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
  }
  else if(error.status ===400){      
@@ -170,6 +173,8 @@ console.log(this.voucher_count)
 },(error:HttpErrorResponse)=>{
   if(error.status ===401){           
     this.presentToast("Session timeout, please login to continue.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
  }
  else if(error.status ===400){         
@@ -184,6 +189,8 @@ this.paymentservice.receiptseries1('BCAPP',token).subscribe(res=>{
   },(error:HttpErrorResponse)=>{
     if(error.status ===401){          
       this.presentToast("Session timeout, please login to continue.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
    }
    else if(error.status ===400){         
@@ -783,6 +790,8 @@ console.log(this.sampletest[i].interest)
     if(error.status ===401){    
       this.dismiss();
       this.presentToast("Session timeout, please login to continue.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
      }
      else if(error.status ===400){   
@@ -803,6 +812,8 @@ console.log(this.sampletest[i].interest)
     if(error.status ===401){    
       this.dismiss();
       this.presentToast("Session timeout, please login to continue.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
      }
      else if(error.status ===400){   
@@ -835,6 +846,8 @@ cashfunction(data:any){
   if(error.status ===401){    
     this.dismiss();
     this.presentToast("Session timeout, please login to continue.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
    }
    else if(error.status ===400){   

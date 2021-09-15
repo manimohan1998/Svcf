@@ -5,6 +5,7 @@ import { PaymentService } from '../../../services/payment.service';
 import { AlertController } from '@ionic/angular';
 import { Toast } from '@ionic-native/toast/ngx';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
 selector: 'app-payment',
@@ -39,7 +40,7 @@ grandtotal1:any;
   todayvalue: any;
   todaypaidamount: any;
   total1: boolean;
-constructor(private route: ActivatedRoute,private toast:Toast,public alertController: AlertController, private router: Router, private fb: FormBuilder, public paymentservice: PaymentService) {
+constructor(private route: ActivatedRoute,public dashboardservice:DashboardService,private toast:Toast,public alertController: AlertController, private router: Router, private fb: FormBuilder, public paymentservice: PaymentService) {
 this.route.queryParams.subscribe(params => {
 if (this.router.getCurrentNavigation().extras.state) {
 this.is = this.router.getCurrentNavigation().extras.state.user7;
@@ -198,6 +199,8 @@ if(this.todaypaidamount>-1){
 ,(error:HttpErrorResponse)=>{
   if(error.status ===401){    
     this.presentToast("Session timeout, please login to continue.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
  }
  else if(error.status ===400){    
@@ -280,7 +283,8 @@ handler: (blah) => {
 }, {
 text: 'Logout',
 handler: () => {
-
+  this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+  })
 this.router.navigate(['login']);
 localStorage.clear();
 }

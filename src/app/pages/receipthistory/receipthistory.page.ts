@@ -10,6 +10,7 @@ import { Toast } from '@ionic-native/toast/ngx';
 
 import { MatDateFormats, NativeDateAdapter } from '@angular/material/core';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DashboardService } from 'src/app/services/dashboard.service';
 @Component({
 selector: 'app-receipthistory',
 templateUrl: './receipthistory.page.html',
@@ -31,7 +32,7 @@ history_total:any;
 history_tot:any;
 	show1: boolean;
 	grandtotal: any=[];
-constructor(public fb: FormBuilder,private toast:Toast,public loadingController: LoadingController, private paymentservice:PaymentService,private router: Router,private route: ActivatedRoute) {
+constructor(public fb: FormBuilder,private toast:Toast,public dashboardservice:DashboardService,public loadingController: LoadingController, private paymentservice:PaymentService,private router: Router,private route: ActivatedRoute) {
 this.route.queryParams.subscribe(params => {
 if (this.router.getCurrentNavigation().extras.state) {
 this.value = this.router.getCurrentNavigation().extras.state.user;
@@ -107,6 +108,8 @@ this.grandtotal=this.history_tot.replace(/,/g, '');
 	if(error.status ===401){    
 		loading.dismiss();
 	  this.presentToast("Session timeout, please login to continue.");
+	  this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
 	  this.router.navigate(["/login"]);
    }
    else if(error.status ===400){   

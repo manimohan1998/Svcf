@@ -4,6 +4,7 @@ import { PaymentService } from '../../services/payment.service';
 import { environment } from '../../../environments/environment';
 import { AlertController, ToastController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DashboardService } from 'src/app/services/dashboard.service';
 @Component({
 selector: 'app-payment',
 templateUrl: './payment.page.html',
@@ -37,7 +38,7 @@ profile:any;
   avoid_chits: any[]=[];
   valid_chits: any[]=[];
   blocked: any[]=[];
-constructor(private route: ActivatedRoute,public alertController: AlertController, private router: Router,public paymentservice:PaymentService,
+constructor(private route: ActivatedRoute,public dashboardservice:DashboardService,public alertController: AlertController, private router: Router,public paymentservice:PaymentService,
   public toastController: ToastController) {
 
 }
@@ -81,6 +82,8 @@ for (let i=0;i<this.payee_details.length;i++){
   ,(error:HttpErrorResponse)=>{
     if(error.status ===401){          
       this.presentToast("Session timeout, please login to continue.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
    }
    else if(error.status ===400){           
@@ -232,6 +235,8 @@ this.presentToast("Chit Number is blocked, Please Contact admin")
         text: 'Logout',
         handler: () => {
         localStorage.clear();
+        this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+        })
         this.router.navigate(['/selectapp']);
         }
         }

@@ -5,7 +5,7 @@ import { PaymentService } from '../../services/payment.service';
 import { LoadingController } from '@ionic/angular';
 import { Toast } from '@ionic-native/toast/ngx';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { DashboardService } from '../../services/dashboard.service';
 @Component({
 selector: 'app-cashprint',
 templateUrl: './cashprint.page.html',
@@ -18,7 +18,7 @@ devices:any;
 api_id:any=[];
 print_cash_page:any;
 isLoading = false;
-constructor(private platform:Platform,public loadingController: LoadingController,private toast :Toast,public paymentservice:PaymentService,private modalCtrl:ModalController, private alertCtrl:AlertController,private router:Router,private route: ActivatedRoute) {
+constructor(private platform:Platform,public loadingController: LoadingController, public dashboardservice: DashboardService,private toast :Toast,public paymentservice:PaymentService,private modalCtrl:ModalController, private alertCtrl:AlertController,private router:Router,private route: ActivatedRoute) {
 }
 
 ionViewWillEnter(){
@@ -37,6 +37,8 @@ for(let i=0;i<this.cash_print_preview.length;i++){
   ,(error:HttpErrorResponse)=>{
     if(error.status ===401){           
       this.presentToast("Session timeout, please login to continue.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
    }
    else if(error.status ===400){           

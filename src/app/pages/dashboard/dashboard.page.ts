@@ -49,6 +49,8 @@ console.log(this.details)
    if(error.status ===401){    
       this.dismiss();       
      this.presentToast("Session timeout, please login to continue.");
+     this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+   })
      this.router.navigate(["/login"]);
   }
   else if(error.status ===400){  
@@ -97,6 +99,8 @@ handler: (blah) => {
 text: 'Logout',
 handler: () => {
 localStorage.clear();
+this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+})
 this.router.navigate(['selectapp']);
 }
 }

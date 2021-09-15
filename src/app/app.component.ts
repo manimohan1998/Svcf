@@ -28,15 +28,15 @@ export class AppComponent {
     private service:DashboardService
   ) {
    this.initializeApp();
-   this.offapp();
    this.backbutton()
   }
 offapp(){
-  if(navigator['app']?.exitApp()){
+  // // if(navigator['app']?.exitApp()){
     this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
     
     })
-  }
+  // }
+  
   
 }
   initializeApp() {
@@ -46,7 +46,9 @@ offapp(){
     this.platform.ready().then(() => {
       this.splashScreen.hide();
       });
- 
+      this.platform.pause.subscribe(e => {
+        this.offapp();
+      });
   }
   async presentToast(message) {
     const toast = await this.toastController.create({
@@ -62,7 +64,9 @@ offapp(){
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
             // this.platform.exitApp(); // Exit from app
             navigator['app'].exitApp(); // work in ionic 4
-
+            this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    
+            })
           } else {
             const toast = await this.toastController.create({
               message: 'Press back again to exit App.',

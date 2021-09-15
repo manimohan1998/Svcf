@@ -4,6 +4,7 @@ import {Router} from'@angular/router'
 import { CommonApiService } from 'src/app/Login/common-api.service';
 import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import {format} from "date-fns";
+import { DashboardService } from '../services/dashboard.service';
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.page.html',
@@ -18,7 +19,7 @@ export class ResetPage implements OnInit {
   show:boolean;
   show1:boolean;
   mobile: any=[];
-  constructor(private fb:FormBuilder,private router:Router,public commonserv: CommonApiService,public toastController: ToastController,
+  constructor(private fb:FormBuilder,public dashboardservice:DashboardService,private router:Router,public commonserv: CommonApiService,public toastController: ToastController,
     public loadingcontroller:LoadingController,private platform: Platform) {
     this.resetForms = this.fb.group({
       name: ['',[Validators.required,Validators.pattern("^[a-zA-Z0-9]+$")]],
@@ -166,6 +167,8 @@ export class ResetPage implements OnInit {
   }
 
   back1(){
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(['/selectapp'])
     localStorage.clear()
   }
