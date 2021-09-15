@@ -136,6 +136,8 @@ if(this.todaypaidamount>-1){
  }
  else if(error.status ===400){      
   this.presentToast("Server Error! Please try login again.");
+  this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+  })
   this.router.navigate(["/login"]);
 }
 
@@ -179,6 +181,8 @@ console.log(this.voucher_count)
  }
  else if(error.status ===400){         
   this.presentToast("Server Error! Please try login again.");
+  this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+  })
   this.router.navigate(["/login"]);
 }
 
@@ -195,6 +199,8 @@ this.paymentservice.receiptseries1('BCAPP',token).subscribe(res=>{
    }
    else if(error.status ===400){         
     this.presentToast("Server Error! Please try login again.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
   }
   
@@ -797,10 +803,14 @@ console.log(this.sampletest[i].interest)
      else if(error.status ===400){   
     this.dismiss();
       this.presentToast("Server Error! Please try login again.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
    }else{
     this.dismiss();
     this.presentToast("Server Error! Please try login again.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
    }
   })
@@ -819,10 +829,14 @@ console.log(this.sampletest[i].interest)
      else if(error.status ===400){   
     this.dismiss();
       this.presentToast("Server Error! Please try login again.");
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(["/login"]);
    }else{
     this.dismiss();
     this.presentToast("Server Error! Please try login again.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
    }
   })
@@ -853,10 +867,14 @@ cashfunction(data:any){
    else if(error.status ===400){   
   this.dismiss();
     this.presentToast("Server Error! Please try login again.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
  }else{
   this.dismiss();
   this.presentToast("Server Error! Please try login again.");
+  this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+  })
   this.router.navigate(["/login"]);
  }
 })

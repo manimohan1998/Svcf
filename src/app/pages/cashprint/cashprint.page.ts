@@ -43,6 +43,8 @@ for(let i=0;i<this.cash_print_preview.length;i++){
    }
    else if(error.status ===400){           
     this.presentToast("Server Error! Please try login again.");
+    this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+    })
     this.router.navigate(["/login"]);
  }
  

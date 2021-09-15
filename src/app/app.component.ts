@@ -30,15 +30,16 @@ export class AppComponent {
    this.initializeApp();
    this.backbutton()
   }
+
+  
 offapp(){
-  // // if(navigator['app']?.exitApp()){
+   if(localStorage.getItem("col_id")){
     this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
-    
-    })
-  // }
-  
-  
+  })
 }
+  }
+
+
   initializeApp() {
     // this.statusBar.backgroundColorByHexString('#30ADFF');
     // this.splashScreen.hide();

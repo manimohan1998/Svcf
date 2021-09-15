@@ -115,6 +115,8 @@ this.grandtotal=this.history_tot.replace(/,/g, '');
    else if(error.status ===400){   
 	loading.dismiss();
     this.presentToast("Server Error! Please try login again.");
+	this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+	})
     this.router.navigate(["/login"]);
  }
  

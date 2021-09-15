@@ -56,6 +56,8 @@ console.log(this.details)
   else if(error.status ===400){  
    this.dismiss();         
    this.presentToast("Server Error! Please try login again.");
+   this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+   })
    this.router.navigate(["/login"]);
 }
  })

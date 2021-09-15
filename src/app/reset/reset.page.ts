@@ -158,6 +158,8 @@ export class ResetPage implements OnInit {
    
   back(){
     if(localStorage.getItem("whichpage")=="login"){
+      this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      })
       this.router.navigate(['/selectapp'])
       localStorage.clear()
     }else{
