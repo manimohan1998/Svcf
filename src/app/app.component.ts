@@ -7,12 +7,16 @@ import { ToastController } from '@ionic/angular';
 import { DashboardService } from '../app/services/dashboard.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  private searchEventSubscription: Subscription;
+  private sub:Subscription;
   lastTimeBackPress = 0;
   timePeriodToExit = 2000;
   // public counter = 0;
@@ -25,7 +29,8 @@ export class AppComponent {
     public alertController:AlertController,
     public location:Location,
     private router:Router,
-    private service:DashboardService
+    private service:DashboardService,
+    private localNotifications: LocalNotifications
   ) {
    this.initializeApp();
    this.backbutton()
@@ -36,6 +41,8 @@ offapp(){
    if(localStorage.getItem("col_id")){
     this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
   })
+  localStorage.clear();
+  this.searchEventSubscription.unsubscribe()
 }
   }
 
@@ -47,10 +54,33 @@ offapp(){
     this.platform.ready().then(() => {
       this.splashScreen.hide();
       });
-      this.platform.pause.subscribe(e => {
-        this.offapp();
+      this.platform.resume.subscribe(e=>{
+        this.searchEventSubscription.unsubscribe()
+        if(!localStorage.getItem("col_id")){
+          this.presentToast("Session timeout,please login again")
+          this.router.navigate(['selectapp']);
+        }
+      })
+      this.searchEventSubscription=this.platform.pause.subscribe(e => {
+        if(localStorage.getItem("col_id")){
+          this.localNotifications.schedule({
+            id: 1,
+            text: 'SVCF will auto logout in 30secs.Open SVCF to stop it',
+          });
+          setTimeout(()=>{                           // <<<---using ()=> syntax
+           this.offapp();
+         }, 50000);
+        }
+       
+        // this.sub = Observable.interval(5000)
+        // .subscribe((val) => { this.offapp1 });
       });
   }
+//   offapp1(){
+// if(this.platform.ready){
+  
+// }
+//   }
   async presentToast(message) {
     const toast = await this.toastController.create({
         message: message,

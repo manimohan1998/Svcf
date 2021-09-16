@@ -16,7 +16,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { Interceptor } from './core/interceptor';
 import { MaterialModule } from  './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -39,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Network,
     Dialogs,WebIntent,
     SocialSharing,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
