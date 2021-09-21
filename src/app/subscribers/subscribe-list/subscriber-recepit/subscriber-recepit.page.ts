@@ -6,6 +6,7 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {format} from "date-fns";
 import { LoadingController, Platform, ToastController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonApiService } from 'src/app/Login/common-api.service';
 @Component({
   selector: 'app-subscriber-recepit',
   templateUrl: './subscriber-recepit.page.html',
@@ -33,7 +34,7 @@ public sendTo   : any;
 
 
 
-  constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,
+  constructor(public subscribeServ: SubscriberApiService,private socialshare:SocialSharing,public common:CommonApiService,
     private router:Router,public route: ActivatedRoute,private fb:FormBuilder,public toastController: ToastController,public platform:Platform,
     public loadingcontroller:LoadingController) { 
    
@@ -95,18 +96,26 @@ this.router.navigate(["/subscribe-list"])
                this.show1=true;
              }
          },(error:HttpErrorResponse)=>{
-            if(error.status ===401){     
+            if(error.status ===401){  
+               this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+               })     
                loading.dismiss();     
               this.presentToast("Session timeout, please login to continue.");
               this.router.navigate(["/login"]);
            }
            else if(error.status ===400){ 
+            this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+            })  
             loading.dismiss();       
             this.presentToast("Server Error! Please try login again.");
             this.router.navigate(["/login"]);
           }
           else{
+            this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+            })  
             loading.dismiss();
+            this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+            })  
             this.presentToast("Server Error! Please try login again.");
             this.router.navigate(["/login"]);
            } })

@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
 import { isEmpty } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { environment } from '../../../environments/environment';
+import { CommonApiService } from 'src/app/Login/common-api.service';
 @Component({
   selector: 'app-subscribe-list',
   templateUrl: './subscribe-list.page.html',
@@ -48,7 +49,7 @@ export class SubscribeListPage implements OnInit {
   v_amountchits: any=[];
   v1_amountchits: any=[];
   constructor(private router:Router,  public subscribeServ: SubscriberApiService,public alertController: AlertController,public platform:Platform,
-    public loadingcontroller:LoadingController,public toastController: ToastController) { 
+    public loadingcontroller:LoadingController,public toastController: ToastController,public common:CommonApiService) { 
      
   }
  ngOnInit() {
@@ -93,17 +94,23 @@ async ionViewWillEnter(){
      
   }
   ,(error:HttpErrorResponse)=>{
-    if(error.status ===401){          
+    if(error.status ===401){   
+      this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+      })         
       loading.dismiss();
       this.presentToast("Session timeout, please login to continue.");
       this.router.navigate(["/login"]);
    }
-   else if(error.status ===400){     
+   else if(error.status ===400){   
+    this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+    })    
     loading.dismiss();      
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
  }else{
-  loading.dismiss();      
+  loading.dismiss(); 
+  this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+  })       
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
  }
@@ -116,16 +123,22 @@ async ionViewWillEnter(){
     console.log(res)
     this.profileimage=res['ImageUrl']
   },(error:HttpErrorResponse)=>{
-    if(error.status ===401){          
+    if(error.status ===401){ 
+      this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+      })           
       loading.dismiss();
       this.presentToast("Session timeout, please login to continue.");
       this.router.navigate(["/login"]);
    }
-   else if(error.status ===400){     
+   else if(error.status ===400){    
+    this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+    })   
     loading.dismiss();      
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
  }else{
+  this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+  })  
   loading.dismiss();      
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
@@ -160,17 +173,23 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
 
   
   },(error:HttpErrorResponse)=>{
-    if(error.status ===401){      
+    if(error.status ===401){ 
+      this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+      })       
       loading.dismiss();    
       this.presentToast("Session timeout, please login to continue.");
       this.router.navigate(["/login"]);
    }
-   else if(error.status ===400){     
+   else if(error.status ===400){ 
+    this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+    })      
     loading.dismiss();   
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
   } 
   else{
+    this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+    })  
     loading.dismiss();      
     this.presentToast("Server Error! Please try login again.");
     this.router.navigate(["/login"]);
@@ -184,15 +203,21 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
   localStorage.setItem("voucher",JSON.stringify(voucher))
  }
  ,(error:HttpErrorResponse)=>{
-  if(error.status ===401){          
+  if(error.status ===401){    
+    this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+    })        
     this.presentToast("Session timeout, please login to continue.");
     this.router.navigate(["/login"]);
  }
- else if(error.status ===400){        
+ else if(error.status ===400){ 
+  this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+  })         
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
 }
 else{
+  this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+  })  
   loading.dismiss();      
   this.presentToast("Server Error! Please try login again.");
   this.router.navigate(["/login"]);
@@ -411,6 +436,8 @@ async logout(){
           console.log('ok clicked');
           // localStorage.removeItem('token');
           // localStorage.removeItem('memberid');
+          this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+            })
           this.router.navigate(['/selectapp'])
           localStorage.clear()
           this.presentToast("Logout Successfully");

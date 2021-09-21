@@ -35,5 +35,8 @@ reset(id,name,password,dob){
 usertype(username){
   return this.http.get('https://api.sreevisalam.com/SVCF_WCF/api/SVCFAPI/AppForgotPassword?userName='+username+'')
 }
+logout(id){
+  return this.http.get('https://api.sreevisalam.com/api/SVCFAPI/'+'UpdateLogoutStatus?id='+id)
+}
 }
 

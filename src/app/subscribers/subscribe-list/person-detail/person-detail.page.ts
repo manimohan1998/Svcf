@@ -4,6 +4,7 @@ import { SubscriberApiService } from 'src/app/subscribers/subscriber-api.service
 import { Router } from '@angular/router';
 import {Platform,LoadingController, ToastController} from '@ionic/angular';
 import { environment } from '../../../../environments/environment';
+import { CommonApiService } from 'src/app/Login/common-api.service';
 @Component({
   selector: 'app-person-detail',
   templateUrl: './person-detail.page.html',
@@ -16,7 +17,7 @@ ref:any
   profileimage: any;
   personage: number=0;
  constructor(private http:HttpClientModule, public subscribeServ: SubscriberApiService,private router:Router,public platform:Platform,
-  public loadingcontroller:LoadingController,public toastController: ToastController) { }
+  public loadingcontroller:LoadingController,public toastController: ToastController,private common:CommonApiService) { }
 
   ngOnInit() {
    
@@ -37,17 +38,23 @@ let token=localStorage.getItem("token")
       this.ageFromDateOfBirthday1(this.personaldetail[0].DOB)
       loading.dismiss();
       },(error:HttpErrorResponse)=>{
-        if(error.status ===401){       
+        if(error.status ===401){   
+          this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+          })      
           loading.dismiss();   
           this.presentToast("Session timeout, please login to continue.");
           this.router.navigate(["/login"]);
        }
        else if(error.status ===400){     
+        this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+        })  
         loading.dismiss();   
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
       } 
       else{
+        this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+        })  
         loading.dismiss();   
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);

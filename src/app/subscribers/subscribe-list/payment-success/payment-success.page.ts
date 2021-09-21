@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingController, Platform, ToastController } from '@ionic/angular';
+import { CommonApiService } from 'src/app/Login/common-api.service';
 import { SubscriberApiService } from '../../subscriber-api.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class PaymentSuccessPage implements OnInit {
 
 
   constructor(public subscribeServ: SubscriberApiService,private router:Router,public route: ActivatedRoute,
-    public loadingController: LoadingController,private platform: Platform,public toastController: ToastController) {
+    public loadingController: LoadingController,private platform: Platform,public toastController: ToastController,public common:CommonApiService) {
     
   //   this.route.queryParams.subscribe(params => {
   //     console.log(params.states)
@@ -62,17 +63,23 @@ async  method(data) {
         //  }
        }
        ,(error:HttpErrorResponse)=>{
-        if(error.status ===401){       
+        if(error.status ===401){ 
+          this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+          })        
           loading.dismiss();   
           this.presentToast("Session timeout, please login to continue.");
           this.router.navigate(["/login"]);
        }
-       else if(error.status ===400){     
+       else if(error.status ===400){  
+        this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+        })     
         loading.dismiss();   
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);
       } 
       else{
+        this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+        })  
         loading.dismiss();
         this.presentToast("Server Error! Please try login again.");
         this.router.navigate(["/login"]);

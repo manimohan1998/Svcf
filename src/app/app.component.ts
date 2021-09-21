@@ -9,6 +9,8 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { SubscriberApiService } from './subscribers/subscriber-api.service';
+import { CommonApiService } from './Login/common-api.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -30,7 +32,9 @@ export class AppComponent {
     public location:Location,
     private router:Router,
     private service:DashboardService,
-    private localNotifications: LocalNotifications
+    public subservice:SubscriberApiService,
+    private localNotifications: LocalNotifications,
+    public common:CommonApiService
   ) {
    this.initializeApp();
    this.backbutton()
@@ -43,6 +47,10 @@ offapp(){
   })
   localStorage.clear();
   this.searchEventSubscription.unsubscribe()
+}else if(localStorage.getItem("memberid")){
+this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+})
+localStorage.clear();
 }
   }
 
@@ -63,6 +71,14 @@ offapp(){
       })
       this.searchEventSubscription=this.platform.pause.subscribe(e => {
         if(localStorage.getItem("col_id")){
+          this.localNotifications.schedule({
+            id: 1,
+            text: 'SVCF will auto logout in 30secs.Open SVCF to stop it',
+          });
+          setTimeout(()=>{                           // <<<---using ()=> syntax
+           this.offapp();
+         }, 50000);
+        }else if(localStorage.getItem("memberid")){
           this.localNotifications.schedule({
             id: 1,
             text: 'SVCF will auto logout in 30secs.Open SVCF to stop it',
@@ -95,9 +111,14 @@ offapp(){
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
             // this.platform.exitApp(); // Exit from app
             navigator['app'].exitApp(); // work in ionic 4
-            this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
-    
-            })
+            if(localStorage.getItem("col_id")){
+              this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
+              })
+            }else if(localStorage.getItem("memberid")){
+              this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+              })
+            }
+           
           } else {
             const toast = await this.toastController.create({
               message: 'Press back again to exit App.',

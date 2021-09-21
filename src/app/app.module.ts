@@ -40,6 +40,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     Dialogs,WebIntent,
     SocialSharing,
     LocalNotifications,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
