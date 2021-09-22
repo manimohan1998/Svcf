@@ -64,8 +64,8 @@ localStorage.clear();
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
-        if(!localStorage.getItem("col_id")){
-          this.presentToast("Session timeout,please login again")
+        if(!localStorage.getItem("col_id") && localStorage.getItem("memberid") && window.location.pathname!='/selectapp' &&  window.location.pathname!= '' && window.location.pathname!= '/login' && window.location.pathname!= '/forgot-password'){
+          this.presentToast("Session timeout , please login again")
           this.router.navigate(['selectapp']);
         }
       })
@@ -73,7 +73,7 @@ localStorage.clear();
         if(localStorage.getItem("col_id")){
           this.localNotifications.schedule({
             id: 1,
-            text: 'SVCF will auto logout in 30secs.Open SVCF to stop it',
+            text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
           });
           setTimeout(()=>{                           // <<<---using ()=> syntax
            this.offapp();
@@ -81,7 +81,7 @@ localStorage.clear();
         }else if(localStorage.getItem("memberid")){
           this.localNotifications.schedule({
             id: 1,
-            text: 'SVCF will auto logout in 30secs.Open SVCF to stop it',
+            text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
           });
           setTimeout(()=>{                           // <<<---using ()=> syntax
            this.offapp();
