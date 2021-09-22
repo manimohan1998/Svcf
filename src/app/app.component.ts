@@ -64,10 +64,19 @@ localStorage.clear();
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
-        if(!localStorage.getItem("col_id") && !localStorage.getItem("memberid") && window.location.pathname!='/selectapp' &&  window.location.pathname!= '' && window.location.pathname!= '/login' && window.location.pathname!= '/forgot-password'){
+        // if(!localStorage.getItem("col_id") || !localStorage.getItem("memberid") && window.location.pathname!='/selectapp' &&  window.location.pathname!= '' && window.location.pathname!= '/login' && window.location.pathname!= '/forgot-password'){
+        //   this.presentToast("Session timeout , please login again")
+        //   this.router.navigate(['selectapp']);
+        // }
+
+        if(!localStorage.getItem("col_id") || !localStorage.getItem("memberid") && window.location.pathname=='/selectapp' ||  window.location.pathname== '' || window.location.pathname== '/login' || window.location.pathname== '/forgot-password'){
+       
+        }
+       else{
           this.presentToast("Session timeout , please login again")
           this.router.navigate(['selectapp']);
         }
+
       })
       this.searchEventSubscription=this.platform.pause.subscribe(e => {
         if(localStorage.getItem("col_id")){
