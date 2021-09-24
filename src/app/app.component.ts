@@ -67,6 +67,22 @@ else if(localStorage.getItem("memberid")){
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
+<<<<<<< HEAD
+=======
+        // if(!localStorage.getItem("col_id") || !localStorage.getItem("memberid") && window.location.pathname!='/selectapp' &&  window.location.pathname!= '' && window.location.pathname!= '/login' && window.location.pathname!= '/forgot-password'){
+        //   this.presentToast("Session timeout , please login again")
+        //   this.router.navigate(['selectapp']);
+        // }
+
+        if(!localStorage.getItem("col_id") || !localStorage.getItem("memberid") && window.location.pathname=='/selectapp' ||  window.location.pathname== '' || window.location.pathname== '/login' || window.location.pathname== '/forgot-password'){
+       
+        }
+       else{
+          this.presentToast("Session timeout , please login again")
+          this.router.navigate(['selectapp']);
+        }
+
+>>>>>>> 7c19325d64c54840f2402e35b77608d36b82f002
       })
       this.searchEventSubscription=this.platform.pause.subscribe(e => {
         if(localStorage.getItem("col_id") || localStorage.getItem("memberid")){

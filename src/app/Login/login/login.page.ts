@@ -66,7 +66,7 @@ export class LoginPage implements OnInit {
           localStorage.setItem('memberid',this.member_id) 
           localStorage.setItem('token',this.token) 
           if(res['IsLogged']=="1"){
-            this.presentToast('Your Account is already loged in with anouther device')
+            this.presentToast('Your Account is already logged in with another device')
           }else if(res['IsLogged']=="0"){
             if(res['Message'] === "Login Details Correct" && val['name'] === val['password']){
               localStorage.setItem("firstdata",JSON.stringify(val));
@@ -110,7 +110,7 @@ export class LoginPage implements OnInit {
                 this.presentToast('You Account is blocked, please contact Admin');
               }
               else if(res[0]['IsLoggedIn']=="1"){
-                this.presentToast('Your Account is already loged in with anouther device')
+                this.presentToast('Your Account is already logged in with another device')
               }
               else{
                 this.user_details = res;
