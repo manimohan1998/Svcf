@@ -100,9 +100,9 @@ handler: (blah) => {
 }, {
 text: 'Logout',
 handler: () => {
-localStorage.clear();
 this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
 })
+localStorage.clear();
 this.router.navigate(['selectapp']);
 }
 }
