@@ -74,14 +74,14 @@ async  method(data) {
         this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
         })     
         loading.dismiss();   
-        this.presentToast("Server Error! Please try login again.");
+        this.presentToast("Session timeout / Server Error! Please login again");
         this.router.navigate(["/login"]);
       } 
       else{
         this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
         })  
         loading.dismiss();
-        this.presentToast("Server Error! Please try login again.");
+        this.presentToast("Session timeout / Server Error! Please login again");
         this.router.navigate(["/login"]);
        }})
       }

@@ -107,7 +107,7 @@ this.router.navigate(["/subscribe-list"])
             this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
             })  
             loading.dismiss();       
-            this.presentToast("Server Error! Please try login again.");
+            this.presentToast("Session timeout / Server Error! Please login again");
             this.router.navigate(["/login"]);
           }
           else{
@@ -116,7 +116,7 @@ this.router.navigate(["/subscribe-list"])
             loading.dismiss();
             this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
             })  
-            this.presentToast("Server Error! Please try login again.");
+            this.presentToast("Session timeout / Server Error! Please login again");
             this.router.navigate(["/login"]);
            } })
       }

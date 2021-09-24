@@ -204,7 +204,7 @@ if(this.todaypaidamount>-1){
     this.router.navigate(["/login"]);
  }
  else if(error.status ===400){    
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
   })
   this.router.navigate(["/login"]);

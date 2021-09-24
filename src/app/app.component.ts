@@ -44,41 +44,32 @@ export class AppComponent {
 offapp(){
    if(localStorage.getItem("col_id")){
     this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
+      if(res){
+        localStorage.clear();
+        this.searchEventSubscription.unsubscribe()
+      }
   })
-  localStorage.clear();
-  this.searchEventSubscription.unsubscribe()
-}else if(localStorage.getItem("memberid")){
-this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
-})
-localStorage.clear();
+ }
+else if(localStorage.getItem("memberid")){
+  this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+    if(res){
+    localStorage.clear();
+    this.searchEventSubscription.unsubscribe() }
+  })
 }
   }
 
 
   initializeApp() {
-    // this.statusBar.backgroundColorByHexString('#30ADFF');
-    // this.splashScreen.hide();
     
     this.platform.ready().then(() => {
       this.splashScreen.hide();
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
-        if(!localStorage.getItem("col_id") && !localStorage.getItem("memberid") && window.location.pathname!='/selectapp' &&  window.location.pathname!= '' && window.location.pathname!= '/login' && window.location.pathname!= '/forgot-password'){
-          this.presentToast("Session timeout , please login again")
-          this.router.navigate(['selectapp']);
-        }
       })
       this.searchEventSubscription=this.platform.pause.subscribe(e => {
-        if(localStorage.getItem("col_id")){
-          this.localNotifications.schedule({
-            id: 1,
-            text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
-          });
-          setTimeout(()=>{                           // <<<---using ()=> syntax
-           this.offapp();
-         }, 50000);
-        }else if(localStorage.getItem("memberid")){
+        if(localStorage.getItem("col_id") || localStorage.getItem("memberid")){
           this.localNotifications.schedule({
             id: 1,
             text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
@@ -87,16 +78,8 @@ localStorage.clear();
            this.offapp();
          }, 50000);
         }
-       
-        // this.sub = Observable.interval(5000)
-        // .subscribe((val) => { this.offapp1 });
       });
   }
-//   offapp1(){
-// if(this.platform.ready){
-  
-// }
-//   }
   async presentToast(message) {
     const toast = await this.toastController.create({
         message: message,
@@ -109,15 +92,21 @@ localStorage.clear();
        
         if(window.location.pathname == '/dashboard' || window.location.pathname == '' ||  window.location.pathname=='/subscribe-list'||  window.location.pathname=='/selectapp'){
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
-            // this.platform.exitApp(); // Exit from app
-            navigator['app'].exitApp(); // work in ionic 4
             if(localStorage.getItem("col_id")){
               this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
+                if(res){
+                  localStorage.clear()
+                }
               })
             }else if(localStorage.getItem("memberid")){
               this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
+                if(res){
+                  localStorage.clear()
+                }
               })
             }
+            navigator['app'].exitApp(); 
+            
            
           } else {
             const toast = await this.toastController.create({

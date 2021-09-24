@@ -87,7 +87,7 @@ for (let i=0;i<this.payee_details.length;i++){
       this.router.navigate(["/login"]);
    }
    else if(error.status ===400){           
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
     })
     this.router.navigate(["/login"]);
@@ -236,9 +236,9 @@ this.presentToast("Chit Number is blocked, Please Contact admin")
         }, {
         text: 'Logout',
         handler: () => {
-        localStorage.clear();
         this.dashboardservice.logout(localStorage.getItem("col_id")).subscribe(res=>{
         })
+        localStorage.clear();
         this.router.navigate(['/selectapp']);
         }
         }

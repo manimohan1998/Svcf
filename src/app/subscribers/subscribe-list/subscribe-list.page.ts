@@ -105,13 +105,13 @@ async ionViewWillEnter(){
     this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
     })    
     loading.dismiss();      
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.router.navigate(["/login"]);
  }else{
   loading.dismiss(); 
   this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
   })       
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.router.navigate(["/login"]);
  }
  
@@ -134,13 +134,13 @@ async ionViewWillEnter(){
     this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
     })   
     loading.dismiss();      
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.router.navigate(["/login"]);
  }else{
   this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
   })  
   loading.dismiss();      
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.router.navigate(["/login"]);
  }
  
@@ -184,14 +184,14 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
     this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
     })      
     loading.dismiss();   
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.router.navigate(["/login"]);
   } 
   else{
     this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
     })  
     loading.dismiss();      
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.router.navigate(["/login"]);
    }}) ;
 
@@ -212,14 +212,14 @@ if(this.userlist1[i].status=="R" || (this.userlist1[i].status=="T" && (this.user
  else if(error.status ===400){ 
   this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
   })         
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.router.navigate(["/login"]);
 }
 else{
   this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
   })  
   loading.dismiss();      
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.router.navigate(["/login"]);
  } }) 
 }

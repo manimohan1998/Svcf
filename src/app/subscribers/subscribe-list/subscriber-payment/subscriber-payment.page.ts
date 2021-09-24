@@ -180,13 +180,13 @@ this.subscribeServ.Vouchercode(token).subscribe(res=>{
  else if(error.status ===400){    
   this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
   })  
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.router.navigate(["/login"]);
 }
 else{
   this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
   })  
-  this.presentToast("Server Error! Please try login again.");
+  this.presentToast("Session timeout / Server Error! Please login again");
   this.router.navigate(["/login"]);
  }
 })
@@ -259,13 +259,13 @@ submit(){
    else if(error.status ===400){ 
     this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
     })     
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.router.navigate(["/login"]);
   }
   else{
     this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
     })  
-    this.presentToast("Server Error! Please try login again.");
+    this.presentToast("Session timeout / Server Error! Please login again");
     this.router.navigate(["/login"]);
    }
 })
@@ -302,13 +302,13 @@ submit(){
        else if(error.status ===400){    
         this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
         })  
-        this.presentToast("Server Error! Please try login again.");
+        this.presentToast("Session timeout / Server Error! Please login again");
         this.router.navigate(["/login"]);
       }
       else{
         this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
         })  
-        this.presentToast("Server Error! Please try login again.");
+        this.presentToast("Session timeout / Server Error! Please login again");
         this.router.navigate(["/login"]);
        }
 })
@@ -924,7 +924,7 @@ let token=localStorage.getItem("token")
       loading.dismiss()     
       this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
       })  
-      this.presentToast("Server Error! Please try login again.");
+      this.presentToast("Session timeout / Server Error! Please login again");
       this.router.navigate(["/login"]);
     } 
   
@@ -932,7 +932,7 @@ let token=localStorage.getItem("token")
       loading.dismiss()
       this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
       })  
-      this.presentToast("Server Error! Please try login again.");
+      this.presentToast("Session timeout / Server Error! Please login again");
       this.router.navigate(["/login"]);
      }})
   
