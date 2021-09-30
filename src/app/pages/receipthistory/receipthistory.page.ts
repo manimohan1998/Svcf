@@ -73,7 +73,7 @@ let start= format(new Date(startdate), "yyyy/MM/dd");
 let end= format(new Date(enddate), "yyyy/MM/dd");
 this.receiptFormGroup.value["from_date"] = moment(this.receiptFormGroup.value.from_date.toLocaleString()).format("MM/DD/YYYY");
 this.receiptFormGroup.value["to_date"] = moment(this.receiptFormGroup.value.to_date.toLocaleString()).format("MM/DD/YYYY");
-      if(start < end){
+      if(start < end || start == end){
 		  console.log(start,end)
 this.paymentservice.receipthistory(this.colid,this.receiptFormGroup.value.from_date,this.receiptFormGroup.value.to_date,token).subscribe(res=>{
 console.log(res)
@@ -124,7 +124,7 @@ this.grandtotal=this.history_tot.replace(/,/g, '');
   )
 	  }else{
 		loading.dismiss();
-		this.presentToast("Start date should be less than end date");
+		this.presentToast("Start date should be less than or equal to end date");
 	  }
 }
 async presentToast(message) {
