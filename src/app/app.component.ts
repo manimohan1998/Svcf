@@ -39,9 +39,10 @@ export class AppComponent {
 
    this.initializeApp();
    if(localStorage.getItem("col_id")){
-this.service.tokenexpiry(localStorage.getItem("token")).subscribe(res=>{
-  let balancetime=res['BalanceExpiration']
- if(balancetime>300){
+this.service.tokenexpiry(localStorage.getItem("tokens")).subscribe(res=>{
+  console.log(res)
+  let time=res['BalanceExpiration']
+ if(time>300){
   this.router.navigate(['/dashboard'])
  }else {
    this.router.navigate(['/selectapp'])
