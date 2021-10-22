@@ -69,15 +69,15 @@ else if(localStorage.getItem("memberid")){
         this.searchEventSubscription.unsubscribe()
       })
       this.searchEventSubscription=this.platform.pause.subscribe(e => {
-        if(localStorage.getItem("col_id") || localStorage.getItem("memberid")){
-          this.localNotifications.schedule({
-            id: 1,
-            text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
-          });
+        // if(localStorage.getItem("col_id") || localStorage.getItem("memberid")){
+          // this.localNotifications.schedule({
+          //   id: 1,
+          //   text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
+          // });
           setTimeout(()=>{                           // <<<---using ()=> syntax
            this.offapp();
          }, 50000);
-        }
+        // }
       });
   }
   async presentToast(message) {
