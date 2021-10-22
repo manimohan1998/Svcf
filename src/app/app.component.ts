@@ -47,6 +47,7 @@ offapp(){
       if(res){
         localStorage.clear();
         this.searchEventSubscription.unsubscribe()
+        //employee
       }
   })
  }
@@ -55,6 +56,7 @@ else if(localStorage.getItem("memberid")){
     if(res){
     localStorage.clear();
     this.searchEventSubscription.unsubscribe() }
+    //user
   })
 }
   }
@@ -64,6 +66,18 @@ else if(localStorage.getItem("memberid")){
     
     this.platform.ready().then(() => {
       this.splashScreen.hide();
+     if(localStorage.getItem("col_id")){
+
+      }else if (localStorage.getItem("memberid")){
+      this.subservice.duplicantpaymentdetails(localStorage.getItem("token")).subscribe(res=>{
+      let balancetime=res['BalanceExpiration']
+     if(balancetime>10){
+      this.router.navigate(['/subscribe-list'])
+     }else {
+     this.router.navigate(['/selectapp'])
+  }
+})
+      }
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
@@ -74,9 +88,9 @@ else if(localStorage.getItem("memberid")){
           //   id: 1,
           //   text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
           // });
-          setTimeout(()=>{                           // <<<---using ()=> syntax
-           this.offapp();
-         }, 50000);
+        //   setTimeout(()=>{                           // <<<---using ()=> syntax
+        //    this.offapp();
+        //  }, 50000);
         // }
       });
   }
