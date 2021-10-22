@@ -36,7 +36,27 @@ export class AppComponent {
     private localNotifications: LocalNotifications,
     public common:CommonApiService
   ) {
+
    this.initializeApp();
+   if(localStorage.getItem("col_id")){
+this.service.tokenexpiry(localStorage.getItem("token")).subscribe(res=>{
+  let balancetime=res['BalanceExpiration']
+ if(balancetime>300){
+  this.router.navigate(['/dashboard'])
+ }else {
+   this.router.navigate(['/selectapp'])
+ }
+})
+  }else if (localStorage.getItem("memberid")){
+  this.subservice.duplicantpaymentdetails(localStorage.getItem("token")).subscribe(res=>{
+  let balancetime=res['BalanceExpiration']
+ if(balancetime>300){
+  this.router.navigate(['/subscribe-list'])
+ }else {
+ this.router.navigate(['/selectapp'])
+}
+})
+  }
    this.backbutton()
   }
 
@@ -47,6 +67,7 @@ offapp(){
       if(res){
         localStorage.clear();
         this.searchEventSubscription.unsubscribe()
+        //employee
       }
   })
  }
@@ -55,6 +76,7 @@ else if(localStorage.getItem("memberid")){
     if(res){
     localStorage.clear();
     this.searchEventSubscription.unsubscribe() }
+    //user
   })
 }
   }
@@ -64,20 +86,21 @@ else if(localStorage.getItem("memberid")){
     
     this.platform.ready().then(() => {
       this.splashScreen.hide();
+    
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
       })
       this.searchEventSubscription=this.platform.pause.subscribe(e => {
-        if(localStorage.getItem("col_id") || localStorage.getItem("memberid")){
-          this.localNotifications.schedule({
-            id: 1,
-            text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
-          });
-          setTimeout(()=>{                           // <<<---using ()=> syntax
-           this.offapp();
-         }, 50000);
-        }
+        // if(localStorage.getItem("col_id") || localStorage.getItem("memberid")){
+          // this.localNotifications.schedule({
+          //   id: 1,
+          //   text: 'SVCF will auto logout in 30secs. Open SVCF to stop it',
+          // });
+        //   setTimeout(()=>{                           // <<<---using ()=> syntax
+        //    this.offapp();
+        //  }, 50000);
+        // }
       });
   }
   async presentToast(message) {

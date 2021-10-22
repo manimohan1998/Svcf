@@ -33,8 +33,8 @@ print_details(print_id,token){
   return this.http.get('AppVoucherPrint/AppReceiptno?AppReceiptno='+print_id+'&Token='+token)
 
 }
-receiptseries(series,token){
-	return this.http.get('ReceiptNo/Series?Series='+series+'&Token='+token)
+receiptseries(series,id,token){
+	return this.http.get('ReceiptNo/Series?Series='+series+'&moneycolid='+id+'&Token='+token)
 }
 receiptseries1(series,token){
 	return this.http.get('AppVoucherCode/Series?Series='+series+'&Token='+token)
