@@ -15,4 +15,7 @@ export class DashboardService {
   logout(id){
     return this.http.get('UpdateLogoutStatus?id='+id)
   }
+  tokenexpiry(token){
+    return this.http.get('BalanceExpiration?token='+token)
+  }
 }

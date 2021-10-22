@@ -169,7 +169,8 @@ if(this.todaypaidamount>-1){
 
 
  let token=localStorage.getItem("tokens");
-this.paymentservice.receiptseries('BCAPP',token).subscribe(res=>{
+ let colid = localStorage.getItem("col_id")
+this.paymentservice.receiptseries('BCAPP',colid,token).subscribe(res=>{
 this.voucher_count=res;
 console.log(this.voucher_count)
 },(error:HttpErrorResponse)=>{

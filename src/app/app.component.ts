@@ -36,7 +36,27 @@ export class AppComponent {
     private localNotifications: LocalNotifications,
     public common:CommonApiService
   ) {
+
    this.initializeApp();
+   if(localStorage.getItem("col_id")){
+this.service.tokenexpiry(localStorage.getItem("token")).subscribe(res=>{
+  let balancetime=res['BalanceExpiration']
+ if(balancetime>300){
+  this.router.navigate(['/dashboard'])
+ }else {
+   this.router.navigate(['/selectapp'])
+ }
+})
+  }else if (localStorage.getItem("memberid")){
+  this.subservice.duplicantpaymentdetails(localStorage.getItem("token")).subscribe(res=>{
+  let balancetime=res['BalanceExpiration']
+ if(balancetime>300){
+  this.router.navigate(['/subscribe-list'])
+ }else {
+ this.router.navigate(['/selectapp'])
+}
+})
+  }
    this.backbutton()
   }
 
@@ -66,18 +86,7 @@ else if(localStorage.getItem("memberid")){
     
     this.platform.ready().then(() => {
       this.splashScreen.hide();
-     if(localStorage.getItem("col_id")){
-
-      }else if (localStorage.getItem("memberid")){
-      this.subservice.duplicantpaymentdetails(localStorage.getItem("token")).subscribe(res=>{
-      let balancetime=res['BalanceExpiration']
-     if(balancetime>10){
-      this.router.navigate(['/subscribe-list'])
-     }else {
-     this.router.navigate(['/selectapp'])
-  }
-})
-      }
+    
       });
       this.platform.resume.subscribe(e=>{
         this.searchEventSubscription.unsubscribe()
