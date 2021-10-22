@@ -45,6 +45,7 @@ this.service.tokenexpiry(localStorage.getItem("token")).subscribe(res=>{
   this.router.navigate(['/dashboard'])
  }else {
    this.router.navigate(['/selectapp'])
+   this.offapp()
  }
 })
   }else if (localStorage.getItem("memberid")){
@@ -54,6 +55,7 @@ this.service.tokenexpiry(localStorage.getItem("token")).subscribe(res=>{
   this.router.navigate(['/subscribe-list'])
  }else {
  this.router.navigate(['/selectapp'])
+ this.offapp()
 }
 })
   }
@@ -115,19 +117,7 @@ else if(localStorage.getItem("memberid")){
        
         if(window.location.pathname == '/dashboard' || window.location.pathname == '' ||  window.location.pathname=='/subscribe-list'||  window.location.pathname=='/selectapp'){
           if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
-            if(localStorage.getItem("col_id")){
-              this.service.logout(localStorage.getItem("col_id")).subscribe(res=>{
-                if(res){
-                  localStorage.clear()
-                }
-              })
-            }else if(localStorage.getItem("memberid")){
-              this.common.logout(localStorage.getItem("memberid")).subscribe(res=>{
-                if(res){
-                  localStorage.clear()
-                }
-              })
-            }
+           
             navigator['app'].exitApp(); 
             
            
