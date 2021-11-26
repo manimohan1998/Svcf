@@ -112,25 +112,47 @@ else if(localStorage.getItem("memberid")){
      });
       toast.present();
     }
+    async backbutton1() {
+      const alert = await this.alertController.create({
+      message: 'Do you want to exit app?',
+      buttons: [
+      {
+      text: 'Cancel',
+      role: 'cancel',
+      cssClass: 'secondary',
+      handler: (blah) => {
+      }
+      }, {
+      text: 'OK',
+      handler: () => {
+      this.offapp();
+      navigator['app'].exitApp();
+      
+      }
+      }
+      ]
+      });
+      await alert.present();
+      }
     backbutton() {
       this.platform.backButton.subscribeWithPriority(1000,async ()=>{
        
         if(window.location.pathname == '/dashboard' || window.location.pathname == '' ||  window.location.pathname=='/subscribe-list'||  window.location.pathname=='/selectapp'){
-          if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+          // if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
            
-            navigator['app'].exitApp(); 
+          //   navigator['app'].exitApp(); 
             
            
-          } else {
-            const toast = await this.toastController.create({
-              message: 'Press back again to exit App.',
-              duration: 2000,
-              position: 'bottom'
-            });
-            toast.present();
-            this.lastTimeBackPress = new Date().getTime();
-          }
-       
+          // } else {
+          //   const toast = await this.toastController.create({
+          //     message: 'Press back again to exit App.',
+          //     duration: 2000,
+          //     position: 'bottom'
+          //   });
+          //   toast.present();
+          //   this.lastTimeBackPress = new Date().getTime();
+          // }
+       this.backbutton1();
          
          
         }else if(window.location.pathname=="/subscribe-list/payment-success" || window.location.pathname=="/cashprint"){
