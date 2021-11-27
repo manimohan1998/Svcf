@@ -113,26 +113,31 @@ else if(localStorage.getItem("memberid")){
       toast.present();
     }
     async backbutton1() {
-      const alert = await this.alertController.create({
-      message: 'Do you want to exit app?',
-      buttons: [
-      {
-      text: 'Cancel',
-      role: 'cancel',
-      cssClass: 'secondary',
-      handler: (blah) => {
+      if(!localStorage.getItem("firstclick")){
+        localStorage.setItem("firstclick","clicked")
+        const alert = await this.alertController.create({
+          message: 'Do you want to exit app?',
+          buttons: [
+          {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            localStorage.removeItem("firstclick")
+          }
+          }, {
+          text: 'OK',
+          handler: () => {
+          this.offapp();
+          navigator['app'].exitApp();
+          localStorage.removeItem("firstclick")
+          }
+          }
+          ]
+          });
+          await alert.present();
       }
-      }, {
-      text: 'OK',
-      handler: () => {
-      this.offapp();
-      navigator['app'].exitApp();
-      
-      }
-      }
-      ]
-      });
-      await alert.present();
+    
       }
     backbutton() {
       this.platform.backButton.subscribeWithPriority(1000,async ()=>{

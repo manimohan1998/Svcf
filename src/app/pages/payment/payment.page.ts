@@ -12,7 +12,7 @@ styleUrls: ['./payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
 today = Date.now();
-user_details:any;
+user_details:any=[];
 payee_details:any
 mem_id:any;
 send:any;
@@ -48,6 +48,7 @@ this.arrayvalue=[];
 this.newarr=[];
 this.pushvalue=[];
 this.user_details=JSON.parse(localStorage.getItem("user2"));
+console.log(this.user_details)
 let token=localStorage.getItem("tokens");
 this.paymentservice.getProfileImg(this.user_details.MemberID,token).subscribe(res=> {
   this.profile=res
