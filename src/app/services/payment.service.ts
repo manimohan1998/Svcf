@@ -34,10 +34,11 @@ print_details(print_id,token){
 
 }
 receiptseries(series,id,token){
-	return this.http.get('ReceiptNo/Series?Series='+series+'&moneycolid='+id+'&Token='+token)
+	return this.http.get('ReceiptNo/Series?Series='+series+'&moneycollid='+id+'&Token='+token)
 }
-receiptseries1(series,token){
-	return this.http.get('AppVoucherCode/Series?Series='+series+'&Token='+token)
+receiptseries1(series,collid,token){
+	return this.http.get('AppVoucherCode/Series?Series='+series+'&moneycollid='+collid+'&Token='+token)
+  // https://emp.sreevisalam.com/SVCF_Service/Service1.svc/AppVoucherCode/Series?Series=BCAPP&moneycollid=33&token=e
 }
 receipthistory(mid,fromdate,todate,token): Observable<any>{
   return this.http.get('VoucherHistory/Mid?Mid='+mid +'&&FromDate='+fromdate+'&&ToDate='+todate+'&Token='+token)

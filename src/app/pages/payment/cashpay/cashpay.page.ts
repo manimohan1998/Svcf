@@ -188,7 +188,7 @@ console.log(this.voucher_count)
 }
 
 })
-this.paymentservice.receiptseries1('BCAPP',token).subscribe(res=>{
+this.paymentservice.receiptseries1('BCAPP',colid,token).subscribe(res=>{
   this.Receipt_code=res;
   console.log(this.Receipt_code)
   },(error:HttpErrorResponse)=>{
