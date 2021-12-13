@@ -49,4 +49,8 @@ toddayamount(id,token){
 getProfileImg(id,token){
   return this.http.get('GetProfileImage/MemberIdNew?MemberIdNew='+id+'&token='+token)
 }
+
+mobdetails(mobile,data){
+  return this.http.post('ReceiptSMSSend/MobileNo?MobileNo='+mobile,data)
+}
 }

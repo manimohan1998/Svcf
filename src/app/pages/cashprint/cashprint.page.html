@@ -1,7 +1,7 @@
 <ion-header>
 <ion-toolbar style="--min-height:0px !important">
 <ion-item>
-<ion-icon name="arrow-back-outline" (click)="previous()"></ion-icon>
+<!-- <ion-icon name="arrow-back-outline" (click)="previous()"></ion-icon> -->
 <ion-title>Receipt</ion-title>
 </ion-item>
 </ion-toolbar>
@@ -127,7 +127,34 @@
     <p  class="sig"><span>Note: </span>This is a computer generated Receipt hence signature is not required</p>
   </div>
   </section>
-  <div class="done">
+  <ion-card class="card_bg">
+    <ion-card-content >
+       <form  [formGroup]="cashprint"  autocomplete="off">
+        <ion-list lines="full">
+           <ion-item  lines="full">
+            <ion-label position="stacked">Mobile Number</ion-label>
+            <ion-input formControlName="mobilenumber" type="number" maxlength="10" pattern="[0-9]{10}"
+              placeholder="Enter Mobile Number">
+            </ion-input>
+            
+            <ion-icon name="person-outline" slot="end"></ion-icon>
+            <ion-button slot="end"  [disabled]="!cashprint.valid" (click)="presentAlertConfirm(this.cashprint.value.mobilenumber)">
+              Proceed
+            </ion-button>
+          </ion-item>
+          <div class="text-danger">
+            <ng-container *ngFor="let validation of validation_messages.mobilenumber">
+              <div class="error-message"
+                *ngIf="cashprint.get('mobilenumber').hasError(validation.type) && (cashprint.get('mobilenumber').dirty || cashprint.get('mobilenumber').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+          </ion-list>
+          </form>
+          </ion-card-content>
+          </ion-card>
+  <!-- <div class="done">
 <ion-button (click)="done()">Done</ion-button>
-</div>
+</div> -->
 </ion-content>
